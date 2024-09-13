@@ -1,0 +1,12088 @@
+package sprites
+
+import (
+    "embed"
+    "github.com/hajimehoshi/ebiten/v2"
+    _ "image/png"
+    "image"
+    "bytes"
+    "log"
+)
+
+const (
+    Width = 32
+    Height = 32
+)
+
+//go:embed assets/*
+var embeddedAssets embed.FS
+
+var EmissariesTsoBottomPng *ebiten.Image
+var EmissariesTrogBottomPng *ebiten.Image
+var EmissariesVehumetBottomPng *ebiten.Image
+var EmissariesZinBottomPng *ebiten.Image
+var EmissariesVehumetTopPng *ebiten.Image
+var EmissariesZinTopPng *ebiten.Image
+var EmissariesTsoTopPng *ebiten.Image
+var EmissariesOkawaruBottomPng *ebiten.Image
+var EmissariesElyvilonTopPng *ebiten.Image
+var EmissariesTrogTopPng *ebiten.Image
+var EmissariesOkawaruTopPng *ebiten.Image
+var EmissariesElyvilonBottomPng *ebiten.Image
+var GuiPromptYesPng *ebiten.Image
+var GuiPromptNoPng *ebiten.Image
+var GuiTavernPng *ebiten.Image
+var GuiCommandsFindWaypointPng *ebiten.Image
+var GuiCommandsFindYouPng *ebiten.Image
+var GuiCommandsKeyboardPng *ebiten.Image
+var GuiCommandsFindAltarPng *ebiten.Image
+var GuiCommandsFindUpstairPng *ebiten.Image
+var GuiCommandsGotoTargetPng *ebiten.Image
+var GuiCommandsFindStashPng *ebiten.Image
+var GuiCommandsAddWaypointPng *ebiten.Image
+var GuiCommandsPrevLevelPng *ebiten.Image
+var GuiCommandsDisplayMapPng *ebiten.Image
+var GuiCommandsNextLevelPng *ebiten.Image
+var GuiCommandsLookupHelpPng *ebiten.Image
+var GuiCommandsFindExcludedPng *ebiten.Image
+var GuiCommandsClearExcludesPng *ebiten.Image
+var GuiCommandsFindPortalPng *ebiten.Image
+var GuiCommandsFindTrapsPng *ebiten.Image
+var GuiCommandsFindDownstairPng *ebiten.Image
+var GuiCommandsExcludeAreaPng *ebiten.Image
+var GuiCommandsGotoLevelPng *ebiten.Image
+var GuiStartupArenaPng *ebiten.Image
+var GuiStartupZotDefencePng *ebiten.Image
+var GuiStartupInstructionsPng *ebiten.Image
+var GuiStartupDungeonSprintPng *ebiten.Image
+var GuiStartupHintsModePng *ebiten.Image
+var GuiStartupStonesoupPng *ebiten.Image
+var GuiStartupTutorialPng *ebiten.Image
+var GuiSkillsFocusedFgPng *ebiten.Image
+var GuiSkillsDisabledFgPng *ebiten.Image
+var GuiSkillsArmorPng *ebiten.Image
+var GuiSkillsDivinationsPng *ebiten.Image
+var GuiSkillsPoisonMagicPng *ebiten.Image
+var GuiSkillsDisabledBasePng *ebiten.Image
+var GuiSkillsSummoningsPng *ebiten.Image
+var GuiSkillsCharmsPng *ebiten.Image
+var GuiSkillsBowsPng *ebiten.Image
+var GuiSkillsDodgingPng *ebiten.Image
+var GuiSkillsIceMagicPng *ebiten.Image
+var GuiSkillsLongBladesPng *ebiten.Image
+var GuiSkillsAxesPng *ebiten.Image
+var GuiSkillsTrapsPng *ebiten.Image
+var GuiSkillsTranslocationsPng *ebiten.Image
+var GuiSkillsUnarmedCombatPng *ebiten.Image
+var GuiSkillsTransmutationsPng *ebiten.Image
+var GuiSkillsShortBladesPng *ebiten.Image
+var GuiSkillsCrossbowsPng *ebiten.Image
+var GuiSkillsSlingsPng *ebiten.Image
+var GuiSkillsEnabledFgPng *ebiten.Image
+var GuiSkillsAirMagicPng *ebiten.Image
+var GuiSkillsFightingPng *ebiten.Image
+var GuiSkillsMacesFlailsPng *ebiten.Image
+var GuiSkillsStabbingPng *ebiten.Image
+var GuiSkillsInvocationsPng *ebiten.Image
+var GuiSkillsNecromancyPng *ebiten.Image
+var GuiSkillsMasteredFgPng *ebiten.Image
+var GuiSkillsEnabledBasePng *ebiten.Image
+var GuiSkillsPolearmsPng *ebiten.Image
+var GuiSkillsEarthMagicPng *ebiten.Image
+var GuiSkillsFireMagicPng *ebiten.Image
+var GuiSkillsThrowingPng *ebiten.Image
+var GuiSkillsStavesPng *ebiten.Image
+var GuiSkillsShieldsPng *ebiten.Image
+var GuiSkillsEvocationsPng *ebiten.Image
+var GuiSkillsSpellcastingPng *ebiten.Image
+var GuiSkillsConjurationsPng *ebiten.Image
+var GuiSkillsMasteredBasePng *ebiten.Image
+var GuiSkillsHexesPng *ebiten.Image
+var GuiTabsTabMouseoverPng *ebiten.Image
+var GuiTabsTabLabelItemSwordPng *ebiten.Image
+var GuiTabsTabLabelSpellPng *ebiten.Image
+var GuiTabsTabLabelItemPng *ebiten.Image
+var GuiTabsTabUnselectedSquarePng *ebiten.Image
+var GuiTabsTabSelectedSquarePng *ebiten.Image
+var GuiTabsTabSelectedPng *ebiten.Image
+var GuiTabsTabLabelSpellFlamePng *ebiten.Image
+var GuiTabsTabUnselectedPng *ebiten.Image
+var GuiTabsTabLabelMemorisePng *ebiten.Image
+var GuiTabsTabLabelMetacommandsPng *ebiten.Image
+var GuiTabsTabLabelMemoriseMPng *ebiten.Image
+var GuiTabsTabLabelMonsterPng *ebiten.Image
+var GuiAbilitiesJumpPng *ebiten.Image
+var GuiAbilitiesDigPng *ebiten.Image
+var GuiAbilitiesEvokeFogPng *ebiten.Image
+var GuiAbilitiesShaftSelfPng *ebiten.Image
+var GuiAbilitiesStopSingingPng *ebiten.Image
+var GuiAbilitiesStopRecallPng *ebiten.Image
+var GuiAbilitiesEvokeTeleportControlPng *ebiten.Image
+var GuiInvocationsGozagBribeBranchPng *ebiten.Image
+var GuiInvocationsKikuNecronomiconPng *ebiten.Image
+var GuiInvocationsRuSacrificeExperiencePng *ebiten.Image
+var GuiInvocationsElyvilonHealOtherPng *ebiten.Image
+var GuiInvocationsLugonuBlessWeaponPng *ebiten.Image
+var GuiInvocationsRuApocalypsePng *ebiten.Image
+var GuiInvocationsRuDrawOutPowerPng *ebiten.Image
+var GuiInvocationsRuRejectSacrificesPng *ebiten.Image
+var GuiInvocationsRuSacrificeEyePng *ebiten.Image
+var GuiInvocationsRuSacrificeArtificePng *ebiten.Image
+var GuiInvocationsTsoBlessWeaponPng *ebiten.Image
+var GuiInvocationsRuSacrificeLovePng *ebiten.Image
+var GuiInvocationsRuSacrificeEssencePng *ebiten.Image
+var GuiInvocationsKikuBlessWeaponPng *ebiten.Image
+var GuiInvocationsRuSacrificeDrinkPng *ebiten.Image
+var GuiInvocationsQazlalUpheavalPng *ebiten.Image
+var GuiInvocationsQazlalDisasterAreaPng *ebiten.Image
+var GuiInvocationsRuSacrificePurityPng *ebiten.Image
+var GuiInvocationsRuSacrificeStealthPng *ebiten.Image
+var GuiInvocationsRuSacrificeDurabilityPng *ebiten.Image
+var GuiInvocationsRuSacrificeSkillPng *ebiten.Image
+var GuiInvocationsZinDonatePng *ebiten.Image
+var GuiInvocationsQazlalElementalForcePng *ebiten.Image
+var GuiInvocationsRuPowerLeapPng *ebiten.Image
+var GuiInvocationsGozagCallMerchantPng *ebiten.Image
+var GuiInvocationsRuSacrificeNimblenessPng *ebiten.Image
+var GuiInvocationsRuSacrificeCouragePng *ebiten.Image
+var GuiInvocationsRuSacrificeArcanaPng *ebiten.Image
+var GuiInvocationsRuSacrificeHealthPng *ebiten.Image
+var GuiInvocationsDithmenosShadowStepPng *ebiten.Image
+var GuiInvocationsRuSacrificeWordsPng *ebiten.Image
+var GuiInvocationsBeoghGiftPng *ebiten.Image
+var GuiInvocationsDithmenosShadowFormPng *ebiten.Image
+var GuiInvocationsRuSacrificeHandPng *ebiten.Image
+var GuiInvocationsRuSacrificeResistancePng *ebiten.Image
+var GuiInvocationsGozagPotionPetitionPng *ebiten.Image
+var GuiSpellsStonemailPng *ebiten.Image
+var GuiSpellsControlledTeleportPng *ebiten.Image
+var GuiSpellsMemorisePng *ebiten.Image
+var GuiSpellsForcefulDismissalPng *ebiten.Image
+var GuiSpellsAbjurationPng *ebiten.Image
+var GuiSpellsRemoveCursePng *ebiten.Image
+var GuiSpellsComponentsIceSpearPng *ebiten.Image
+var GuiSpellsComponentsSkullPng *ebiten.Image
+var GuiSpellsComponentsEyePng *ebiten.Image
+var GuiSpellsComponentsStonesPng *ebiten.Image
+var GuiSpellsComponentsPerson4Png *ebiten.Image
+var GuiSpellsComponentsHornPng *ebiten.Image
+var GuiSpellsComponentsDragonPng *ebiten.Image
+var GuiSpellsComponentsFacePng *ebiten.Image
+var GuiSpellsComponentsPentagramHorizontalPng *ebiten.Image
+var GuiSpellsComponentsStonePng *ebiten.Image
+var GuiSpellsComponentsSwordPng *ebiten.Image
+var GuiSpellsComponentsDog2Png *ebiten.Image
+var GuiSpellsComponentsPerson3Png *ebiten.Image
+var GuiSpellsComponentsIcePng *ebiten.Image
+var GuiSpellsComponentsCorpsePng *ebiten.Image
+var GuiSpellsComponentsHand4Png *ebiten.Image
+var GuiSpellsComponentsDog1Png *ebiten.Image
+var GuiSpellsComponentsBoltPng *ebiten.Image
+var GuiSpellsComponentsHand5Png *ebiten.Image
+var GuiSpellsComponentsArrowPng *ebiten.Image
+var GuiSpellsComponentsPerson1Png *ebiten.Image
+var GuiSpellsComponentsSnowflakePng *ebiten.Image
+var GuiSpellsComponentsBirdPng *ebiten.Image
+var GuiSpellsComponentsRatPng *ebiten.Image
+var GuiSpellsComponentsPerson2Png *ebiten.Image
+var GuiSpellsComponentsPentagramVerticalPng *ebiten.Image
+var GuiSpellsComponentsScrollPng *ebiten.Image
+var GuiSpellsComponentsStoneCrackedPng *ebiten.Image
+var GuiSpellsComponentsHand1Png *ebiten.Image
+var GuiSpellsComponentsHand3Png *ebiten.Image
+var GuiSpellsComponentsBowlPng *ebiten.Image
+var GuiSpellsComponentsHand2Png *ebiten.Image
+var GuiSpellsComponentsTornadoPng *ebiten.Image
+var GuiSpellsComponentsRunningPng *ebiten.Image
+var GuiSpellsEarthStatueFormOldPng *ebiten.Image
+var GuiSpellsEarthStatueFormNewPng *ebiten.Image
+var GuiSpellsEarthSandblastNewPng *ebiten.Image
+var GuiSpellsEarthStoneskinOldPng *ebiten.Image
+var GuiSpellsEarthLeesRapidDeconstructionNewPng *ebiten.Image
+var GuiSpellsEarthDigNewPng *ebiten.Image
+var GuiSpellsEarthLehudibsCrystalSpearNewPng *ebiten.Image
+var GuiSpellsEarthIronShotOldPng *ebiten.Image
+var GuiSpellsEarthLedasLiquefactionPng *ebiten.Image
+var GuiSpellsEarthShatterNewPng *ebiten.Image
+var GuiSpellsEarthIronShotNewPng *ebiten.Image
+var GuiSpellsEarthStoneArrowNewPng *ebiten.Image
+var GuiSpellsEarthDigOldPng *ebiten.Image
+var GuiSpellsEarthPasswallOldPng *ebiten.Image
+var GuiSpellsEarthShatterOldPng *ebiten.Image
+var GuiSpellsEarthPetrifyPng *ebiten.Image
+var GuiSpellsEarthMaxwellsSilverHammerPng *ebiten.Image
+var GuiSpellsEarthSandblastOldPng *ebiten.Image
+var GuiSpellsEarthPasswallNewPng *ebiten.Image
+var GuiSpellsEarthStoneskinNewPng *ebiten.Image
+var GuiSpellsEarthStoneArrowOldPng *ebiten.Image
+var GuiSpellsEarthLeesRapidDeconstructionOldPng *ebiten.Image
+var GuiSpellsEarthLehudibsCrystalSpearOldPng *ebiten.Image
+var GuiSpellsDivinationDetectTrapsPng *ebiten.Image
+var GuiSpellsDivinationIdentifyPng *ebiten.Image
+var GuiSpellsDivinationDetectCreaturesPng *ebiten.Image
+var GuiSpellsDivinationMagicMappingPng *ebiten.Image
+var GuiSpellsDivinationDetectSecretDoorsPng *ebiten.Image
+var GuiSpellsDivinationForescryPng *ebiten.Image
+var GuiSpellsDivinationDetectItemsPng *ebiten.Image
+var GuiSpellsDivinationDetectCursePng *ebiten.Image
+var GuiSpellsNecromancyVampiricDrainingNewPng *ebiten.Image
+var GuiSpellsNecromancyDeathChannelNewPng *ebiten.Image
+var GuiSpellsNecromancyPainNewPng *ebiten.Image
+var GuiSpellsNecromancyExcruciatingWoundsNewPng *ebiten.Image
+var GuiSpellsNecromancyAnimateSkeletonOldPng *ebiten.Image
+var GuiSpellsNecromancyHauntNewPng *ebiten.Image
+var GuiSpellsNecromancyPainOldPng *ebiten.Image
+var GuiSpellsNecromancyBoneShardsPng *ebiten.Image
+var GuiSpellsNecromancyDeathChannelOldPng *ebiten.Image
+var GuiSpellsNecromancyHauntOldPng *ebiten.Image
+var GuiSpellsNecromancyAgonyPng *ebiten.Image
+var GuiSpellsNecromancyFulsomeDistillationPng *ebiten.Image
+var GuiSpellsNecromancyDeathsDoorOldPng *ebiten.Image
+var GuiSpellsNecromancyLethalInfusionPng *ebiten.Image
+var GuiSpellsNecromancyDispelUndeadOldPng *ebiten.Image
+var GuiSpellsNecromancyDispelUndeadNewPng *ebiten.Image
+var GuiSpellsNecromancySymbolOfTormentOldPng *ebiten.Image
+var GuiSpellsNecromancyControlUndeadOldPng *ebiten.Image
+var GuiSpellsNecromancyAnimateSkeletonPng *ebiten.Image
+var GuiSpellsNecromancyCorpseRotOldPng *ebiten.Image
+var GuiSpellsNecromancyRegenerationOldPng *ebiten.Image
+var GuiSpellsNecromancyAnimateSkeletonNewPng *ebiten.Image
+var GuiSpellsNecromancyBoltOfDrainingOldPng *ebiten.Image
+var GuiSpellsNecromancyVampiricDrainingOldPng *ebiten.Image
+var GuiSpellsNecromancySymbolOfTormentPng *ebiten.Image
+var GuiSpellsNecromancyBoltOfDrainingNewPng *ebiten.Image
+var GuiSpellsNecromancyExcruciatingWoundsOldPng *ebiten.Image
+var GuiSpellsNecromancyBorgnjorsRevivificationNewPng *ebiten.Image
+var GuiSpellsNecromancyAnimateDeadNewPng *ebiten.Image
+var GuiSpellsNecromancyControlUndeadPng *ebiten.Image
+var GuiSpellsNecromancyDeathChannelPng *ebiten.Image
+var GuiSpellsNecromancySimulacrumNewPng *ebiten.Image
+var GuiSpellsNecromancyTwistedResurrectionNewPng *ebiten.Image
+var GuiSpellsNecromancySymbolOfTormentNewPng *ebiten.Image
+var GuiSpellsNecromancyControlUndeadNewPng *ebiten.Image
+var GuiSpellsNecromancyNecromutationOldPng *ebiten.Image
+var GuiSpellsNecromancySublimationOfBloodNewPng *ebiten.Image
+var GuiSpellsNecromancyBorgnjorsRevivificationOldPng *ebiten.Image
+var GuiSpellsNecromancyCorpseRotNewPng *ebiten.Image
+var GuiSpellsNecromancyTombOfDoroklohePng *ebiten.Image
+var GuiSpellsNecromancyCigotuvisEmbracePng *ebiten.Image
+var GuiSpellsNecromancyNecromutationNewPng *ebiten.Image
+var GuiSpellsNecromancyTwistedResurrectionOldPng *ebiten.Image
+var GuiSpellsNecromancyAnimateDeadOldPng *ebiten.Image
+var GuiSpellsNecromancySublimationOfBloodOldPng *ebiten.Image
+var GuiSpellsNecromancySimulacrumOldPng *ebiten.Image
+var GuiSpellsNecromancyAgonyOldPng *ebiten.Image
+var GuiSpellsNecromancyRegenerationNewPng *ebiten.Image
+var GuiSpellsNecromancyCigotuvisDegenerationPng *ebiten.Image
+var GuiSpellsNecromancySublimationOfBloodPng *ebiten.Image
+var GuiSpellsNecromancyDeathsDoorNewPng *ebiten.Image
+var GuiSpellsNecromancyAgonyNewPng *ebiten.Image
+var GuiSpellsMonsterSummonUfetubusPng *ebiten.Image
+var GuiSpellsMonsterStickyFlameRangePng *ebiten.Image
+var GuiSpellsMonsterAirElementalsPng *ebiten.Image
+var GuiSpellsMonsterQuicksilverBoltPng *ebiten.Image
+var GuiSpellsMonsterSummonMinorDemonPng *ebiten.Image
+var GuiSpellsMonsterSummonEyeballsPng *ebiten.Image
+var GuiSpellsMonsterMetalSplintersPng *ebiten.Image
+var GuiSpellsMonsterMiasmaBreathPng *ebiten.Image
+var GuiSpellsMonsterBrainFeedPng *ebiten.Image
+var GuiSpellsMonsterFakeRakshasaSummonPng *ebiten.Image
+var GuiSpellsMonsterFireElementalsPng *ebiten.Image
+var GuiSpellsMonsterIronElementalsPng *ebiten.Image
+var GuiSpellsMonsterSummonHellBeastPng *ebiten.Image
+var GuiSpellsMonsterEarthElementalsPng *ebiten.Image
+var GuiSpellsMonsterHellfireBurstPng *ebiten.Image
+var GuiSpellsMonsterSummonUndeadPng *ebiten.Image
+var GuiSpellsMonsterSteamBallPng *ebiten.Image
+var GuiSpellsMonsterFireBreathPng *ebiten.Image
+var GuiSpellsMonsterHasteOtherPng *ebiten.Image
+var GuiSpellsMonsterWaterElementalsPng *ebiten.Image
+var GuiSpellsMonsterSummonDrakesPng *ebiten.Image
+var GuiSpellsMonsterFakeMaraSummonPng *ebiten.Image
+var GuiSpellsMonsterBlinkOtherPng *ebiten.Image
+var GuiSpellsMonsterCantripPng *ebiten.Image
+var GuiSpellsMonsterSummonMushroomsPng *ebiten.Image
+var GuiSpellsMonsterSummonVerminPng *ebiten.Image
+var GuiSpellsMonsterColdBreathPng *ebiten.Image
+var GuiSpellsMonsterStickyFlameSplashPng *ebiten.Image
+var GuiSpellsSummoningSummonDemonPng *ebiten.Image
+var GuiSpellsSummoningSummonDragonPng *ebiten.Image
+var GuiSpellsSummoningSpellforgedServitorPng *ebiten.Image
+var GuiSpellsSummoningSummonManaViperPng *ebiten.Image
+var GuiSpellsSummoningSummonSmallMammalsPng *ebiten.Image
+var GuiSpellsSummoningSticksToSnakesOldPng *ebiten.Image
+var GuiSpellsSummoningMassAbjurationPng *ebiten.Image
+var GuiSpellsSummoningSummonHydraPng *ebiten.Image
+var GuiSpellsSummoningSummonDemonNewPng *ebiten.Image
+var GuiSpellsSummoningSummonScorpionsNewPng *ebiten.Image
+var GuiSpellsSummoningCallImpOldPng *ebiten.Image
+var GuiSpellsSummoningSticksToSnakesNewPng *ebiten.Image
+var GuiSpellsSummoningSummonLightningSpirePng *ebiten.Image
+var GuiSpellsSummoningSummonButterfliesNewPng *ebiten.Image
+var GuiSpellsSummoningSummonGuardianGolemPng *ebiten.Image
+var GuiSpellsSummoningDemonicHordePng *ebiten.Image
+var GuiSpellsSummoningCallCanineFamiliarOldPng *ebiten.Image
+var GuiSpellsSummoningSummonWraithsPng *ebiten.Image
+var GuiSpellsSummoningSummonButterfliesOldPng *ebiten.Image
+var GuiSpellsSummoningRecallOldPng *ebiten.Image
+var GuiSpellsSummoningSummonElementalPng *ebiten.Image
+var GuiSpellsSummoningCallCanineFamiliarNewPng *ebiten.Image
+var GuiSpellsSummoningAbjurationPng *ebiten.Image
+var GuiSpellsSummoningSummonSmallMammalPng *ebiten.Image
+var GuiSpellsSummoningSummonUglyThingPng *ebiten.Image
+var GuiSpellsSummoningSummonIceBeastOldPng *ebiten.Image
+var GuiSpellsSummoningMonstrousMenageriePng *ebiten.Image
+var GuiSpellsSummoningSummonShadowCreaturesNewPng *ebiten.Image
+var GuiSpellsSummoningSummonForestPng *ebiten.Image
+var GuiSpellsSummoningSummonGreaterDemonPng *ebiten.Image
+var GuiSpellsSummoningSummonGreaterDemonOldPng *ebiten.Image
+var GuiSpellsSummoningSummonShadowCreaturesOldPng *ebiten.Image
+var GuiSpellsSummoningSummonHorribleThingsPng *ebiten.Image
+var GuiSpellsSummoningSummonDemonOldPng *ebiten.Image
+var GuiSpellsSummoningSummonScorpionsOldPng *ebiten.Image
+var GuiSpellsSummoningSummonGreaterDemonNewPng *ebiten.Image
+var GuiSpellsSummoningRecallNewPng *ebiten.Image
+var GuiSpellsSummoningCallImpNewPng *ebiten.Image
+var GuiSpellsSummoningSummonIceBeastNewPng *ebiten.Image
+var GuiSpellsEnchantmentTameBeastsPng *ebiten.Image
+var GuiSpellsEnchantmentProjectedNoisePng *ebiten.Image
+var GuiSpellsEnchantmentTukimasDanceNewPng *ebiten.Image
+var GuiSpellsEnchantmentBerserkerRageNewPng *ebiten.Image
+var GuiSpellsEnchantmentEnslavementNewPng *ebiten.Image
+var GuiSpellsEnchantmentSlowOldPng *ebiten.Image
+var GuiSpellsEnchantmentInvisibilityOldPng *ebiten.Image
+var GuiSpellsEnchantmentCoronaPng *ebiten.Image
+var GuiSpellsEnchantmentSeeInvisiblePng *ebiten.Image
+var GuiSpellsEnchantmentTukimasVorpalBladePng *ebiten.Image
+var GuiSpellsEnchantmentSongOfSlayingPng *ebiten.Image
+var GuiSpellsEnchantmentInfusionPng *ebiten.Image
+var GuiSpellsEnchantmentCauseFearNewPng *ebiten.Image
+var GuiSpellsEnchantmentInvisibilityNewPng *ebiten.Image
+var GuiSpellsEnchantmentPetrifyPng *ebiten.Image
+var GuiSpellsEnchantmentConfuseNewPng *ebiten.Image
+var GuiSpellsEnchantmentBerserkerRageOldPng *ebiten.Image
+var GuiSpellsEnchantmentDiscordPng *ebiten.Image
+var GuiSpellsEnchantmentMassConfusionOldPng *ebiten.Image
+var GuiSpellsEnchantmentMassConfusionNewPng *ebiten.Image
+var GuiSpellsEnchantmentConfusingTouchNewPng *ebiten.Image
+var GuiSpellsEnchantmentSlowNewPng *ebiten.Image
+var GuiSpellsEnchantmentHasteOldPng *ebiten.Image
+var GuiSpellsEnchantmentTukimasDanceOldPng *ebiten.Image
+var GuiSpellsEnchantmentExtensionPng *ebiten.Image
+var GuiSpellsEnchantmentDarknessPng *ebiten.Image
+var GuiSpellsEnchantmentCauseFearOldPng *ebiten.Image
+var GuiSpellsEnchantmentConfusingTouchOldPng *ebiten.Image
+var GuiSpellsEnchantmentHasteNewPng *ebiten.Image
+var GuiSpellsEnchantmentEnslavementOldPng *ebiten.Image
+var GuiSpellsEnchantmentSpectralWeaponPng *ebiten.Image
+var GuiSpellsEnchantmentConfuseOldPng *ebiten.Image
+var GuiSpellsEnchantmentSelectiveAmnesiaPng *ebiten.Image
+var GuiSpellsEnchantmentSureBladeNewPng *ebiten.Image
+var GuiSpellsEnchantmentSureBladeOldPng *ebiten.Image
+var GuiSpellsTranslocationDispersalNewPng *ebiten.Image
+var GuiSpellsTranslocationControlledBlinkNewPng *ebiten.Image
+var GuiSpellsTranslocationDispersalOldPng *ebiten.Image
+var GuiSpellsTranslocationPhaseShiftOldPng *ebiten.Image
+var GuiSpellsTranslocationWarpWeaponOldPng *ebiten.Image
+var GuiSpellsTranslocationGravitasPng *ebiten.Image
+var GuiSpellsTranslocationControlledTeleportPng *ebiten.Image
+var GuiSpellsTranslocationApportationOldPng *ebiten.Image
+var GuiSpellsTranslocationShroudOfGolubriaPng *ebiten.Image
+var GuiSpellsTranslocationApportationNewPng *ebiten.Image
+var GuiSpellsTranslocationTeleportOtherOldPng *ebiten.Image
+var GuiSpellsTranslocationPortalPng *ebiten.Image
+var GuiSpellsTranslocationWarpWeaponNewPng *ebiten.Image
+var GuiSpellsTranslocationPortalProjectileNewPng *ebiten.Image
+var GuiSpellsTranslocationBlinkPng *ebiten.Image
+var GuiSpellsTranslocationBanishmentPng *ebiten.Image
+var GuiSpellsTranslocationPhaseShiftNewPng *ebiten.Image
+var GuiSpellsTranslocationTeleportPng *ebiten.Image
+var GuiSpellsTranslocationDisjunctionPng *ebiten.Image
+var GuiSpellsTranslocationPortalProjectileOldPng *ebiten.Image
+var GuiSpellsTranslocationControlledBlinkOldPng *ebiten.Image
+var GuiSpellsTranslocationTeleportOtherNewPng *ebiten.Image
+var GuiSpellsTranslocationPassageOfGolubriaPng *ebiten.Image
+var GuiSpellsPoisonCurePoisonOldPng *ebiten.Image
+var GuiSpellsPoisonPoisonBrandPng *ebiten.Image
+var GuiSpellsPoisonVenomBoltNewPng *ebiten.Image
+var GuiSpellsPoisonOlgrebsToxicRadianceOldPng *ebiten.Image
+var GuiSpellsPoisonStingOldPng *ebiten.Image
+var GuiSpellsPoisonOlgrebsToxicRadianceNewPng *ebiten.Image
+var GuiSpellsPoisonStingNewPng *ebiten.Image
+var GuiSpellsPoisonMephiticCloudOldPng *ebiten.Image
+var GuiSpellsPoisonMephiticCloudPng *ebiten.Image
+var GuiSpellsPoisonResistPoisonPng *ebiten.Image
+var GuiSpellsPoisonMephiticCloudNewPng *ebiten.Image
+var GuiSpellsPoisonPoisonArrowNewPng *ebiten.Image
+var GuiSpellsPoisonPoisonArrowOldPng *ebiten.Image
+var GuiSpellsPoisonVenomBoltOldPng *ebiten.Image
+var GuiSpellsPoisonPoisonousCloudOldPng *ebiten.Image
+var GuiSpellsPoisonAlistairsIntoxicationNewPng *ebiten.Image
+var GuiSpellsPoisonPoisonousCloudNewPng *ebiten.Image
+var GuiSpellsPoisonAlistairsIntoxicationOldPng *ebiten.Image
+var GuiSpellsPoisonSpiderFormPng *ebiten.Image
+var GuiSpellsPoisonPoisonAmmunitionPng *ebiten.Image
+var GuiSpellsPoisonCurePoisonNewPng *ebiten.Image
+var GuiSpellsTransmutationAlterSelfPng *ebiten.Image
+var GuiSpellsTransmutationBladeHandsNewPng *ebiten.Image
+var GuiSpellsTransmutationHydraFormPng *ebiten.Image
+var GuiSpellsTransmutationPolymorphOtherPng *ebiten.Image
+var GuiSpellsTransmutationBeastlyAppendagePng *ebiten.Image
+var GuiSpellsTransmutationBladeHandsOldPng *ebiten.Image
+var GuiSpellsTransmutationIrradiatePng *ebiten.Image
+var GuiSpellsTransmutationDragonFormPng *ebiten.Image
+var GuiSpellsIceFreezingAuraPng *ebiten.Image
+var GuiSpellsIceOzocubusRefrigerationOldPng *ebiten.Image
+var GuiSpellsIceIceFormNewPng *ebiten.Image
+var GuiSpellsIceMetabolicEnglaciationNewPng *ebiten.Image
+var GuiSpellsIceIceStormOldPng *ebiten.Image
+var GuiSpellsIceIceFormOldPng *ebiten.Image
+var GuiSpellsIceOzocubusArmorOldPng *ebiten.Image
+var GuiSpellsIceThrowIcicleNewPng *ebiten.Image
+var GuiSpellsIceMetabolicEnglaciationOldPng *ebiten.Image
+var GuiSpellsIceOzocubusArmorNewPng *ebiten.Image
+var GuiSpellsIceThrowFrostOldPng *ebiten.Image
+var GuiSpellsIceFreezeOldPng *ebiten.Image
+var GuiSpellsIceEnsorcelledHibernationNewPng *ebiten.Image
+var GuiSpellsIceIceStormNewPng *ebiten.Image
+var GuiSpellsIceBoltOfColdOldPng *ebiten.Image
+var GuiSpellsIceCondensationShieldOldPng *ebiten.Image
+var GuiSpellsIceFreezingCloudNewPng *ebiten.Image
+var GuiSpellsIceEnsorcelledHibernationOldPng *ebiten.Image
+var GuiSpellsIceFreezingCloudOldPng *ebiten.Image
+var GuiSpellsIceCondensationShieldNewPng *ebiten.Image
+var GuiSpellsIceThrowIcicleOldPng *ebiten.Image
+var GuiSpellsIceBoltOfColdNewPng *ebiten.Image
+var GuiSpellsIceOzocubusRefrigerationNewPng *ebiten.Image
+var GuiSpellsIceFreezeNewPng *ebiten.Image
+var GuiSpellsIceThrowFrostNewPng *ebiten.Image
+var GuiSpellsDisciplinesConjurationPng *ebiten.Image
+var GuiSpellsDisciplinesTranslocationPng *ebiten.Image
+var GuiSpellsDisciplinesEarthPng *ebiten.Image
+var GuiSpellsDisciplinesIcePng *ebiten.Image
+var GuiSpellsDisciplinesTransmutationPng *ebiten.Image
+var GuiSpellsDisciplinesDivinationPng *ebiten.Image
+var GuiSpellsDisciplinesSummoningPng *ebiten.Image
+var GuiSpellsDisciplinesPoisonPng *ebiten.Image
+var GuiSpellsDisciplinesNecromancyPng *ebiten.Image
+var GuiSpellsDisciplinesAirPng *ebiten.Image
+var GuiSpellsDisciplinesEnchantmentPng *ebiten.Image
+var GuiSpellsDisciplinesFirePng *ebiten.Image
+var GuiSpellsConjurationSearingRayPng *ebiten.Image
+var GuiSpellsConjurationBattlespherePng *ebiten.Image
+var GuiSpellsConjurationForceLancePng *ebiten.Image
+var GuiSpellsConjurationOrbOfDestructionNewPng *ebiten.Image
+var GuiSpellsConjurationOrbOfDestructionBigPng *ebiten.Image
+var GuiSpellsConjurationIskenderunsMysticBlastOldPng *ebiten.Image
+var GuiSpellsConjurationMagicDartPng *ebiten.Image
+var GuiSpellsConjurationOrbOfDestructionPng *ebiten.Image
+var GuiSpellsConjurationIskenderunsMysticBlastNewPng *ebiten.Image
+var GuiSpellsConjurationOrbOfDestructionSmallPng *ebiten.Image
+var GuiSpellsConjurationFulminantPrismPng *ebiten.Image
+var GuiSpellsConjurationDazzlingSprayPng *ebiten.Image
+var GuiSpellsFireInnerFlamePng *ebiten.Image
+var GuiSpellsFireThrowFlameOldPng *ebiten.Image
+var GuiSpellsFireRingOfFlamesNewPng *ebiten.Image
+var GuiSpellsFireFireballNewPng *ebiten.Image
+var GuiSpellsFireFireStormOldPng *ebiten.Image
+var GuiSpellsFireFireballOldPng *ebiten.Image
+var GuiSpellsFireEvaporatePng *ebiten.Image
+var GuiSpellsFireBoltOfFireNewPng *ebiten.Image
+var GuiSpellsFireFireBrandPng *ebiten.Image
+var GuiSpellsFireFlameTongueOldPng *ebiten.Image
+var GuiSpellsFireBoltOfMagmaOldPng *ebiten.Image
+var GuiSpellsFireIgnitePoisonNewPng *ebiten.Image
+var GuiSpellsFireFlameTongueNewPng *ebiten.Image
+var GuiSpellsFireFireStormNewPng *ebiten.Image
+var GuiSpellsFireRingOfFlamesOldPng *ebiten.Image
+var GuiSpellsFireIgnitePoisonOldPng *ebiten.Image
+var GuiSpellsFireBoltOfFireOldPng *ebiten.Image
+var GuiSpellsFireDelayedFireballPng *ebiten.Image
+var GuiSpellsFireConjureFlameOldPng *ebiten.Image
+var GuiSpellsFireThrowFlameNewPng *ebiten.Image
+var GuiSpellsFireStickyFlameNewPng *ebiten.Image
+var GuiSpellsFireConjureFlameNewPng *ebiten.Image
+var GuiSpellsFireBoltOfMagmaNewPng *ebiten.Image
+var GuiSpellsFireStickyFlameOldPng *ebiten.Image
+var GuiSpellsAirLightningBoltNewPng *ebiten.Image
+var GuiSpellsAirSilenceOldPng *ebiten.Image
+var GuiSpellsAirLightningBoltOldPng *ebiten.Image
+var GuiSpellsAirStaticDischargeNewPng *ebiten.Image
+var GuiSpellsAirDeflectMissilesOldPng *ebiten.Image
+var GuiSpellsAirChainLightningNewPng *ebiten.Image
+var GuiSpellsAirSwiftnessNewPng *ebiten.Image
+var GuiSpellsAirShockNewPng *ebiten.Image
+var GuiSpellsAirConjureBallLightningOldPng *ebiten.Image
+var GuiSpellsAirSilenceNewPng *ebiten.Image
+var GuiSpellsAirCloudConePng *ebiten.Image
+var GuiSpellsAirInsulationPng *ebiten.Image
+var GuiSpellsAirDeflectMissilesNewPng *ebiten.Image
+var GuiSpellsAirChainLightningOldPng *ebiten.Image
+var GuiSpellsAirShockOldPng *ebiten.Image
+var GuiSpellsAirAirstrikeOldPng *ebiten.Image
+var GuiSpellsAirRepelMissilesNewPng *ebiten.Image
+var GuiSpellsAirRepelMissilesOldPng *ebiten.Image
+var GuiSpellsAirSwiftnessOldPng *ebiten.Image
+var GuiSpellsAirAirstrikeNewPng *ebiten.Image
+var GuiSpellsAirLevitationPng *ebiten.Image
+var GuiSpellsAirStaticDischargeOldPng *ebiten.Image
+var GuiSpellsAirConjureBallLightningNewPng *ebiten.Image
+var GuiSpellsAirTornadoPng *ebiten.Image
+var GuiSpellsAirFlightPng *ebiten.Image
+var ItemScrollScrollNewPng *ebiten.Image
+var ItemScrollScrollPurplePng *ebiten.Image
+var ItemScrollScrollBrownPng *ebiten.Image
+var ItemScrollScrollRedPng *ebiten.Image
+var ItemScrollBlankPaperPng *ebiten.Image
+var ItemScrollScrollCyanPng *ebiten.Image
+var ItemScrollScrollGreenPng *ebiten.Image
+var ItemScrollScrollOldPng *ebiten.Image
+var ItemScrollScrollBluePng *ebiten.Image
+var ItemScrollScrollGreyPng *ebiten.Image
+var ItemScrollScrollYellowPng *ebiten.Image
+var ItemBookCopperPng *ebiten.Image
+var ItemBookClothNewPng *ebiten.Image
+var ItemBookDarkBlueNewPng *ebiten.Image
+var ItemBookLightBrownOldPng *ebiten.Image
+var ItemBookBookGrayPng *ebiten.Image
+var ItemBookDarkBrownOldPng *ebiten.Image
+var ItemBookDarkBrownNewPng *ebiten.Image
+var ItemBookMetalGreenNewPng *ebiten.Image
+var ItemBookClothOldPng *ebiten.Image
+var ItemBookBookOfTheDeadOldPng *ebiten.Image
+var ItemBookPurpleOldPng *ebiten.Image
+var ItemBookManual2Png *ebiten.Image
+var ItemBookMiscBookPng *ebiten.Image
+var ItemBookRedOldPng *ebiten.Image
+var ItemBookDarkBlueOldPng *ebiten.Image
+var ItemBookDarkGrayOldPng *ebiten.Image
+var ItemBookMetalCyanNewPng *ebiten.Image
+var ItemBookParchmentNewPng *ebiten.Image
+var ItemBookTanOldPng *ebiten.Image
+var ItemBookMetalBlueOldPng *ebiten.Image
+var ItemBookGoldPng *ebiten.Image
+var ItemBookTurquoiseNewPng *ebiten.Image
+var ItemBookMagentaNewPng *ebiten.Image
+var ItemBookDarkGreenOldPng *ebiten.Image
+var ItemBookLightGrayOldPng *ebiten.Image
+var ItemBookDarkGrayNewPng *ebiten.Image
+var ItemBookWhiteNewPng *ebiten.Image
+var ItemBookPlaidNewPng *ebiten.Image
+var ItemBookYellowNewPng *ebiten.Image
+var ItemBookBookDogEaredPng *ebiten.Image
+var ItemBookWhiteOldPng *ebiten.Image
+var ItemBookTurquoiseOldPng *ebiten.Image
+var ItemBookBronzePng *ebiten.Image
+var ItemBookBookOrangePng *ebiten.Image
+var ItemBookLightGreenNewPng *ebiten.Image
+var ItemBookPurpleNewPng *ebiten.Image
+var ItemBookLightGreenOldPng *ebiten.Image
+var ItemBookMetalBlueNewPng *ebiten.Image
+var ItemBookParchmentOldPng *ebiten.Image
+var ItemBookLightBlueNewPng *ebiten.Image
+var ItemBookLeatherOldPng *ebiten.Image
+var ItemBookManual1Png *ebiten.Image
+var ItemBookRedNewPng *ebiten.Image
+var ItemBookGlitteringPng *ebiten.Image
+var ItemBookBookIndigoPng *ebiten.Image
+var ItemBookLightGrayNewPng *ebiten.Image
+var ItemBookPlaidOldPng *ebiten.Image
+var ItemBookBookOfTheDeadNewPng *ebiten.Image
+var ItemBookMagentaOldPng *ebiten.Image
+var ItemBookPinkPng *ebiten.Image
+var ItemBookCyanNewPng *ebiten.Image
+var ItemBookMetalCyanOldPng *ebiten.Image
+var ItemBookLightBrownNewPng *ebiten.Image
+var ItemBookLightBlueOldPng *ebiten.Image
+var ItemBookCyanOldPng *ebiten.Image
+var ItemBookDarkGreenNewPng *ebiten.Image
+var ItemBookLeatherNewPng *ebiten.Image
+var ItemBookMetalGreenOldPng *ebiten.Image
+var ItemBookSilverPng *ebiten.Image
+var ItemBookTanNewPng *ebiten.Image
+var ItemBookYellowOldPng *ebiten.Image
+var ItemBookArtefactThinNewPng *ebiten.Image
+var ItemBookArtefactBookmarkNewPng *ebiten.Image
+var ItemBookArtefactVelvetOldPng *ebiten.Image
+var ItemBookArtefactVellumNewPng *ebiten.Image
+var ItemBookArtefactWrinkledOldPng *ebiten.Image
+var ItemBookArtefactBuckleNewPng *ebiten.Image
+var ItemBookArtefactBuckleOldPng *ebiten.Image
+var ItemBookArtefactThinOldPng *ebiten.Image
+var ItemBookArtefactThickOldPng *ebiten.Image
+var ItemBookArtefactThickNewPng *ebiten.Image
+var ItemBookArtefactBookmarkOldPng *ebiten.Image
+var ItemBookArtefactVellumOldPng *ebiten.Image
+var ItemBookArtefactWrinkledNewPng *ebiten.Image
+var ItemBookArtefactVelvetNewPng *ebiten.Image
+var ItemRingCopperPng *ebiten.Image
+var ItemRingTourmalinePng *ebiten.Image
+var ItemRingPlainRedPng *ebiten.Image
+var ItemRingWoodenPng *ebiten.Image
+var ItemRingRingTopazPng *ebiten.Image
+var ItemRingRingIvoryPng *ebiten.Image
+var ItemRingRingPlainBluePng *ebiten.Image
+var ItemRingDiamondPng *ebiten.Image
+var ItemRingPlainYellowPng *ebiten.Image
+var ItemRingRingPlainMagentaPng *ebiten.Image
+var ItemRingAgatePng *ebiten.Image
+var ItemRingRingGoldCyanPng *ebiten.Image
+var ItemRingTigerEyePng *ebiten.Image
+var ItemRingGoldPng *ebiten.Image
+var ItemRingGoldBluePng *ebiten.Image
+var ItemRingGranitePng *ebiten.Image
+var ItemRingEmeraldPng *ebiten.Image
+var ItemRingCoralPng *ebiten.Image
+var ItemRingGlassPng *ebiten.Image
+var ItemRingRingGoldWhitePng *ebiten.Image
+var ItemRingClayPng *ebiten.Image
+var ItemRingIronPng *ebiten.Image
+var ItemRingRingPlainGreenPng *ebiten.Image
+var ItemRingJadePng *ebiten.Image
+var ItemRingBronzePng *ebiten.Image
+var ItemRingRingBlackOnyxPng *ebiten.Image
+var ItemRingMoonstonePng *ebiten.Image
+var ItemRingGoldGreenPng *ebiten.Image
+var ItemRingRingRubyPng *ebiten.Image
+var ItemRingRingGoldMagentaPng *ebiten.Image
+var ItemRingRingTwistedPng *ebiten.Image
+var ItemRingGoldRedPng *ebiten.Image
+var ItemRingPearlPng *ebiten.Image
+var ItemRingBrassPng *ebiten.Image
+var ItemRingOpalPng *ebiten.Image
+var ItemRingRingGoldYellowPng *ebiten.Image
+var ItemRingRubyPng *ebiten.Image
+var ItemRingRingSapphirePng *ebiten.Image
+var ItemRingRingEngagementPng *ebiten.Image
+var ItemRingPlainBlackPng *ebiten.Image
+var ItemRingSilverPng *ebiten.Image
+var ItemRingSteelPng *ebiten.Image
+var ItemRingRingShinyPng *ebiten.Image
+var ItemRingArtefactUrandMagePng *ebiten.Image
+var ItemRingArtefactUrandShadowsOldPng *ebiten.Image
+var ItemRingArtefactUrandShaolinPng *ebiten.Image
+var ItemRingArtefactUrandRobustnessPng *ebiten.Image
+var ItemRingArtefactUrandOctoringPng *ebiten.Image
+var ItemRingArtefactUrandShadowsNewPng *ebiten.Image
+var ItemWandGemPlasticOldPng *ebiten.Image
+var ItemWandWandCopperPng *ebiten.Image
+var ItemWandGemGoldOldPng *ebiten.Image
+var ItemWandGemBrassNewPng *ebiten.Image
+var ItemWandGemWoodNewPng *ebiten.Image
+var ItemWandGemSilverOldPng *ebiten.Image
+var ItemWandGemCopperNewPng *ebiten.Image
+var ItemWandGemGlassOldPng *ebiten.Image
+var ItemWandGemBoneOldPng *ebiten.Image
+var ItemWandGemBronzeOldPng *ebiten.Image
+var ItemWandGemIronOldPng *ebiten.Image
+var ItemWandGemBoneNewPng *ebiten.Image
+var ItemWandGemIvoryNewPng *ebiten.Image
+var ItemWandGemIronNewPng *ebiten.Image
+var ItemWandWandBrassPng *ebiten.Image
+var ItemWandGemCopperOldPng *ebiten.Image
+var ItemWandWandSilverPng *ebiten.Image
+var ItemWandGemGoldNewPng *ebiten.Image
+var ItemWandGemGlassNewPng *ebiten.Image
+var ItemWandGemBronzeNewPng *ebiten.Image
+var ItemWandGemSilverNewPng *ebiten.Image
+var ItemWandGemPlasticNewPng *ebiten.Image
+var ItemWandGemIvoryOldPng *ebiten.Image
+var ItemWandGemLeadOldPng *ebiten.Image
+var ItemWandGemBrassOldPng *ebiten.Image
+var ItemWandGemWoodOldPng *ebiten.Image
+var ItemWandGemLeadNewPng *ebiten.Image
+var ItemStaffStaff6Png *ebiten.Image
+var ItemStaffStaff3Png *ebiten.Image
+var ItemStaffStaff0Png *ebiten.Image
+var ItemStaffStaff2Png *ebiten.Image
+var ItemStaffStaff9Png *ebiten.Image
+var ItemStaffStaff8Png *ebiten.Image
+var ItemStaffStaff5Png *ebiten.Image
+var ItemStaffStaff1Png *ebiten.Image
+var ItemStaffStaff7Png *ebiten.Image
+var ItemStaffStaff4Png *ebiten.Image
+var ItemRodRod2OldPng *ebiten.Image
+var ItemRodRod3OldPng *ebiten.Image
+var ItemRodRod4OldPng *ebiten.Image
+var ItemRodRod6OldPng *ebiten.Image
+var ItemRodRod7OldPng *ebiten.Image
+var ItemRodRod0NewPng *ebiten.Image
+var ItemRodRod5OldPng *ebiten.Image
+var ItemRodRod5NewPng *ebiten.Image
+var ItemRodRod9NewPng *ebiten.Image
+var ItemRodRod2NewPng *ebiten.Image
+var ItemRodRod7NewPng *ebiten.Image
+var ItemRodRod0OldPng *ebiten.Image
+var ItemRodRod4NewPng *ebiten.Image
+var ItemRodRod6NewPng *ebiten.Image
+var ItemRodRod9OldPng *ebiten.Image
+var ItemRodRod8OldPng *ebiten.Image
+var ItemRodRod8NewPng *ebiten.Image
+var ItemRodRodForkedPng *ebiten.Image
+var ItemRodRod3NewPng *ebiten.Image
+var ItemRodRod1NewPng *ebiten.Image
+var ItemRodRod1OldPng *ebiten.Image
+var ItemArmorBackCloak3Png *ebiten.Image
+var ItemArmorBackCloak1LeatherPng *ebiten.Image
+var ItemArmorBackCloak2Png *ebiten.Image
+var ItemArmorBackCloak4Png *ebiten.Image
+var ItemArmorTorsoShadowDragonScaleMailPng *ebiten.Image
+var ItemArmorTorsoLeatherArmor2Png *ebiten.Image
+var ItemArmorTorsoBlueDragonScaleMailOldPng *ebiten.Image
+var ItemArmorTorsoIceDragonArmorOldPng *ebiten.Image
+var ItemArmorTorsoElvenLeatherArmorPng *ebiten.Image
+var ItemArmorTorsoTrollLeatherArmorPng *ebiten.Image
+var ItemArmorTorsoChainMail1Png *ebiten.Image
+var ItemArmorTorsoRingMail2NewPng *ebiten.Image
+var ItemArmorTorsoCrystalPlateMailPng *ebiten.Image
+var ItemArmorTorsoOrcishChainMailPng *ebiten.Image
+var ItemArmorTorsoAnimalSkin2OldPng *ebiten.Image
+var ItemArmorTorsoOrcishRingmailPng *ebiten.Image
+var ItemArmorTorsoRobeArt1Png *ebiten.Image
+var ItemArmorTorsoMottledDragonHideOldPng *ebiten.Image
+var ItemArmorTorsoSwampDragonHideOldPng *ebiten.Image
+var ItemArmorTorsoSwampDragonArmorNewPng *ebiten.Image
+var ItemArmorTorsoRingMail1NewPng *ebiten.Image
+var ItemArmorTorsoRobe2OldPng *ebiten.Image
+var ItemArmorTorsoLeatherArmor1Png *ebiten.Image
+var ItemArmorTorsoGoldDragonArmorOldPng *ebiten.Image
+var ItemArmorTorsoMottledDragonArmorOldPng *ebiten.Image
+var ItemArmorTorsoMottledDragonHideNewPng *ebiten.Image
+var ItemArmorTorsoSplintMail2Png *ebiten.Image
+var ItemArmorTorsoSilverDragonScalesNewPng *ebiten.Image
+var ItemArmorTorsoSilverDragonScaleMailNewPng *ebiten.Image
+var ItemArmorTorsoSilverDragonScalesOldPng *ebiten.Image
+var ItemArmorTorsoChainMail3Png *ebiten.Image
+var ItemArmorTorsoBlueDragonScaleMailNewPng *ebiten.Image
+var ItemArmorTorsoGreenDragonScalesPng *ebiten.Image
+var ItemArmorTorsoRobe1OldPng *ebiten.Image
+var ItemArmorTorsoBandedMail2Png *ebiten.Image
+var ItemArmorTorsoGoldDragonHideNewPng *ebiten.Image
+var ItemArmorTorsoRobe2NewPng *ebiten.Image
+var ItemArmorTorsoElvenRingmailPng *ebiten.Image
+var ItemArmorTorsoScaleMail1NewPng *ebiten.Image
+var ItemArmorTorsoPlateMail2Png *ebiten.Image
+var ItemArmorTorsoChainMail2Png *ebiten.Image
+var ItemArmorTorsoPlate1Png *ebiten.Image
+var ItemArmorTorsoScaleMail2OldPng *ebiten.Image
+var ItemArmorTorsoBlueDragonScalesOldPng *ebiten.Image
+var ItemArmorTorsoShadowDragonScalesPng *ebiten.Image
+var ItemArmorTorsoRobe3Png *ebiten.Image
+var ItemArmorTorsoIceDragonHideNewPng *ebiten.Image
+var ItemArmorTorsoLeatherArmor3Png *ebiten.Image
+var ItemArmorTorsoRobeArt2Png *ebiten.Image
+var ItemArmorTorsoTrollHidePng *ebiten.Image
+var ItemArmorTorsoRingMail2OldPng *ebiten.Image
+var ItemArmorTorsoScaleMail2NewPng *ebiten.Image
+var ItemArmorTorsoGoldDragonHideOldPng *ebiten.Image
+var ItemArmorTorsoQuicksilverDragonScaleMailPng *ebiten.Image
+var ItemArmorTorsoSplintMail1Png *ebiten.Image
+var ItemArmorTorsoAnimalSkin2NewPng *ebiten.Image
+var ItemArmorTorsoOrcishPlate2Png *ebiten.Image
+var ItemArmorTorsoBandedMail1Png *ebiten.Image
+var ItemArmorTorsoBlueDragonScalesNewPng *ebiten.Image
+var ItemArmorTorsoSwampDragonArmorOldPng *ebiten.Image
+var ItemArmorTorsoRingMail3Png *ebiten.Image
+var ItemArmorTorsoRobe1NewPng *ebiten.Image
+var ItemArmorTorsoElvenScalemailPng *ebiten.Image
+var ItemArmorTorsoAnimalSkin1OldPng *ebiten.Image
+var ItemArmorTorsoSilverDragonScaleMailOldPng *ebiten.Image
+var ItemArmorTorsoOrcishLeatherArmorPng *ebiten.Image
+var ItemArmorTorsoQuicksilverDragonScalesPng *ebiten.Image
+var ItemArmorTorsoGoldDragonArmorNewPng *ebiten.Image
+var ItemArmorTorsoGreenDragonScaleMailPng *ebiten.Image
+var ItemArmorTorsoSwampDragonHideNewPng *ebiten.Image
+var ItemArmorTorsoOrcishPlatemailPng *ebiten.Image
+var ItemArmorTorsoPearlDragonArmorPng *ebiten.Image
+var ItemArmorTorsoAnimalSkin1NewPng *ebiten.Image
+var ItemArmorTorsoIceDragonHideOldPng *ebiten.Image
+var ItemArmorTorsoDwarvenRingmailPng *ebiten.Image
+var ItemArmorTorsoScaleMail1OldPng *ebiten.Image
+var ItemArmorTorsoShimmeringDragonScalesPng *ebiten.Image
+var ItemArmorTorsoRobeEgo1Png *ebiten.Image
+var ItemArmorTorsoMottledDragonArmorNewPng *ebiten.Image
+var ItemArmorTorsoScaleMail3Png *ebiten.Image
+var ItemArmorTorsoAnimalSkin3Png *ebiten.Image
+var ItemArmorTorsoPlateMail1Png *ebiten.Image
+var ItemArmorTorsoRobeEgo2Png *ebiten.Image
+var ItemArmorTorsoStuddedLeatherArmorPng *ebiten.Image
+var ItemArmorTorsoIceDragonArmorNewPng *ebiten.Image
+var ItemArmorTorsoPearlDragonHidePng *ebiten.Image
+var ItemArmorTorsoRingMail1OldPng *ebiten.Image
+var ItemArmorFeetBoots3StripeOldPng *ebiten.Image
+var ItemArmorFeetBoots3StripeNewPng *ebiten.Image
+var ItemArmorFeetBoots1BrownNewPng *ebiten.Image
+var ItemArmorFeetBoots2JackbootsPng *ebiten.Image
+var ItemArmorFeetBootsIron2Png *ebiten.Image
+var ItemArmorFeetBoots4GreenPng *ebiten.Image
+var ItemArmorFeetLowBootsPng *ebiten.Image
+var ItemArmorFeetBoots1BrownOldPng *ebiten.Image
+var ItemArmorBardingsNagaBardingMagentaPng *ebiten.Image
+var ItemArmorBardingsCentaurBardingBluePng *ebiten.Image
+var ItemArmorBardingsNagaBardingBluePng *ebiten.Image
+var ItemArmorBardingsNagaBardingMetalPng *ebiten.Image
+var ItemArmorBardingsNagaBardingRedPng *ebiten.Image
+var ItemArmorBardingsCentaurBardingMetalPng *ebiten.Image
+var ItemArmorBardingsCentaurBardingMagentaPng *ebiten.Image
+var ItemArmorBardingsCentaurBardingRedPng *ebiten.Image
+var ItemArmorArtefactUrandRatskinCloakPng *ebiten.Image
+var ItemArmorArtefactUrandFlashPng *ebiten.Image
+var ItemArmorArtefactUrandLearPng *ebiten.Image
+var ItemArmorArtefactUrandIgnorancePng *ebiten.Image
+var ItemArmorArtefactUrandResistancePng *ebiten.Image
+var ItemArmorArtefactUrandBullseyePng *ebiten.Image
+var ItemArmorArtefactUrandOrangeCrystalPng *ebiten.Image
+var ItemArmorArtefactUrandGongPng *ebiten.Image
+var ItemArmorArtefactUrandDragonmaskPng *ebiten.Image
+var ItemArmorArtefactUrandDyroveprevaOldPng *ebiten.Image
+var ItemArmorArtefactUrandDragonskinPng *ebiten.Image
+var ItemArmorArtefactUrandCloudsPng *ebiten.Image
+var ItemArmorArtefactUrandThiefPng *ebiten.Image
+var ItemArmorArtefactUrandMaxwellPng *ebiten.Image
+var ItemArmorArtefactUrandAugmentationPng *ebiten.Image
+var ItemArmorArtefactUrandFollyPng *ebiten.Image
+var ItemArmorArtefactUrandPonderingOldPng *ebiten.Image
+var ItemArmorArtefactUrandHighCouncilPng *ebiten.Image
+var ItemArmorArtefactUrandDragonKingPng *ebiten.Image
+var ItemArmorArtefactUrandZhorPng *ebiten.Image
+var ItemArmorArtefactUrandEternalTormentPng *ebiten.Image
+var ItemArmorArtefactUrandFaeriePng *ebiten.Image
+var ItemArmorArtefactUrandNightOldPng *ebiten.Image
+var ItemArmorArtefactUrandBkBardingPng *ebiten.Image
+var ItemArmorArtefactUrandEthericCagePng *ebiten.Image
+var ItemArmorArtefactUrandFencerNewPng *ebiten.Image
+var ItemArmorArtefactUrandAssassinPng *ebiten.Image
+var ItemArmorArtefactUrandStarlightPng *ebiten.Image
+var ItemArmorArtefactUrandNightNewPng *ebiten.Image
+var ItemArmorArtefactUrandAlchemistPng *ebiten.Image
+var ItemArmorArtefactUrandDyroveprevaNewPng *ebiten.Image
+var ItemArmorArtefactUrandBearPng *ebiten.Image
+var ItemArmorArtefactUrandMisfortunePng *ebiten.Image
+var ItemArmorArtefactUrandPonderingNewPng *ebiten.Image
+var ItemArmorArtefactUrandSalamanderPng *ebiten.Image
+var ItemArmorArtefactUrandLightningScalesPng *ebiten.Image
+var ItemArmorArtefactUrandWarPng *ebiten.Image
+var ItemArmorArtefactUrandFencerOldPng *ebiten.Image
+var ItemArmorHeadgearHelmet4VisorPng *ebiten.Image
+var ItemArmorHeadgearWizardHat1Png *ebiten.Image
+var ItemArmorHeadgearHelmet1Png *ebiten.Image
+var ItemArmorHeadgearHelmetArt1Png *ebiten.Image
+var ItemArmorHeadgearCrestedHelmetPng *ebiten.Image
+var ItemArmorHeadgearWizardHat2Png *ebiten.Image
+var ItemArmorHeadgearCornuthaumPng *ebiten.Image
+var ItemArmorHeadgearHelmetEgo1Png *ebiten.Image
+var ItemArmorHeadgearHelmet2Png *ebiten.Image
+var ItemArmorHeadgearHelmet3NewPng *ebiten.Image
+var ItemArmorHeadgearHelmet3OldPng *ebiten.Image
+var ItemArmorHeadgearHelmet2EtchedPng *ebiten.Image
+var ItemArmorHeadgearHelmet4Png *ebiten.Image
+var ItemArmorHeadgearHelmetEgo2Png *ebiten.Image
+var ItemArmorHeadgearHat3Png *ebiten.Image
+var ItemArmorHeadgearElvenLeatherHelmPng *ebiten.Image
+var ItemArmorHeadgearCap1Png *ebiten.Image
+var ItemArmorHeadgearHelmetArt3Png *ebiten.Image
+var ItemArmorHeadgearHelmetEgo4Png *ebiten.Image
+var ItemArmorHeadgearPlumedHelmetPng *ebiten.Image
+var ItemArmorHeadgearCapJesterPng *ebiten.Image
+var ItemArmorHeadgearHelmetArt2Png *ebiten.Image
+var ItemArmorHeadgearHat2Png *ebiten.Image
+var ItemArmorHeadgearHelmet5Png *ebiten.Image
+var ItemArmorHeadgearGreenMaskPng *ebiten.Image
+var ItemArmorHeadgearHat1Png *ebiten.Image
+var ItemArmorHeadgearHelmet1VisoredPng *ebiten.Image
+var ItemArmorHeadgearHelmetEgo3Png *ebiten.Image
+var ItemArmorHeadgearCap2Png *ebiten.Image
+var ItemArmorShieldsShieldOfReflectionPng *ebiten.Image
+var ItemArmorShieldsShieldDdPng *ebiten.Image
+var ItemArmorShieldsShield2KitePng *ebiten.Image
+var ItemArmorShieldsBuckler3OldPng *ebiten.Image
+var ItemArmorShieldsShield2OldPng *ebiten.Image
+var ItemArmorShieldsShield3Png *ebiten.Image
+var ItemArmorShieldsShield1ElvenPng *ebiten.Image
+var ItemArmorShieldsBuckler3NewPng *ebiten.Image
+var ItemArmorShieldsShield1Png *ebiten.Image
+var ItemArmorShieldsShield4SprigganPng *ebiten.Image
+var ItemArmorShieldsLargeShield2NewPng *ebiten.Image
+var ItemArmorShieldsShield2NewPng *ebiten.Image
+var ItemArmorShieldsBuckler2NewPng *ebiten.Image
+var ItemArmorShieldsLargeShield1NewPng *ebiten.Image
+var ItemArmorShieldsLshieldDdDkPng *ebiten.Image
+var ItemArmorShieldsShieldDonaldPng *ebiten.Image
+var ItemArmorShieldsLargeShield2OldPng *ebiten.Image
+var ItemArmorShieldsLshieldLouisePng *ebiten.Image
+var ItemArmorShieldsLargeShield3OldPng *ebiten.Image
+var ItemArmorShieldsLargeShield3NewPng *ebiten.Image
+var ItemArmorShieldsBuckler2OldPng *ebiten.Image
+var ItemArmorShieldsElvenBuckler1Png *ebiten.Image
+var ItemArmorShieldsBuckler1OldPng *ebiten.Image
+var ItemArmorShieldsDwarvenBuckler2Png *ebiten.Image
+var ItemArmorShieldsBuckler1NewPng *ebiten.Image
+var ItemArmorShieldsShieldDdScionPng *ebiten.Image
+var ItemArmorShieldsDwarvenBuckler1Png *ebiten.Image
+var ItemArmorShieldsElvenBuckler2Png *ebiten.Image
+var ItemArmorShieldsShield3RoundPng *ebiten.Image
+var ItemArmorShieldsLargeShield1OldPng *ebiten.Image
+var ItemArmorHandsGlove2NewPng *ebiten.Image
+var ItemArmorHandsGlove2OldPng *ebiten.Image
+var ItemArmorHandsGlove3OldPng *ebiten.Image
+var ItemArmorHandsGauntlet1Png *ebiten.Image
+var ItemArmorHandsGlove1NewPng *ebiten.Image
+var ItemArmorHandsGlove4OldPng *ebiten.Image
+var ItemArmorHandsGlove5Png *ebiten.Image
+var ItemArmorHandsGlove4NewPng *ebiten.Image
+var ItemArmorHandsGlove1OldPng *ebiten.Image
+var ItemArmorHandsGlove4GauntletsPng *ebiten.Image
+var ItemArmorHandsGlove3NewPng *ebiten.Image
+var ItemPotionPotionGoldenPng *ebiten.Image
+var ItemPotionPotionPurpleRedPng *ebiten.Image
+var ItemPotionBlackNewPng *ebiten.Image
+var ItemPotionMurkyPng *ebiten.Image
+var ItemPotionPotionPucePng *ebiten.Image
+var ItemPotionDarkPng *ebiten.Image
+var ItemPotionOrangeOldPng *ebiten.Image
+var ItemPotionEffervescentPng *ebiten.Image
+var ItemPotionPotionCloudyPng *ebiten.Image
+var ItemPotionPurpleRedPng *ebiten.Image
+var ItemPotionBlackOldPng *ebiten.Image
+var ItemPotionILabelPng *ebiten.Image
+var ItemPotionEmeraldPng *ebiten.Image
+var ItemPotionMagentaNewPng *ebiten.Image
+var ItemPotionClearPng *ebiten.Image
+var ItemPotionWhiteNewPng *ebiten.Image
+var ItemPotionBrownOldPng *ebiten.Image
+var ItemPotionYellowNewPng *ebiten.Image
+var ItemPotionRubyOldPng *ebiten.Image
+var ItemPotionPotionMurkyPng *ebiten.Image
+var ItemPotionOrangeNewPng *ebiten.Image
+var ItemPotionWhiteOldPng *ebiten.Image
+var ItemPotionBubblyPng *ebiten.Image
+var ItemPotionBrilliantBlueNewPng *ebiten.Image
+var ItemPotionFizzyPng *ebiten.Image
+var ItemPotionGoldenPng *ebiten.Image
+var ItemPotionPotionEffervescentPng *ebiten.Image
+var ItemPotionCloudyPng *ebiten.Image
+var ItemPotionPotionFizzyPng *ebiten.Image
+var ItemPotionUnknownPng *ebiten.Image
+var ItemPotionPotionSkyBluePng *ebiten.Image
+var ItemPotionMagentaOldPng *ebiten.Image
+var ItemPotionPotionBubblyPng *ebiten.Image
+var ItemPotionBrownNewPng *ebiten.Image
+var ItemPotionPinkPng *ebiten.Image
+var ItemPotionSkyBluePng *ebiten.Image
+var ItemPotionCyanNewPng *ebiten.Image
+var ItemPotionPucePng *ebiten.Image
+var ItemPotionBrilliantBlueOldPng *ebiten.Image
+var ItemPotionCyanOldPng *ebiten.Image
+var ItemPotionRubyNewPng *ebiten.Image
+var ItemPotionSilverPng *ebiten.Image
+var ItemPotionYellowOldPng *ebiten.Image
+var ItemWeaponFalchion1OldPng *ebiten.Image
+var ItemWeaponFlail7Png *ebiten.Image
+var ItemWeaponLongSword2Png *ebiten.Image
+var ItemWeaponCutlass5Png *ebiten.Image
+var ItemWeaponStaffMummyPng *ebiten.Image
+var ItemWeaponDireFlail1Png *ebiten.Image
+var ItemWeaponEveningstar6Png *ebiten.Image
+var ItemWeaponGreatsword1NewPng *ebiten.Image
+var ItemWeaponMaceLarge2OldPng *ebiten.Image
+var ItemWeaponFalchion3Png *ebiten.Image
+var ItemWeaponElvenDaggerPng *ebiten.Image
+var ItemWeaponSpikedFlail2OldPng *ebiten.Image
+var ItemWeaponScythe1OldPng *ebiten.Image
+var ItemWeaponSpear1ElvenPng *ebiten.Image
+var ItemWeaponGiantClubOldPng *ebiten.Image
+var ItemWeaponHandAxe2OldPng *ebiten.Image
+var ItemWeaponScythe3Png *ebiten.Image
+var ItemWeaponEveningstar1NewPng *ebiten.Image
+var ItemWeaponEveningstar4Png *ebiten.Image
+var ItemWeaponShortSword6Png *ebiten.Image
+var ItemWeaponFlail3Png *ebiten.Image
+var ItemWeaponCutlass8Png *ebiten.Image
+var ItemWeaponGreatsword3OldPng *ebiten.Image
+var ItemWeaponClaymore2Png *ebiten.Image
+var ItemWeaponMace1OldPng *ebiten.Image
+var ItemWeaponFlail1NewPng *ebiten.Image
+var ItemWeaponGreatFlail1Png *ebiten.Image
+var ItemWeaponBattleAxe1Png *ebiten.Image
+var ItemWeaponElvenShortSwordPng *ebiten.Image
+var ItemWeaponDagger6Png *ebiten.Image
+var ItemWeaponHandAxe1NewPng *ebiten.Image
+var ItemWeaponClub2Png *ebiten.Image
+var ItemWeaponMorningstar2NewPng *ebiten.Image
+var ItemWeaponMorningstar2OldPng *ebiten.Image
+var ItemWeaponKatanaPng *ebiten.Image
+var ItemWeaponEveningstar2OldPng *ebiten.Image
+var ItemWeaponGlaive2Png *ebiten.Image
+var ItemWeaponLongSword5Png *ebiten.Image
+var ItemWeaponScythe1NewPng *ebiten.Image
+var ItemWeaponSpear2NewPng *ebiten.Image
+var ItemWeaponOrcishGreatSwordPng *ebiten.Image
+var ItemWeaponSpear1Png *ebiten.Image
+var ItemWeaponBroadAxe4Png *ebiten.Image
+var ItemWeaponAnkusPng *ebiten.Image
+var ItemWeaponEveningstar7Png *ebiten.Image
+var ItemWeaponLongSword7Png *ebiten.Image
+var ItemWeaponExecutionerAxe5Png *ebiten.Image
+var ItemWeaponClaymore3Png *ebiten.Image
+var ItemWeaponDireFlail2Png *ebiten.Image
+var ItemWeaponTripleSword2Png *ebiten.Image
+var ItemWeaponFlail2NewPng *ebiten.Image
+var ItemWeaponMace7Png *ebiten.Image
+var ItemWeaponScythe2NewPng *ebiten.Image
+var ItemWeaponQuickbladePng *ebiten.Image
+var ItemWeaponSpear6Png *ebiten.Image
+var ItemWeaponFalchion4Png *ebiten.Image
+var ItemWeaponSpikedFlail3Png *ebiten.Image
+var ItemWeaponFalchion5Png *ebiten.Image
+var ItemWeaponBattleAxe3Png *ebiten.Image
+var ItemWeaponBroadAxe1Png *ebiten.Image
+var ItemWeaponScimitar2Png *ebiten.Image
+var ItemWeaponGiantSpikedClubNewPng *ebiten.Image
+var ItemWeaponTripleSwordNewPng *ebiten.Image
+var ItemWeaponWarHammerPng *ebiten.Image
+var ItemWeaponAncientSwordPng *ebiten.Image
+var ItemWeaponSpear3Png *ebiten.Image
+var ItemWeaponFlail6Png *ebiten.Image
+var ItemWeaponMorningstar4Png *ebiten.Image
+var ItemWeaponShortSword2NewPng *ebiten.Image
+var ItemWeaponClaymoreBlessedPng *ebiten.Image
+var ItemWeaponDaggerOldPng *ebiten.Image
+var ItemWeaponGiantClub3Png *ebiten.Image
+var ItemWeaponShortSword1OldPng *ebiten.Image
+var ItemWeaponBroadAxe2Png *ebiten.Image
+var ItemWeaponMaceLarge2NewPng *ebiten.Image
+var ItemWeaponFalchion1NewPng *ebiten.Image
+var ItemWeaponGreatFlail2Png *ebiten.Image
+var ItemWeaponKnifePng *ebiten.Image
+var ItemWeaponTrishulaPng *ebiten.Image
+var ItemWeaponLongSword1NewPng *ebiten.Image
+var ItemWeaponSpear4Png *ebiten.Image
+var ItemWeaponMace3OldPng *ebiten.Image
+var ItemWeaponDagger3Png *ebiten.Image
+var ItemWeaponGreatsword2Png *ebiten.Image
+var ItemWeaponHammer1NewPng *ebiten.Image
+var ItemWeaponShortSword3Png *ebiten.Image
+var ItemWeaponTripleSwordOldPng *ebiten.Image
+var ItemWeaponBattleAxe5Png *ebiten.Image
+var ItemWeaponEveningstar3Png *ebiten.Image
+var ItemWeaponFalchion6Png *ebiten.Image
+var ItemWeaponWarAxe2Png *ebiten.Image
+var ItemWeaponBattleAxe2Png *ebiten.Image
+var ItemWeaponGiantSpikedClub2Png *ebiten.Image
+var ItemWeaponHalberd2Png *ebiten.Image
+var ItemWeaponGoldenSwordPng *ebiten.Image
+var ItemWeaponLajatang1Png *ebiten.Image
+var ItemWeaponCutlass6Png *ebiten.Image
+var ItemWeaponBullwhip2Png *ebiten.Image
+var ItemWeaponBullwhip3Png *ebiten.Image
+var ItemWeaponQuarterstaff2Png *ebiten.Image
+var ItemWeaponDemonTridentPng *ebiten.Image
+var ItemWeaponScimitar3Png *ebiten.Image
+var ItemWeaponFlail1OldPng *ebiten.Image
+var ItemWeaponHammer2OldPng *ebiten.Image
+var ItemWeaponExecutionerAxe7Png *ebiten.Image
+var ItemWeaponOrcishGlaivePng *ebiten.Image
+var ItemWeaponQuarterstaff3Png *ebiten.Image
+var ItemWeaponOrcishDaggerPng *ebiten.Image
+var ItemWeaponLongSword1OldPng *ebiten.Image
+var ItemWeaponShortSword5Png *ebiten.Image
+var ItemWeaponShortSword1NewPng *ebiten.Image
+var ItemWeaponSpikedFlail2NewPng *ebiten.Image
+var ItemWeaponGreatsword1OldPng *ebiten.Image
+var ItemWeaponSpearPng *ebiten.Image
+var ItemWeaponBattleAxe7Png *ebiten.Image
+var ItemWeaponHalberd1Png *ebiten.Image
+var ItemWeaponEveningstar5Png *ebiten.Image
+var ItemWeaponSpear2OldPng *ebiten.Image
+var ItemWeaponMace2OldPng *ebiten.Image
+var ItemWeaponSpear7Png *ebiten.Image
+var ItemWeaponMace2NewPng *ebiten.Image
+var ItemWeaponMorningstar7Png *ebiten.Image
+var ItemWeaponShortSword2OldPng *ebiten.Image
+var ItemWeaponBroadAxe3Png *ebiten.Image
+var ItemWeaponGreatsword3NewPng *ebiten.Image
+var ItemWeaponBullwhipOldPng *ebiten.Image
+var ItemWeaponWarAxe5Png *ebiten.Image
+var ItemWeaponExecutionerAxe2NewPng *ebiten.Image
+var ItemWeaponExecutionerAxePng *ebiten.Image
+var ItemWeaponOrcishLongSwordPng *ebiten.Image
+var ItemWeaponLajatang2Png *ebiten.Image
+var ItemWeaponGreatsword4Png *ebiten.Image
+var ItemWeaponHammer1OldPng *ebiten.Image
+var ItemWeaponEveningstar1OldPng *ebiten.Image
+var ItemWeaponDagger7Png *ebiten.Image
+var ItemWeaponLucernHammerPng *ebiten.Image
+var ItemWeaponGlaive1Png *ebiten.Image
+var ItemWeaponBattleAxe4Png *ebiten.Image
+var ItemWeaponWarAxe4Png *ebiten.Image
+var ItemWeaponCutlass7Png *ebiten.Image
+var ItemWeaponExecutionerAxe1Png *ebiten.Image
+var ItemWeaponMace3NewPng *ebiten.Image
+var ItemWeaponDaggerNewPng *ebiten.Image
+var ItemWeaponSpikedFlail1OldPng *ebiten.Image
+var ItemWeaponBattleAxe6Png *ebiten.Image
+var ItemWeaponDireFlail3Png *ebiten.Image
+var ItemWeaponExecutionerAxe6Png *ebiten.Image
+var ItemWeaponSpikedFlail1NewPng *ebiten.Image
+var ItemWeaponMorningstar6Png *ebiten.Image
+var ItemWeaponFalchion2OldPng *ebiten.Image
+var ItemWeaponDemonBladePng *ebiten.Image
+var ItemWeaponMace1NewPng *ebiten.Image
+var ItemWeaponCutlass1Png *ebiten.Image
+var ItemWeaponWarAxe7Png *ebiten.Image
+var ItemWeaponHolyScourgePng *ebiten.Image
+var ItemWeaponExecutionerAxe4Png *ebiten.Image
+var ItemWeaponBullwhipNewPng *ebiten.Image
+var ItemWeaponGiantSpikedClubOldPng *ebiten.Image
+var ItemWeaponRapier2Png *ebiten.Image
+var ItemWeaponFalchion2NewPng *ebiten.Image
+var ItemWeaponBardiche4Png *ebiten.Image
+var ItemWeaponHandAxe2NewPng *ebiten.Image
+var ItemWeaponKatana1Png *ebiten.Image
+var ItemWeaponRapier3Png *ebiten.Image
+var ItemWeaponBroadAxe5Png *ebiten.Image
+var ItemWeaponScythe2OldPng *ebiten.Image
+var ItemWeaponBardiche1Png *ebiten.Image
+var ItemWeaponAxePng *ebiten.Image
+var ItemWeaponHandCrossbowPng *ebiten.Image
+var ItemWeaponBroadAxe6Png *ebiten.Image
+var ItemWeaponElvenBroadswordPng *ebiten.Image
+var ItemWeaponTwoHandedSwordPng *ebiten.Image
+var ItemWeaponHammer3Png *ebiten.Image
+var ItemWeaponBlessedBladePng *ebiten.Image
+var ItemWeaponGiantClubNewPng *ebiten.Image
+var ItemWeaponSabre2Png *ebiten.Image
+var ItemWeaponClaymorePng *ebiten.Image
+var ItemWeaponWarAxe1Png *ebiten.Image
+var ItemWeaponLongSword3Png *ebiten.Image
+var ItemWeaponLongSword6Png *ebiten.Image
+var ItemWeaponMorningstar1NewPng *ebiten.Image
+var ItemWeaponFlail2OldPng *ebiten.Image
+var ItemWeaponCutlass3Png *ebiten.Image
+var ItemWeaponShortSword7Png *ebiten.Image
+var ItemWeaponHalberd5Png *ebiten.Image
+var ItemWeaponHandCrossbow2Png *ebiten.Image
+var ItemWeaponDoubleSwordOldPng *ebiten.Image
+var ItemWeaponSpear5Png *ebiten.Image
+var ItemWeaponTsurugiPng *ebiten.Image
+var ItemWeaponDemonWhipPng *ebiten.Image
+var ItemWeaponScimitar1OldPng *ebiten.Image
+var ItemWeaponQuarterstaffOldPng *ebiten.Image
+var ItemWeaponHandAxe3Png *ebiten.Image
+var ItemWeaponCutlass9Png *ebiten.Image
+var ItemWeaponClubOldPng *ebiten.Image
+var ItemWeaponKatana2Png *ebiten.Image
+var ItemWeaponCutlass4Png *ebiten.Image
+var ItemWeaponHandAxe1OldPng *ebiten.Image
+var ItemWeaponMaceLarge1NewPng *ebiten.Image
+var ItemWeaponScimitar1NewPng *ebiten.Image
+var ItemWeaponTrident1Png *ebiten.Image
+var ItemWeaponBardiche5Png *ebiten.Image
+var ItemWeaponOrcishShortSwordPng *ebiten.Image
+var ItemWeaponTrident2Png *ebiten.Image
+var ItemWeaponMorningstar5Png *ebiten.Image
+var ItemWeaponDoubleSword2Png *ebiten.Image
+var ItemWeaponGiantClub2Png *ebiten.Image
+var ItemWeaponQuarterstaffNewPng *ebiten.Image
+var ItemWeaponMorningstar3Png *ebiten.Image
+var ItemWeaponFalchion7Png *ebiten.Image
+var ItemWeaponBroadAxe7Png *ebiten.Image
+var ItemWeaponGiantSpikedClub3Png *ebiten.Image
+var ItemWeaponMorningstar1OldPng *ebiten.Image
+var ItemWeaponHammer2NewPng *ebiten.Image
+var ItemWeaponDoubleSwordNewPng *ebiten.Image
+var ItemWeaponClubNewPng *ebiten.Image
+var ItemWeaponMaceLarge3Png *ebiten.Image
+var ItemWeaponBardiche2Png *ebiten.Image
+var ItemWeaponWarAxe6Png *ebiten.Image
+var ItemWeaponMaceLarge1OldPng *ebiten.Image
+var ItemWeaponExecutionerAxe2OldPng *ebiten.Image
+var ItemWeaponEveningstar2NewPng *ebiten.Image
+var ItemWeaponRapier1Png *ebiten.Image
+var ItemWeaponSabre1SilverPng *ebiten.Image
+var ItemWeaponHalberd4Png *ebiten.Image
+var ItemWeaponTripleSword3Png *ebiten.Image
+var ItemWeaponDoubleSword3Png *ebiten.Image
+var ItemWeaponArtefactUrandKatanaPng *ebiten.Image
+var ItemWeaponArtefactSpwpnWrathOfTrog2Png *ebiten.Image
+var ItemWeaponArtefactUrandHellfirePng *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfPowerNewPng *ebiten.Image
+var ItemWeaponArtefactUrandOctopusKingPng *ebiten.Image
+var ItemWeaponArtefactUrandSpriggansKnifeNewPng *ebiten.Image
+var ItemWeaponArtefactUrandSkullcrusherPng *ebiten.Image
+var ItemWeaponArtefactUrandBloodbaneNewPng *ebiten.Image
+var ItemWeaponArtefactUrandCrystalSpearNewPng *ebiten.Image
+var ItemWeaponArtefactUrandGuardNewPng *ebiten.Image
+var ItemWeaponArtefactUrandGyrePng *ebiten.Image
+var ItemWeaponArtefactUrandKrishnaOldPng *ebiten.Image
+var ItemWeaponArtefactUrandCrystalSpearOldPng *ebiten.Image
+var ItemWeaponArtefactUrandJihadOldPng *ebiten.Image
+var ItemWeaponArtefactUrandBotonoPng *ebiten.Image
+var ItemWeaponArtefactUrandPlutoniumOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfZonguldrokOldPng *ebiten.Image
+var ItemWeaponArtefactUrandKnifeOfAccuracyPng *ebiten.Image
+var ItemWeaponArtefactUrandEosPng *ebiten.Image
+var ItemWeaponArtefactUrandCutlassOldPng *ebiten.Image
+var ItemWeaponArtefactUrandAxeOfWoePng *ebiten.Image
+var ItemWeaponArtefactUrandFinisherPng *ebiten.Image
+var ItemWeaponArtefactUrandPunkPng *ebiten.Image
+var ItemWeaponArtefactUrandFlamingDeathOldPng *ebiten.Image
+var ItemWeaponArtefactUrandArgaNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnWrathOfTrogNewPng *ebiten.Image
+var ItemWeaponArtefactUrandPiercerOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnStaffOfDispaterOldPng *ebiten.Image
+var ItemWeaponArtefactUrandArgaOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnStaffOfDispaterNewPng *ebiten.Image
+var ItemWeaponArtefactUrandSerpentScourgePng *ebiten.Image
+var ItemWeaponArtefactUrandOrderPng *ebiten.Image
+var ItemWeaponArtefactSpwpnStaffOfDispater2Png *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfPowerOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnScytheOfCursesOldPng *ebiten.Image
+var ItemWeaponArtefactUrandStormBowPng *ebiten.Image
+var ItemWeaponArtefactUrandWyrmbaneOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnSingingSwordPng *ebiten.Image
+var ItemWeaponArtefactSpwpnSceptreOfAsmodeusPng *ebiten.Image
+var ItemWeaponArtefactSpwpnWucadMuOldPng *ebiten.Image
+var ItemWeaponArtefactUrandSpriggansKnifeOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnSceptreOfTormentPng *ebiten.Image
+var ItemWeaponArtefactUrandSniperPng *ebiten.Image
+var ItemWeaponArtefactUrandCutlassNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnGlaiveOfPruneOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnScepterOfAsmodeus2Png *ebiten.Image
+var ItemWeaponArtefactSpwpnWrathOfTrogOldPng *ebiten.Image
+var ItemWeaponArtefactUrandJihadNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnScepterOfAsmodeusPng *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfZonguldrokNewPng *ebiten.Image
+var ItemWeaponArtefactUrandUndeadhunterPng *ebiten.Image
+var ItemWeaponArtefactUrandLeechPng *ebiten.Image
+var ItemWeaponArtefactUrandDoomKnightOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnScytheOfCursesNewPng *ebiten.Image
+var ItemWeaponArtefactUrandBloodbaneOldPng *ebiten.Image
+var ItemWeaponArtefactUrandKrishnaNewPng *ebiten.Image
+var ItemWeaponArtefactUrandShillelaghPng *ebiten.Image
+var ItemWeaponArtefactSpwpnMajinPng *ebiten.Image
+var ItemWeaponArtefactUrandBlowgunPng *ebiten.Image
+var ItemWeaponArtefactUrandElementalPng *ebiten.Image
+var ItemWeaponArtefactUrandChillyDeathNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnScepterOfTormentPng *ebiten.Image
+var ItemWeaponArtefactUrandWyrmbaneNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnMaceOfVariabilityNewPng *ebiten.Image
+var ItemWeaponArtefactUrandBrilliancePng *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfZonguldrok2Png *ebiten.Image
+var ItemWeaponArtefactUrandPlutoniumNewPng *ebiten.Image
+var ItemWeaponArtefactUrandDoomKnightNewPng *ebiten.Image
+var ItemWeaponArtefactUrandSnakebitePng *ebiten.Image
+var ItemWeaponArtefactUrandGuardOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnGlaiveOfPruneNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnWucadMuNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnMaceOfVariabilityOldPng *ebiten.Image
+var ItemWeaponArtefactUrandFlamingDeathNewPng *ebiten.Image
+var ItemWeaponArtefactUrandMorgPng *ebiten.Image
+var ItemWeaponArtefactSpwpnStaffOfOlgrebPng *ebiten.Image
+var ItemWeaponArtefactUrandPiercerNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnVampiresToothPng *ebiten.Image
+var ItemWeaponArtefactUrandArcBladePng *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfCerebovNewPng *ebiten.Image
+var ItemWeaponArtefactSpwpnScepterOfTorment2Png *ebiten.Image
+var ItemWeaponArtefactUrandChillyDeathOldPng *ebiten.Image
+var ItemWeaponArtefactSpwpnSwordOfCerebovOldPng *ebiten.Image
+var ItemWeaponArtefactUrandFirestarterPng *ebiten.Image
+var ItemWeaponRangedStoneOldPng *ebiten.Image
+var ItemWeaponRangedHandCrossbow3Png *ebiten.Image
+var ItemWeaponRangedSling2Png *ebiten.Image
+var ItemWeaponRangedBlowgun1Png *ebiten.Image
+var ItemWeaponRangedTomahawk1Png *ebiten.Image
+var ItemWeaponRangedLongbow3Png *ebiten.Image
+var ItemWeaponRangedNeedleCPng *ebiten.Image
+var ItemWeaponRangedLongbow2Png *ebiten.Image
+var ItemWeaponRangedCrossbow1Png *ebiten.Image
+var ItemWeaponRangedArbalest1Png *ebiten.Image
+var ItemWeaponRangedLongbowPng *ebiten.Image
+var ItemWeaponRangedArbalest2Png *ebiten.Image
+var ItemWeaponRangedBow1Png *ebiten.Image
+var ItemWeaponRangedArbalest3Png *ebiten.Image
+var ItemWeaponRangedSilverArrowPng *ebiten.Image
+var ItemWeaponRangedBlowgun2Png *ebiten.Image
+var ItemWeaponRangedElvenArrowPng *ebiten.Image
+var ItemWeaponRangedStoneNewPng *ebiten.Image
+var ItemWeaponRangedSlingBullet2OldPng *ebiten.Image
+var ItemWeaponRangedSlingBullet1OldPng *ebiten.Image
+var ItemWeaponRangedTomahawk2Png *ebiten.Image
+var ItemWeaponRangedShortbow1Png *ebiten.Image
+var ItemWeaponRangedShortbow3Png *ebiten.Image
+var ItemWeaponRangedRockNewPng *ebiten.Image
+var ItemWeaponRangedSilverTomahawkPng *ebiten.Image
+var ItemWeaponRangedCrossbow2Png *ebiten.Image
+var ItemWeaponRangedSling1Png *ebiten.Image
+var ItemWeaponRangedHandCrossbowPng *ebiten.Image
+var ItemWeaponRangedShortbow2Png *ebiten.Image
+var ItemWeaponRangedThrowingNetPng *ebiten.Image
+var ItemWeaponRangedSlingBullet2NewPng *ebiten.Image
+var ItemWeaponRangedBow2Png *ebiten.Image
+var ItemWeaponRangedHandCrossbow2Png *ebiten.Image
+var ItemWeaponRangedRockOldPng *ebiten.Image
+var ItemWeaponRangedGreatslingPng *ebiten.Image
+var ItemWeaponRangedOrcishArrowPng *ebiten.Image
+var ItemWeaponRangedSlingBullet1NewPng *ebiten.Image
+var ItemWeaponRangedGreatsling2Png *ebiten.Image
+var ItemWeaponRangedSteelTomahawkPng *ebiten.Image
+var ItemWeaponRangedLongbow1Png *ebiten.Image
+var ItemGoldGoldPile3Png *ebiten.Image
+var ItemGoldGoldPile6Png *ebiten.Image
+var ItemGoldGoldPile10Png *ebiten.Image
+var ItemGoldGoldPile19Png *ebiten.Image
+var ItemGoldGoldPile7Png *ebiten.Image
+var ItemGoldGoldPile2Png *ebiten.Image
+var ItemGoldGoldPile1Png *ebiten.Image
+var ItemGoldGoldPile4Png *ebiten.Image
+var ItemGoldGoldPile9Png *ebiten.Image
+var ItemGoldGoldPile25Png *ebiten.Image
+var ItemGoldGoldPile8Png *ebiten.Image
+var ItemGoldGoldPilePng *ebiten.Image
+var ItemGoldGoldPile5Png *ebiten.Image
+var ItemGoldGoldPile23Png *ebiten.Image
+var ItemGoldGoldPile16Png *ebiten.Image
+var ItemFoodMeatRationOldPng *ebiten.Image
+var ItemFoodSultanaPng *ebiten.Image
+var ItemFoodLemonOldPng *ebiten.Image
+var ItemFoodBreadRationOldPng *ebiten.Image
+var ItemFoodGrapePng *ebiten.Image
+var ItemFoodChunkPng *ebiten.Image
+var ItemFoodBananaOldPng *ebiten.Image
+var ItemFoodPizzaNewPng *ebiten.Image
+var ItemFoodSnozzcumberPng *ebiten.Image
+var ItemFoodStrawberryNewPng *ebiten.Image
+var ItemFoodRambutanOldPng *ebiten.Image
+var ItemFoodApplePng *ebiten.Image
+var ItemFoodHoneycombOldPng *ebiten.Image
+var ItemFoodLycheeOldPng *ebiten.Image
+var ItemFoodCheesePng *ebiten.Image
+var ItemFoodLemonNewPng *ebiten.Image
+var ItemFoodOrangePng *ebiten.Image
+var ItemFoodBonePng *ebiten.Image
+var ItemFoodBeefJerkyOldPng *ebiten.Image
+var ItemFoodLumpOfRoyalJellyNewPng *ebiten.Image
+var ItemFoodPearPng *ebiten.Image
+var ItemFoodStrawberryOldPng *ebiten.Image
+var ItemFoodPieceOfAmbrosiaNewPng *ebiten.Image
+var ItemFoodBeefJerkyNewPng *ebiten.Image
+var ItemFoodLumpOfRoyalJellyOldPng *ebiten.Image
+var ItemFoodChokoPng *ebiten.Image
+var ItemFoodBreadRationNewPng *ebiten.Image
+var ItemFoodRambutanNewPng *ebiten.Image
+var ItemFoodFruitPng *ebiten.Image
+var ItemFoodPieceOfAmbrosiaOldPng *ebiten.Image
+var ItemFoodSausagePng *ebiten.Image
+var ItemFoodApricotOldPng *ebiten.Image
+var ItemFoodLycheeNewPng *ebiten.Image
+var ItemFoodChunkRottenPng *ebiten.Image
+var ItemFoodPizzaOldPng *ebiten.Image
+var ItemFoodBananaNewPng *ebiten.Image
+var ItemFoodApricotNewPng *ebiten.Image
+var ItemFoodMeatRationNewPng *ebiten.Image
+var ItemFoodHoneycombNewPng *ebiten.Image
+var ItemAmuletCameoBluePng *ebiten.Image
+var ItemAmuletEyeMagentaPng *ebiten.Image
+var ItemAmuletCelticYellowPng *ebiten.Image
+var ItemAmuletRingCyanPng *ebiten.Image
+var ItemAmuletStone1CyanPng *ebiten.Image
+var ItemAmuletStone3MagentaPng *ebiten.Image
+var ItemAmuletCelticRedPng *ebiten.Image
+var ItemAmuletStone2GreenPng *ebiten.Image
+var ItemAmuletPentaOrangePng *ebiten.Image
+var ItemAmuletStone1GreenPng *ebiten.Image
+var ItemAmuletStone3GreenPng *ebiten.Image
+var ItemAmuletEyeCyanPng *ebiten.Image
+var ItemAmuletPentaGreenPng *ebiten.Image
+var ItemAmuletCelticBluePng *ebiten.Image
+var ItemAmuletStone3BluePng *ebiten.Image
+var ItemAmuletStone2BluePng *ebiten.Image
+var ItemAmuletCylinderGrayPng *ebiten.Image
+var ItemAmuletCameoOrangePng *ebiten.Image
+var ItemAmuletCrystalWhitePng *ebiten.Image
+var ItemAmuletFace1GoldPng *ebiten.Image
+var ItemAmuletRingGreenPng *ebiten.Image
+var ItemAmuletStone2RedPng *ebiten.Image
+var ItemAmuletRingRedPng *ebiten.Image
+var ItemAmuletBoneGrayPng *ebiten.Image
+var ItemAmuletStone1PinkPng *ebiten.Image
+var ItemAmuletCrystalGreenPng *ebiten.Image
+var ItemAmuletFace2Png *ebiten.Image
+var ItemAmuletCrystalRedPng *ebiten.Image
+var ItemAmuletEyeGreenPng *ebiten.Image
+var ItemAmuletArtefactUrandFourWindsOldPng *ebiten.Image
+var ItemAmuletArtefactUrandFourWindsNewPng *ebiten.Image
+var ItemAmuletArtefactUrandCekugobNewPng *ebiten.Image
+var ItemAmuletArtefactUrandVitalityPng *ebiten.Image
+var ItemAmuletArtefactUrandBroochOfShieldingNewPng *ebiten.Image
+var ItemAmuletArtefactUrandBroochOfShieldingOldPng *ebiten.Image
+var ItemAmuletArtefactUrandCekugobOldPng *ebiten.Image
+var ItemAmuletArtefactUrandFingerPng *ebiten.Image
+var ItemAmuletArtefactUrandBloodlustNewPng *ebiten.Image
+var ItemAmuletArtefactUrandBloodlustOldPng *ebiten.Image
+var ItemAmuletArtefactUrandAirNewPng *ebiten.Image
+var ItemAmuletArtefactUrandAirOldPng *ebiten.Image
+var ItemMiscMagicLampPng *ebiten.Image
+var ItemMiscMiscStoneNewPng *ebiten.Image
+var ItemMiscMiscDeckOldPng *ebiten.Image
+var ItemMiscMiscDiscOldPng *ebiten.Image
+var ItemMiscMiscRunePng *ebiten.Image
+var ItemMiscMiscQuadPng *ebiten.Image
+var ItemMiscMiscHornPng *ebiten.Image
+var ItemMiscMiscDeckRareOldPng *ebiten.Image
+var ItemMiscMiscBoxPng *ebiten.Image
+var ItemMiscMiscDeckLegendaryNewPng *ebiten.Image
+var ItemMiscMiscDeckRareNewPng *ebiten.Image
+var ItemMiscMiscPhialPng *ebiten.Image
+var ItemMiscMiscDeckLegendaryOldPng *ebiten.Image
+var ItemMiscMiscDeckNewPng *ebiten.Image
+var ItemMiscMiscPhantomMirrorPng *ebiten.Image
+var ItemMiscMiscCrystalOldPng *ebiten.Image
+var ItemMiscMiscLampOldPng *ebiten.Image
+var ItemMiscMiscOrbPng *ebiten.Image
+var ItemMiscMiscLampInertPng *ebiten.Image
+var ItemMiscKeyPng *ebiten.Image
+var ItemMiscMirrorPng *ebiten.Image
+var ItemMiscMiscOrb2Png *ebiten.Image
+var ItemMiscMiscCrystalNewPng *ebiten.Image
+var ItemMiscMiscLampNewPng *ebiten.Image
+var ItemMiscMiscStoneOldPng *ebiten.Image
+var ItemMiscMiscLanternPng *ebiten.Image
+var ItemMiscMiscFanOldPng *ebiten.Image
+var ItemMiscMiscFanNewPng *ebiten.Image
+var ItemMiscMiscFanInertPng *ebiten.Image
+var ItemMiscMiscStoneInertPng *ebiten.Image
+var ItemMiscMiscDiscNewPng *ebiten.Image
+var ItemMiscMiscPhialInertPng *ebiten.Image
+var ItemMiscMiscBottlePng *ebiten.Image
+var ItemMiscRunesRuneLomLobonNewPng *ebiten.Image
+var ItemMiscRunesRuneAbyssPng *ebiten.Image
+var ItemMiscRunesGenericPng *ebiten.Image
+var ItemMiscRunesRuneGehennaOldPng *ebiten.Image
+var ItemMiscRunesRuneDemonic2Png *ebiten.Image
+var ItemMiscRunesRuneVaultsPng *ebiten.Image
+var ItemMiscRunesRuneDisOldPng *ebiten.Image
+var ItemMiscRunesRuneMnolegOldPng *ebiten.Image
+var ItemMiscRunesRuneCocytusNewPng *ebiten.Image
+var ItemMiscRunesRuneDemonic1Png *ebiten.Image
+var ItemMiscRunesRuneTartarusNewPng *ebiten.Image
+var ItemMiscRunesRuneDemonic3Png *ebiten.Image
+var ItemMiscRunesRuneGehennaNewPng *ebiten.Image
+var ItemMiscRunesRuneElvenPng *ebiten.Image
+var ItemMiscRunesRuneGloorxVloqOldPng *ebiten.Image
+var ItemMiscRunesRuneTartarusOldPng *ebiten.Image
+var ItemMiscRunesRuneDemonic6Png *ebiten.Image
+var ItemMiscRunesRuneDemonic4Png *ebiten.Image
+var ItemMiscRunesRuneCerebovOldPng *ebiten.Image
+var ItemMiscRunesRuneCerebovNewPng *ebiten.Image
+var ItemMiscRunesRuneGloorxVloqNewPng *ebiten.Image
+var ItemMiscRunesRuneLomLobonOldPng *ebiten.Image
+var ItemMiscRunesRuneSwampPng *ebiten.Image
+var ItemMiscRunesRuneTombPng *ebiten.Image
+var ItemMiscRunesRuneMnolegNewPng *ebiten.Image
+var ItemMiscRunesRuneShoalsPng *ebiten.Image
+var ItemMiscRunesRuneDisNewPng *ebiten.Image
+var ItemMiscRunesRuneSlimePng *ebiten.Image
+var ItemMiscRunesRuneCocytusOldPng *ebiten.Image
+var ItemMiscRunesRuneDemonic5Png *ebiten.Image
+var ItemMiscRunesRuneSpiderPng *ebiten.Image
+var MonsterShadowImpPng *ebiten.Image
+var MonsterMerfolkFighterWaterPng *ebiten.Image
+var MonsterYaktaurOldPng *ebiten.Image
+var MonsterLabratUnseenPng *ebiten.Image
+var MonsterOgreMageOldPng *ebiten.Image
+var MonsterHydrataurPng *ebiten.Image
+var MonsterSphinxNewPng *ebiten.Image
+var MonsterFaunPng *ebiten.Image
+var MonsterHumanNewPng *ebiten.Image
+var MonsterCyclopsOldPng *ebiten.Image
+var MonsterDeepElfHighPriestPng *ebiten.Image
+var MonsterKillerKlownGreenPng *ebiten.Image
+var MonsterTitanOldPng *ebiten.Image
+var MonsterYaktaurMeleeOldPng *ebiten.Image
+var MonsterGiantAmoebaOldPng *ebiten.Image
+var MonsterGuardianSerpentNewPng *ebiten.Image
+var MonsterOrcKnightOldPng *ebiten.Image
+var MonsterFormicidPng *ebiten.Image
+var MonsterGreaterNagaPng *ebiten.Image
+var MonsterTitanNewPng *ebiten.Image
+var MonsterHellKnightOldPng *ebiten.Image
+var MonsterCentaurWarriorMeleePng *ebiten.Image
+var MonsterGoldenDragonPng *ebiten.Image
+var MonsterOrcWarriorOldPng *ebiten.Image
+var MonsterDeepDwarfBerserkerPng *ebiten.Image
+var MonsterHippogriffNewPng *ebiten.Image
+var MonsterHalflingOldPng *ebiten.Image
+var MonsterCyclopsNewPng *ebiten.Image
+var MonsterSphinxOldPng *ebiten.Image
+var MonsterMinotaurPng *ebiten.Image
+var MonsterManticorePng *ebiten.Image
+var MonsterSalamanderFirebrandPng *ebiten.Image
+var MonsterIceBeastPng *ebiten.Image
+var MonsterKillerKlownPurplePng *ebiten.Image
+var MonsterHarpyPng *ebiten.Image
+var MonsterMerfolkJavelineerOldPng *ebiten.Image
+var MonsterSprigganEnchanterPng *ebiten.Image
+var MonsterDwarfNewPng *ebiten.Image
+var MonsterEttinNewPng *ebiten.Image
+var MonsterMerfolkWaterPng *ebiten.Image
+var MonsterSirenNewPng *ebiten.Image
+var MonsterFormicidVenomMagePng *ebiten.Image
+var MonsterDeepTrollShamanPng *ebiten.Image
+var MonsterDeepElfSummonerPng *ebiten.Image
+var MonsterDeepElfConjurerPng *ebiten.Image
+var MonsterDeepElfMasterArcherPng *ebiten.Image
+var MonsterBoggartNewPng *ebiten.Image
+var MonsterGoblinOldPng *ebiten.Image
+var MonsterDeepElfDemonologistPng *ebiten.Image
+var MonsterMothOfSuppressionPng *ebiten.Image
+var MonsterHellKnightNewPng *ebiten.Image
+var MonsterNagaMagePng *ebiten.Image
+var MonsterHobgoblinOldPng *ebiten.Image
+var MonsterMerfolkAquamancerWaterNewPng *ebiten.Image
+var MonsterForestDrakePng *ebiten.Image
+var MonsterElfOldPng *ebiten.Image
+var MonsterIronTrollPng *ebiten.Image
+var MonsterFireDrakePng *ebiten.Image
+var MonsterWaterNymphPng *ebiten.Image
+var MonsterSprigganDefenderShieldlessPng *ebiten.Image
+var MonsterNagaRitualistPng *ebiten.Image
+var MonsterTenguWarriorPng *ebiten.Image
+var MonsterPhoenixPng *ebiten.Image
+var MonsterBigKoboldOldPng *ebiten.Image
+var MonsterGnollSergeantPng *ebiten.Image
+var MonsterStoneGiantNewPng *ebiten.Image
+var MonsterMerfolkAquamancerNewPng *ebiten.Image
+var MonsterGnollNewPng *ebiten.Image
+var MonsterGlowingShapeshifterPng *ebiten.Image
+var MonsterEttinOldPng *ebiten.Image
+var MonsterSlaveFreedPng *ebiten.Image
+var MonsterQuasitPng *ebiten.Image
+var MonsterKillerKlownRedPng *ebiten.Image
+var MonsterMerfolkPlainPng *ebiten.Image
+var MonsterIronTrollMonkGhostPng *ebiten.Image
+var MonsterOrcHighPriestNewPng *ebiten.Image
+var MonsterYaktaurCaptainMeleeOldPng *ebiten.Image
+var MonsterMerfolkImpalerWaterNewPng *ebiten.Image
+var MonsterYaktaurCaptainMeleeNewPng *ebiten.Image
+var MonsterSalamanderStormcallerPng *ebiten.Image
+var MonsterOrcNewPng *ebiten.Image
+var MonsterDeepElfDeathMagePng *ebiten.Image
+var MonsterNagaPng *ebiten.Image
+var MonsterSirenOldPng *ebiten.Image
+var MonsterDeepElfKnightNewPng *ebiten.Image
+var MonsterOrbGuardianOldPng *ebiten.Image
+var MonsterOrcPriestNewPng *ebiten.Image
+var MonsterKenkuWingedPng *ebiten.Image
+var MonsterMerfolkJavelineerWaterNewPng *ebiten.Image
+var MonsterRockTrollMonkGhostPng *ebiten.Image
+var MonsterFireGiantNewPng *ebiten.Image
+var MonsterOrcSorcererOldPng *ebiten.Image
+var MonsterEntropyWeaverPng *ebiten.Image
+var MonsterMerfolkJavelineerWaterOldPng *ebiten.Image
+var MonsterMerfolkImpalerNewPng *ebiten.Image
+var MonsterDeepDwarfPng *ebiten.Image
+var MonsterMermaidPng *ebiten.Image
+var MonsterMerfolkFighterPng *ebiten.Image
+var MonsterGiantAmoebaNewPng *ebiten.Image
+var MonsterMerfolkAvatarPng *ebiten.Image
+var MonsterTenguPng *ebiten.Image
+var MonsterDeepDwarfDeathKnightPng *ebiten.Image
+var MonsterBigKoboldNewPng *ebiten.Image
+var MonsterHillGiantNewPng *ebiten.Image
+var MonsterHumanSlavePng *ebiten.Image
+var MonsterIronheartPreserverPng *ebiten.Image
+var MonsterOgreOldPng *ebiten.Image
+var MonsterHumanOldPng *ebiten.Image
+var MonsterGnollOldPng *ebiten.Image
+var MonsterBoggartOldPng *ebiten.Image
+var MonsterKillerKlownBluePng *ebiten.Image
+var MonsterDeepTrollEarthMagePng *ebiten.Image
+var MonsterDwarfOldPng *ebiten.Image
+var MonsterCentaurMeleePng *ebiten.Image
+var MonsterOgreNewPng *ebiten.Image
+var MonsterAngelPng *ebiten.Image
+var MonsterGuardianNagaPng *ebiten.Image
+var MonsterMerfolkPlainWaterPng *ebiten.Image
+var MonsterYaktaurCaptainOldPng *ebiten.Image
+var MonsterHalflingNewPng *ebiten.Image
+var MonsterDeepElfMagePng *ebiten.Image
+var MonsterDeepElfSoldierPng *ebiten.Image
+var MonsterOrcHighPriestOldPng *ebiten.Image
+var MonsterIronbrandConvokerPng *ebiten.Image
+var MonsterYaktaurNewPng *ebiten.Image
+var MonsterDeepElfAnnihilatorPng *ebiten.Image
+var MonsterStoneGiantOldPng *ebiten.Image
+var MonsterGuardianSerpentOldPng *ebiten.Image
+var MonsterHobgoblinNewPng *ebiten.Image
+var MonsterSwampDrakePng *ebiten.Image
+var MonsterSalamanderPng *ebiten.Image
+var MonsterHumanPng *ebiten.Image
+var MonsterDemonspawnPng *ebiten.Image
+var MonsterMerfolkAquamancerOldPng *ebiten.Image
+var MonsterTwoHeadedOgreOldPng *ebiten.Image
+var MonsterOrcWizardOldPng *ebiten.Image
+var MonsterElfNewPng *ebiten.Image
+var MonsterTwoHeadedOgreNewPng *ebiten.Image
+var MonsterEnchantressHumanPng *ebiten.Image
+var MonsterMermaidWaterPng *ebiten.Image
+var MonsterNagaWarriorPng *ebiten.Image
+var MonsterOrcKnightNewPng *ebiten.Image
+var MonsterSprigganBerserkerPng *ebiten.Image
+var MonsterHillGiantOldPng *ebiten.Image
+var MonsterGriffonPng *ebiten.Image
+var MonsterCentaurWarriorPng *ebiten.Image
+var MonsterRavenPng *ebiten.Image
+var MonsterKoboldNewPng *ebiten.Image
+var MonsterOrcWarriorNewPng *ebiten.Image
+var MonsterNagaWarriorUniquePng *ebiten.Image
+var MonsterDeathDrakePng *ebiten.Image
+var MonsterLindwurmPng *ebiten.Image
+var MonsterOrcWizardNewPng *ebiten.Image
+var MonsterOrbGuardianNewPng *ebiten.Image
+var MonsterMerfolkAquamancerWaterOldPng *ebiten.Image
+var MonsterCentaurPng *ebiten.Image
+var MonsterGnollShamanPng *ebiten.Image
+var MonsterBrownOozePng *ebiten.Image
+var MonsterPulsatingLumpPng *ebiten.Image
+var MonsterYaktaurMeleeNewPng *ebiten.Image
+var MonsterOrcOldPng *ebiten.Image
+var MonsterNecromancerOldPng *ebiten.Image
+var MonsterFrostGiantOldPng *ebiten.Image
+var MonsterNagaSharpshooterPng *ebiten.Image
+var MonsterTrollPng *ebiten.Image
+var MonsterMerfolkJavelineerNewPng *ebiten.Image
+var MonsterRockTrollPng *ebiten.Image
+var MonsterSirenWaterNewPng *ebiten.Image
+var MonsterSirenWaterOldPng *ebiten.Image
+var MonsterMutantBeastPng *ebiten.Image
+var MonsterFrostGiantNewPng *ebiten.Image
+var MonsterDeathKnightPng *ebiten.Image
+var MonsterGiantOrangeBrainPng *ebiten.Image
+var MonsterHumanMonkGhostPng *ebiten.Image
+var MonsterDeepElfSorcererPng *ebiten.Image
+var MonsterKoboldDemonologistPng *ebiten.Image
+var MonsterTenguReaverPng *ebiten.Image
+var MonsterYaktaurCaptainNewPng *ebiten.Image
+var MonsterDeepElfPriestPng *ebiten.Image
+var MonsterGoblinNewPng *ebiten.Image
+var MonsterKoboldOldPng *ebiten.Image
+var MonsterMerfolkImpalerOldPng *ebiten.Image
+var MonsterOgreMageNewPng *ebiten.Image
+var MonsterDeepTrollPng *ebiten.Image
+var MonsterHippogriffOldPng *ebiten.Image
+var MonsterSprigganRiderPng *ebiten.Image
+var MonsterShapeshifterPng *ebiten.Image
+var MonsterSalamanderMysticPng *ebiten.Image
+var MonsterDeepElfKnightOldPng *ebiten.Image
+var MonsterNecromancerNewPng *ebiten.Image
+var MonsterSatyrPng *ebiten.Image
+var MonsterDeepDwarfArtificerPng *ebiten.Image
+var MonsterMerfolkAvatarWaterPng *ebiten.Image
+var MonsterKillerKlownYellowPng *ebiten.Image
+var MonsterLavaWormPng *ebiten.Image
+var MonsterFireGiantOldPng *ebiten.Image
+var MonsterDryadPng *ebiten.Image
+var MonsterDeepElfBlademasterPng *ebiten.Image
+var MonsterOrcSorcererNewPng *ebiten.Image
+var MonsterDeepElfFighterOldPng *ebiten.Image
+var MonsterOrcWarlordPng *ebiten.Image
+var MonsterGnomePng *ebiten.Image
+var MonsterKillerKlownPng *ebiten.Image
+var MonsterDaevaPng *ebiten.Image
+var MonsterDeepTrollBerserkerPng *ebiten.Image
+var MonsterGrandAvatarPng *ebiten.Image
+var MonsterMerfolkPng *ebiten.Image
+var MonsterAnubisGuardPng *ebiten.Image
+var MonsterTenguConjurerPng *ebiten.Image
+var MonsterMerfolkImpalerWaterOldPng *ebiten.Image
+var MonsterDeepElfFighterNewPng *ebiten.Image
+var MonsterWizardPng *ebiten.Image
+var MonsterOrcPriestOldPng *ebiten.Image
+var MonsterJellyPng *ebiten.Image
+var MonsterJuggernautPng *ebiten.Image
+var MonsterAberrationUnseenHorrorOldPng *ebiten.Image
+var MonsterAberrationUnseenHorrorNewPng *ebiten.Image
+var MonsterAmorphousAcidBlobPng *ebiten.Image
+var MonsterAmorphousOozeOldPng *ebiten.Image
+var MonsterAmorphousDeathOozeNewPng *ebiten.Image
+var MonsterAmorphousAzureJellyOldPng *ebiten.Image
+var MonsterAmorphousOozeNewPng *ebiten.Image
+var MonsterAmorphousDeathOozeOldPng *ebiten.Image
+var MonsterAmorphousAzureJellyNewPng *ebiten.Image
+var MonsterAmorphousJellyPng *ebiten.Image
+var MonsterPanlordDemonBodySpottyBottomNewPng *ebiten.Image
+var MonsterPanlordDemonHeadRamTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyCrouchTopPng *ebiten.Image
+var MonsterPanlordDemonWingsBatTopPng *ebiten.Image
+var MonsterPanlordDemonBodyArmorTopPng *ebiten.Image
+var MonsterPanlordDemonWingsButterflyTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadHelmetTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadHorseTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodySkeletalBottomPng *ebiten.Image
+var MonsterPanlordDemonHeadElephantTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadFungusTopPng *ebiten.Image
+var MonsterPanlordDemonHeadRhinoTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadMedusaTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodySpottyTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyThinTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadElephantTopOldPng *ebiten.Image
+var MonsterPanlordDemonWingsBonesBottomPng *ebiten.Image
+var MonsterPanlordDemonHeadTentaclesTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadHorseTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodySuccubusTopPng *ebiten.Image
+var MonsterPanlordDemonHeadSuccubusTopPng *ebiten.Image
+var MonsterPanlordDemonBodyThinBottomNewPng *ebiten.Image
+var MonsterPanlordDemonWingsMediumBottomPng *ebiten.Image
+var MonsterPanlordDemonHeadFrogTopPng *ebiten.Image
+var MonsterPanlordDemonHeadMonkeyTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsRedTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadTentaclesTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyFatterTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsButterflySmallTopPng *ebiten.Image
+var MonsterPanlordDemonHeadFlyTopPng *ebiten.Image
+var MonsterPanlordDemonWingsDemonicTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodyMantisTopPng *ebiten.Image
+var MonsterPanlordDemonHeadHornsTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsHookedTopPng *ebiten.Image
+var MonsterPanlordDemonHeadTeethTopPng *ebiten.Image
+var MonsterPanlordDemonHeadRhinoTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsLargeTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadHairTopPng *ebiten.Image
+var MonsterPanlordDemonBodyFatBottomNewPng *ebiten.Image
+var MonsterPanlordDemonBodySpikedTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadCowSkullTopPng *ebiten.Image
+var MonsterPanlordDemonWingsKnobsTopPng *ebiten.Image
+var MonsterPanlordDemonWingsMediumTopOldPng *ebiten.Image
+var MonsterPanlordDemonWingsLargeBottomPng *ebiten.Image
+var MonsterPanlordDemonWingsSparrowTopPng *ebiten.Image
+var MonsterPanlordDemonBodySuccubusBottomPng *ebiten.Image
+var MonsterPanlordDemonWingsDemonicTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadSkullTopPng *ebiten.Image
+var MonsterPanlordDemonHeadHeadsTopPng *ebiten.Image
+var MonsterPanlordDemonBodyThinBottomOldPng *ebiten.Image
+var MonsterPanlordDemonHeadBoxesTopPng *ebiten.Image
+var MonsterPanlordDemonHeadHornTopPng *ebiten.Image
+var MonsterPanlordDemonHeadMedusaTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadRamTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodyFatterBottomNewPng *ebiten.Image
+var MonsterPanlordDemonWingsButterflyBottomPng *ebiten.Image
+var MonsterPanlordDemonWingsButterflyTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadMouseTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyNormalTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadBrainTopPng *ebiten.Image
+var MonsterPanlordDemonBodyCaterpillarBottomPng *ebiten.Image
+var MonsterPanlordDemonBodyFatTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadMonkeyTopOldPng *ebiten.Image
+var MonsterPanlordDemonWingsDragonflyTopPng *ebiten.Image
+var MonsterPanlordPandemoniumDemonPng *ebiten.Image
+var MonsterPanlordDemonHeadHelmetTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsLargeTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodyCrouchBottomPng *ebiten.Image
+var MonsterPanlordDemonBodySkeletalTopPng *ebiten.Image
+var MonsterPanlordDemonHeadCthulhuTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyFatterTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadIncubusTopPng *ebiten.Image
+var MonsterPanlordDemonBodySpikedTopOldPng *ebiten.Image
+var MonsterPanlordDemonHeadEyeballTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadButterflyTopPng *ebiten.Image
+var MonsterPanlordDemonHeadEyeballTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyNormalBottomOldPng *ebiten.Image
+var MonsterPanlordDemonBodyFatBottomOldPng *ebiten.Image
+var MonsterPanlordDemonBodySpottyTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodySpottyBottomOldPng *ebiten.Image
+var MonsterPanlordDemonBodyThinTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsMediumTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadBirdTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadMouseTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodyTentacleyBottomPng *ebiten.Image
+var MonsterPanlordDemonHeadHornsTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyFatTopNewPng *ebiten.Image
+var MonsterPanlordDemonHeadCthulhuTopNewPng *ebiten.Image
+var MonsterPanlordDemonBodyNormalBottomNewPng *ebiten.Image
+var MonsterPanlordDemonWingsRedBottomPng *ebiten.Image
+var MonsterPanlordDemonBodyTentacleyTopPng *ebiten.Image
+var MonsterPanlordDemonBodyArmorBottomPng *ebiten.Image
+var MonsterPanlordDemonWingsBonesTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyMantisBottomPng *ebiten.Image
+var MonsterPanlordDemonBodyCaterpillarTopPng *ebiten.Image
+var MonsterPanlordDemonBodySpikedBottomOldPng *ebiten.Image
+var MonsterPanlordDemonHeadBirdTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodyNormalTopOldPng *ebiten.Image
+var MonsterPanlordDemonBodySpikedBottomNewPng *ebiten.Image
+var MonsterPanlordDemonHeadWormTopPng *ebiten.Image
+var MonsterPanlordDemonWingsBonesTopNewPng *ebiten.Image
+var MonsterPanlordDemonWingsTornTopPng *ebiten.Image
+var MonsterPanlordDemonBodyFatterBottomOldPng *ebiten.Image
+var MonsterPanlordDemonWingsRedTopNewPng *ebiten.Image
+var MonsterDemonspawnBlackSunPng *ebiten.Image
+var MonsterDemonspawnGelidPng *ebiten.Image
+var MonsterDemonspawnBloodSaintPng *ebiten.Image
+var MonsterDemonspawnInfernalPng *ebiten.Image
+var MonsterDemonspawnWarmongerPng *ebiten.Image
+var MonsterDemonspawnPutridPng *ebiten.Image
+var MonsterDemonspawnCorrupterPng *ebiten.Image
+var MonsterDemonspawnDemonspawnPng *ebiten.Image
+var MonsterDemonspawnTorturousPng *ebiten.Image
+var MonsterDemonspawnMonstrousPng *ebiten.Image
+var MonsterDemonspawnChaosChampionPng *ebiten.Image
+var MonsterEyesShiningEyeNewPng *ebiten.Image
+var MonsterEyesGoldenEyeNewPng *ebiten.Image
+var MonsterEyesEyeOfDevastationNewPng *ebiten.Image
+var MonsterEyesEyeOfDevastationOldPng *ebiten.Image
+var MonsterEyesEyeOfDrainingPng *ebiten.Image
+var MonsterEyesGoldenEyeOldPng *ebiten.Image
+var MonsterEyesShiningEyeOldPng *ebiten.Image
+var MonsterEyesGiantEyeballPng *ebiten.Image
+var MonsterEyesGreatOrbOfEyesPng *ebiten.Image
+var MonsterHolySeraphBottomPng *ebiten.Image
+var MonsterHolySheduOldPng *ebiten.Image
+var MonsterHolyEasternDragonPng *ebiten.Image
+var MonsterHolySheduNewPng *ebiten.Image
+var MonsterHolyAngelMacePng *ebiten.Image
+var MonsterHolyCherubPng *ebiten.Image
+var MonsterHolyAngelOldPng *ebiten.Image
+var MonsterHolyPaladinPng *ebiten.Image
+var MonsterHolyApisPng *ebiten.Image
+var MonsterHolySeraphTopPng *ebiten.Image
+var MonsterHolyCentaurPaladinPng *ebiten.Image
+var MonsterHolyOphanPng *ebiten.Image
+var MonsterHolyHolyDragonPng *ebiten.Image
+var MonsterHolyDaevaPng *ebiten.Image
+var MonsterHolyAngelNewPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentSoutheastSouthwestPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNortheastNorthwestPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentSouthNorthwestPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentEastNorthwestPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentWestNortheastPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentEastSouthwestPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNorthSoutheastPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentSouthNortheastPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNortheastSoutheastPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNorthSouthwestPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentWestSoutheastPng *ebiten.Image
+var MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNorthwestSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleWestPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleEastPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleNorthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleSoutheastPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleNortheastPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleSouthPng *ebiten.Image
+var MonsterTentaclesStarspawnEndsStarspawnTentacleNorthPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNortheastSoutheastPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthwestSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSouthWestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthWestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentWestNortheastPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastSouthPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSouthNorthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthwestSoutheastPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSouthNortheastPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNortheastNorthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthSouthPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastNorthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthSoutheastPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentWestSoutheastPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastWestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSoutheastSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastNorthPng *ebiten.Image
+var MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNortheastSouthwestPng *ebiten.Image
+var MonsterTentaclesKrakenEndsKrakenTentacle3Png *ebiten.Image
+var MonsterTentaclesKrakenEndsKrakenTentacle5Png *ebiten.Image
+var MonsterTentaclesKrakenEndsKrakenTentacle1Png *ebiten.Image
+var MonsterTentaclesKrakenEndsKrakenTentacle6Png *ebiten.Image
+var MonsterTentaclesKrakenEndsKrakenTentacle2Png *ebiten.Image
+var MonsterTentaclesKrakenEndsKrakenTentacle4Png *ebiten.Image
+var MonsterTentaclesVineEndsVineNortheastPng *ebiten.Image
+var MonsterTentaclesVineEndsVineSouthPng *ebiten.Image
+var MonsterTentaclesVineEndsVineNorthPng *ebiten.Image
+var MonsterTentaclesVineEndsVineSouthwestPng *ebiten.Image
+var MonsterTentaclesVineEndsVineEastPng *ebiten.Image
+var MonsterTentaclesVineEndsVineNorthwestPng *ebiten.Image
+var MonsterTentaclesVineEndsVineWestPng *ebiten.Image
+var MonsterTentaclesVineEndsVineSoutheastPng *ebiten.Image
+var MonsterTentaclesKrakenCornersKrakenCornerNortheastPng *ebiten.Image
+var MonsterTentaclesKrakenCornersKrakenCornerSouthwestPng *ebiten.Image
+var MonsterTentaclesKrakenCornersKrakenCornerNorthwestPng *ebiten.Image
+var MonsterTentaclesKrakenCornersKrakenCornerSoutheastPng *ebiten.Image
+var MonsterTentaclesVineCornersVineCornerNorthwestPng *ebiten.Image
+var MonsterTentaclesVineCornersVineCornerSoutheastPng *ebiten.Image
+var MonsterTentaclesVineCornersVineCornerNortheastPng *ebiten.Image
+var MonsterTentaclesVineCornersVineCornerSouthwestPng *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle1Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle5Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle9Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle2Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle4Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle3Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle8Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle6Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle10Png *ebiten.Image
+var MonsterTentaclesEldritchEndsEldritchTentacle7Png *ebiten.Image
+var MonsterTentaclesStarspawnCornersStarspawnCornerNorthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnCornersStarspawnCornerNortheastPng *ebiten.Image
+var MonsterTentaclesStarspawnCornersStarspawnCornerSouthwestPng *ebiten.Image
+var MonsterTentaclesStarspawnCornersStarspawnCornerSoutheastPng *ebiten.Image
+var MonsterTentaclesEldritchCornersEldritchCornerSoutheastPng *ebiten.Image
+var MonsterTentaclesEldritchCornersEldritchCornerNortheastPng *ebiten.Image
+var MonsterTentaclesEldritchCornersEldritchCornerSouthwestPng *ebiten.Image
+var MonsterTentaclesEldritchCornersEldritchCornerNorthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNortheastSoutheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentSouthSoutheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthNorthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentWestNorthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthwestSoutheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastNorthPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNortheastSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthwestSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentSoutheastSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentWestSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentSouthWestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthNortheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthSouthPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastNortheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentWestNortheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastNorthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentSouthSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthWestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentSouthNorthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNortheastNorthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentWestSoutheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastSoutheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastSouthPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastSouthwestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentSouthNortheastPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentEastWestPng *ebiten.Image
+var MonsterTentaclesVineSegmentsVineSegmentNorthSoutheastPng *ebiten.Image
+var MonsterAbyssWorldbinderPng *ebiten.Image
+var MonsterAbyssStarcursedMassPng *ebiten.Image
+var MonsterAbyssAncientZymePng *ebiten.Image
+var MonsterAbyssSilverStarPng *ebiten.Image
+var MonsterAbyssTentacledStarspawnPng *ebiten.Image
+var MonsterAbyssLurkingHorrorPng *ebiten.Image
+var MonsterAbyssApocalypseCrabPng *ebiten.Image
+var MonsterAbyssWretchedStarPng *ebiten.Image
+var MonsterUniqueSonjaOldPng *ebiten.Image
+var MonsterUniqueDispaterSmallPng *ebiten.Image
+var MonsterUniqueAsmodeusPng *ebiten.Image
+var MonsterUniqueMaraPng *ebiten.Image
+var MonsterUniqueTiamatMottledPng *ebiten.Image
+var MonsterUniqueErolchaOldPng *ebiten.Image
+var MonsterUniqueSerpentOfHellDisTopPng *ebiten.Image
+var MonsterUniqueGrumPng *ebiten.Image
+var MonsterUniqueGeryonNewPng *ebiten.Image
+var MonsterUniqueGeryonOldPng *ebiten.Image
+var MonsterUniqueSaintRokaNewPng *ebiten.Image
+var MonsterUniqueSigmundOldPng *ebiten.Image
+var MonsterUniqueMargeryOldPng *ebiten.Image
+var MonsterUniqueJessicaOldPng *ebiten.Image
+var MonsterUniqueLomLobonPng *ebiten.Image
+var MonsterUniqueNergalleOldPng *ebiten.Image
+var MonsterUniqueSaintRokaOldPng *ebiten.Image
+var MonsterUniqueLamiaPng *ebiten.Image
+var MonsterUniqueSonjaNewPng *ebiten.Image
+var MonsterUniqueFrancisPng *ebiten.Image
+var MonsterUniqueIlsuiwWaterOldPng *ebiten.Image
+var MonsterUniqueLernaeanHydra7BottomPng *ebiten.Image
+var MonsterUniqueLernaeanHydra6TopPng *ebiten.Image
+var MonsterUniqueJessicaNewPng *ebiten.Image
+var MonsterUniqueLernaeanHydra1TopPng *ebiten.Image
+var MonsterUniqueTiamatRedPng *ebiten.Image
+var MonsterUniqueBorisNewPng *ebiten.Image
+var MonsterUniqueEdmundOldPng *ebiten.Image
+var MonsterUniqueFrederickOldPng *ebiten.Image
+var MonsterUniqueNorbertPng *ebiten.Image
+var MonsterUniqueFrancesMalePng *ebiten.Image
+var MonsterUniqueNessosNewPng *ebiten.Image
+var MonsterUniqueDispaterBottomPng *ebiten.Image
+var MonsterUniqueTerenceNewPng *ebiten.Image
+var MonsterUniquePurgyOldPng *ebiten.Image
+var MonsterUniqueEreshkigalBottomPng *ebiten.Image
+var MonsterUniqueEnchantressPng *ebiten.Image
+var MonsterUniqueSnorgNewPng *ebiten.Image
+var MonsterUniqueMenkaurePng *ebiten.Image
+var MonsterUniqueIronGiantPng *ebiten.Image
+var MonsterUniqueIjybOldPng *ebiten.Image
+var MonsterUniqueFrederickNewPng *ebiten.Image
+var MonsterUniqueAizulOldPng *ebiten.Image
+var MonsterUniqueBlorkTheOrcNewPng *ebiten.Image
+var MonsterUniqueWiglafNewPng *ebiten.Image
+var MonsterUniqueLernaeanHydra5TopPng *ebiten.Image
+var MonsterUniqueAntaeusPng *ebiten.Image
+var MonsterUniqueTiamatBlackPng *ebiten.Image
+var MonsterUniqueMnolegTopPng *ebiten.Image
+var MonsterUniqueGastronokOldPng *ebiten.Image
+var MonsterUniqueLouisePng *ebiten.Image
+var MonsterUniqueUrugOldPng *ebiten.Image
+var MonsterUniqueMauriceNewPng *ebiten.Image
+var MonsterUniqueLernaeanHydra9BottomPng *ebiten.Image
+var MonsterUniqueRupertOldPng *ebiten.Image
+var MonsterUniqueGrinderOldPng *ebiten.Image
+var MonsterUniqueEustachioOldPng *ebiten.Image
+var MonsterUniquePsycheNewPng *ebiten.Image
+var MonsterUniquePsycheOldPng *ebiten.Image
+var MonsterUniqueSerpentOfHellDisBottomPng *ebiten.Image
+var MonsterUniqueDissolutionNewPng *ebiten.Image
+var MonsterUniqueTerenceOldPng *ebiten.Image
+var MonsterUniqueUrugNewPng *ebiten.Image
+var MonsterUniqueSerpentOfHellPng *ebiten.Image
+var MonsterUniqueLernaeanHydra9TopPng *ebiten.Image
+var MonsterUniqueTiamatPng *ebiten.Image
+var MonsterUniqueFrancesPng *ebiten.Image
+var MonsterUniqueSerpentOfHellCocTopPng *ebiten.Image
+var MonsterUniqueNorrisWithBoardPng *ebiten.Image
+var MonsterUniqueLernaeanHydra4TopPng *ebiten.Image
+var MonsterUniqueMichaelPng *ebiten.Image
+var MonsterUniqueIjybNewPng *ebiten.Image
+var MonsterUniqueGloorxVloqBottomPng *ebiten.Image
+var MonsterUniqueMaudNewPng *ebiten.Image
+var MonsterUniqueKirkeNewPng *ebiten.Image
+var MonsterUniqueMaudOldPng *ebiten.Image
+var MonsterUniqueMennasPng *ebiten.Image
+var MonsterUniqueEreshkigalSmallPng *ebiten.Image
+var MonsterUniqueNessosOldPng *ebiten.Image
+var MonsterUniqueMnolegPng *ebiten.Image
+var MonsterUniqueGloorxVloqPng *ebiten.Image
+var MonsterUniqueRupertNewPng *ebiten.Image
+var MonsterUniqueIlsuiwWaterNewPng *ebiten.Image
+var MonsterUniqueJoryPng *ebiten.Image
+var MonsterUniqueMargeryNewPng *ebiten.Image
+var MonsterUniqueAsmodeusSmallPng *ebiten.Image
+var MonsterUniqueCerebovBottomPng *ebiten.Image
+var MonsterUniqueEricaOldPng *ebiten.Image
+var MonsterUniqueNorrisPng *ebiten.Image
+var MonsterUniquePurgyNewPng *ebiten.Image
+var MonsterUniqueGiaggostuonoPng *ebiten.Image
+var MonsterUniqueLomLobonBottomPng *ebiten.Image
+var MonsterUniqueErolchaNewPng *ebiten.Image
+var MonsterUniqueDonaldNewPng *ebiten.Image
+var MonsterUniquePrinceRibbitPng *ebiten.Image
+var MonsterUniqueJozefPng *ebiten.Image
+var MonsterUniqueDissolutionOldPng *ebiten.Image
+var MonsterUniqueAsmodeusBottomPng *ebiten.Image
+var MonsterUniqueRoyalJellyTopPng *ebiten.Image
+var MonsterUniqueSerpentOfHellGehTopPng *ebiten.Image
+var MonsterUniqueRoyalJellyPng *ebiten.Image
+var MonsterUniqueNergalleNewPng *ebiten.Image
+var MonsterUniqueTiamatWhitePng *ebiten.Image
+var MonsterUniqueGrinderNewPng *ebiten.Image
+var MonsterUniqueDonaldOldPng *ebiten.Image
+var MonsterUniqueSigmundNewPng *ebiten.Image
+var MonsterUniqueSerpentOfHellTarBottomPng *ebiten.Image
+var MonsterUniqueLeshyPng *ebiten.Image
+var MonsterUniqueAgnesOldPng *ebiten.Image
+var MonsterUniqueSojoboPng *ebiten.Image
+var MonsterUniqueMauriceOldPng *ebiten.Image
+var MonsterUniqueEdmundNewPng *ebiten.Image
+var MonsterUniqueJosephNewPng *ebiten.Image
+var MonsterUniqueTiamatGreyPng *ebiten.Image
+var MonsterUniqueCerebovTopPng *ebiten.Image
+var MonsterUniqueLernaeanHydra8BottomPng *ebiten.Image
+var MonsterUniqueVashniaPng *ebiten.Image
+var MonsterUniqueGloorxVloqTopPng *ebiten.Image
+var MonsterUniqueEustachioNewPng *ebiten.Image
+var MonsterUniqueAizulNewPng *ebiten.Image
+var MonsterUniquePolyphemusNewPng *ebiten.Image
+var MonsterUniqueTiamatPalePng *ebiten.Image
+var MonsterUniqueEricaNewPng *ebiten.Image
+var MonsterUniqueJorgrunPng *ebiten.Image
+var MonsterUniqueDispaterTopPng *ebiten.Image
+var MonsterUniqueNellieOldPng *ebiten.Image
+var MonsterUniqueLernaeanHydra7TopPng *ebiten.Image
+var MonsterUniqueSnorgOldPng *ebiten.Image
+var MonsterUniqueRobinPng *ebiten.Image
+var MonsterUniqueBorisOldPng *ebiten.Image
+var MonsterUniqueMnolegBottomPng *ebiten.Image
+var MonsterUniqueRoxanneNewPng *ebiten.Image
+var MonsterUniqueIlsuiwOldPng *ebiten.Image
+var MonsterUniqueKirkeOldPng *ebiten.Image
+var MonsterUniqueTiamatGreenPng *ebiten.Image
+var MonsterUniquePolyphemusOldPng *ebiten.Image
+var MonsterUniqueJosephOldPng *ebiten.Image
+var MonsterUniqueLernaeanHydra10TopPng *ebiten.Image
+var MonsterUniqueFannarPng *ebiten.Image
+var MonsterUniqueSerpentOfHellCocBottomPng *ebiten.Image
+var MonsterUniqueJosephineNewPng *ebiten.Image
+var MonsterUniqueJormungandrPng *ebiten.Image
+var MonsterUniqueGrinderCleaverPng *ebiten.Image
+var MonsterUniqueEreshkigalTopPng *ebiten.Image
+var MonsterUniqueRoyalJellyBottomPng *ebiten.Image
+var MonsterUniqueDispaterPng *ebiten.Image
+var MonsterUniqueTiamatYellowPng *ebiten.Image
+var MonsterUniqueCrazyYiufPng *ebiten.Image
+var MonsterUniqueWiglafOldPng *ebiten.Image
+var MonsterUniqueSerpentOfHellTarTopPng *ebiten.Image
+var MonsterUniqueLernaeanHydra5BottomPng *ebiten.Image
+var MonsterUniqueLernaeanHydra3TopPng *ebiten.Image
+var MonsterUniqueAgnesNewPng *ebiten.Image
+var MonsterUniqueMurrayPng *ebiten.Image
+var MonsterUniqueXtahuaNewPng *ebiten.Image
+var MonsterUniqueLernaeanHydraPng *ebiten.Image
+var MonsterUniqueLomLobonTopPng *ebiten.Image
+var MonsterUniqueGastronokNewPng *ebiten.Image
+var MonsterUniqueChuckPng *ebiten.Image
+var MonsterUniqueIgnacioPng *ebiten.Image
+var MonsterUniqueAsmodeusTopPng *ebiten.Image
+var MonsterUniqueXtahuaOldPng *ebiten.Image
+var MonsterUniqueNellieNewPng *ebiten.Image
+var MonsterUniqueIlsuiwNewPng *ebiten.Image
+var MonsterUniqueLernaeanHydra1BottomPng *ebiten.Image
+var MonsterUniqueHaroldPng *ebiten.Image
+var MonsterUniqueNatashaPng *ebiten.Image
+var MonsterUniqueRoxanneOldPng *ebiten.Image
+var MonsterUniqueDuanePng *ebiten.Image
+var MonsterUniqueSerpentOfHellGehBottomPng *ebiten.Image
+var MonsterUniqueAzraelPng *ebiten.Image
+var MonsterUniqueCerebovPng *ebiten.Image
+var MonsterUniqueLernaeanHydra2TopPng *ebiten.Image
+var MonsterUniqueBlorkTheOrcOldPng *ebiten.Image
+var MonsterUniqueDonaldPng *ebiten.Image
+var MonsterUniqueEreshkigalPng *ebiten.Image
+var MonsterUniqueJosephineOldPng *ebiten.Image
+var MonsterVaultVaultGuardNewPng *ebiten.Image
+var MonsterVaultMicrobatPng *ebiten.Image
+var MonsterVaultCigotuvisMonsterPng *ebiten.Image
+var MonsterVaultDemonspawnMonkGhostPng *ebiten.Image
+var MonsterVaultVaultSentinelPng *ebiten.Image
+var MonsterVaultMegabatPng *ebiten.Image
+var MonsterVaultVaultWardenPng *ebiten.Image
+var MonsterVaultDeformedElfPng *ebiten.Image
+var MonsterVaultHellbinderPng *ebiten.Image
+var MonsterVaultHellWizard100Png *ebiten.Image
+var MonsterVaultPhaseBatPng *ebiten.Image
+var MonsterVaultMoonTrollPng *ebiten.Image
+var MonsterVaultHellWizard75Png *ebiten.Image
+var MonsterVaultVaultGuardOldPng *ebiten.Image
+var MonsterVaultHellWizard50Png *ebiten.Image
+var MonsterVaultDeformedHumanPng *ebiten.Image
+var MonsterVaultDraconianMonkGhostPng *ebiten.Image
+var MonsterVaultDeformedOrcPng *ebiten.Image
+var MonsterVaultGigabatPng *ebiten.Image
+var MonsterAquaticSharkOldPng *ebiten.Image
+var MonsterAquaticElectricEelPng *ebiten.Image
+var MonsterAquaticSwampWormOldPng *ebiten.Image
+var MonsterAquaticLavaSnakeOldPng *ebiten.Image
+var MonsterAquaticKrakenHeadOldPng *ebiten.Image
+var MonsterAquaticKrakenHeadNewPng *ebiten.Image
+var MonsterAquaticSwampWormNewPng *ebiten.Image
+var MonsterAquaticLavaSnakeNewPng *ebiten.Image
+var MonsterAquaticSharkNewPng *ebiten.Image
+var MonsterDraconicDraconicJobZealotOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseWhiteOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseMottleOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseWhiteNewPng *ebiten.Image
+var MonsterDraconicDraconicJobScorcherOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseBlackNewPng *ebiten.Image
+var MonsterDraconicDraconicJobShifterNewPng *ebiten.Image
+var MonsterDraconicDraconicJobCallerNewPng *ebiten.Image
+var MonsterDraconicDraconicBaseMottleNewPng *ebiten.Image
+var MonsterDraconicDraconicBasePurpleOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseBrownNewPng *ebiten.Image
+var MonsterDraconicDraconicBaseRedNewPng *ebiten.Image
+var MonsterDraconicDraconicJobKnightOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseBlackOldPng *ebiten.Image
+var MonsterDraconicDraconicJobZealotNewPng *ebiten.Image
+var MonsterDraconicDraconicJobKnightNewPng *ebiten.Image
+var MonsterDraconicDraconicJobAnnihilatorNewPng *ebiten.Image
+var MonsterDraconicDraconicBaseYellowOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseGreenOldPng *ebiten.Image
+var MonsterDraconicDraconicJobAnnihilatorOldPng *ebiten.Image
+var MonsterDraconicDraconicBasePurpleNewPng *ebiten.Image
+var MonsterDraconicDraconicBasePaleNewPng *ebiten.Image
+var MonsterDraconicDraconicBaseGreenNewPng *ebiten.Image
+var MonsterDraconicDraconicBaseRedOldPng *ebiten.Image
+var MonsterDraconicDraconicJobMonkNewPng *ebiten.Image
+var MonsterDraconicDraconicBaseYellowNewPng *ebiten.Image
+var MonsterDraconicDraconicBasePaleOldPng *ebiten.Image
+var MonsterDraconicDraconicJobShifterOldPng *ebiten.Image
+var MonsterDraconicDraconicJobScorcherNewPng *ebiten.Image
+var MonsterDraconicDraconicJobMonkOldPng *ebiten.Image
+var MonsterDraconicDraconicBaseBrownOldPng *ebiten.Image
+var MonsterDraconicDraconicJobCallerOldPng *ebiten.Image
+var MonsterFungiPlantsBush2Png *ebiten.Image
+var MonsterFungiPlantsOklobPlantPng *ebiten.Image
+var MonsterFungiPlantsWanderingMushroomOldPng *ebiten.Image
+var MonsterFungiPlantsBush4Png *ebiten.Image
+var MonsterFungiPlantsHyperactiveBallistomycetePng *ebiten.Image
+var MonsterFungiPlantsBush3Png *ebiten.Image
+var MonsterFungiPlantsPlantCryptPng *ebiten.Image
+var MonsterFungiPlantsPlantPng *ebiten.Image
+var MonsterFungiPlantsGiantSporePng *ebiten.Image
+var MonsterFungiPlantsDeathcapPng *ebiten.Image
+var MonsterFungiPlantsThornHunterPng *ebiten.Image
+var MonsterFungiPlantsBriarPatchPng *ebiten.Image
+var MonsterFungiPlantsVineStalkerPng *ebiten.Image
+var MonsterFungiPlantsPlantDemonicPng *ebiten.Image
+var MonsterFungiPlantsWanderingMushroomNewPng *ebiten.Image
+var MonsterFungiPlantsThornLotusPng *ebiten.Image
+var MonsterFungiPlantsTreantPng *ebiten.Image
+var MonsterUndeadCurseToePng *ebiten.Image
+var MonsterUndeadRevenantPng *ebiten.Image
+var MonsterUndeadShadowWraithPng *ebiten.Image
+var MonsterUndeadNecrophageOldPng *ebiten.Image
+var MonsterUndeadCurseSkullPng *ebiten.Image
+var MonsterUndeadVampireMageNewPng *ebiten.Image
+var MonsterUndeadMummyPng *ebiten.Image
+var MonsterUndeadZonguldrokLich2Png *ebiten.Image
+var MonsterUndeadGreaterMummyPng *ebiten.Image
+var MonsterUndeadShadowOldPng *ebiten.Image
+var MonsterUndeadFlayedGhostNewPng *ebiten.Image
+var MonsterUndeadDeathCobPng *ebiten.Image
+var MonsterUndeadJiangshiPng *ebiten.Image
+var MonsterUndeadProfaneServitorPng *ebiten.Image
+var MonsterUndeadVampireKnightOldPng *ebiten.Image
+var MonsterUndeadManesPng *ebiten.Image
+var MonsterUndeadRottingHulkOldPng *ebiten.Image
+var MonsterUndeadShadowNewPng *ebiten.Image
+var MonsterUndeadNecrophageNewPng *ebiten.Image
+var MonsterUndeadPhantasmalWarriorPng *ebiten.Image
+var MonsterUndeadGuardianMummyPng *ebiten.Image
+var MonsterUndeadSpectralWarriorPng *ebiten.Image
+var MonsterUndeadWightKingPng *ebiten.Image
+var MonsterUndeadRottingHulkNewPng *ebiten.Image
+var MonsterUndeadSkeletalWarriorNewPng *ebiten.Image
+var MonsterUndeadMummyPriestPng *ebiten.Image
+var MonsterUndeadCrawlingCorpsePng *ebiten.Image
+var MonsterUndeadFlayedGhostOldPng *ebiten.Image
+var MonsterUndeadPhantomNewPng *ebiten.Image
+var MonsterUndeadVampireNewPng *ebiten.Image
+var MonsterUndeadLichPng *ebiten.Image
+var MonsterUndeadVampireOldPng *ebiten.Image
+var MonsterUndeadGhoulPng *ebiten.Image
+var MonsterUndeadMacabreMassPng *ebiten.Image
+var MonsterUndeadWraithPng *ebiten.Image
+var MonsterUndeadBogBodyPng *ebiten.Image
+var MonsterUndeadSilentSpectrePng *ebiten.Image
+var MonsterUndeadWightNewPng *ebiten.Image
+var MonsterUndeadBoneDragonOldPng *ebiten.Image
+var MonsterUndeadAncientLichOldPng *ebiten.Image
+var MonsterUndeadHungryGhostPng *ebiten.Image
+var MonsterUndeadFreezingWraithPng *ebiten.Image
+var MonsterUndeadPhantomOldPng *ebiten.Image
+var MonsterUndeadMissingGhostPng *ebiten.Image
+var MonsterUndeadBoneDragonNewPng *ebiten.Image
+var MonsterUndeadZonguldrokLich1Png *ebiten.Image
+var MonsterUndeadVampireMageOldPng *ebiten.Image
+var MonsterUndeadGhostOldPng *ebiten.Image
+var MonsterUndeadWightOldPng *ebiten.Image
+var MonsterUndeadDrownedSoulPng *ebiten.Image
+var MonsterUndeadLostSoulPng *ebiten.Image
+var MonsterUndeadEidolonPng *ebiten.Image
+var MonsterUndeadGhostNewPng *ebiten.Image
+var MonsterUndeadAncientLichNewPng *ebiten.Image
+var MonsterUndeadFlyingSkullPng *ebiten.Image
+var MonsterUndeadVampireKnightNewPng *ebiten.Image
+var MonsterUndeadUnbornPng *ebiten.Image
+var MonsterUndeadSkeletalWarriorOldPng *ebiten.Image
+var MonsterUndeadZombiesZombieTurtlePng *ebiten.Image
+var MonsterUndeadZombiesZombieKrakenHeadPng *ebiten.Image
+var MonsterUndeadZombiesZombieOctopodePng *ebiten.Image
+var MonsterUndeadZombiesZombieDrakePng *ebiten.Image
+var MonsterUndeadZombiesZombieHoundPng *ebiten.Image
+var MonsterUndeadZombiesZombieCrabPng *ebiten.Image
+var MonsterUndeadZombiesZombieLizardPng *ebiten.Image
+var MonsterUndeadZombiesZombieUglyThingPng *ebiten.Image
+var MonsterUndeadZombiesZombieToadPng *ebiten.Image
+var MonsterUndeadZombiesZombieSmallPng *ebiten.Image
+var MonsterUndeadZombiesZombieRatPng *ebiten.Image
+var MonsterUndeadZombiesZombieOgrePng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonQuadrupedLargeOldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHumanoidLargeOldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra5OldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra4NewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonSmallPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra2OldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra5NewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonFishPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHumanoidLargeNewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra1OldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra3OldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonDragonPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra3NewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra1NewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonNagaPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonUglyThingPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonQuadrupedLargeNewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHumanoidSmallOldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonBatPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra2NewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonSnakePng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHumanoidSmallNewPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonHydra4OldPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonQuadrupedSmallPng *ebiten.Image
+var MonsterUndeadSkeletonsSkeletonCentaurPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumSmallOldPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumHydra4Png *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumHydra3Png *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumCentaurPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumHydra1Png *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumBatPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumHydra5Png *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumLargeNewPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumSnakePng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumDrakePng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumKrakenPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumQuadrupedSmallPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumFishPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumHydra2Png *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumLizardPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumDragonPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumQuadrupedLargePng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumAntPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumBeePng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumSmallNewPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumNagaPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumLargeOldPng *ebiten.Image
+var MonsterUndeadSimulacraSimulacrumSpiderPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralCentaurNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralQuadrupedSmallOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralFishOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra4NewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra1NewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralLargePng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra1OldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra3NewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralAntNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralLizardPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralDragonOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra3OldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralDrakePng *ebiten.Image
+var MonsterUndeadSpectralsSpectralSpiderNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra5NewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralBeeNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralFishNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralDragonNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralQuadrupedLargeNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralAntOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralSpiderOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralCentaurOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralSmallPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralBatOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralQuadrupedLargeOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralKrakenPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra2OldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra5OldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralSnakeNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralThingPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralBeeOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralQuadrupedSmallNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralWormPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra2NewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralNagaOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralBatNewPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralSnakeOldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralHydra4OldPng *ebiten.Image
+var MonsterUndeadSpectralsSpectralNagaNewPng *ebiten.Image
+var MonsterSprigganSprigganAirMagePng *ebiten.Image
+var MonsterSprigganSprigganPng *ebiten.Image
+var MonsterSprigganSprigganDefenderPng *ebiten.Image
+var MonsterSprigganSprigganDruidPng *ebiten.Image
+var MonsterSprigganSprigganRiderPng *ebiten.Image
+var MonsterAnimalsRockWormPng *ebiten.Image
+var MonsterAnimalsSnappingTurtleShellPng *ebiten.Image
+var MonsterAnimalsGrizzlyBearPng *ebiten.Image
+var MonsterAnimalsOrbSpiderPng *ebiten.Image
+var MonsterAnimalsElephantDireOldPng *ebiten.Image
+var MonsterAnimalsKillerBeePng *ebiten.Image
+var MonsterAnimalsGiantLizardPng *ebiten.Image
+var MonsterAnimalsSpinyFrogPng *ebiten.Image
+var MonsterAnimalsGiantBatPng *ebiten.Image
+var MonsterAnimalsButterfly6OldPng *ebiten.Image
+var MonsterAnimalsSpinyWormPng *ebiten.Image
+var MonsterAnimalsHellHogNewPng *ebiten.Image
+var MonsterAnimalsYakOldPng *ebiten.Image
+var MonsterAnimalsGiantCockroachNewPng *ebiten.Image
+var MonsterAnimalsSheepPng *ebiten.Image
+var MonsterAnimalsWorkerAntPng *ebiten.Image
+var MonsterAnimalsTarantellaOldPng *ebiten.Image
+var MonsterAnimalsHolySwinePng *ebiten.Image
+var MonsterAnimalsButterfly1NewPng *ebiten.Image
+var MonsterAnimalsTurtlePng *ebiten.Image
+var MonsterAnimalsButterfly7Png *ebiten.Image
+var MonsterAnimalsJumpingSpiderOldPng *ebiten.Image
+var MonsterAnimalsGiantMosquitoPng *ebiten.Image
+var MonsterAnimalsBigFishPng *ebiten.Image
+var MonsterAnimalsGhostMothOldPng *ebiten.Image
+var MonsterAnimalsOrangeRatPng *ebiten.Image
+var MonsterAnimalsGiantBeetlePng *ebiten.Image
+var MonsterAnimalsBearPng *ebiten.Image
+var MonsterAnimalsIceBeastPng *ebiten.Image
+var MonsterAnimalsAlligatorSnappingTurtleShellPng *ebiten.Image
+var MonsterAnimalsButterfly5Png *ebiten.Image
+var MonsterAnimalsQuokkaNewPng *ebiten.Image
+var MonsterAnimalsIguanaPng *ebiten.Image
+var MonsterAnimalsYakNewPng *ebiten.Image
+var MonsterAnimalsButterfly8Png *ebiten.Image
+var MonsterAnimalsPolarBearPng *ebiten.Image
+var MonsterAnimalsButterfly3NewPng *ebiten.Image
+var MonsterAnimalsRedbackNewPng *ebiten.Image
+var MonsterAnimalsButterfly9Png *ebiten.Image
+var MonsterAnimalsWolfPng *ebiten.Image
+var MonsterAnimalsCatoblepasPng *ebiten.Image
+var MonsterAnimalsElephantDemonicNewPng *ebiten.Image
+var MonsterAnimalsViperPng *ebiten.Image
+var MonsterAnimalsSnakePng *ebiten.Image
+var MonsterAnimalsBlinkFrogOldPng *ebiten.Image
+var MonsterAnimalsQueenBeePng *ebiten.Image
+var MonsterAnimalsButterfly2Png *ebiten.Image
+var MonsterAnimalsSnappingTurtleNewPng *ebiten.Image
+var MonsterAnimalsDeathYakNewPng *ebiten.Image
+var MonsterAnimalsSnappingTurtleOldPng *ebiten.Image
+var MonsterAnimalsSeaSnakeNewPng *ebiten.Image
+var MonsterAnimalsGreySnakePng *ebiten.Image
+var MonsterAnimalsButterfly4NewPng *ebiten.Image
+var MonsterAnimalsButterfly4OldPng *ebiten.Image
+var MonsterAnimalsButterfly6NewPng *ebiten.Image
+var MonsterAnimalsGiantCockroachOldPng *ebiten.Image
+var MonsterAnimalsGiantScorpionPng *ebiten.Image
+var MonsterAnimalsDeathYakOldPng *ebiten.Image
+var MonsterAnimalsWaterMoccasinOldPng *ebiten.Image
+var MonsterAnimalsFireCrabPng *ebiten.Image
+var MonsterAnimalsGiantGoldfishPng *ebiten.Image
+var MonsterAnimalsBlackMambaOldPng *ebiten.Image
+var MonsterAnimalsElephantDemonicOldPng *ebiten.Image
+var MonsterAnimalsSoldierAntOldPng *ebiten.Image
+var MonsterAnimalsWolfSpiderNewPng *ebiten.Image
+var MonsterAnimalsGilaMonsterPng *ebiten.Image
+var MonsterAnimalsGiantNewtNewPng *ebiten.Image
+var MonsterAnimalsBlackBearOldPng *ebiten.Image
+var MonsterAnimalsGiantSlugPng *ebiten.Image
+var MonsterAnimalsElephantNewPng *ebiten.Image
+var MonsterAnimalsGiantAntPng *ebiten.Image
+var MonsterAnimalsGiantLeechNewPng *ebiten.Image
+var MonsterAnimalsAlligatorPng *ebiten.Image
+var MonsterAnimalsSpiderPng *ebiten.Image
+var MonsterAnimalsWormOldPng *ebiten.Image
+var MonsterAnimalsGreenRatPng *ebiten.Image
+var MonsterAnimalsWormNewPng *ebiten.Image
+var MonsterAnimalsBlackMambaNewPng *ebiten.Image
+var MonsterAnimalsCrocodilePng *ebiten.Image
+var MonsterAnimalsRaijuPng *ebiten.Image
+var MonsterAnimalsFireBatPng *ebiten.Image
+var MonsterAnimalsQueenAntOldPng *ebiten.Image
+var MonsterAnimalsButterflyNewPng *ebiten.Image
+var MonsterAnimalsQuokkaOldPng *ebiten.Image
+var MonsterAnimalsRatPng *ebiten.Image
+var MonsterAnimalsGiantMitePng *ebiten.Image
+var MonsterAnimalsYellowSnakePng *ebiten.Image
+var MonsterAnimalsJellyfishPng *ebiten.Image
+var MonsterAnimalsBumblebeePng *ebiten.Image
+var MonsterAnimalsGhostMothNewPng *ebiten.Image
+var MonsterAnimalsLavaFishPng *ebiten.Image
+var MonsterAnimalsGiantSnailPng *ebiten.Image
+var MonsterAnimalsKillerBeeLarvaPng *ebiten.Image
+var MonsterAnimalsHellHoundOldPng *ebiten.Image
+var MonsterAnimalsBlackBearNewPng *ebiten.Image
+var MonsterAnimalsGiantLeechPng *ebiten.Image
+var MonsterAnimalsSalamanderPng *ebiten.Image
+var MonsterAnimalsShockSerpentPng *ebiten.Image
+var MonsterAnimalsElephantOldPng *ebiten.Image
+var MonsterAnimalsTrapdoorSpiderNewPng *ebiten.Image
+var MonsterAnimalsBlackSheepPng *ebiten.Image
+var MonsterAnimalsQueenAntNewPng *ebiten.Image
+var MonsterAnimalsRedbackOldPng *ebiten.Image
+var MonsterAnimalsElephantSlugPng *ebiten.Image
+var MonsterAnimalsAnacondaNewPng *ebiten.Image
+var MonsterAnimalsEmperorScorpionPng *ebiten.Image
+var MonsterAnimalsBatPng *ebiten.Image
+var MonsterAnimalsAlligatorBabyPng *ebiten.Image
+var MonsterAnimalsHogNewPng *ebiten.Image
+var MonsterAnimalsJumpingSpiderNewPng *ebiten.Image
+var MonsterAnimalsWaterMoccasinNewPng *ebiten.Image
+var MonsterAnimalsTarantellaNewPng *ebiten.Image
+var MonsterAnimalsGiantCentipedePng *ebiten.Image
+var MonsterAnimalsElephantDireNewPng *ebiten.Image
+var MonsterAnimalsHogOldPng *ebiten.Image
+var MonsterAnimalsAnacondaOldPng *ebiten.Image
+var MonsterAnimalsBallPythonPng *ebiten.Image
+var MonsterAnimalsWolfSpiderOldPng *ebiten.Image
+var MonsterAnimalsAdderPng *ebiten.Image
+var MonsterAnimalsBlinkFrogNewPng *ebiten.Image
+var MonsterAnimalsJackalNewPng *ebiten.Image
+var MonsterAnimalsGiantFrogPng *ebiten.Image
+var MonsterAnimalsButterfly1OldPng *ebiten.Image
+var MonsterAnimalsBrainWormOldPng *ebiten.Image
+var MonsterAnimalsButterfly10Png *ebiten.Image
+var MonsterAnimalsButterfly3OldPng *ebiten.Image
+var MonsterAnimalsGreyRatPng *ebiten.Image
+var MonsterAnimalsJackalOldPng *ebiten.Image
+var MonsterAnimalsTrapdoorSpiderOldPng *ebiten.Image
+var MonsterAnimalsManaViperPng *ebiten.Image
+var MonsterAnimalsSmallSnakePng *ebiten.Image
+var MonsterAnimalsBrainWormNewPng *ebiten.Image
+var MonsterAnimalsMothOfWrathNewPng *ebiten.Image
+var MonsterAnimalsSoldierAntNewPng *ebiten.Image
+var MonsterAnimalsRedWaspPng *ebiten.Image
+var MonsterAnimalsWarDogPng *ebiten.Image
+var MonsterAnimalsAlligatorSnappingTurtleOldPng *ebiten.Image
+var MonsterAnimalsButterflyOldPng *ebiten.Image
+var MonsterAnimalsHellHoundNewPng *ebiten.Image
+var MonsterAnimalsGiantToadPng *ebiten.Image
+var MonsterAnimalsSeaSnakeOldPng *ebiten.Image
+var MonsterAnimalsKomodoDragonPng *ebiten.Image
+var MonsterAnimalsLavaWormPng *ebiten.Image
+var MonsterAnimalsCausticShrikePng *ebiten.Image
+var MonsterAnimalsGiantNewtOldPng *ebiten.Image
+var MonsterAnimalsWargPng *ebiten.Image
+var MonsterAnimalsMothOfWrathOldPng *ebiten.Image
+var MonsterAnimalsHellHogOldPng *ebiten.Image
+var MonsterAnimalsGiantGeckoPng *ebiten.Image
+var MonsterAnimalsYellowWaspPng *ebiten.Image
+var MonsterAnimalsBoringBeetlePng *ebiten.Image
+var MonsterAnimalsGiantBlowflyPng *ebiten.Image
+var MonsterAnimalsGiantFireflyPng *ebiten.Image
+var MonsterAnimalsAlligatorSnappingTurtleNewPng *ebiten.Image
+var MonsterAnimalsScorpionNewPng *ebiten.Image
+var MonsterAnimalsScorpionOldPng *ebiten.Image
+var MonsterAnimalsHoundPng *ebiten.Image
+var MonsterAnimalsGiantLeechOldPng *ebiten.Image
+var MonsterAnimalsBoulderBeetlePng *ebiten.Image
+var MonsterAnimalsBasiliskPng *ebiten.Image
+var MonsterDemonsSmokeDemonNewPng *ebiten.Image
+var MonsterDemonsDemonicCrawlerPng *ebiten.Image
+var MonsterDemonsUglyThing3Png *ebiten.Image
+var MonsterDemonsTormentorNewPng *ebiten.Image
+var MonsterDemonsCigotuvisMonsterPng *ebiten.Image
+var MonsterDemonsVeryUglyThing5Png *ebiten.Image
+var MonsterDemonsTentacledMonstrosityPng *ebiten.Image
+var MonsterDemonsUglyThing4Png *ebiten.Image
+var MonsterDemonsNeqoxecOldPng *ebiten.Image
+var MonsterDemonsUnspeakableBottomPng *ebiten.Image
+var MonsterDemonsSoulEaterPng *ebiten.Image
+var MonsterDemonsPitFiendPng *ebiten.Image
+var MonsterDemonsSixfirhyNewPng *ebiten.Image
+var MonsterDemonsLorocyprocaNewPng *ebiten.Image
+var MonsterDemonsHellwingPng *ebiten.Image
+var MonsterDemonsUglyThing1Png *ebiten.Image
+var MonsterDemonsRedDevilOldPng *ebiten.Image
+var MonsterDemonsLemurePng *ebiten.Image
+var MonsterDemonsVeryUglyThing3Png *ebiten.Image
+var MonsterDemonsAbominationLargePng *ebiten.Image
+var MonsterDemonsChaosSpawn4Png *ebiten.Image
+var MonsterDemonsQuasitOldPng *ebiten.Image
+var MonsterDemonsBlueDevilNewPng *ebiten.Image
+var MonsterDemonsIronImpOldPng *ebiten.Image
+var MonsterDemonsChaosSpawn5Png *ebiten.Image
+var MonsterDemonsChaosSpawn1Png *ebiten.Image
+var MonsterDemonsBalrugNewPng *ebiten.Image
+var MonsterDemonsShadowImpOldPng *ebiten.Image
+var MonsterDemonsUfetubusPng *ebiten.Image
+var MonsterDemonsHellionNewPng *ebiten.Image
+var MonsterDemonsExecutionerPng *ebiten.Image
+var MonsterDemonsVeryUglyThing2Png *ebiten.Image
+var MonsterDemonsEfreetPng *ebiten.Image
+var MonsterDemonsIronImpNewPng *ebiten.Image
+var MonsterDemonsAbominationSmall1Png *ebiten.Image
+var MonsterDemonsBlizzardDemonPng *ebiten.Image
+var MonsterDemonsShadowFiendNewPng *ebiten.Image
+var MonsterDemonsUglyThingPng *ebiten.Image
+var MonsterDemonsAbominationSmallPng *ebiten.Image
+var MonsterDemonsBeastPng *ebiten.Image
+var MonsterDemonsWhiteImpPng *ebiten.Image
+var MonsterDemonsAbominationLarge1Png *ebiten.Image
+var MonsterDemonsRedDevilNewPng *ebiten.Image
+var MonsterDemonsHellionOldPng *ebiten.Image
+var MonsterDemonsBalrugOldPng *ebiten.Image
+var MonsterDemonsRakshasaPng *ebiten.Image
+var MonsterDemonsShadowFiendOldPng *ebiten.Image
+var MonsterDemonsHairyDevilPng *ebiten.Image
+var MonsterDemonsDimmePng *ebiten.Image
+var MonsterDemonsRottingDevilPng *ebiten.Image
+var MonsterDemonsReaperNewPng *ebiten.Image
+var MonsterDemonsAbominationLarge6Png *ebiten.Image
+var MonsterDemonsQuasitNewPng *ebiten.Image
+var MonsterDemonsShadowDemonPng *ebiten.Image
+var MonsterDemonsSmokeDemonOldPng *ebiten.Image
+var MonsterDemonsShadowImpNewPng *ebiten.Image
+var MonsterDemonsLorocyprocaOldPng *ebiten.Image
+var MonsterDemonsFiendPng *ebiten.Image
+var MonsterDemonsNeqoxecNewPng *ebiten.Image
+var MonsterDemonsYnoxinulNewPng *ebiten.Image
+var MonsterDemonsBlueDevilOldPng *ebiten.Image
+var MonsterDemonsChaosSpawnPng *ebiten.Image
+var MonsterDemonsOrangeDemonNewPng *ebiten.Image
+var MonsterDemonsVeryUglyThingPng *ebiten.Image
+var MonsterDemonsGreenDeathPng *ebiten.Image
+var MonsterDemonsUglyThing2Png *ebiten.Image
+var MonsterDemonsOrangeDemonOldPng *ebiten.Image
+var MonsterDemonsMidgePng *ebiten.Image
+var MonsterDemonsIceDevilPng *ebiten.Image
+var MonsterDemonsImpPng *ebiten.Image
+var MonsterDemonsAbominationLarge3Png *ebiten.Image
+var MonsterDemonsHellSentinelPng *ebiten.Image
+var MonsterDemonsUnspeakableTopPng *ebiten.Image
+var MonsterDemonsYnoxinulOldPng *ebiten.Image
+var MonsterDemonsBlueDeathPng *ebiten.Image
+var MonsterDemonsSunDemonPng *ebiten.Image
+var MonsterDemonsRustDevilPng *ebiten.Image
+var MonsterDemonsVeryUglyThing1Png *ebiten.Image
+var MonsterDemonsChaosSpawn3Png *ebiten.Image
+var MonsterDemonsIceFiendPng *ebiten.Image
+var MonsterDemonsVeryUglyThing4Png *ebiten.Image
+var MonsterDemonsReaperOldPng *ebiten.Image
+var MonsterDemonsAbominationLarge5Png *ebiten.Image
+var MonsterDemonsSixfirhyOldPng *ebiten.Image
+var MonsterDemonsAbominationLarge2Png *ebiten.Image
+var MonsterDemonsTormentorOldPng *ebiten.Image
+var MonsterDemonsChaosSpawn2Png *ebiten.Image
+var MonsterDemonsUglyThing5Png *ebiten.Image
+var MonsterDemonsIronDevilPng *ebiten.Image
+var MonsterDemonsCacodemonPng *ebiten.Image
+var MonsterDemonsAbominationLarge4Png *ebiten.Image
+var MonsterStatuesOverlayMageHatNewPng *ebiten.Image
+var MonsterStatuesSpookyStatuePng *ebiten.Image
+var MonsterStatuesOverlayBowOldPng *ebiten.Image
+var MonsterStatuesIceStatuePng *ebiten.Image
+var MonsterStatuesWaterElementalistStatuePng *ebiten.Image
+var MonsterStatuesOverlayAxeOldPng *ebiten.Image
+var MonsterStatuesEarthElementalistStatuePng *ebiten.Image
+var MonsterStatuesStatueBaseOldPng *ebiten.Image
+var MonsterStatuesZotStatuePng *ebiten.Image
+var MonsterStatuesGuardianEyeopenFlame3Png *ebiten.Image
+var MonsterStatuesOrangeCrystalStatueOldPng *ebiten.Image
+var MonsterStatuesOverlayMageHatOldPng *ebiten.Image
+var MonsterStatuesOverlayMagePng *ebiten.Image
+var MonsterStatuesWucadMuStatueNewPng *ebiten.Image
+var MonsterStatuesObeliskPng *ebiten.Image
+var MonsterStatuesOverlayScytheOldPng *ebiten.Image
+var MonsterStatuesOrangeCrystalStatueNewPng *ebiten.Image
+var MonsterStatuesBlockOfIcePng *ebiten.Image
+var MonsterStatuesDarkVineStatueBaseOldPng *ebiten.Image
+var MonsterStatuesOverlayScytheNewPng *ebiten.Image
+var MonsterStatuesGuardianEyeclosedFlame2Png *ebiten.Image
+var MonsterStatuesLightVineStatueBaseNewPng *ebiten.Image
+var MonsterStatuesAirElementalistStatuePng *ebiten.Image
+var MonsterStatuesSnailStatuePng *ebiten.Image
+var MonsterStatuesOverlaySwordOldPng *ebiten.Image
+var MonsterStatuesPillarOfSaltPng *ebiten.Image
+var MonsterStatuesDarkVineStatueBaseNewPng *ebiten.Image
+var MonsterStatuesGuardianEyeopenFlame1Png *ebiten.Image
+var MonsterStatuesGuardianEyeclosedFlame4Png *ebiten.Image
+var MonsterStatuesSilverStatuePng *ebiten.Image
+var MonsterStatuesStatueBaseNewPng *ebiten.Image
+var MonsterStatuesFirespitterStatueOldPng *ebiten.Image
+var MonsterStatuesGuardianEyeclosedFlame3Png *ebiten.Image
+var MonsterStatuesOverlayMaceOldPng *ebiten.Image
+var MonsterStatuesTrainingDummyOldPng *ebiten.Image
+var MonsterStatuesOverlayCrossbowOldPng *ebiten.Image
+var MonsterStatuesOverlayCrossbowNewPng *ebiten.Image
+var MonsterStatuesLightVineStatueBaseOldPng *ebiten.Image
+var MonsterStatuesWucadMuStatueOldPng *ebiten.Image
+var MonsterStatuesOverlayMaceNewPng *ebiten.Image
+var MonsterStatuesTrainingDummyNewPng *ebiten.Image
+var MonsterStatuesOverlayWhipNewPng *ebiten.Image
+var MonsterStatuesGuardianEyeopenFlame2Png *ebiten.Image
+var MonsterStatuesOverlayAxeNewPng *ebiten.Image
+var MonsterStatuesFireElementalistStatuePng *ebiten.Image
+var MonsterStatuesFirespitterStatueNewPng *ebiten.Image
+var MonsterStatuesChillingStatuePng *ebiten.Image
+var MonsterStatuesOverlayBowNewPng *ebiten.Image
+var MonsterStatuesGuardianEyeclosedFlame1Png *ebiten.Image
+var MonsterStatuesOverlayWhipOldPng *ebiten.Image
+var MonsterStatuesGuardianEyeopenFlame4Png *ebiten.Image
+var MonsterStatuesBlockOfIce2Png *ebiten.Image
+var MonsterStatuesOverlaySwordNewPng *ebiten.Image
+var MonsterDragonsHydra4NewPng *ebiten.Image
+var MonsterDragonsGoldenDragonPng *ebiten.Image
+var MonsterDragonsHydra2NewPng *ebiten.Image
+var MonsterDragonsHydra3NewPng *ebiten.Image
+var MonsterDragonsDragonPng *ebiten.Image
+var MonsterDragonsSteamDragonPng *ebiten.Image
+var MonsterDragonsHydra5NewPng *ebiten.Image
+var MonsterDragonsIronDragonPng *ebiten.Image
+var MonsterDragonsQuicksilverDragonOldPng *ebiten.Image
+var MonsterDragonsSwampDragonNewPng *ebiten.Image
+var MonsterDragonsIceDragonNewPng *ebiten.Image
+var MonsterDragonsQuicksilverDragonNewPng *ebiten.Image
+var MonsterDragonsHydra1NewPng *ebiten.Image
+var MonsterDragonsMottledDragonPng *ebiten.Image
+var MonsterDragonsShadowDragonPng *ebiten.Image
+var MonsterDragonsWyvernNewPng *ebiten.Image
+var MonsterDragonsStormDragonNewPng *ebiten.Image
+var MonsterNonlivingOrbOfFireNewPng *ebiten.Image
+var MonsterNonlivingTestSpawnerNewPng *ebiten.Image
+var MonsterNonlivingFireVortex3Png *ebiten.Image
+var MonsterNonlivingWaterElementalOldPng *ebiten.Image
+var MonsterNonlivingSpectralSblPng *ebiten.Image
+var MonsterNonlivingBattlespherePng *ebiten.Image
+var MonsterNonlivingSpectralWhipPng *ebiten.Image
+var MonsterNonlivingFulminantPrism2Png *ebiten.Image
+var MonsterNonlivingSpellforgedServitorPng *ebiten.Image
+var MonsterNonlivingOrbOfFireOldPng *ebiten.Image
+var MonsterNonlivingTestSpawnerOldPng *ebiten.Image
+var MonsterNonlivingSpectralStaffPng *ebiten.Image
+var MonsterNonlivingSpatialVortex2Png *ebiten.Image
+var MonsterNonlivingFireVortex2Png *ebiten.Image
+var MonsterNonlivingBallLightningPng *ebiten.Image
+var MonsterNonlivingMetalGargoylePng *ebiten.Image
+var MonsterNonlivingSpatialVortex1Png *ebiten.Image
+var MonsterNonlivingOrbOfElectricityPng *ebiten.Image
+var MonsterNonlivingMaelstrom2Png *ebiten.Image
+var MonsterNonlivingGargoylePng *ebiten.Image
+var MonsterNonlivingSpectralLblPng *ebiten.Image
+var MonsterNonlivingTwister1Png *ebiten.Image
+var MonsterNonlivingMoltenGargoylePng *ebiten.Image
+var MonsterNonlivingSpatialVortexPng *ebiten.Image
+var MonsterNonlivingIronGolemPng *ebiten.Image
+var MonsterNonlivingFireElementalNewPng *ebiten.Image
+var MonsterNonlivingWellspringPng *ebiten.Image
+var MonsterNonlivingFireVortex4Png *ebiten.Image
+var MonsterNonlivingMaelstrom1Png *ebiten.Image
+var MonsterNonlivingSpectralSpearPng *ebiten.Image
+var MonsterNonlivingVapourPng *ebiten.Image
+var MonsterNonlivingToenailGolemPng *ebiten.Image
+var MonsterNonlivingSpectralAxePng *ebiten.Image
+var MonsterNonlivingSpectralMacePng *ebiten.Image
+var MonsterNonlivingFulminantPrism3Png *ebiten.Image
+var MonsterNonlivingMaelstrom4Png *ebiten.Image
+var MonsterNonlivingCrystalGolemPng *ebiten.Image
+var MonsterNonlivingStoneGolemPng *ebiten.Image
+var MonsterNonlivingEarthElementalPng *ebiten.Image
+var MonsterNonlivingAirElementalOldPng *ebiten.Image
+var MonsterNonlivingFulminantPrism4Png *ebiten.Image
+var MonsterNonlivingOrbOfDestruction1Png *ebiten.Image
+var MonsterNonlivingTwister3Png *ebiten.Image
+var MonsterNonlivingFireElementalOldPng *ebiten.Image
+var MonsterNonlivingFleshGolemPng *ebiten.Image
+var MonsterNonlivingFireVortexPng *ebiten.Image
+var MonsterNonlivingCrystalGuardianPng *ebiten.Image
+var MonsterNonlivingFireVortex1Png *ebiten.Image
+var MonsterNonlivingAirElementalNewPng *ebiten.Image
+var MonsterNonlivingGuardianGolemPng *ebiten.Image
+var MonsterNonlivingTwister4Png *ebiten.Image
+var MonsterNonlivingSpatialVortex3Png *ebiten.Image
+var MonsterNonlivingWoodGolemPng *ebiten.Image
+var MonsterNonlivingWaterElementalNewPng *ebiten.Image
+var MonsterNonlivingClayGolemPng *ebiten.Image
+var MonsterNonlivingFulminantPrism1Png *ebiten.Image
+var MonsterNonlivingOrbOfDestruction2Png *ebiten.Image
+var MonsterNonlivingMaelstrom3Png *ebiten.Image
+var MonsterNonlivingSpatialVortex4Png *ebiten.Image
+var MonsterNonlivingInsubstantialWispPng *ebiten.Image
+var MonsterNonlivingIronElementalPng *ebiten.Image
+var MonsterNonlivingUshabtiPng *ebiten.Image
+var MonsterNonlivingElectricGolemPng *ebiten.Image
+var MonsterNonlivingTwister2Png *ebiten.Image
+var MonsterNonlivingOrbOfIcePng *ebiten.Image
+var DungeonChest2ClosedPng *ebiten.Image
+var DungeonBloodFountainPng *ebiten.Image
+var DungeonMoldLarge3Png *ebiten.Image
+var DungeonSparklingFountainPng *ebiten.Image
+var DungeonBoulderPng *ebiten.Image
+var DungeonSarcophagusOpenPng *ebiten.Image
+var DungeonUnseenPng *ebiten.Image
+var DungeonMoldLarge2Png *ebiten.Image
+var DungeonLargeBoxPng *ebiten.Image
+var DungeonBlueFountainPng *ebiten.Image
+var DungeonMoldLarge4Png *ebiten.Image
+var DungeonDryFountainPng *ebiten.Image
+var DungeonChest2OpenPng *ebiten.Image
+var DungeonBloodFountain2Png *ebiten.Image
+var DungeonChestPng *ebiten.Image
+var DungeonMoldLarge1Png *ebiten.Image
+var DungeonSparklingFountain2Png *ebiten.Image
+var DungeonZotPillarPng *ebiten.Image
+var DungeonBlueFountain2Png *ebiten.Image
+var DungeonFloorOrc7Png *ebiten.Image
+var DungeonFloorBlackCobalt11Png *ebiten.Image
+var DungeonFloorDirt0OldPng *ebiten.Image
+var DungeonFloorSigilStraightEastWestPng *ebiten.Image
+var DungeonFloorSigilWideNorthSoutheastPng *ebiten.Image
+var DungeonFloorDirtNortheastNewPng *ebiten.Image
+var DungeonFloorPedestalEastPng *ebiten.Image
+var DungeonFloorLair0OldPng *ebiten.Image
+var DungeonFloorLava1Png *ebiten.Image
+var DungeonFloorFrozen4Png *ebiten.Image
+var DungeonFloorDemonicRed4Png *ebiten.Image
+var DungeonFloorDirt0NewPng *ebiten.Image
+var DungeonFloorPedestalSoutheastPng *ebiten.Image
+var DungeonFloorOrc4Png *ebiten.Image
+var DungeonFloorLair3NewPng *ebiten.Image
+var DungeonFloorGreyDirt3NewPng *ebiten.Image
+var DungeonFloorVolcanicFloor5Png *ebiten.Image
+var DungeonFloorFloorVines3OldPng *ebiten.Image
+var DungeonFloorFloorVines4NewPng *ebiten.Image
+var DungeonFloorPedestalNortheastPng *ebiten.Image
+var DungeonFloorFloorNerves5NewPng *ebiten.Image
+var DungeonFloorSigilStraightNorthSouthPng *ebiten.Image
+var DungeonFloorPebbleBrown3NewPng *ebiten.Image
+var DungeonFloorSigilYWestPng *ebiten.Image
+var DungeonFloorSlimeOverlayWestPng *ebiten.Image
+var DungeonFloorCrystalFloor1Png *ebiten.Image
+var DungeonFloorMud0Png *ebiten.Image
+var DungeonFloorLair5BPng *ebiten.Image
+var DungeonFloorWhiteMarble0Png *ebiten.Image
+var DungeonFloorRoughRed3Png *ebiten.Image
+var DungeonFloorSwamp1NewPng *ebiten.Image
+var DungeonFloorLimestone7Png *ebiten.Image
+var DungeonFloorRectGray2OldPng *ebiten.Image
+var DungeonFloorFloorVines6OldPng *ebiten.Image
+var DungeonFloorBlackCobalt3Png *ebiten.Image
+var DungeonFloorEtched0Png *ebiten.Image
+var DungeonFloorSigilSharpWestSouthwestPng *ebiten.Image
+var DungeonFloorCobbleBlood7NewPng *ebiten.Image
+var DungeonFloorBlackCobalt5Png *ebiten.Image
+var DungeonFloorCrystalFloor3Png *ebiten.Image
+var DungeonFloorMoss3Png *ebiten.Image
+var DungeonFloorRectGray2NewPng *ebiten.Image
+var DungeonFloorLair1NewPng *ebiten.Image
+var DungeonFloorLimestone0Png *ebiten.Image
+var DungeonFloorSand3Png *ebiten.Image
+var DungeonFloorMarbleFloor5Png *ebiten.Image
+var DungeonFloorDirtEastNewPng *ebiten.Image
+var DungeonFloorLimestone9Png *ebiten.Image
+var DungeonFloorFloorSandRock3Png *ebiten.Image
+var DungeonFloorSnakeC0Png *ebiten.Image
+var DungeonFloorDirtNortheastOldPng *ebiten.Image
+var DungeonFloorGreenBones1Png *ebiten.Image
+var DungeonFloorSnake0Png *ebiten.Image
+var DungeonFloorOrc0Png *ebiten.Image
+var DungeonFloorLabyrinth2Png *ebiten.Image
+var DungeonFloorLava3Png *ebiten.Image
+var DungeonFloorBogGreen3OldPng *ebiten.Image
+var DungeonFloorSigilCurveNorthEastPng *ebiten.Image
+var DungeonFloorOrc1Png *ebiten.Image
+var DungeonFloorBlackCobalt1Png *ebiten.Image
+var DungeonFloorGreyDirt2OldPng *ebiten.Image
+var DungeonFloorGreyDirt1NewPng *ebiten.Image
+var DungeonFloorCrystalFloor5Png *ebiten.Image
+var DungeonFloorLair1OldPng *ebiten.Image
+var DungeonFloorSwamp0OldPng *ebiten.Image
+var DungeonFloorSigilWideNorthSouthwestPng *ebiten.Image
+var DungeonFloorSand4Png *ebiten.Image
+var DungeonFloorDemonicRed6Png *ebiten.Image
+var DungeonFloorSandstoneFloor3Png *ebiten.Image
+var DungeonFloorLair6Png *ebiten.Image
+var DungeonFloorSigilCurveSouthWestPng *ebiten.Image
+var DungeonFloorFloorSandStone6Png *ebiten.Image
+var DungeonFloorInfernal13Png *ebiten.Image
+var DungeonFloorCobbleBlood2OldPng *ebiten.Image
+var DungeonFloorPebbleBrown8OldPng *ebiten.Image
+var DungeonFloorCage0Png *ebiten.Image
+var DungeonFloorCryptDomino5APng *ebiten.Image
+var DungeonFloorLavaOldPng *ebiten.Image
+var DungeonFloorCobbleBlood3NewPng *ebiten.Image
+var DungeonFloorBlackCobalt6Png *ebiten.Image
+var DungeonFloorAcidicFloor0Png *ebiten.Image
+var DungeonFloorSand6Png *ebiten.Image
+var DungeonFloorVolcanicFloor0Png *ebiten.Image
+var DungeonFloorGreyDirt0NewPng *ebiten.Image
+var DungeonFloorEtched4Png *ebiten.Image
+var DungeonFloorGreyDirt0OldPng *ebiten.Image
+var DungeonFloorOrc5Png *ebiten.Image
+var DungeonFloorSnake1Png *ebiten.Image
+var DungeonFloorFloorVines1NewPng *ebiten.Image
+var DungeonFloorSwamp3OldPng *ebiten.Image
+var DungeonFloorGreenBones2Png *ebiten.Image
+var DungeonFloorGreyDirt6NewPng *ebiten.Image
+var DungeonFloorFrozen6Png *ebiten.Image
+var DungeonFloorGreyDirt7OldPng *ebiten.Image
+var DungeonFloorSigilWideSouthNorthwestPng *ebiten.Image
+var DungeonFloorSnakeA2Png *ebiten.Image
+var DungeonFloorSandstoneFloor0Png *ebiten.Image
+var DungeonFloorSnake3Png *ebiten.Image
+var DungeonFloorSigilCirclePng *ebiten.Image
+var DungeonFloorBogGreen0NewPng *ebiten.Image
+var DungeonFloorFloorSandStone1Png *ebiten.Image
+var DungeonFloorRoughRed2Png *ebiten.Image
+var DungeonFloorEtched2Png *ebiten.Image
+var DungeonFloorHive1Png *ebiten.Image
+var DungeonFloorGreyDirt1OldPng *ebiten.Image
+var DungeonFloorMosaic12Png *ebiten.Image
+var DungeonFloorRectGray0OldPng *ebiten.Image
+var DungeonFloorCrypt10Png *ebiten.Image
+var DungeonFloorSigilSharpEastNortheastPng *ebiten.Image
+var DungeonFloorLimestone3Png *ebiten.Image
+var DungeonFloorOrc6Png *ebiten.Image
+var DungeonFloorLair7BPng *ebiten.Image
+var DungeonFloorCrypt11Png *ebiten.Image
+var DungeonFloorPedestalFullPng *ebiten.Image
+var DungeonFloorGreenBones11Png *ebiten.Image
+var DungeonFloorSigilYRightPng *ebiten.Image
+var DungeonFloorFloorSandStone5Png *ebiten.Image
+var DungeonFloorMosaic2Png *ebiten.Image
+var DungeonFloorPebbleBrown4NewPng *ebiten.Image
+var DungeonFloorSand8Png *ebiten.Image
+var DungeonFloorDemonicRed1Png *ebiten.Image
+var DungeonFloorFloorNerves3OldPng *ebiten.Image
+var DungeonFloorCrystalFloor0Png *ebiten.Image
+var DungeonFloorSigilStraightNorthwestSoutheastPng *ebiten.Image
+var DungeonFloorWhiteMarble7Png *ebiten.Image
+var DungeonFloorTomb0NewPng *ebiten.Image
+var DungeonFloorCobbleBlood4NewPng *ebiten.Image
+var DungeonFloorMarbleFloor1Png *ebiten.Image
+var DungeonFloorWhiteMarble1Png *ebiten.Image
+var DungeonFloorCobbleBlood6OldPng *ebiten.Image
+var DungeonFloorGreyDirt5OldPng *ebiten.Image
+var DungeonFloorFrozen9Png *ebiten.Image
+var DungeonFloorGreyDirt6OldPng *ebiten.Image
+var DungeonFloorFloorVines2NewPng *ebiten.Image
+var DungeonFloorSnakeC3Png *ebiten.Image
+var DungeonFloorCobbleBlood4OldPng *ebiten.Image
+var DungeonFloorMosaic1Png *ebiten.Image
+var DungeonFloorDirtSouthNewPng *ebiten.Image
+var DungeonFloorSwamp0NewPng *ebiten.Image
+var DungeonFloorMud3Png *ebiten.Image
+var DungeonFloorInfernal9Png *ebiten.Image
+var DungeonFloorLimestone6Png *ebiten.Image
+var DungeonFloorFloorVines3NewPng *ebiten.Image
+var DungeonFloorGreyDirt4OldPng *ebiten.Image
+var DungeonFloorCobbleBlood1NewPng *ebiten.Image
+var DungeonFloorCrystalFloor4Png *ebiten.Image
+var DungeonFloorBlackCobalt8Png *ebiten.Image
+var DungeonFloorCobbleBlood8NewPng *ebiten.Image
+var DungeonFloorCryptDomino1APng *ebiten.Image
+var DungeonFloorCobbleBlood9NewPng *ebiten.Image
+var DungeonFloorSand2Png *ebiten.Image
+var DungeonFloorInfernal7Png *ebiten.Image
+var DungeonFloorLava2Png *ebiten.Image
+var DungeonFloorGreyDirtB2Png *ebiten.Image
+var DungeonFloorSigilCurveNorthWestPng *ebiten.Image
+var DungeonFloorCobbleBlood2NewPng *ebiten.Image
+var DungeonFloorMud2Png *ebiten.Image
+var DungeonFloorPebbleBrown5NewPng *ebiten.Image
+var DungeonFloorAcidicFloor3Png *ebiten.Image
+var DungeonFloorIce2OldPng *ebiten.Image
+var DungeonFloorSigilStraightEastNortheastSouthwestPng *ebiten.Image
+var DungeonFloorInfernal4Png *ebiten.Image
+var DungeonFloorSnakeA0Png *ebiten.Image
+var DungeonFloorLair6BPng *ebiten.Image
+var DungeonFloorMesh0OldPng *ebiten.Image
+var DungeonFloorIce1NewPng *ebiten.Image
+var DungeonFloorSlimeOverlayEastPng *ebiten.Image
+var DungeonFloorDemonicRed5Png *ebiten.Image
+var DungeonFloorDirt1NewPng *ebiten.Image
+var DungeonFloorLava0Png *ebiten.Image
+var DungeonFloorSnakeD2Png *ebiten.Image
+var DungeonFloorRectGray0NewPng *ebiten.Image
+var DungeonFloorCobbleBlood10NewPng *ebiten.Image
+var DungeonFloorSlimeOverlayNorthwestPng *ebiten.Image
+var DungeonFloorGreenBones5Png *ebiten.Image
+var DungeonFloorDemonicRed9Png *ebiten.Image
+var DungeonFloorSlimeOverlaySoutheastPng *ebiten.Image
+var DungeonFloorHive2Png *ebiten.Image
+var DungeonFloorFloorSandRock1Png *ebiten.Image
+var DungeonFloorIce3NewPng *ebiten.Image
+var DungeonFloorSigilAlgizRightPng *ebiten.Image
+var DungeonFloorSandstoneFloor9Png *ebiten.Image
+var DungeonFloorRoughRed0Png *ebiten.Image
+var DungeonFloorGreyDirt7NewPng *ebiten.Image
+var DungeonFloorLabyrinth1Png *ebiten.Image
+var DungeonFloorMosaic3Png *ebiten.Image
+var DungeonFloorDirtSouthOldPng *ebiten.Image
+var DungeonFloorSnakeC1Png *ebiten.Image
+var DungeonFloorFloorNerves1NewPng *ebiten.Image
+var DungeonFloorSigilWideEastSouthwestPng *ebiten.Image
+var DungeonFloorVolcanicFloor3Png *ebiten.Image
+var DungeonFloorTutorialPadPng *ebiten.Image
+var DungeonFloorDirtFullOldPng *ebiten.Image
+var DungeonFloorGreenBones4Png *ebiten.Image
+var DungeonFloorLimestone1Png *ebiten.Image
+var DungeonFloorEtched1Png *ebiten.Image
+var DungeonFloorMarbleFloor4Png *ebiten.Image
+var DungeonFloorIce2NewPng *ebiten.Image
+var DungeonFloorSwamp2NewPng *ebiten.Image
+var DungeonFloorBlackCobalt4Png *ebiten.Image
+var DungeonFloorGreyDirt3OldPng *ebiten.Image
+var DungeonFloorCobbleBlood11NewPng *ebiten.Image
+var DungeonFloorSigilYNorthPng *ebiten.Image
+var DungeonFloorDirtSoutheastNewPng *ebiten.Image
+var DungeonFloorSigilYSouthPng *ebiten.Image
+var DungeonFloorDemonicRed7Png *ebiten.Image
+var DungeonFloorCryptDomino4APng *ebiten.Image
+var DungeonFloorCobbleBlood11OldPng *ebiten.Image
+var DungeonFloorFrozen8Png *ebiten.Image
+var DungeonFloorEtched5Png *ebiten.Image
+var DungeonFloorDemonicRed2Png *ebiten.Image
+var DungeonFloorSlimeOverlaySouthwestPng *ebiten.Image
+var DungeonFloorFloorNerves5OldPng *ebiten.Image
+var DungeonFloorLimestone5Png *ebiten.Image
+var DungeonFloorOrc2Png *ebiten.Image
+var DungeonFloorCage1Png *ebiten.Image
+var DungeonFloorPedestalWestPng *ebiten.Image
+var DungeonFloorWhiteMarble9Png *ebiten.Image
+var DungeonFloorMesh1NewPng *ebiten.Image
+var DungeonFloorCryptDomino7APng *ebiten.Image
+var DungeonFloorMesh2NewPng *ebiten.Image
+var DungeonFloorCobbleBlood12NewPng *ebiten.Image
+var DungeonFloorInfernal15Png *ebiten.Image
+var DungeonFloorSigilCurveSouthEastPng *ebiten.Image
+var DungeonFloorMarbleFloor6Png *ebiten.Image
+var DungeonFloorWhiteMarble5Png *ebiten.Image
+var DungeonFloorLabyrinth3Png *ebiten.Image
+var DungeonFloorMesh1OldPng *ebiten.Image
+var DungeonFloorFloorVines1OldPng *ebiten.Image
+var DungeonFloorFloorVines0OldPng *ebiten.Image
+var DungeonFloorFloorVines4OldPng *ebiten.Image
+var DungeonFloorDirtSoutheastOldPng *ebiten.Image
+var DungeonFloorRectGray3OldPng *ebiten.Image
+var DungeonFloorBlackCobalt7Png *ebiten.Image
+var DungeonFloorSand7Png *ebiten.Image
+var DungeonFloorSlimeOverlayNorthPng *ebiten.Image
+var DungeonFloorSnake2Png *ebiten.Image
+var DungeonFloorCage2Png *ebiten.Image
+var DungeonFloorLair4Png *ebiten.Image
+var DungeonFloorMarbleFloor3Png *ebiten.Image
+var DungeonFloorGreenBones6Png *ebiten.Image
+var DungeonFloorDirt1OldPng *ebiten.Image
+var DungeonFloorFloorNerves0Png *ebiten.Image
+var DungeonFloorSnakeD0Png *ebiten.Image
+var DungeonFloorLair3OldPng *ebiten.Image
+var DungeonFloorLabyrinth0Png *ebiten.Image
+var DungeonFloorWhiteMarble6Png *ebiten.Image
+var DungeonFloorMosaic14Png *ebiten.Image
+var DungeonFloorCobbleBlood9OldPng *ebiten.Image
+var DungeonFloorSwamp2OldPng *ebiten.Image
+var DungeonFloorCobbleBlood7OldPng *ebiten.Image
+var DungeonFloorFloorSandRock2Png *ebiten.Image
+var DungeonFloorGreyDirt2NewPng *ebiten.Image
+var DungeonFloorGreyDirtB6Png *ebiten.Image
+var DungeonFloorMosaic4Png *ebiten.Image
+var DungeonFloorPebbleBrown0NewPng *ebiten.Image
+var DungeonFloorSnakeD3Png *ebiten.Image
+var DungeonFloorMosaic10Png *ebiten.Image
+var DungeonFloorPebbleBrown0OldPng *ebiten.Image
+var DungeonFloorCryptDomino6APng *ebiten.Image
+var DungeonFloorMosaic15Png *ebiten.Image
+var DungeonFloorFloorVines6NewPng *ebiten.Image
+var DungeonFloorSandstoneFloor4Png *ebiten.Image
+var DungeonFloorSnakeA1Png *ebiten.Image
+var DungeonFloorInfernalBlankPng *ebiten.Image
+var DungeonFloorDemonicRed3Png *ebiten.Image
+var DungeonFloorDirtFullNewPng *ebiten.Image
+var DungeonFloorCobbleBlood5NewPng *ebiten.Image
+var DungeonFloorPebbleBrown7NewPng *ebiten.Image
+var DungeonFloorCage3Png *ebiten.Image
+var DungeonFloorMesh0NewPng *ebiten.Image
+var DungeonFloorLimestone2Png *ebiten.Image
+var DungeonFloorGreyDirtB1Png *ebiten.Image
+var DungeonFloorFloorSandStone0Png *ebiten.Image
+var DungeonFloorBlackCobalt10Png *ebiten.Image
+var DungeonFloorAcidicFloor1Png *ebiten.Image
+var DungeonFloorMoss0Png *ebiten.Image
+var DungeonFloorBogGreen1NewPng *ebiten.Image
+var DungeonFloorRoughRed1Png *ebiten.Image
+var DungeonFloorGreyDirt4NewPng *ebiten.Image
+var DungeonFloorEtched3Png *ebiten.Image
+var DungeonFloorCage4Png *ebiten.Image
+var DungeonFloorMosaic11Png *ebiten.Image
+var DungeonFloorGreenBones8Png *ebiten.Image
+var DungeonFloorLair0BPng *ebiten.Image
+var DungeonFloorSigilStraightNortheastSouthwestPng *ebiten.Image
+var DungeonFloorGreenBones10Png *ebiten.Image
+var DungeonFloorVolcanicFloor4Png *ebiten.Image
+var DungeonFloorSnakeA3Png *ebiten.Image
+var DungeonFloorLair0NewPng *ebiten.Image
+var DungeonFloorPedestalNorthPng *ebiten.Image
+var DungeonFloorMosaic13Png *ebiten.Image
+var DungeonFloorWhiteMarble4Png *ebiten.Image
+var DungeonFloorCobbleBlood10OldPng *ebiten.Image
+var DungeonFloorSnakeC2Png *ebiten.Image
+var DungeonFloorCryptDomino3APng *ebiten.Image
+var DungeonFloorDirtWestOldPng *ebiten.Image
+var DungeonFloorSandstoneFloor6Png *ebiten.Image
+var DungeonFloorFrozen3Png *ebiten.Image
+var DungeonFloorFrozen5Png *ebiten.Image
+var DungeonFloorLimestone4Png *ebiten.Image
+var DungeonFloorGreyDirtB5Png *ebiten.Image
+var DungeonFloorMoss1Png *ebiten.Image
+var DungeonFloorWhiteMarble8Png *ebiten.Image
+var DungeonFloorMesh3OldPng *ebiten.Image
+var DungeonFloorSigilAlgizLeftPng *ebiten.Image
+var DungeonFloorPebbleBrown7OldPng *ebiten.Image
+var DungeonFloorGreenBones12Png *ebiten.Image
+var DungeonFloorSigilStraightEastWestNortheastNorthwestPng *ebiten.Image
+var DungeonFloorMosaic8Png *ebiten.Image
+var DungeonFloorLair1BPng *ebiten.Image
+var DungeonFloorMesh3NewPng *ebiten.Image
+var DungeonFloorPebbleBrown2NewPng *ebiten.Image
+var DungeonFloorPebbleBrown8NewPng *ebiten.Image
+var DungeonFloorCryptDomino2APng *ebiten.Image
+var DungeonFloorFloorNerves6Png *ebiten.Image
+var DungeonFloorIce1OldPng *ebiten.Image
+var DungeonFloorFloorSandStone2Png *ebiten.Image
+var DungeonFloorHive3Png *ebiten.Image
+var DungeonFloorGreyDirtB3Png *ebiten.Image
+var DungeonFloorGreenBones3Png *ebiten.Image
+var DungeonFloorSand5Png *ebiten.Image
+var DungeonFloorSigilWideEastNorthwestPng *ebiten.Image
+var DungeonFloorDirt2NewPng *ebiten.Image
+var DungeonFloorSwamp3NewPng *ebiten.Image
+var DungeonFloorBlackCobalt9Png *ebiten.Image
+var DungeonFloorDirtNorthwestOldPng *ebiten.Image
+var DungeonFloorSandstoneFloor8Png *ebiten.Image
+var DungeonFloorLair2BPng *ebiten.Image
+var DungeonFloorSlimeOverlayNortheastPng *ebiten.Image
+var DungeonFloorLair4BPng *ebiten.Image
+var DungeonFloorDirt2OldPng *ebiten.Image
+var DungeonFloorCobbleBlood12OldPng *ebiten.Image
+var DungeonFloorTomb3NewPng *ebiten.Image
+var DungeonFloorFloorSandStone3Png *ebiten.Image
+var DungeonFloorInfernal14Png *ebiten.Image
+var DungeonFloorSigilWideWestNortheastPng *ebiten.Image
+var DungeonFloorSand1Png *ebiten.Image
+var DungeonFloorLair5Png *ebiten.Image
+var DungeonFloorGreyDirtB7Png *ebiten.Image
+var DungeonFloorCobbleBlood1OldPng *ebiten.Image
+var DungeonFloorInfernal3Png *ebiten.Image
+var DungeonFloorCryptDomino8APng *ebiten.Image
+var DungeonFloorMosaic6Png *ebiten.Image
+var DungeonFloorInfernal11Png *ebiten.Image
+var DungeonFloorFrozen0Png *ebiten.Image
+var DungeonFloorOrc3Png *ebiten.Image
+var DungeonFloorDemonicRed8Png *ebiten.Image
+var DungeonFloorVolcanicFloor1Png *ebiten.Image
+var DungeonFloorPedestalSouthPng *ebiten.Image
+var DungeonFloorVolcanicFloor2Png *ebiten.Image
+var DungeonFloorMoss2Png *ebiten.Image
+var DungeonFloorBlackCobalt2Png *ebiten.Image
+var DungeonFloorIce0NewPng *ebiten.Image
+var DungeonFloorFloorNerves4OldPng *ebiten.Image
+var DungeonFloorInfernal1Png *ebiten.Image
+var DungeonFloorFloorSandRock0Png *ebiten.Image
+var DungeonFloorLimestone8Png *ebiten.Image
+var DungeonFloorPedestalSouthwestPng *ebiten.Image
+var DungeonFloorMosaic0Png *ebiten.Image
+var DungeonFloorIce3OldPng *ebiten.Image
+var DungeonFloorPebbleBrown6OldPng *ebiten.Image
+var DungeonFloorPebbleBrown5OldPng *ebiten.Image
+var DungeonFloorGreenBones7Png *ebiten.Image
+var DungeonFloorFrozen11Png *ebiten.Image
+var DungeonFloorSnakeD1Png *ebiten.Image
+var DungeonFloorRectGray1OldPng *ebiten.Image
+var DungeonFloorSlimeOverlaySouthPng *ebiten.Image
+var DungeonFloorLair3BPng *ebiten.Image
+var DungeonFloorRectGray1NewPng *ebiten.Image
+var DungeonFloorTomb2NewPng *ebiten.Image
+var DungeonFloorTomb1NewPng *ebiten.Image
+var DungeonFloorLair7Png *ebiten.Image
+var DungeonFloorSigilWideSouthNortheastPng *ebiten.Image
+var DungeonFloorBogGreen2NewPng *ebiten.Image
+var DungeonFloorSandstoneFloor1Png *ebiten.Image
+var DungeonFloorMosaic5Png *ebiten.Image
+var DungeonFloorHive0Png *ebiten.Image
+var DungeonFloorDirtNorthNewPng *ebiten.Image
+var DungeonFloorTomb0OldPng *ebiten.Image
+var DungeonFloorCage5Png *ebiten.Image
+var DungeonFloorFloorNerves2NewPng *ebiten.Image
+var DungeonFloorPebbleBrown1OldPng *ebiten.Image
+var DungeonFloorInfernal6Png *ebiten.Image
+var DungeonFloorMosaic7Png *ebiten.Image
+var DungeonFloorFrozen7Png *ebiten.Image
+var DungeonFloorFrozen2Png *ebiten.Image
+var DungeonFloorPebbleBrown1NewPng *ebiten.Image
+var DungeonFloorGreenBones9Png *ebiten.Image
+var DungeonFloorFrozen10Png *ebiten.Image
+var DungeonFloorFloorNerves2OldPng *ebiten.Image
+var DungeonFloorFloorNerves3NewPng *ebiten.Image
+var DungeonFloorDirtSouthwestOldPng *ebiten.Image
+var DungeonFloorSigilYLeftPng *ebiten.Image
+var DungeonFloorPebbleBrown3OldPng *ebiten.Image
+var DungeonFloorPebbleBrown2OldPng *ebiten.Image
+var DungeonFloorFloorNerves4NewPng *ebiten.Image
+var DungeonFloorSigilWideWestSoutheastPng *ebiten.Image
+var DungeonFloorMud1Png *ebiten.Image
+var DungeonFloorLair2OldPng *ebiten.Image
+var DungeonFloorCrystalFloor2Png *ebiten.Image
+var DungeonFloorCobbleBlood6NewPng *ebiten.Image
+var DungeonFloorBlackCobalt12Png *ebiten.Image
+var DungeonFloorTomb2OldPng *ebiten.Image
+var DungeonFloorFrozen1Png *ebiten.Image
+var DungeonFloorDirtNorthOldPng *ebiten.Image
+var DungeonFloorFloorVines0NewPng *ebiten.Image
+var DungeonFloorCobbleBlood3OldPng *ebiten.Image
+var DungeonFloorTomb1OldPng *ebiten.Image
+var DungeonFloorSigilCrossPng *ebiten.Image
+var DungeonFloorFloorVines5OldPng *ebiten.Image
+var DungeonFloorIce0OldPng *ebiten.Image
+var DungeonFloorTomb3OldPng *ebiten.Image
+var DungeonFloorFrozen12Png *ebiten.Image
+var DungeonFloorPebbleBrown4OldPng *ebiten.Image
+var DungeonFloorInfernal5Png *ebiten.Image
+var DungeonFloorFloorNerves1OldPng *ebiten.Image
+var DungeonFloorGreyDirt5NewPng *ebiten.Image
+var DungeonFloorLair2NewPng *ebiten.Image
+var DungeonFloorCobbleBlood8OldPng *ebiten.Image
+var DungeonFloorBogGreen0OldPng *ebiten.Image
+var DungeonFloorMosaic9Png *ebiten.Image
+var DungeonFloorDirtEastOldPng *ebiten.Image
+var DungeonFloorPedestalNorthwestPng *ebiten.Image
+var DungeonFloorCobbleBlood5OldPng *ebiten.Image
+var DungeonFloorDirtSouthwestNewPng *ebiten.Image
+var DungeonFloorBogGreen1OldPng *ebiten.Image
+var DungeonFloorVolcanicFloor6Png *ebiten.Image
+var DungeonFloorGreyDirtB0Png *ebiten.Image
+var DungeonFloorDirtWestNewPng *ebiten.Image
+var DungeonFloorMesh2OldPng *ebiten.Image
+var DungeonFloorSandstoneFloor7Png *ebiten.Image
+var DungeonFloorCryptDomino4BPng *ebiten.Image
+var DungeonFloorWhiteMarble3Png *ebiten.Image
+var DungeonFloorMarbleFloor2Png *ebiten.Image
+var DungeonFloorDirtNorthwestNewPng *ebiten.Image
+var DungeonFloorGreyDirtB4Png *ebiten.Image
+var DungeonFloorFloorSandStone4Png *ebiten.Image
+var DungeonFloorFloorVines2OldPng *ebiten.Image
+var DungeonFloorFloorVines5NewPng *ebiten.Image
+var DungeonFloorSigilRhombusPng *ebiten.Image
+var DungeonFloorAcidicFloor2Png *ebiten.Image
+var DungeonFloorInfernal10Png *ebiten.Image
+var DungeonFloorInfernal12Png *ebiten.Image
+var DungeonFloorInfernal2Png *ebiten.Image
+var DungeonFloorSandstoneFloor2Png *ebiten.Image
+var DungeonFloorSigilYEastPng *ebiten.Image
+var DungeonFloorPebbleBrown6NewPng *ebiten.Image
+var DungeonFloorBogGreen3NewPng *ebiten.Image
+var DungeonFloorWhiteMarble2Png *ebiten.Image
+var DungeonFloorSwamp1OldPng *ebiten.Image
+var DungeonFloorBogGreen2OldPng *ebiten.Image
+var DungeonFloorFloorSandStone7Png *ebiten.Image
+var DungeonFloorRectGray3NewPng *ebiten.Image
+var DungeonFloorInfernal8Png *ebiten.Image
+var DungeonFloorCryptDomino1BPng *ebiten.Image
+var DungeonFloorSandstoneFloor5Png *ebiten.Image
+var DungeonFloorSigilsYShapedLeftPng *ebiten.Image
+var DungeonFloorSigilsSharpSouthEastPng *ebiten.Image
+var DungeonFloorSigilsSharpNorthEastPng *ebiten.Image
+var DungeonFloorSigilsAngleWideSouthNorthwestPng *ebiten.Image
+var DungeonFloorSigilsCurveNorthWestPng *ebiten.Image
+var DungeonFloorSigilsVShapedEastPng *ebiten.Image
+var DungeonFloorSigilsStraightEastNortheastSouthwestPng *ebiten.Image
+var DungeonFloorSigilsStraightEastWestPng *ebiten.Image
+var DungeonFloorSigilsStraightEastWestNorthwestSoutheastPng *ebiten.Image
+var DungeonFloorSigilsCirclePng *ebiten.Image
+var DungeonFloorSigilsAngleWideWestSoutheastPng *ebiten.Image
+var DungeonFloorSigilsCrossPng *ebiten.Image
+var DungeonFloorSigilsYShapedWestPng *ebiten.Image
+var DungeonFloorSigilsXShapedPng *ebiten.Image
+var DungeonFloorSigilsYShapedEastPng *ebiten.Image
+var DungeonFloorSigilsAngleWideNorthSoutheastPng *ebiten.Image
+var DungeonFloorSigilsAlgizPng *ebiten.Image
+var DungeonFloorSigilsYShapedNorthPng *ebiten.Image
+var DungeonFloorSigilsAlgizLeftPng *ebiten.Image
+var DungeonFloorSigilsVShapedNorthPng *ebiten.Image
+var DungeonFloorSigilsVShapedSouthPng *ebiten.Image
+var DungeonFloorSigilsSharpNorthWestPng *ebiten.Image
+var DungeonFloorSigilsYShapedRightPng *ebiten.Image
+var DungeonFloorSigilsAlgizRightPng *ebiten.Image
+var DungeonFloorSigilsSharpWestSouthwestPng *ebiten.Image
+var DungeonFloorSigilsCurveSouthEastPng *ebiten.Image
+var DungeonFloorSigilsYShapedSouthPng *ebiten.Image
+var DungeonFloorSigilsAngleWideEastSouthwestPng *ebiten.Image
+var DungeonFloorSigilsCurveSouthWestPng *ebiten.Image
+var DungeonFloorSigilsAngleWideWestNortheastPng *ebiten.Image
+var DungeonFloorSigilsAngleWideSouthNortheastPng *ebiten.Image
+var DungeonFloorSigilsSharpEastNortheastPng *ebiten.Image
+var DungeonFloorSigilsAngleWideNorthSouthwestPng *ebiten.Image
+var DungeonFloorSigilsSharpSouthWestPng *ebiten.Image
+var DungeonFloorSigilsAngleWideEastNorthwestPng *ebiten.Image
+var DungeonFloorSigilsVShapedWestPng *ebiten.Image
+var DungeonFloorSigilsCurveNorthEastPng *ebiten.Image
+var DungeonFloorSigilsRhombusPng *ebiten.Image
+var DungeonFloorSigilsStraightNorthSouthPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersBlue2OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersBlue3OldPng *ebiten.Image
+var DungeonFloorGrassGrassEastNewPng *ebiten.Image
+var DungeonFloorGrassGrassNorthOldPng *ebiten.Image
+var DungeonFloorGrassGrass0DirtMix3Png *ebiten.Image
+var DungeonFloorGrassGrass0OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersYellow2OldPng *ebiten.Image
+var DungeonFloorGrassGrassEastOldPng *ebiten.Image
+var DungeonFloorGrassGrassFullNewPng *ebiten.Image
+var DungeonFloorGrassGrassFullOldPng *ebiten.Image
+var DungeonFloorGrassGrassNorthwestOldPng *ebiten.Image
+var DungeonFloorGrassGrassSouthNewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersBlue2NewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersBlue1NewPng *ebiten.Image
+var DungeonFloorGrassGrass0DirtMix2Png *ebiten.Image
+var DungeonFloorGrassGrassSoutheastNewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersYellow2NewPng *ebiten.Image
+var DungeonFloorGrassGrassNortheastOldPng *ebiten.Image
+var DungeonFloorGrassGrassSoutheastOldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersRed1NewPng *ebiten.Image
+var DungeonFloorGrassGrassSouthwestNewPng *ebiten.Image
+var DungeonFloorGrassGrassNortheastNewPng *ebiten.Image
+var DungeonFloorGrassGrass0NewPng *ebiten.Image
+var DungeonFloorGrassGrassWestNewPng *ebiten.Image
+var DungeonFloorGrassGrass1OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersBlue1OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersYellow3NewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersYellow1NewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersRed1OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersRed3OldPng *ebiten.Image
+var DungeonFloorGrassGrass2OldPng *ebiten.Image
+var DungeonFloorGrassGrassSouthOldPng *ebiten.Image
+var DungeonFloorGrassGrass1NewPng *ebiten.Image
+var DungeonFloorGrassGrass0DirtMix1Png *ebiten.Image
+var DungeonFloorGrassGrass2NewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersRed2OldPng *ebiten.Image
+var DungeonFloorGrassGrassNorthNewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersYellow3OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersYellow1OldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersRed2NewPng *ebiten.Image
+var DungeonFloorGrassGrassWestOldPng *ebiten.Image
+var DungeonFloorGrassGrassNorthwestNewPng *ebiten.Image
+var DungeonFloorGrassGrassSouthwestOldPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersBlue3NewPng *ebiten.Image
+var DungeonFloorGrassGrassFlowersRed3NewPng *ebiten.Image
+var DungeonWaterDeepWaterWaveWestPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerSoutheastNewPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerNorthwestOldPng *ebiten.Image
+var DungeonWaterShoalsDeepWater1NewPng *ebiten.Image
+var DungeonWaterShoalsShallowWater2NewPng *ebiten.Image
+var DungeonWaterShoalsDeepWater2BubblesPng *ebiten.Image
+var DungeonWaterShallowWaterWaveEastNewPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerSouthwest1Png *ebiten.Image
+var DungeonWaterShallowWaterWaveNorthNewPng *ebiten.Image
+var DungeonWaterShoalsDeepWater3OldPng *ebiten.Image
+var DungeonWaterShoalsShallowWater3OldPng *ebiten.Image
+var DungeonWaterGreyDirtBorderCornerLeftPng *ebiten.Image
+var DungeonWaterShoalsDeepWater8Png *ebiten.Image
+var DungeonWaterShoalsShallowWater0Png *ebiten.Image
+var DungeonWaterShoalsShallowWater4NewPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerNortheast1Png *ebiten.Image
+var DungeonWaterShoalsShallowWater11Png *ebiten.Image
+var DungeonWaterShoalsShallowWaterDisturbance2OldPng *ebiten.Image
+var DungeonWaterShoalsShallowWater1NewPng *ebiten.Image
+var DungeonWaterShoalsDeepWater2OldPng *ebiten.Image
+var DungeonWaterInkWaveCornerNortheastPng *ebiten.Image
+var DungeonWaterShallowWater2Png *ebiten.Image
+var DungeonWaterShallowBorderLeftPng *ebiten.Image
+var DungeonWaterDeepWaterWaveEast2Png *ebiten.Image
+var DungeonWaterInkFullPng *ebiten.Image
+var DungeonWaterDeepWaterMurkyPng *ebiten.Image
+var DungeonWaterShoalsDeepWater9Png *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerNorthwest1Png *ebiten.Image
+var DungeonWaterShallowBorderTopLeftPng *ebiten.Image
+var DungeonWaterGreyDirtBlPng *ebiten.Image
+var DungeonWaterOpenSea2Png *ebiten.Image
+var DungeonWaterDeepWaterWaveEastPng *ebiten.Image
+var DungeonWaterShoalsDeepWater11Png *ebiten.Image
+var DungeonWaterInkWaveCornerSouthwestPng *ebiten.Image
+var DungeonWaterInkWaveWestPng *ebiten.Image
+var DungeonWaterShoalsDeepWater0Png *ebiten.Image
+var DungeonWaterShoalsDeepWater5Png *ebiten.Image
+var DungeonWaterShoalsShallowWater7Png *ebiten.Image
+var DungeonWaterShallowWaterWaveSouthNewPng *ebiten.Image
+var DungeonWaterDeepWaterPng *ebiten.Image
+var DungeonWaterShoalsShallowWater9Png *ebiten.Image
+var DungeonWaterShoalsShallowWaterDisturbance1NewPng *ebiten.Image
+var DungeonWaterShoalsDeepWater4OldPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerSouthwestOldPng *ebiten.Image
+var DungeonWaterShallowWaterPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerSoutheast2Png *ebiten.Image
+var DungeonWaterShallowBorderBottomRightPng *ebiten.Image
+var DungeonWaterShoalsShallowWater3NewPng *ebiten.Image
+var DungeonWaterShallowWaterWaveEastOldPng *ebiten.Image
+var DungeonWaterShallowBorderTopPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerSoutheastPng *ebiten.Image
+var DungeonWaterShoalsDeepWater6Png *ebiten.Image
+var DungeonWaterShallowWaterWaveNorthOldPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerSouthwest2Png *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerNortheast2Png *ebiten.Image
+var DungeonWaterInkWaveCornerNorthwestPng *ebiten.Image
+var DungeonWaterLiquefaction2Png *ebiten.Image
+var DungeonWaterShoalsDeepWater1OldPng *ebiten.Image
+var DungeonWaterGreyDirtBorderRightPng *ebiten.Image
+var DungeonWaterShoalsDeepWater1ShapePng *ebiten.Image
+var DungeonWaterShoalsShallowWaterDisturbance2NewPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerSoutheastOldPng *ebiten.Image
+var DungeonWaterInkWaveCornerSoutheastPng *ebiten.Image
+var DungeonWaterShallowWaterWaveWestNewPng *ebiten.Image
+var DungeonWaterShoalsDeepWater7Png *ebiten.Image
+var DungeonWaterInkWaveSouthPng *ebiten.Image
+var DungeonWaterDeepWater2Png *ebiten.Image
+var DungeonWaterDeepWaterWaveNorth2Png *ebiten.Image
+var DungeonWaterShoalsShallowWater8Png *ebiten.Image
+var DungeonWaterShallowWaterDisturbancePng *ebiten.Image
+var DungeonWaterInkWaveEastPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerNortheastNewPng *ebiten.Image
+var DungeonWaterShallowWaterMurkyDisturbance2Png *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerNorthwestPng *ebiten.Image
+var DungeonWaterShoalsDeepWater3BubblesPng *ebiten.Image
+var DungeonWaterShoalsShallowWater4OldPng *ebiten.Image
+var DungeonWaterShoalsDeepWater3NewPng *ebiten.Image
+var DungeonWaterOpenSeaPng *ebiten.Image
+var DungeonWaterDeepWaterWaveNorthPng *ebiten.Image
+var DungeonWaterShoalsDeepWater2NewPng *ebiten.Image
+var DungeonWaterInkWaveNorthPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerNorthwest2Png *ebiten.Image
+var DungeonWaterDeepWaterWaveWest2Png *ebiten.Image
+var DungeonWaterShoalsShallowWater6Png *ebiten.Image
+var DungeonWaterShoalsShallowWaterDisturbance3OldPng *ebiten.Image
+var DungeonWaterShallowBorderTopRightPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerSoutheast1Png *ebiten.Image
+var DungeonWaterShallowWaterMurkyPng *ebiten.Image
+var DungeonWaterShoalsDeepWater4BubblesPng *ebiten.Image
+var DungeonWaterShoalsShallowWater2OldPng *ebiten.Image
+var DungeonWaterGreyDirtBorderTopPng *ebiten.Image
+var DungeonWaterShallowWaterWaveSouthOldPng *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerNortheastPng *ebiten.Image
+var DungeonWaterDeepWaterWaveSouthPng *ebiten.Image
+var DungeonWaterShallowWaterMurky2Png *ebiten.Image
+var DungeonWaterLiquefaction1Png *ebiten.Image
+var DungeonWaterShallowWaterWaveWestOldPng *ebiten.Image
+var DungeonWaterDeepWaterWaveSouth2Png *ebiten.Image
+var DungeonWaterDeepWaterWaveCornerSouthwestPng *ebiten.Image
+var DungeonWaterShallowBorderBottomPng *ebiten.Image
+var DungeonWaterShoalsShallowWater5Png *ebiten.Image
+var DungeonWaterShallowWaterMurkyDisturbancePng *ebiten.Image
+var DungeonWaterDeepWaterWaveWest1Png *ebiten.Image
+var DungeonWaterDeepWaterWaveNorth1Png *ebiten.Image
+var DungeonWaterShallowBorderBottomLeftPng *ebiten.Image
+var DungeonWaterShoalsDeepWater10Png *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerNorthwestNewPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerSouthwestNewPng *ebiten.Image
+var DungeonWaterShallowWaterDisturbance2Png *ebiten.Image
+var DungeonWaterShoalsShallowWater10Png *ebiten.Image
+var DungeonWaterDeepWaterWaveSouth1Png *ebiten.Image
+var DungeonWaterShallowBorderRightPng *ebiten.Image
+var DungeonWaterDeepWaterMurky2Png *ebiten.Image
+var DungeonWaterShoalsShallowWaterDisturbance1OldPng *ebiten.Image
+var DungeonWaterShoalsDeepWater4NewPng *ebiten.Image
+var DungeonWaterDeepWaterWaveEast1Png *ebiten.Image
+var DungeonWaterShoalsShallowWaterDisturbance3NewPng *ebiten.Image
+var DungeonWaterShoalsDeepWater2ShapePng *ebiten.Image
+var DungeonWaterShoalsShallowWater1OldPng *ebiten.Image
+var DungeonWaterShallowWaterWaveCornerNortheastOldPng *ebiten.Image
+var DungeonWaterGreyDirtBorderCornerRightPng *ebiten.Image
+var DungeonVaultsStatueElephantJadePng *ebiten.Image
+var DungeonVaultsBrickDarkSkeletonPng *ebiten.Image
+var DungeonVaultsSarcophagusPedestalLeftPng *ebiten.Image
+var DungeonVaultsGratePng *ebiten.Image
+var DungeonVaultsGoldenStatue1Png *ebiten.Image
+var DungeonVaultsStatueIronGolemPng *ebiten.Image
+var DungeonVaultsTheTeleporterIceCavePng *ebiten.Image
+var DungeonVaultsBrickDarkEyesPng *ebiten.Image
+var DungeonVaultsDiscoBallPng *ebiten.Image
+var DungeonVaultsTheTeleporterVaultsPng *ebiten.Image
+var DungeonVaultsDimensionEdgePng *ebiten.Image
+var DungeonVaultsMachineTukimaPng *ebiten.Image
+var DungeonVaultsSarcophagusPedestalRightPng *ebiten.Image
+var DungeonVaultsSarcophagusSealedPng *ebiten.Image
+var DungeonVaultsGoldenStatue2Png *ebiten.Image
+var DungeonTreesMangrove2Png *ebiten.Image
+var DungeonTreesTree2YellowPng *ebiten.Image
+var DungeonTreesTree1RedPng *ebiten.Image
+var DungeonTreesMangrove1Png *ebiten.Image
+var DungeonTreesTree2RedPng *ebiten.Image
+var DungeonTreesMangrove3Png *ebiten.Image
+var DungeonTreesTree1YellowPng *ebiten.Image
+var DungeonTreesTree1LightredPng *ebiten.Image
+var DungeonTreesTree2LightredPng *ebiten.Image
+var DungeonGatewaysEnterDis3Png *ebiten.Image
+var DungeonGatewaysLabPortalPng *ebiten.Image
+var DungeonGatewaysExitPng *ebiten.Image
+var DungeonGatewaysFleshyOrificeClosedPng *ebiten.Image
+var DungeonGatewaysAbyssalStairPng *ebiten.Image
+var DungeonGatewaysEnterLabyrinthPng *ebiten.Image
+var DungeonGatewaysExitAbyssFlickeringOldPng *ebiten.Image
+var DungeonGatewaysOssuaryPortalPng *ebiten.Image
+var DungeonGatewaysExitAbyssFlickeringNewPng *ebiten.Image
+var DungeonGatewaysEnterZotClosedNewPng *ebiten.Image
+var DungeonGatewaysEnterVaultsClosedPng *ebiten.Image
+var DungeonGatewaysHiveGonePng *ebiten.Image
+var DungeonGatewaysEnterTartarus1Png *ebiten.Image
+var DungeonGatewaysEnterPng *ebiten.Image
+var DungeonGatewaysBazaarGonePng *ebiten.Image
+var DungeonGatewaysFleshyOrificeOpenPng *ebiten.Image
+var DungeonGatewaysEnterCocytusPng *ebiten.Image
+var DungeonGatewaysVolcanoGonePng *ebiten.Image
+var DungeonGatewaysWizlabGonePng *ebiten.Image
+var DungeonGatewaysZigUsedPng *ebiten.Image
+var DungeonGatewaysEscapeHatchDownPng *ebiten.Image
+var DungeonGatewaysEnterAbyss2Png *ebiten.Image
+var DungeonGatewaysEnterDis2Png *ebiten.Image
+var DungeonGatewaysTransitPandemoniumOldPng *ebiten.Image
+var DungeonGatewaysEnterZotOpenOldPng *ebiten.Image
+var DungeonGatewaysEnterHell1Png *ebiten.Image
+var DungeonGatewaysEnterGehenna3Png *ebiten.Image
+var DungeonGatewaysLabGonePng *ebiten.Image
+var DungeonGatewaysEnterOrcPng *ebiten.Image
+var DungeonGatewaysEnterDis1Png *ebiten.Image
+var DungeonGatewaysBaileyGonePng *ebiten.Image
+var DungeonGatewaysPortalPng *ebiten.Image
+var DungeonGatewaysZigPortalPng *ebiten.Image
+var DungeonGatewaysEnterVaultsOpenPng *ebiten.Image
+var DungeonGatewaysEnterCocytus2Png *ebiten.Image
+var DungeonGatewaysStoneStairsUpPng *ebiten.Image
+var DungeonGatewaysEnterTartarusPng *ebiten.Image
+var DungeonGatewaysRockStairsDownPng *ebiten.Image
+var DungeonGatewaysBaileyPortalPng *ebiten.Image
+var DungeonGatewaysEnterHell3Png *ebiten.Image
+var DungeonGatewaysEnterCryptPng *ebiten.Image
+var DungeonGatewaysEnterCocytus1Png *ebiten.Image
+var DungeonGatewaysEnterCocytus3Png *ebiten.Image
+var DungeonGatewaysReturnHellNewPng *ebiten.Image
+var DungeonGatewaysReturnZotOldPng *ebiten.Image
+var DungeonGatewaysEnterSnakePng *ebiten.Image
+var DungeonGatewaysEnterAbyss3Png *ebiten.Image
+var DungeonGatewaysEnterHellPng *ebiten.Image
+var DungeonGatewaysEnterHell2Png *ebiten.Image
+var DungeonGatewaysVolcanoExitPng *ebiten.Image
+var DungeonGatewaysEnterPandemoniumNewPng *ebiten.Image
+var DungeonGatewaysEnterTartarus3Png *ebiten.Image
+var DungeonGatewaysSealedStairsDownPng *ebiten.Image
+var DungeonGatewaysEnterZotOpenNewPng *ebiten.Image
+var DungeonGatewaysIceCaveGonePng *ebiten.Image
+var DungeonGatewaysEnterGehenna2Png *ebiten.Image
+var DungeonGatewaysStoneArchHellPng *ebiten.Image
+var DungeonGatewaysPortalUnknownPng *ebiten.Image
+var DungeonGatewaysHivePortalPng *ebiten.Image
+var DungeonGatewaysReturnPng *ebiten.Image
+var DungeonGatewaysReturnZotNewPng *ebiten.Image
+var DungeonGatewaysEnterGehenna1Png *ebiten.Image
+var DungeonGatewaysBranchStairsPng *ebiten.Image
+var DungeonGatewaysEnterGehennaPng *ebiten.Image
+var DungeonGatewaysExitAbyssOldPng *ebiten.Image
+var DungeonGatewaysEnterTombPng *ebiten.Image
+var DungeonGatewaysReturnDepthsPng *ebiten.Image
+var DungeonGatewaysExpiredPortalPng *ebiten.Image
+var DungeonGatewaysExitAbyssNewPng *ebiten.Image
+var DungeonGatewaysEnterSpiderPng *ebiten.Image
+var DungeonGatewaysRockStairsUpPng *ebiten.Image
+var DungeonGatewaysTroveGonePng *ebiten.Image
+var DungeonGatewaysExitPandemoniumFlickeringPng *ebiten.Image
+var DungeonGatewaysEnterPandemoniumOldPng *ebiten.Image
+var DungeonGatewaysTransitPandemoniumNewPng *ebiten.Image
+var DungeonGatewaysEnterTartarus2Png *ebiten.Image
+var DungeonGatewaysEnterZotClosedOldPng *ebiten.Image
+var DungeonGatewaysOssuaryGonePng *ebiten.Image
+var DungeonGatewaysEnterAbyssPng *ebiten.Image
+var DungeonGatewaysSealedStairsUpPng *ebiten.Image
+var DungeonGatewaysEnterDisPng *ebiten.Image
+var DungeonGatewaysTrovePortalPng *ebiten.Image
+var DungeonGatewaysEnterLairPng *ebiten.Image
+var DungeonGatewaysReturnVestibulePng *ebiten.Image
+var DungeonGatewaysPortalRotatedPng *ebiten.Image
+var DungeonGatewaysReturnHellOldPng *ebiten.Image
+var DungeonGatewaysBazaarPortalPng *ebiten.Image
+var DungeonGatewaysSewerPortalRustedPng *ebiten.Image
+var DungeonGatewaysStarryPortalPng *ebiten.Image
+var DungeonGatewaysStoneArchPng *ebiten.Image
+var DungeonGatewaysEntrancePng *ebiten.Image
+var DungeonGatewaysExitFlickeringPng *ebiten.Image
+var DungeonGatewaysExitPandemoniumPng *ebiten.Image
+var DungeonGatewaysStoneStairsDownPng *ebiten.Image
+var DungeonGatewaysEnterAbyss1Png *ebiten.Image
+var DungeonGatewaysEnterDepthsPng *ebiten.Image
+var DungeonGatewaysEscapeHatchUpPng *ebiten.Image
+var DungeonDoorsFleshyOrificeClosedPng *ebiten.Image
+var DungeonDoorsGateSealedLeftPng *ebiten.Image
+var DungeonDoorsClosedDoorPng *ebiten.Image
+var DungeonDoorsVgateClosedUpPng *ebiten.Image
+var DungeonDoorsGateRunedRightPng *ebiten.Image
+var DungeonDoorsGateClosedRightPng *ebiten.Image
+var DungeonDoorsGateSealedMiddlePng *ebiten.Image
+var DungeonDoorsVgateClosedDownPng *ebiten.Image
+var DungeonDoorsVgateRunedUpPng *ebiten.Image
+var DungeonDoorsRunedDoorPng *ebiten.Image
+var DungeonDoorsGateOpenLeftPng *ebiten.Image
+var DungeonDoorsDetectedSecretDoorPng *ebiten.Image
+var DungeonDoorsVgateOpenDownPng *ebiten.Image
+var DungeonDoorsGateRunedLeftPng *ebiten.Image
+var DungeonDoorsGateRunedMiddlePng *ebiten.Image
+var DungeonDoorsVgateRunedDownPng *ebiten.Image
+var DungeonDoorsVgateSealedUpPng *ebiten.Image
+var DungeonDoorsSealedDoorPng *ebiten.Image
+var DungeonDoorsVgateClosedMiddlePng *ebiten.Image
+var DungeonDoorsVgateOpenUpPng *ebiten.Image
+var DungeonDoorsGateOpenRightPng *ebiten.Image
+var DungeonDoorsVgateSealedDownPng *ebiten.Image
+var DungeonDoorsVgateOpenMiddlePng *ebiten.Image
+var DungeonDoorsVgateRunedMiddlePng *ebiten.Image
+var DungeonDoorsGateClosedMiddlePng *ebiten.Image
+var DungeonDoorsVgateSealedMiddlePng *ebiten.Image
+var DungeonDoorsGateOpenMiddlePng *ebiten.Image
+var DungeonDoorsGateClosedLeftPng *ebiten.Image
+var DungeonDoorsOpenDoorPng *ebiten.Image
+var DungeonDoorsGateSealedRightPng *ebiten.Image
+var DungeonShopsShopBooksPng *ebiten.Image
+var DungeonShopsShopGadgetsPng *ebiten.Image
+var DungeonShopsShopWeaponPng *ebiten.Image
+var DungeonShopsEnterShopPng *ebiten.Image
+var DungeonShopsShopFoodPng *ebiten.Image
+var DungeonShopsAbandonedShopPng *ebiten.Image
+var DungeonShopsShopArmorPng *ebiten.Image
+var DungeonShopsShopGeneralPng *ebiten.Image
+var DungeonShopsShopPotionsPng *ebiten.Image
+var DungeonShopsShopScrollsPng *ebiten.Image
+var DungeonShopsShopJewelleryPng *ebiten.Image
+var DungeonShopsShopWandsPng *ebiten.Image
+var DungeonTrapsTrapNeedlePng *ebiten.Image
+var DungeonTrapsZotdefDartTrapPng *ebiten.Image
+var DungeonTrapsTrapMagicalPng *ebiten.Image
+var DungeonTrapsShadowPng *ebiten.Image
+var DungeonTrapsTrapShaftPng *ebiten.Image
+var DungeonTrapsTrapZotPng *ebiten.Image
+var DungeonTrapsTrapTeleportPng *ebiten.Image
+var DungeonTrapsTrapNetPng *ebiten.Image
+var DungeonTrapsGasTrapPng *ebiten.Image
+var DungeonTrapsZotPng *ebiten.Image
+var DungeonTrapsTrapMechanicalPng *ebiten.Image
+var DungeonTrapsShaftPng *ebiten.Image
+var DungeonTrapsAlarmPng *ebiten.Image
+var DungeonTrapsTrapArrowPng *ebiten.Image
+var DungeonTrapsTeleportPermanentPng *ebiten.Image
+var DungeonTrapsTrapBoltPng *ebiten.Image
+var DungeonTrapsTrapDartPng *ebiten.Image
+var DungeonTrapsShadowDormantPng *ebiten.Image
+var DungeonTrapsTrapSpearPng *ebiten.Image
+var DungeonTrapsTrapBladePng *ebiten.Image
+var DungeonTrapsPassageOfGolubriaPng *ebiten.Image
+var DungeonTrapsTrapAxePng *ebiten.Image
+var DungeonTrapsPressurePlatePng *ebiten.Image
+var DungeonTrapsTrapAlarmPng *ebiten.Image
+var DungeonAltarsAltarTrogPng *ebiten.Image
+var DungeonAltarsAltarNemelexXobehPng *ebiten.Image
+var DungeonAltarsDithmenosPng *ebiten.Image
+var DungeonAltarsAltarCheibriados2Png *ebiten.Image
+var DungeonAltarsAltarJiyva9Png *ebiten.Image
+var DungeonAltarsAltarXom7Png *ebiten.Image
+var DungeonAltarsAltarJiyva1Png *ebiten.Image
+var DungeonAltarsVehumet1Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame8Png *ebiten.Image
+var DungeonAltarsNemelex4Png *ebiten.Image
+var DungeonAltarsSifMunaPng *ebiten.Image
+var DungeonAltarsAltarJiyva6Png *ebiten.Image
+var DungeonAltarsNemelex2Png *ebiten.Image
+var DungeonAltarsAltarOkawaruPng *ebiten.Image
+var DungeonAltarsAltarXom0Png *ebiten.Image
+var DungeonAltarsAltarCheibriados9Png *ebiten.Image
+var DungeonAltarsAltarCheibriados10Png *ebiten.Image
+var DungeonAltarsAltarVehumetPng *ebiten.Image
+var DungeonAltarsAltarZinPng *ebiten.Image
+var DungeonAltarsAltarYredelemnulPng *ebiten.Image
+var DungeonAltarsZinPng *ebiten.Image
+var DungeonAltarsAltarBeoghPng *ebiten.Image
+var DungeonAltarsAltarOldPng *ebiten.Image
+var DungeonAltarsAltarXom5Png *ebiten.Image
+var DungeonAltarsAltarXom1Png *ebiten.Image
+var DungeonAltarsVehumet2Png *ebiten.Image
+var DungeonAltarsNemelex3Png *ebiten.Image
+var DungeonAltarsDithmenos3Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame5Png *ebiten.Image
+var DungeonAltarsAltarCheibriados8Png *ebiten.Image
+var DungeonAltarsAltarJiyva4Png *ebiten.Image
+var DungeonAltarsQazlal0Png *ebiten.Image
+var DungeonAltarsQazlal1Png *ebiten.Image
+var DungeonAltarsAltarElyvilonPng *ebiten.Image
+var DungeonAltarsAltarKikubaaqudghaPng *ebiten.Image
+var DungeonAltarsAltarJiyva8Png *ebiten.Image
+var DungeonAltarsAltarJiyva2Png *ebiten.Image
+var DungeonAltarsAltarShiningOnePng *ebiten.Image
+var DungeonAltarsAltarFedhasPng *ebiten.Image
+var DungeonAltarsAltarXom2Png *ebiten.Image
+var DungeonAltarsAltarXom6Png *ebiten.Image
+var DungeonAltarsCheibriadosPng *ebiten.Image
+var DungeonAltarsAltarJiyva11Png *ebiten.Image
+var DungeonAltarsAshenzariPng *ebiten.Image
+var DungeonAltarsAltarCheibriados3Png *ebiten.Image
+var DungeonAltarsAltarLugonuPng *ebiten.Image
+var DungeonAltarsAltarNewPng *ebiten.Image
+var DungeonAltarsNemelex1Png *ebiten.Image
+var DungeonAltarsYredelemnulPng *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame1Png *ebiten.Image
+var DungeonAltarsUnknownPng *ebiten.Image
+var DungeonAltarsLugonuPng *ebiten.Image
+var DungeonAltarsShiningOnePng *ebiten.Image
+var DungeonAltarsFedhasPng *ebiten.Image
+var DungeonAltarsAltarJiyva5Png *ebiten.Image
+var DungeonAltarsAltarCheibriados6Png *ebiten.Image
+var DungeonAltarsAltarJiyva0Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame2Png *ebiten.Image
+var DungeonAltarsMiscAltarPng *ebiten.Image
+var DungeonAltarsAltarBasePng *ebiten.Image
+var DungeonAltarsAltarXom4Png *ebiten.Image
+var DungeonAltarsNemelex5Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame6Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame3Png *ebiten.Image
+var DungeonAltarsAltarCheibriadosPng *ebiten.Image
+var DungeonAltarsQazlal2Png *ebiten.Image
+var DungeonAltarsDithmenos2Png *ebiten.Image
+var DungeonAltarsGozag0Png *ebiten.Image
+var DungeonAltarsAltarAshenzariPng *ebiten.Image
+var DungeonAltarsAltarJiyva3Png *ebiten.Image
+var DungeonAltarsGozag1Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame4Png *ebiten.Image
+var DungeonAltarsRuPng *ebiten.Image
+var DungeonAltarsAltarCheibriados4Png *ebiten.Image
+var DungeonAltarsAltarMakhlebFlame7Png *ebiten.Image
+var DungeonAltarsAltarCheibriados12Png *ebiten.Image
+var DungeonAltarsAltarJiyva7Png *ebiten.Image
+var DungeonAltarsAltarSifMunaPng *ebiten.Image
+var DungeonAltarsGozag2Png *ebiten.Image
+var DungeonAltarsAltarXom3Png *ebiten.Image
+var DungeonWallOrc7Png *ebiten.Image
+var DungeonWallSlime3OldPng *ebiten.Image
+var DungeonWallMarbleWall5Png *ebiten.Image
+var DungeonWallBrickBrown2Png *ebiten.Image
+var DungeonWallLair0OldPng *ebiten.Image
+var DungeonWallHell10Png *ebiten.Image
+var DungeonWallCatacombs11Png *ebiten.Image
+var DungeonWallCrystalWall5Png *ebiten.Image
+var DungeonWallPebbleRed0NewPng *ebiten.Image
+var DungeonWallWallFlesh3Png *ebiten.Image
+var DungeonWallStoneBrick6Png *ebiten.Image
+var DungeonWallCatacombs8Png *ebiten.Image
+var DungeonWallBrickBrown3Png *ebiten.Image
+var DungeonWallHell3Png *ebiten.Image
+var DungeonWallBrickDark3Png *ebiten.Image
+var DungeonWallStoneBlackMarked0Png *ebiten.Image
+var DungeonWallPebbleRed0OldPng *ebiten.Image
+var DungeonWallOrc4Png *ebiten.Image
+var DungeonWallStoneBrick10Png *ebiten.Image
+var DungeonWallLair3NewPng *ebiten.Image
+var DungeonWallCatacombs4Png *ebiten.Image
+var DungeonWallUndead2Png *ebiten.Image
+var DungeonWallTransparentFleshPng *ebiten.Image
+var DungeonWallBrickBrownVines4Png *ebiten.Image
+var DungeonWallCrystalWallMagentaPng *ebiten.Image
+var DungeonWallCobaltStone2Png *ebiten.Image
+var DungeonWallTransparentWallOldPng *ebiten.Image
+var DungeonWallCatacombs13Png *ebiten.Image
+var DungeonWallCrystalWallDarkgrayPng *ebiten.Image
+var DungeonWallStoneBlackMarked8Png *ebiten.Image
+var DungeonWallCobaltStone11Png *ebiten.Image
+var DungeonWallSandstoneWall5Png *ebiten.Image
+var DungeonWallSandstoneWall9Png *ebiten.Image
+var DungeonWallShadowWestDarkerPng *ebiten.Image
+var DungeonWallCrystalWallLightmagentaPng *ebiten.Image
+var DungeonWallLair1NewPng *ebiten.Image
+var DungeonWallRelief0Png *ebiten.Image
+var DungeonWallCrystalWall1Png *ebiten.Image
+var DungeonWallShadowEastTopDarkerPng *ebiten.Image
+var DungeonWallHell5Png *ebiten.Image
+var DungeonWallCatacombs6Png *ebiten.Image
+var DungeonWallStoneBrick1Png *ebiten.Image
+var DungeonWallPebbleRed3OldPng *ebiten.Image
+var DungeonWallSnake0Png *ebiten.Image
+var DungeonWallCobaltRock3Png *ebiten.Image
+var DungeonWallStoneBrick2Png *ebiten.Image
+var DungeonWallOrc0Png *ebiten.Image
+var DungeonWallCobaltStone8Png *ebiten.Image
+var DungeonWallStoneBrick12Png *ebiten.Image
+var DungeonWallStoneGray3Png *ebiten.Image
+var DungeonWallWallVines3Png *ebiten.Image
+var DungeonWallTomb0Png *ebiten.Image
+var DungeonWallOrc1Png *ebiten.Image
+var DungeonWallUndeadBrown0Png *ebiten.Image
+var DungeonWallSlime6Png *ebiten.Image
+var DungeonWallStoneGray0Png *ebiten.Image
+var DungeonWallLair1OldPng *ebiten.Image
+var DungeonWallRelief1Png *ebiten.Image
+var DungeonWallShadowNortheastPng *ebiten.Image
+var DungeonWallStoneBlackMarked5Png *ebiten.Image
+var DungeonWallMarbleWall3Png *ebiten.Image
+var DungeonWallCrystalWallLightbluePng *ebiten.Image
+var DungeonWallStoneBrick3Png *ebiten.Image
+var DungeonWallChurch1Png *ebiten.Image
+var DungeonWallRelief3Png *ebiten.Image
+var DungeonWallCrystalWallLightredPng *ebiten.Image
+var DungeonWallTransparentStonePng *ebiten.Image
+var DungeonWallEmerald5Png *ebiten.Image
+var DungeonWallUndeadBrown1Png *ebiten.Image
+var DungeonWallMarbleWall8Png *ebiten.Image
+var DungeonWallBeehives7Png *ebiten.Image
+var DungeonWallPebbleRed2NewPng *ebiten.Image
+var DungeonWallCrystalWallLightgrayPng *ebiten.Image
+var DungeonWallCrystalWall9Png *ebiten.Image
+var DungeonWallMetalWallWhite2Png *ebiten.Image
+var DungeonWallVault3Png *ebiten.Image
+var DungeonWallShoalsWall1Png *ebiten.Image
+var DungeonWallOrc5Png *ebiten.Image
+var DungeonWallSnake1Png *ebiten.Image
+var DungeonWallMetalWallPng *ebiten.Image
+var DungeonWallHell7Png *ebiten.Image
+var DungeonWallBrickBrown1Png *ebiten.Image
+var DungeonWallHell1Png *ebiten.Image
+var DungeonWallCrystalWallYellowPng *ebiten.Image
+var DungeonWallWallFlesh0Png *ebiten.Image
+var DungeonWallReliefBrown0Png *ebiten.Image
+var DungeonWallStoneBlackMarked4Png *ebiten.Image
+var DungeonWallBarsRed1Png *ebiten.Image
+var DungeonWallZotBlue3NewPng *ebiten.Image
+var DungeonWallStoneGray1Png *ebiten.Image
+var DungeonWallUndead3Png *ebiten.Image
+var DungeonWallSnake3Png *ebiten.Image
+var DungeonWallStoneBlackMarked3Png *ebiten.Image
+var DungeonWallPebbleRed3NewPng *ebiten.Image
+var DungeonWallHive1Png *ebiten.Image
+var DungeonWallShadowNorthwestDarkerPng *ebiten.Image
+var DungeonWallStone2Brown1Png *ebiten.Image
+var DungeonWallHell11Png *ebiten.Image
+var DungeonWallStoneDark2Png *ebiten.Image
+var DungeonWallPebbleRed2OldPng *ebiten.Image
+var DungeonWallCrystalWall13Png *ebiten.Image
+var DungeonWallOrc6Png *ebiten.Image
+var DungeonWallLabMetal4Png *ebiten.Image
+var DungeonWallEmerald2Png *ebiten.Image
+var DungeonWallZotBlue2NewPng *ebiten.Image
+var DungeonWallShadowNorthwestPng *ebiten.Image
+var DungeonWallBrickBrownVines1Png *ebiten.Image
+var DungeonWallReliefBrown2Png *ebiten.Image
+var DungeonWallStoneBlackMarked2Png *ebiten.Image
+var DungeonWallSandstoneWall8Png *ebiten.Image
+var DungeonWallBrickGray2Png *ebiten.Image
+var DungeonWallLabStone5Png *ebiten.Image
+var DungeonWallStone2Brown2OldPng *ebiten.Image
+var DungeonWallCatacombs15Png *ebiten.Image
+var DungeonWallVolcanicWall2Png *ebiten.Image
+var DungeonWallWallFlesh4Png *ebiten.Image
+var DungeonWallLabMetal5Png *ebiten.Image
+var DungeonWallBeehives0Png *ebiten.Image
+var DungeonWallCatacombs9Png *ebiten.Image
+var DungeonWallShoalsWall4Png *ebiten.Image
+var DungeonWallStoneBrick11Png *ebiten.Image
+var DungeonWallSnake5Png *ebiten.Image
+var DungeonWallCatacombs10Png *ebiten.Image
+var DungeonWallEmerald8Png *ebiten.Image
+var DungeonWallSlime1OldPng *ebiten.Image
+var DungeonWallCrystalWall8Png *ebiten.Image
+var DungeonWallMarbleWall11Png *ebiten.Image
+var DungeonWallMarbleWall6Png *ebiten.Image
+var DungeonWallVolcanicWall3Png *ebiten.Image
+var DungeonWallMetalWallWhite1Png *ebiten.Image
+var DungeonWallStoneDark3Png *ebiten.Image
+var DungeonWallStone2Gray3OldPng *ebiten.Image
+var DungeonWallCobaltStone10Png *ebiten.Image
+var DungeonWallStoneBlackMarked6Png *ebiten.Image
+var DungeonWallCrystalWall10Png *ebiten.Image
+var DungeonWallReliefBrown1Png *ebiten.Image
+var DungeonWallStone2Gray2NewPng *ebiten.Image
+var DungeonWallEmerald3Png *ebiten.Image
+var DungeonWallBeehives4Png *ebiten.Image
+var DungeonWallStone2Dark3NewPng *ebiten.Image
+var DungeonWallMarbleWall4Png *ebiten.Image
+var DungeonWallCrystalWallGreenPng *ebiten.Image
+var DungeonWallZotBlue3OldPng *ebiten.Image
+var DungeonWallBrickDark5Png *ebiten.Image
+var DungeonWallCrystalWallRedPng *ebiten.Image
+var DungeonWallCobaltRock1Png *ebiten.Image
+var DungeonWallStone2Dark3OldPng *ebiten.Image
+var DungeonWallHive2Png *ebiten.Image
+var DungeonWallTransparentWallNewPng *ebiten.Image
+var DungeonWallBrickDark2Png *ebiten.Image
+var DungeonWallTomb2Png *ebiten.Image
+var DungeonWallOrc10Png *ebiten.Image
+var DungeonWallLabRock1Png *ebiten.Image
+var DungeonWallShoalsWall2Png *ebiten.Image
+var DungeonWallPebbleRed1NewPng *ebiten.Image
+var DungeonWallMetalWallWhite0Png *ebiten.Image
+var DungeonWallBeehives6Png *ebiten.Image
+var DungeonWallLabStone3Png *ebiten.Image
+var DungeonWallSnake7Png *ebiten.Image
+var DungeonWallWallVines4Png *ebiten.Image
+var DungeonWallLabStone1Png *ebiten.Image
+var DungeonWallWallYellowRock3Png *ebiten.Image
+var DungeonWallBarsRed6Png *ebiten.Image
+var DungeonWallSandstoneWall2Png *ebiten.Image
+var DungeonWallSlimeStone1Png *ebiten.Image
+var DungeonWallLabMetal6Png *ebiten.Image
+var DungeonWallStoneBlackMarked1Png *ebiten.Image
+var DungeonWallEmerald4Png *ebiten.Image
+var DungeonWallPermarockRed0Png *ebiten.Image
+var DungeonWallBeehives1Png *ebiten.Image
+var DungeonWallHell4Png *ebiten.Image
+var DungeonWallWallYellowRock2Png *ebiten.Image
+var DungeonWallCrystalWall3Png *ebiten.Image
+var DungeonWallOrc2Png *ebiten.Image
+var DungeonWallWallVines2Png *ebiten.Image
+var DungeonWallBeehives5Png *ebiten.Image
+var DungeonWallWallVines1Png *ebiten.Image
+var DungeonWallCrystalWallLightcyanPng *ebiten.Image
+var DungeonWallCrystalWall0Png *ebiten.Image
+var DungeonWallBrickBrownVines3Png *ebiten.Image
+var DungeonWallWallFlesh6Png *ebiten.Image
+var DungeonWallCatacombs0Png *ebiten.Image
+var DungeonWallVault0Png *ebiten.Image
+var DungeonWallCrystalWallBluePng *ebiten.Image
+var DungeonWallEmerald7Png *ebiten.Image
+var DungeonWallCatacombs2Png *ebiten.Image
+var DungeonWallStone2Gray3NewPng *ebiten.Image
+var DungeonWallStoneBrick4Png *ebiten.Image
+var DungeonWallZotBlue0OldPng *ebiten.Image
+var DungeonWallSlimeStone0Png *ebiten.Image
+var DungeonWallUndeadBrown2Png *ebiten.Image
+var DungeonWallSnake2Png *ebiten.Image
+var DungeonWallMetalWallCrackedPng *ebiten.Image
+var DungeonWallUndead0Png *ebiten.Image
+var DungeonWallCatacombs12Png *ebiten.Image
+var DungeonWallLabMetal1Png *ebiten.Image
+var DungeonWallLair3OldPng *ebiten.Image
+var DungeonWallCobaltStone4Png *ebiten.Image
+var DungeonWallLabStone2Png *ebiten.Image
+var DungeonWallCrystalWallWhitePng *ebiten.Image
+var DungeonWallMarbleWall9Png *ebiten.Image
+var DungeonWallPermarockClearRed0Png *ebiten.Image
+var DungeonWallVault2Png *ebiten.Image
+var DungeonWallCrystalWall6Png *ebiten.Image
+var DungeonWallCobaltRock2Png *ebiten.Image
+var DungeonWallTomb1Png *ebiten.Image
+var DungeonWallStone2Dark0Png *ebiten.Image
+var DungeonWallCatacombs7Png *ebiten.Image
+var DungeonWallStone2Brown2NewPng *ebiten.Image
+var DungeonWallShadowNorthDarkerPng *ebiten.Image
+var DungeonWallBeehives9Png *ebiten.Image
+var DungeonWallWallVines0Png *ebiten.Image
+var DungeonWallOrc11Png *ebiten.Image
+var DungeonWallHell2Png *ebiten.Image
+var DungeonWallBrickBrown4Png *ebiten.Image
+var DungeonWallShadowEastPng *ebiten.Image
+var DungeonWallRelief2Png *ebiten.Image
+var DungeonWallVolcanicWall0Png *ebiten.Image
+var DungeonWallShadowNorthPng *ebiten.Image
+var DungeonWallMarbleWall10Png *ebiten.Image
+var DungeonWallCrystalWall12Png *ebiten.Image
+var DungeonWallStoneGray2Png *ebiten.Image
+var DungeonWallLair0NewPng *ebiten.Image
+var DungeonWallStoneDark1Png *ebiten.Image
+var DungeonWallWallVines6Png *ebiten.Image
+var DungeonWallUndeadBrown3Png *ebiten.Image
+var DungeonWallLabStone4Png *ebiten.Image
+var DungeonWallOrc8Png *ebiten.Image
+var DungeonWallCobaltStone9Png *ebiten.Image
+var DungeonWallCobaltStone12Png *ebiten.Image
+var DungeonWallWaxWallNewPng *ebiten.Image
+var DungeonWallChurch3Png *ebiten.Image
+var DungeonWallBeehives3Png *ebiten.Image
+var DungeonWallStone2Gray1Png *ebiten.Image
+var DungeonWallSnake8Png *ebiten.Image
+var DungeonWallBrickGray3Png *ebiten.Image
+var DungeonWallHell6Png *ebiten.Image
+var DungeonWallMarbleWall2Png *ebiten.Image
+var DungeonWallWallYellowRock1Png *ebiten.Image
+var DungeonWallStone2Brown3NewPng *ebiten.Image
+var DungeonWallSlime0NewPng *ebiten.Image
+var DungeonWallSlimeStone2Png *ebiten.Image
+var DungeonWallZotBlue1OldPng *ebiten.Image
+var DungeonWallCrystalWallBrownPng *ebiten.Image
+var DungeonWallSandstoneWall3Png *ebiten.Image
+var DungeonWallShadowWestPng *ebiten.Image
+var DungeonWallHive3Png *ebiten.Image
+var DungeonWallLabRock3Png *ebiten.Image
+var DungeonWallBrickBrown6Png *ebiten.Image
+var DungeonWallOrc9Png *ebiten.Image
+var DungeonWallZotBlue0NewPng *ebiten.Image
+var DungeonWallSandstoneWall0Png *ebiten.Image
+var DungeonWallCatacombs1Png *ebiten.Image
+var DungeonWallCrystalWallLightgreenPng *ebiten.Image
+var DungeonWallStoneBlackMarked7Png *ebiten.Image
+var DungeonWallSandstoneWall4Png *ebiten.Image
+var DungeonWallBarsRed7Png *ebiten.Image
+var DungeonWallMarbleWall12Png *ebiten.Image
+var DungeonWallShadowWestTopPng *ebiten.Image
+var DungeonWallSandstoneWall7Png *ebiten.Image
+var DungeonWallWallFlesh5Png *ebiten.Image
+var DungeonWallCobaltStone3Png *ebiten.Image
+var DungeonWallHell9Png *ebiten.Image
+var DungeonWallBrickBrown7Png *ebiten.Image
+var DungeonWallLabMetal2Png *ebiten.Image
+var DungeonWallEmerald6Png *ebiten.Image
+var DungeonWallBrickDark0Png *ebiten.Image
+var DungeonWallSilverWallPng *ebiten.Image
+var DungeonWallWallFlesh1Png *ebiten.Image
+var DungeonWallPebbleRed1OldPng *ebiten.Image
+var DungeonWallOrc3Png *ebiten.Image
+var DungeonWallBrickDark1Png *ebiten.Image
+var DungeonWallStone2Brown3OldPng *ebiten.Image
+var DungeonWallChurch2Png *ebiten.Image
+var DungeonWallCrystalWallCyanPng *ebiten.Image
+var DungeonWallCobaltStone1Png *ebiten.Image
+var DungeonWallMarbleWall7Png *ebiten.Image
+var DungeonWallCatacombs5Png *ebiten.Image
+var DungeonWallWaxWallOldPng *ebiten.Image
+var DungeonWallCobaltRock4Png *ebiten.Image
+var DungeonWallStoneBrick7Png *ebiten.Image
+var DungeonWallMetalWallBrownPng *ebiten.Image
+var DungeonWallShoalsWall3Png *ebiten.Image
+var DungeonWallCrystalWall2Png *ebiten.Image
+var DungeonWallLabRock0Png *ebiten.Image
+var DungeonWallLabMetal3Png *ebiten.Image
+var DungeonWallBarsRed8Png *ebiten.Image
+var DungeonWallShadowNortheastDarkerPng *ebiten.Image
+var DungeonWallBeehives2Png *ebiten.Image
+var DungeonWallLabRock2Png *ebiten.Image
+var DungeonWallSlime5Png *ebiten.Image
+var DungeonWallBarsRed2Png *ebiten.Image
+var DungeonWallCobaltStone5Png *ebiten.Image
+var DungeonWallGreenCrystalWallPng *ebiten.Image
+var DungeonWallSlime3NewPng *ebiten.Image
+var DungeonWallChurch4Png *ebiten.Image
+var DungeonWallVolcanicWall5Png *ebiten.Image
+var DungeonWallChurch0Png *ebiten.Image
+var DungeonWallHell8Png *ebiten.Image
+var DungeonWallSlime1NewPng *ebiten.Image
+var DungeonWallStoneBrick9Png *ebiten.Image
+var DungeonWallCatacombs3Png *ebiten.Image
+var DungeonWallBrickBrownVines2Png *ebiten.Image
+var DungeonWallBrickDark6Png *ebiten.Image
+var DungeonWallBrickGray1Png *ebiten.Image
+var DungeonWallHive0Png *ebiten.Image
+var DungeonWallReliefBrown3Png *ebiten.Image
+var DungeonWallSandstoneWall1Png *ebiten.Image
+var DungeonWallCatacombs14Png *ebiten.Image
+var DungeonWallStone2Dark2OldPng *ebiten.Image
+var DungeonWallSandstoneWall6Png *ebiten.Image
+var DungeonWallWallFlesh2Png *ebiten.Image
+var DungeonWallMarbleWall1Png *ebiten.Image
+var DungeonWallLabStone0Png *ebiten.Image
+var DungeonWallSnake6Png *ebiten.Image
+var DungeonWallMirroredWallOldPng *ebiten.Image
+var DungeonWallVault1Png *ebiten.Image
+var DungeonWallBarsRed3Png *ebiten.Image
+var DungeonWallVolcanicWall6Png *ebiten.Image
+var DungeonWallCrystalWall4Png *ebiten.Image
+var DungeonWallZotBlue2OldPng *ebiten.Image
+var DungeonWallStone2Dark2NewPng *ebiten.Image
+var DungeonWallLair2OldPng *ebiten.Image
+var DungeonWallZotBlue1NewPng *ebiten.Image
+var DungeonWallSlime0OldPng *ebiten.Image
+var DungeonWallCrystalWall11Png *ebiten.Image
+var DungeonWallCobaltStone6Png *ebiten.Image
+var DungeonWallShadowEastTopPng *ebiten.Image
+var DungeonWallLabMetal0Png *ebiten.Image
+var DungeonWallStoneBrick8Png *ebiten.Image
+var DungeonWallUndead1Png *ebiten.Image
+var DungeonWallWallVines5Png *ebiten.Image
+var DungeonWallCrystalWall7Png *ebiten.Image
+var DungeonWallSnake4Png *ebiten.Image
+var DungeonWallWallYellowRock0Png *ebiten.Image
+var DungeonWallBrickBrown0Png *ebiten.Image
+var DungeonWallTomb3Png *ebiten.Image
+var DungeonWallSlime2NewPng *ebiten.Image
+var DungeonWallLair2NewPng *ebiten.Image
+var DungeonWallVolcanicWall4Png *ebiten.Image
+var DungeonWallBrickBrown5Png *ebiten.Image
+var DungeonWallBeehives8Png *ebiten.Image
+var DungeonWallBrickDark4Png *ebiten.Image
+var DungeonWallShadowEastDarkerPng *ebiten.Image
+var DungeonWallVolcanicWall1Png *ebiten.Image
+var DungeonWallBarsRed4Png *ebiten.Image
+var DungeonWallStone2Brown0Png *ebiten.Image
+var DungeonWallStone2Dark1Png *ebiten.Image
+var DungeonWallBarsRed5Png *ebiten.Image
+var DungeonWallShadowWestTopDarkerPng *ebiten.Image
+var DungeonWallBrickGray0Png *ebiten.Image
+var DungeonWallSnake9Png *ebiten.Image
+var DungeonWallStoneDark0Png *ebiten.Image
+var DungeonWallStoneBrick5Png *ebiten.Image
+var DungeonWallMirroredWallNewPng *ebiten.Image
+var DungeonWallSlime7Png *ebiten.Image
+var DungeonWallStone2Gray2OldPng *ebiten.Image
+var DungeonWallStone2Gray0Png *ebiten.Image
+var DungeonWallEmerald1Png *ebiten.Image
+var DungeonWallSlime4Png *ebiten.Image
+var DungeonWallCobaltStone7Png *ebiten.Image
+var DungeonWallSlime2OldPng *ebiten.Image
+var DungeonWallTorchesTorch2Png *ebiten.Image
+var DungeonWallTorchesTorch1Png *ebiten.Image
+var DungeonWallTorchesTorch3Png *ebiten.Image
+var DungeonWallTorchesTorch4Png *ebiten.Image
+var DungeonWallTorchesTorch0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray3Png *ebiten.Image
+var DungeonWallAbyssAbyss2Png *ebiten.Image
+var DungeonWallAbyssAbyss3Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred4Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow1Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan6Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue3Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray4Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred5Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan3Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite3Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan1Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue3Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite1Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan3Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta5Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred1Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta7Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen3Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen0Png *ebiten.Image
+var DungeonWallAbyssAbyss6Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue6Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta2Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown4Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta5Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown3Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite2Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue1Png *ebiten.Image
+var DungeonWallAbyssAbyss7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan5Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan7Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite5Png *ebiten.Image
+var DungeonWallAbyssAbyss5Png *ebiten.Image
+var DungeonWallAbyssAbyss1Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray0Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue1Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue7Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray5Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen4Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen7Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen5Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown5Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen1Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow3Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan2Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen4Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray1Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray6Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan2Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray4Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray3Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta3Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray2Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow2Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue4Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred3Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen2Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue4Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen6Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan5Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta4Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan1Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue6Png *ebiten.Image
+var DungeonWallAbyssAbyss0Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen5Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta0Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta1Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue5Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite4Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan4Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow6Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow0Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown1Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta1Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite6Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan0Png *ebiten.Image
+var DungeonWallAbyssAbyssWhite0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightcyan4Png *ebiten.Image
+var DungeonWallAbyssAbyss4Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray2Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta4Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen1Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen3Png *ebiten.Image
+var DungeonWallAbyssAbyssGreen2Png *ebiten.Image
+var DungeonWallAbyssAbyssCyan6Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta6Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred6Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray7Png *ebiten.Image
+var DungeonWallAbyssAbyssLightblue2Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue5Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred0Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue2Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray5Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow4Png *ebiten.Image
+var DungeonWallAbyssAbyssBlue0Png *ebiten.Image
+var DungeonWallAbyssAbyssLightmagenta6Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgreen6Png *ebiten.Image
+var DungeonWallAbyssAbyssDarkgray1Png *ebiten.Image
+var DungeonWallAbyssAbyssLightred2Png *ebiten.Image
+var DungeonWallAbyssAbyssLightgray6Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown2Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta2Png *ebiten.Image
+var DungeonWallAbyssAbyssMagenta3Png *ebiten.Image
+var DungeonWallAbyssAbyssYellow5Png *ebiten.Image
+var DungeonWallAbyssAbyssBrown6Png *ebiten.Image
+var DungeonWallBannersBanner1Png *ebiten.Image
+var DungeonStatuesGraniteStatuePng *ebiten.Image
+var DungeonStatuesStatueOrbGuardianPng *ebiten.Image
+var DungeonStatuesStatueNagaPng *ebiten.Image
+var DungeonStatuesStatueCatPng *ebiten.Image
+var DungeonStatuesStatueTwinsPng *ebiten.Image
+var DungeonStatuesStatueMermaidPng *ebiten.Image
+var DungeonStatuesStatueTenguPng *ebiten.Image
+var DungeonStatuesStatueWraithPng *ebiten.Image
+var DungeonStatuesPedestalPng *ebiten.Image
+var DungeonStatuesStatueDwarfPng *ebiten.Image
+var DungeonStatuesStatuePrincessPng *ebiten.Image
+var DungeonStatuesStatueHydraPng *ebiten.Image
+var DungeonStatuesElephantStatuePng *ebiten.Image
+var DungeonStatuesStatueElephantPng *ebiten.Image
+var DungeonStatuesStatueCerebovPng *ebiten.Image
+var DungeonStatuesStatueAngelPng *ebiten.Image
+var DungeonStatuesStatueIronPng *ebiten.Image
+var DungeonStatuesStatueTrianglePng *ebiten.Image
+var DungeonStatuesCrumbledColumn2Png *ebiten.Image
+var DungeonStatuesGraniteStumpNewPng *ebiten.Image
+var DungeonStatuesStatueSwordPng *ebiten.Image
+var DungeonStatuesStatueAncientEvilPng *ebiten.Image
+var DungeonStatuesStatueAncientHeroPng *ebiten.Image
+var DungeonStatuesCrumbledColumnPng *ebiten.Image
+var DungeonStatuesCrumbledColumn1Png *ebiten.Image
+var DungeonStatuesStatueImpPng *ebiten.Image
+var DungeonStatuesStatueDemonicBustPng *ebiten.Image
+var DungeonStatuesOrcishIdolNewPng *ebiten.Image
+var DungeonStatuesStatueBasesPng *ebiten.Image
+var DungeonStatuesCrumbledColumn4Png *ebiten.Image
+var DungeonStatuesStatueCentaurPng *ebiten.Image
+var DungeonStatuesStatueSigmundPng *ebiten.Image
+var DungeonStatuesCrumbledColumn5Png *ebiten.Image
+var DungeonStatuesStatueArcherPng *ebiten.Image
+var DungeonStatuesOrcishIdolOldPng *ebiten.Image
+var DungeonStatuesStatueOrbPng *ebiten.Image
+var DungeonStatuesStatueSnailPng *ebiten.Image
+var DungeonStatuesCrumbledColumn6Png *ebiten.Image
+var DungeonStatuesCrumbledColumn3Png *ebiten.Image
+var DungeonStatuesGraniteStumpOldPng *ebiten.Image
+var DungeonStatuesStatueDragonPng *ebiten.Image
+var PlayerHandLeftBucklerSpiralPng *ebiten.Image
+var PlayerHandLeftLshieldQuarteredPng *ebiten.Image
+var PlayerHandLeftBoromirPng *ebiten.Image
+var PlayerHandLeftShieldOfResistancePng *ebiten.Image
+var PlayerHandLeftShieldLargeDdDkPng *ebiten.Image
+var PlayerHandLeftShieldKnightBluePng *ebiten.Image
+var PlayerHandLeftLshieldLongRedPng *ebiten.Image
+var PlayerHandLeftShieldDdPng *ebiten.Image
+var PlayerHandLeftShieldSprigganPng *ebiten.Image
+var PlayerHandLeftShieldRound4Png *ebiten.Image
+var PlayerHandLeftGilGaladPng *ebiten.Image
+var PlayerHandLeftLshieldGoldPng *ebiten.Image
+var PlayerHandLeftShieldRound7Png *ebiten.Image
+var PlayerHandLeftShieldHolyPng *ebiten.Image
+var PlayerHandLeftLshieldGreenPng *ebiten.Image
+var PlayerHandLeftShieldDiamondYellowPng *ebiten.Image
+var PlayerHandLeftShieldMiddleUnicornPng *ebiten.Image
+var PlayerHandLeftShieldSkullPng *ebiten.Image
+var PlayerHandLeftBucklerRound3Png *ebiten.Image
+var PlayerHandLeftShieldRound2Png *ebiten.Image
+var PlayerHandLeftBucklerGreenPng *ebiten.Image
+var PlayerHandLeftShieldMiddleGrayPng *ebiten.Image
+var PlayerHandLeftShieldMiddleEthnPng *ebiten.Image
+var PlayerHandLeftShieldRoundSmallPng *ebiten.Image
+var PlayerHandLeftShieldGoblinPng *ebiten.Image
+var PlayerHandLeftShieldKite3Png *ebiten.Image
+var PlayerHandLeftShieldRound5Png *ebiten.Image
+var PlayerHandLeftBucklerRound2Png *ebiten.Image
+var PlayerHandLeftShieldMiddleBlackPng *ebiten.Image
+var PlayerHandLeftShieldDraconicKnightPng *ebiten.Image
+var PlayerHandLeftShieldRound6Png *ebiten.Image
+var PlayerHandLeftShieldRound3Png *ebiten.Image
+var PlayerHandLeftShieldRound1Png *ebiten.Image
+var PlayerHandLeftShieldRoundWhitePng *ebiten.Image
+var PlayerHandLeftShieldLongCrossPng *ebiten.Image
+var PlayerHandLeftBucklerRbPng *ebiten.Image
+var PlayerHandLeftShieldMiddleCyanPng *ebiten.Image
+var PlayerHandLeftGongPng *ebiten.Image
+var PlayerHandLeftShieldDonaldPng *ebiten.Image
+var PlayerHandLeftLshieldTealPng *ebiten.Image
+var PlayerHandLeftShieldShamanPng *ebiten.Image
+var PlayerHandLeftShieldKite1Png *ebiten.Image
+var PlayerHandLeftLshieldLouisePng *ebiten.Image
+var PlayerHandLeftBullseyePng *ebiten.Image
+var PlayerHandLeftShieldKite4Png *ebiten.Image
+var PlayerHandLeftShieldMiddleRoundPng *ebiten.Image
+var PlayerHandLeftLshieldSpiralPng *ebiten.Image
+var PlayerHandLeftShieldLongRedPng *ebiten.Image
+var PlayerHandLeftShieldKnightGrayPng *ebiten.Image
+var PlayerHandLeftShieldKite2Png *ebiten.Image
+var PlayerHandLeftShieldDdScionPng *ebiten.Image
+var PlayerHandLeftShieldKnightRwPng *ebiten.Image
+var PlayerHandLeftShieldOfIgnorancePng *ebiten.Image
+var PlayerHandLeftShieldMiddleBrownPng *ebiten.Image
+var PlayerHandLeftMiscSabrePng *ebiten.Image
+var PlayerHandLeftMiscTorch2Png *ebiten.Image
+var PlayerHandLeftMiscBookCyanDimPng *ebiten.Image
+var PlayerHandLeftMiscFireGreenPng *ebiten.Image
+var PlayerHandLeftMiscBookGreenPng *ebiten.Image
+var PlayerHandLeftMiscLightRedPng *ebiten.Image
+var PlayerHandLeftMiscLanternPng *ebiten.Image
+var PlayerHandLeftMiscLightBluePng *ebiten.Image
+var PlayerHandLeftMiscFlailGreat2Png *ebiten.Image
+var PlayerHandLeftMiscGiantClubSlantPng *ebiten.Image
+var PlayerHandLeftMiscGreatMacePng *ebiten.Image
+var PlayerHandLeftMiscDaggerOldPng *ebiten.Image
+var PlayerHandLeftMiscFireDarkPng *ebiten.Image
+var PlayerHandLeftMiscBookBluePng *ebiten.Image
+var PlayerHandLeftMiscShortSwordSlantNewPng *ebiten.Image
+var PlayerHandLeftMiscBookSkyPng *ebiten.Image
+var PlayerHandLeftMiscLightYellowPng *ebiten.Image
+var PlayerHandLeftMiscBookRedDimPng *ebiten.Image
+var PlayerHandLeftMiscBookGreenDimPng *ebiten.Image
+var PlayerHandLeftMiscFlailGreatPng *ebiten.Image
+var PlayerHandLeftMiscGiantClubPlainPng *ebiten.Image
+var PlayerHandLeftMiscFireCyanPng *ebiten.Image
+var PlayerHandLeftMiscBookBlueDimPng *ebiten.Image
+var PlayerHandLeftMiscGreatMace2Png *ebiten.Image
+var PlayerHandLeftMiscShortSwordSlantOldPng *ebiten.Image
+var PlayerHandLeftMiscDaggerNewPng *ebiten.Image
+var PlayerHandLeftMiscShortSwordSlant2Png *ebiten.Image
+var PlayerHandLeftMiscBookMagentaDimPng *ebiten.Image
+var PlayerHandLeftMiscFireWhitePng *ebiten.Image
+var PlayerHandLeftMiscSparkPng *ebiten.Image
+var PlayerHandLeftMiscRapier2Png *ebiten.Image
+var PlayerHandLeftMiscBookMagentaPng *ebiten.Image
+var PlayerHandLeftMiscBookYellowPng *ebiten.Image
+var PlayerHandLeftMiscGiantClubPng *ebiten.Image
+var PlayerHandLeftMiscFireWhite2Png *ebiten.Image
+var PlayerHandLeftMiscGiantClubSpikeSlantPng *ebiten.Image
+var PlayerHandLeftMiscBookBlackPng *ebiten.Image
+var PlayerHandLeftMiscBookWhitePng *ebiten.Image
+var PlayerHandLeftMiscTorchPng *ebiten.Image
+var PlayerHandLeftMiscPjPng *ebiten.Image
+var PlayerHandLeftMiscBookYellowDimPng *ebiten.Image
+var PlayerHandLeftMiscGiantClubSpikePng *ebiten.Image
+var PlayerHandLeftMiscBookRedPng *ebiten.Image
+var PlayerHandLeftMiscBookCyanPng *ebiten.Image
+var PlayerGlovesGloveShortWhitePng *ebiten.Image
+var PlayerGlovesGloveShortRedPng *ebiten.Image
+var PlayerGlovesGloveWristPurplePng *ebiten.Image
+var PlayerGlovesGloveRedPng *ebiten.Image
+var PlayerGlovesGlovePurplePng *ebiten.Image
+var PlayerGlovesGauntletBluePng *ebiten.Image
+var PlayerGlovesGloveOrangePng *ebiten.Image
+var PlayerGlovesGloveGrayPng *ebiten.Image
+var PlayerGlovesGloveShortGrayPng *ebiten.Image
+var PlayerGlovesGloveShortGreenPng *ebiten.Image
+var PlayerGlovesGloveShortYellowPng *ebiten.Image
+var PlayerGlovesGloveChunliPng *ebiten.Image
+var PlayerGlovesGloveWhitePng *ebiten.Image
+var PlayerGlovesGloveBlack2Png *ebiten.Image
+var PlayerGlovesClawsPng *ebiten.Image
+var PlayerGlovesGloveGrayfistPng *ebiten.Image
+var PlayerGlovesGloveBlackPng *ebiten.Image
+var PlayerGlovesGloveBrownPng *ebiten.Image
+var PlayerGlovesGloveBluePng *ebiten.Image
+var PlayerGlovesGloveGoldPng *ebiten.Image
+var PlayerGlovesGloveShortBluePng *ebiten.Image
+var PlayerBootsShortBrown2Png *ebiten.Image
+var PlayerBootsBlueGoldPng *ebiten.Image
+var PlayerBootsShortRedPng *ebiten.Image
+var PlayerBootsMeshWhitePng *ebiten.Image
+var PlayerBootsShortBrownPng *ebiten.Image
+var PlayerBootsLongWhitePng *ebiten.Image
+var PlayerBootsMeshBlackPng *ebiten.Image
+var PlayerBootsMiddleBrown2Png *ebiten.Image
+var PlayerBootsMiddleGreenPng *ebiten.Image
+var PlayerBootsMeshBluePng *ebiten.Image
+var PlayerBootsLongRedPng *ebiten.Image
+var PlayerBootsMiddleBrown3Png *ebiten.Image
+var PlayerBootsHoovesPng *ebiten.Image
+var PlayerBootsMiddleGoldPng *ebiten.Image
+var PlayerBootsMiddleBrownPng *ebiten.Image
+var PlayerBootsSpiderPng *ebiten.Image
+var PlayerBootsMiddlePurplePng *ebiten.Image
+var PlayerBootsShortPurplePng *ebiten.Image
+var PlayerBootsMiddleGrayPng *ebiten.Image
+var PlayerBootsMeshRedPng *ebiten.Image
+var PlayerBootsMiddleYbrownPng *ebiten.Image
+var PlayerBootsPjPng *ebiten.Image
+var PlayerHandRightHandAxeOldPng *ebiten.Image
+var PlayerHandRightFrodoPng *ebiten.Image
+var PlayerHandRightRodHammerOldPng *ebiten.Image
+var PlayerHandRightFalchionOldPng *ebiten.Image
+var PlayerHandRightFlailBallsPng *ebiten.Image
+var PlayerHandRightBoromirPng *ebiten.Image
+var PlayerHandRightStickPng *ebiten.Image
+var PlayerHandRightEveningstar2Png *ebiten.Image
+var PlayerHandRightStaffMummyPng *ebiten.Image
+var PlayerHandRightLongSwordSlantOldPng *ebiten.Image
+var PlayerHandRightSabrePng *ebiten.Image
+var PlayerHandRightWhipOldPng *ebiten.Image
+var PlayerHandRightSlingPng *ebiten.Image
+var PlayerHandRightGreatSwordPng *ebiten.Image
+var PlayerHandRightGlaive3Png *ebiten.Image
+var PlayerHandRightQuarterstaff1Png *ebiten.Image
+var PlayerHandRightStaffSkullPng *ebiten.Image
+var PlayerHandRightGreatSwordSlantNewPng *ebiten.Image
+var PlayerHandRightClub3Png *ebiten.Image
+var PlayerHandRightQuarterstaff2OldPng *ebiten.Image
+var PlayerHandRightRodMoonOldPng *ebiten.Image
+var PlayerHandRightGreatSwordSlantOldPng *ebiten.Image
+var PlayerHandRightBowBluePng *ebiten.Image
+var PlayerHandRightRodRubyNewPng *ebiten.Image
+var PlayerHandRightWarAxeOldPng *ebiten.Image
+var PlayerHandRightTridentTwoPng *ebiten.Image
+var PlayerHandRightBlackWhipNewPng *ebiten.Image
+var PlayerHandRightClub2Png *ebiten.Image
+var PlayerHandRightMorningstar2NewPng *ebiten.Image
+var PlayerHandRightWarAxeNewPng *ebiten.Image
+var PlayerHandRightFlailBallOldPng *ebiten.Image
+var PlayerHandRightAxeExecutioner2Png *ebiten.Image
+var PlayerHandRightMorningstar2OldPng *ebiten.Image
+var PlayerHandRightKatanaPng *ebiten.Image
+var PlayerHandRightStaffPlainPng *ebiten.Image
+var PlayerHandRightMorningstarOldPng *ebiten.Image
+var PlayerHandRightGlaive2Png *ebiten.Image
+var PlayerHandRightScytheOldPng *ebiten.Image
+var PlayerHandRightAxeDoublePng *ebiten.Image
+var PlayerHandRightSpear2NewPng *ebiten.Image
+var PlayerHandRightFlailStickSlantPng *ebiten.Image
+var PlayerHandRightRodMagentaNewPng *ebiten.Image
+var PlayerHandRightSpear1Png *ebiten.Image
+var PlayerHandRightTripleSword2Png *ebiten.Image
+var PlayerHandRightDaggerSlantOldPng *ebiten.Image
+var PlayerHandRightBattleaxe2Png *ebiten.Image
+var PlayerHandRightFork2Png *ebiten.Image
+var PlayerHandRightFlailSpikePng *ebiten.Image
+var PlayerHandRightStaffForkPng *ebiten.Image
+var PlayerHandRightGlaiveNewPng *ebiten.Image
+var PlayerHandRightEveningstarNewPng *ebiten.Image
+var PlayerHandRightHolyScourge2Png *ebiten.Image
+var PlayerHandRightFlailGreat2Png *ebiten.Image
+var PlayerHandRightGiantClubSlantPng *ebiten.Image
+var PlayerHandRightTripleSwordNewPng *ebiten.Image
+var PlayerHandRightSword3Png *ebiten.Image
+var PlayerHandRightSpear3Png *ebiten.Image
+var PlayerHandRightGreatSwordSlant2Png *ebiten.Image
+var PlayerHandRightGreatMacePng *ebiten.Image
+var PlayerHandRightScytheSlantPng *ebiten.Image
+var PlayerHandRightStaffLargePng *ebiten.Image
+var PlayerHandRightRodHammerNewPng *ebiten.Image
+var PlayerHandRightTridentDemonPng *ebiten.Image
+var PlayerHandRightAxeSmallPng *ebiten.Image
+var PlayerHandRightDaggerOldPng *ebiten.Image
+var PlayerHandRightMaceRubyNewPng *ebiten.Image
+var PlayerHandRightRodBrownNewPng *ebiten.Image
+var PlayerHandRightKnifePng *ebiten.Image
+var PlayerHandRightTrishulaPng *ebiten.Image
+var PlayerHandRightSpear4Png *ebiten.Image
+var PlayerHandRightGreatStaffPng *ebiten.Image
+var PlayerHandRightHalberdNewPng *ebiten.Image
+var PlayerHandRightKatanaSlantPng *ebiten.Image
+var PlayerHandRightRodBrownOldPng *ebiten.Image
+var PlayerHandRightSwordSevenPng *ebiten.Image
+var PlayerHandRightHalberdOldPng *ebiten.Image
+var PlayerHandRightTrident3Png *ebiten.Image
+var PlayerHandRightTripleSwordOldPng *ebiten.Image
+var PlayerHandRightTridentPng *ebiten.Image
+var PlayerHandRightQuarterstaffJesterPng *ebiten.Image
+var PlayerHandRightBlackSwordPng *ebiten.Image
+var PlayerHandRightMace3Png *ebiten.Image
+var PlayerHandRightBlowgunPng *ebiten.Image
+var PlayerHandRightSwordTriPng *ebiten.Image
+var PlayerHandRightLegolasPng *ebiten.Image
+var PlayerHandRightRodForkedNewPng *ebiten.Image
+var PlayerHandRightRodEmeraldNewPng *ebiten.Image
+var PlayerHandRightGreatAxePng *ebiten.Image
+var PlayerHandRightFlailSpike2Png *ebiten.Image
+var PlayerHandRightHandAxe2Png *ebiten.Image
+var PlayerHandRightStaffRubyPng *ebiten.Image
+var PlayerHandRightDGlaivePng *ebiten.Image
+var PlayerHandRightShortSwordSlantNewPng *ebiten.Image
+var PlayerHandRightQuarterstaff2NewPng *ebiten.Image
+var PlayerHandRightHammer2OldPng *ebiten.Image
+var PlayerHandRightBroadAxePng *ebiten.Image
+var PlayerHandRightFlailStickPng *ebiten.Image
+var PlayerHandRightTridentTwo2Png *ebiten.Image
+var PlayerHandRightQuarterstaff3Png *ebiten.Image
+var PlayerHandRightFlailBall2OldPng *ebiten.Image
+var PlayerHandRightFlailBall2NewPng *ebiten.Image
+var PlayerHandRightAxeExecutionerOldPng *ebiten.Image
+var PlayerHandRightSwordTwistPng *ebiten.Image
+var PlayerHandRightSpearPng *ebiten.Image
+var PlayerHandRightSpear2OldPng *ebiten.Image
+var PlayerHandRightEveningstarOldPng *ebiten.Image
+var PlayerHandRightMace2OldPng *ebiten.Image
+var PlayerHandRightAxeShortPng *ebiten.Image
+var PlayerHandRightLongSwordSlantNewPng *ebiten.Image
+var PlayerHandRightMace2NewPng *ebiten.Image
+var PlayerHandRightMorningstarNewPng *ebiten.Image
+var PlayerHandRightHolyScourge1Png *ebiten.Image
+var PlayerHandRightLance2Png *ebiten.Image
+var PlayerHandRightGreatBowPng *ebiten.Image
+var PlayerHandRightLongSwordPng *ebiten.Image
+var PlayerHandRightHammerNewPng *ebiten.Image
+var PlayerHandRightShortSwordSlant3Png *ebiten.Image
+var PlayerHandRightFalchionNewPng *ebiten.Image
+var PlayerHandRightBattleaxePng *ebiten.Image
+var PlayerHandRightQuarterstaff4Png *ebiten.Image
+var PlayerHandRightMaceOldPng *ebiten.Image
+var PlayerHandRightScepterPng *ebiten.Image
+var PlayerHandRightRodBlueNewPng *ebiten.Image
+var PlayerHandRightHookPng *ebiten.Image
+var PlayerHandRightSwordJagPng *ebiten.Image
+var PlayerHandRightFlailGreatPng *ebiten.Image
+var PlayerHandRightGlaiveThree2Png *ebiten.Image
+var PlayerHandRightScytheNewPng *ebiten.Image
+var PlayerHandRightScimitarOldPng *ebiten.Image
+var PlayerHandRightGiantClubPlainPng *ebiten.Image
+var PlayerHandRightShortSword2Png *ebiten.Image
+var PlayerHandRightQuarterstaffPng *ebiten.Image
+var PlayerHandRightDartPng *ebiten.Image
+var PlayerHandRightCrossbow2Png *ebiten.Image
+var PlayerHandRightGreatMace2Png *ebiten.Image
+var PlayerHandRightRodForkedOldPng *ebiten.Image
+var PlayerHandRightGlaiveThreePng *ebiten.Image
+var PlayerHandRightPoleForkedPng *ebiten.Image
+var PlayerHandRightTridentElecPng *ebiten.Image
+var PlayerHandRightSwordBlackPng *ebiten.Image
+var PlayerHandRightStaffScepterPng *ebiten.Image
+var PlayerHandRightShortSwordSlantOldPng *ebiten.Image
+var PlayerHandRightRodEmeraldOldPng *ebiten.Image
+var PlayerHandRightWhipNewPng *ebiten.Image
+var PlayerHandRightDaggerNewPng *ebiten.Image
+var PlayerHandRightDaggerSlantNewPng *ebiten.Image
+var PlayerHandRightRodAriesOldPng *ebiten.Image
+var PlayerHandRightFalchion2Png *ebiten.Image
+var PlayerHandRightNunchakuPng *ebiten.Image
+var PlayerHandRightLancePng *ebiten.Image
+var PlayerHandRightShortSwordSlant2Png *ebiten.Image
+var PlayerHandRightShortSwordPng *ebiten.Image
+var PlayerHandRightPickAxePng *ebiten.Image
+var PlayerHandRightSicklePng *ebiten.Image
+var PlayerHandRightStaffOrganicPng *ebiten.Image
+var PlayerHandRightFlailBall4Png *ebiten.Image
+var PlayerHandRightMaceRubyOldPng *ebiten.Image
+var PlayerHandRightStaffMage2Png *ebiten.Image
+var PlayerHandRightRapier2Png *ebiten.Image
+var PlayerHandRightCrossbowPng *ebiten.Image
+var PlayerHandRightGandalfPng *ebiten.Image
+var PlayerHandRightStaffMagePng *ebiten.Image
+var PlayerHandRightHeavySwordPng *ebiten.Image
+var PlayerHandRightRodMagentaOldPng *ebiten.Image
+var PlayerHandRightAxePng *ebiten.Image
+var PlayerHandRightCrossbow3Png *ebiten.Image
+var PlayerHandRightGiantClubPng *ebiten.Image
+var PlayerHandRightHandCrossbowPng *ebiten.Image
+var PlayerHandRightWhip2Png *ebiten.Image
+var PlayerHandRightBow3Png *ebiten.Image
+var PlayerHandRightGiantClubSpikeSlantPng *ebiten.Image
+var PlayerHandRightHammer3Png *ebiten.Image
+var PlayerHandRightBlessedBladePng *ebiten.Image
+var PlayerHandRightMaceNewPng *ebiten.Image
+var PlayerHandRightGimliPng *ebiten.Image
+var PlayerHandRightFlailBall3Png *ebiten.Image
+var PlayerHandRightBowPng *ebiten.Image
+var PlayerHandRightStaffEvilPng *ebiten.Image
+var PlayerHandRightStaffRingBluePng *ebiten.Image
+var PlayerHandRightBow2Png *ebiten.Image
+var PlayerHandRightLongSwordSlant2Png *ebiten.Image
+var PlayerHandRightPikePng *ebiten.Image
+var PlayerHandRightArwenPng *ebiten.Image
+var PlayerHandRightGlaiveOldPng *ebiten.Image
+var PlayerHandRightDoubleSwordOldPng *ebiten.Image
+var PlayerHandRightStaffFancyPng *ebiten.Image
+var PlayerHandRightRodRubyOldPng *ebiten.Image
+var PlayerHandRightBlackWhipOldPng *ebiten.Image
+var PlayerHandRightSpear5Png *ebiten.Image
+var PlayerHandRightScimitarNewPng *ebiten.Image
+var PlayerHandRightSarumanPng *ebiten.Image
+var PlayerHandRightRodThickNewPng *ebiten.Image
+var PlayerHandRightCrossbow4Png *ebiten.Image
+var PlayerHandRightSwordThiefPng *ebiten.Image
+var PlayerHandRightFlailBallNewPng *ebiten.Image
+var PlayerHandRightGreatslingPng *ebiten.Image
+var PlayerHandRightLargeMacePng *ebiten.Image
+var PlayerHandRightAxeExecutionerNewPng *ebiten.Image
+var PlayerHandRightScythe2Png *ebiten.Image
+var PlayerHandRightRapierPng *ebiten.Image
+var PlayerHandRightClubSlantPng *ebiten.Image
+var PlayerHandRightDaggerSlant2Png *ebiten.Image
+var PlayerHandRightSwordBreakerPng *ebiten.Image
+var PlayerHandRightAragornPng *ebiten.Image
+var PlayerHandRightRodAriesNewPng *ebiten.Image
+var PlayerHandRightTrident2Png *ebiten.Image
+var PlayerHandRightDoubleSword2Png *ebiten.Image
+var PlayerHandRightSword2Png *ebiten.Image
+var PlayerHandRightGiantClubSpikePng *ebiten.Image
+var PlayerHandRightHandAxeNewPng *ebiten.Image
+var PlayerHandRightHammerOldPng *ebiten.Image
+var PlayerHandRightHammer2NewPng *ebiten.Image
+var PlayerHandRightDoubleSwordNewPng *ebiten.Image
+var PlayerHandRightRodMoonNewPng *ebiten.Image
+var PlayerHandRightEnchantressDaggerPng *ebiten.Image
+var PlayerHandRightAxeBloodPng *ebiten.Image
+var PlayerHandRightRodThickOldPng *ebiten.Image
+var PlayerHandRightClubPng *ebiten.Image
+var PlayerHandRightDoubleSword3Png *ebiten.Image
+var PlayerHandRightBroadswordPng *ebiten.Image
+var PlayerHandRightRodBlueOldPng *ebiten.Image
+var PlayerHandRightArtefactPlutoniumSwordNewPng *ebiten.Image
+var PlayerHandRightArtefactChillyDeathNewPng *ebiten.Image
+var PlayerHandRightArtefactAxeTrogPng *ebiten.Image
+var PlayerHandRightArtefactSwordOfPowerNewPng *ebiten.Image
+var PlayerHandRightArtefactPunkPng *ebiten.Image
+var PlayerHandRightArtefactOrderPng *ebiten.Image
+var PlayerHandRightArtefactGyrePng *ebiten.Image
+var PlayerHandRightArtefactElementalStaffPng *ebiten.Image
+var PlayerHandRightArtefactGlaiveOfPruneOldPng *ebiten.Image
+var PlayerHandRightArtefactGlaiveOfPruneNewPng *ebiten.Image
+var PlayerHandRightArtefactWucadMuPng *ebiten.Image
+var PlayerHandRightArtefactDireLajatangPng *ebiten.Image
+var PlayerHandRightArtefactChillyDeathOldPng *ebiten.Image
+var PlayerHandRightArtefactArgaOldPng *ebiten.Image
+var PlayerHandRightArtefactZonguldrokPng *ebiten.Image
+var PlayerHandRightArtefactCrystalSpearOldPng *ebiten.Image
+var PlayerHandRightArtefactJihadPng *ebiten.Image
+var PlayerHandRightArtefactArcBladePng *ebiten.Image
+var PlayerHandRightArtefactMajinPng *ebiten.Image
+var PlayerHandRightArtefactMaceOfBrilliancePng *ebiten.Image
+var PlayerHandRightArtefactKnifeOfAccuracyPng *ebiten.Image
+var PlayerHandRightArtefactEosPng *ebiten.Image
+var PlayerHandRightArtefactAxeOfWoePng *ebiten.Image
+var PlayerHandRightArtefactArgaNewPng *ebiten.Image
+var PlayerHandRightArtefactKrishnaPng *ebiten.Image
+var PlayerHandRightArtefactSingingSwordPng *ebiten.Image
+var PlayerHandRightArtefactLeechPng *ebiten.Image
+var PlayerHandRightArtefactSwordOfPowerOldPng *ebiten.Image
+var PlayerHandRightArtefactMaceOfVariabilityPng *ebiten.Image
+var PlayerHandRightArtefactPlutoniumSwordOldPng *ebiten.Image
+var PlayerHandRightArtefactOlgrebPng *ebiten.Image
+var PlayerHandRightArtefactDoomKnightNewPng *ebiten.Image
+var PlayerHandRightArtefactFinisherPng *ebiten.Image
+var PlayerHandRightArtefactAsmodeusNewPng *ebiten.Image
+var PlayerHandRightArtefactUndeadhunterPng *ebiten.Image
+var PlayerHandRightArtefactDispaterNewPng *ebiten.Image
+var PlayerHandRightArtefactSniperPng *ebiten.Image
+var PlayerHandRightArtefactFlamingDeathOldPng *ebiten.Image
+var PlayerHandRightArtefactSpriggansKnifeNewPng *ebiten.Image
+var PlayerHandRightArtefactBlowgunAssassinPng *ebiten.Image
+var PlayerHandRightArtefactCrystalSpearNewPng *ebiten.Image
+var PlayerHandRightArtefactMorgPng *ebiten.Image
+var PlayerHandRightArtefactFirestarterPng *ebiten.Image
+var PlayerHandRightArtefactDispaterOldPng *ebiten.Image
+var PlayerHandRightArtefactVampiresToothPng *ebiten.Image
+var PlayerHandRightArtefactDoomKnightOldPng *ebiten.Image
+var PlayerHandRightArtefactBloodbaneOldPng *ebiten.Image
+var PlayerHandRightArtefactBotonoPng *ebiten.Image
+var PlayerHandRightArtefactFlamingDeathNewPng *ebiten.Image
+var PlayerHandRightArtefactTridentOctopusKingPng *ebiten.Image
+var PlayerHandRightArtefactGlaiveOfTheGuardOldPng *ebiten.Image
+var PlayerHandRightArtefactCrossbowFirePng *ebiten.Image
+var PlayerHandRightArtefactSerpentScourgePng *ebiten.Image
+var PlayerHandRightArtefactGlaiveOfTheGuardNewPng *ebiten.Image
+var PlayerHandRightArtefactSpriggansKnifeOldPng *ebiten.Image
+var PlayerHandRightArtefactCutlassPng *ebiten.Image
+var PlayerHandRightArtefactAsmodeusOldPng *ebiten.Image
+var PlayerHandRightArtefactWyrmbanePng *ebiten.Image
+var PlayerHandRightArtefactBloodbaneNewPng *ebiten.Image
+var PlayerHandRightArtefactShillelaghPng *ebiten.Image
+var PlayerHandRightMiscSkullPng *ebiten.Image
+var PlayerHandRightMiscFireGreenPng *ebiten.Image
+var PlayerHandRightMiscLightRedPng *ebiten.Image
+var PlayerHandRightMiscFireRedPng *ebiten.Image
+var PlayerHandRightMiscHornPng *ebiten.Image
+var PlayerHandRightMiscLanternPng *ebiten.Image
+var PlayerHandRightMiscLightBluePng *ebiten.Image
+var PlayerHandRightMiscBladehandsNewPng *ebiten.Image
+var PlayerHandRightMiscStonePng *ebiten.Image
+var PlayerHandRightMiscFireDarkPng *ebiten.Image
+var PlayerHandRightMiscBottlePng *ebiten.Image
+var PlayerHandRightMiscCrystalPng *ebiten.Image
+var PlayerHandRightMiscDeckPng *ebiten.Image
+var PlayerHandRightMiscBladehandsFePng *ebiten.Image
+var PlayerHandRightMiscBladehandsOpPng *ebiten.Image
+var PlayerHandRightMiscLightYellowPng *ebiten.Image
+var PlayerHandRightMiscFireCyanPng *ebiten.Image
+var PlayerHandRightMiscDiscPng *ebiten.Image
+var PlayerHandRightMiscBladehandsOldPng *ebiten.Image
+var PlayerHandRightMiscFireWhitePng *ebiten.Image
+var PlayerHandRightMiscSparkPng *ebiten.Image
+var PlayerHandRightMiscFireBluePng *ebiten.Image
+var PlayerHandRightMiscFireWhite2Png *ebiten.Image
+var PlayerHandRightMiscFanPng *ebiten.Image
+var PlayerHandRightMiscBoneLanternPng *ebiten.Image
+var PlayerHandRightMiscOrbPng *ebiten.Image
+var PlayerHandRightMiscHeadPng *ebiten.Image
+var PlayerHandRightMiscBoxPng *ebiten.Image
+var PlayerCloakRatskinPng *ebiten.Image
+var PlayerCloakGrayPng *ebiten.Image
+var PlayerCloakBrownPng *ebiten.Image
+var PlayerCloakDragonskinPng *ebiten.Image
+var PlayerCloakBlackPng *ebiten.Image
+var PlayerCloakWhitePng *ebiten.Image
+var PlayerCloakGreenPng *ebiten.Image
+var PlayerCloakBluePng *ebiten.Image
+var PlayerCloakYellowPng *ebiten.Image
+var PlayerCloakRedPng *ebiten.Image
+var PlayerCloakCyanPng *ebiten.Image
+var PlayerCloakMagentaPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadPalePng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadGreenPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadMottledPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadBlackPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadRedPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadBrownPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadGreyPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadYellowPng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadPurplePng *ebiten.Image
+var PlayerDraconicHeadDraconicHeadWhitePng *ebiten.Image
+var PlayerEnchantmentStickyFlamePng *ebiten.Image
+var PlayerHeadWizardRedPng *ebiten.Image
+var PlayerHeadBandBluePng *ebiten.Image
+var PlayerHeadCrownGold1Png *ebiten.Image
+var PlayerHeadBandRedPng *ebiten.Image
+var PlayerHeadBlueHornGoldPng *ebiten.Image
+var PlayerHeadHoodRed2Png *ebiten.Image
+var PlayerHeadFeatherRedPng *ebiten.Image
+var PlayerHeadHoodGreen2Png *ebiten.Image
+var PlayerHeadMummyPng *ebiten.Image
+var PlayerHeadTurbanWhitePng *ebiten.Image
+var PlayerHeadFullGoldPng *ebiten.Image
+var PlayerHeadBrownGoldPng *ebiten.Image
+var PlayerHeadHelmPlumePng *ebiten.Image
+var PlayerHeadFhelmHornYellowPng *ebiten.Image
+var PlayerHeadFhelmGray3Png *ebiten.Image
+var PlayerHeadHealerPng *ebiten.Image
+var PlayerHeadHorns1Png *ebiten.Image
+var PlayerHeadCheekRedPng *ebiten.Image
+var PlayerHeadTaisoMagentaPng *ebiten.Image
+var PlayerHeadBandMagentaPng *ebiten.Image
+var PlayerHeadTurbanPurplePng *ebiten.Image
+var PlayerHeadWizardWhitePng *ebiten.Image
+var PlayerHeadBearPng *ebiten.Image
+var PlayerHeadFeatherBluePng *ebiten.Image
+var PlayerHeadFullBlackPng *ebiten.Image
+var PlayerHeadCapBlack1Png *ebiten.Image
+var PlayerHeadHornedPng *ebiten.Image
+var PlayerHeadNinjaBlackPng *ebiten.Image
+var PlayerHeadTaisoBluePng *ebiten.Image
+var PlayerHeadIron2Png *ebiten.Image
+var PlayerHeadHelmRedPng *ebiten.Image
+var PlayerHeadCapBluePng *ebiten.Image
+var PlayerHeadHoodGreenPng *ebiten.Image
+var PlayerHeadConeRedPng *ebiten.Image
+var PlayerHeadHelmGreenPng *ebiten.Image
+var PlayerHeadBandanaYbrownPng *ebiten.Image
+var PlayerHeadBlackHornPng *ebiten.Image
+var PlayerHeadFeatherGreenPng *ebiten.Image
+var PlayerHeadArtDragonhelmPng *ebiten.Image
+var PlayerHeadHorns3Png *ebiten.Image
+var PlayerHeadDyroveprevaOldPng *ebiten.Image
+var PlayerHeadConeBluePng *ebiten.Image
+var PlayerHeadHoodOrangePng *ebiten.Image
+var PlayerHeadHoodBlack2Png *ebiten.Image
+var PlayerHeadHoodGrayPng *ebiten.Image
+var PlayerHeadCrownGold2Png *ebiten.Image
+var PlayerHeadTaisoWhitePng *ebiten.Image
+var PlayerHeadChainPng *ebiten.Image
+var PlayerHeadIron1Png *ebiten.Image
+var PlayerHeadEternalTormentPng *ebiten.Image
+var PlayerHeadVikingGoldPng *ebiten.Image
+var PlayerHeadHatBlackPng *ebiten.Image
+var PlayerHeadTaisoRedPng *ebiten.Image
+var PlayerHeadWizardBluePng *ebiten.Image
+var PlayerHeadWizardBluegreenPng *ebiten.Image
+var PlayerHeadWizardBrownPng *ebiten.Image
+var PlayerHeadWizardBlackgoldPng *ebiten.Image
+var PlayerHeadHoodCyanPng *ebiten.Image
+var PlayerHeadHoodRedPng *ebiten.Image
+var PlayerHeadHoodWhitePng *ebiten.Image
+var PlayerHeadWizardBlackredPng *ebiten.Image
+var PlayerHeadBlackHorn2Png *ebiten.Image
+var PlayerHeadFeatherYellowPng *ebiten.Image
+var PlayerHeadClown1Png *ebiten.Image
+var PlayerHeadIronRedPng *ebiten.Image
+var PlayerHeadFeatherWhitePng *ebiten.Image
+var PlayerHeadBandWhitePng *ebiten.Image
+var PlayerHeadVikingBrown2Png *ebiten.Image
+var PlayerHeadGandalfPng *ebiten.Image
+var PlayerHeadCrownGold3Png *ebiten.Image
+var PlayerHeadHoodYbrownPng *ebiten.Image
+var PlayerHeadWizardLightgreenPng *ebiten.Image
+var PlayerHeadHorns2Png *ebiten.Image
+var PlayerHeadVikingBrown1Png *ebiten.Image
+var PlayerHeadFhelmHorn2Png *ebiten.Image
+var PlayerHeadIron3Png *ebiten.Image
+var PlayerHeadTaisoYellowPng *ebiten.Image
+var PlayerHeadWizardDarkgreenPng *ebiten.Image
+var PlayerHeadDyroveprevaNewPng *ebiten.Image
+var PlayerHeadHornGrayPng *ebiten.Image
+var PlayerHeadClown2Png *ebiten.Image
+var PlayerHeadBandYellowPng *ebiten.Image
+var PlayerHeadHoodWhite2Png *ebiten.Image
+var PlayerHeadTurbanBrownPng *ebiten.Image
+var PlayerHeadYellowWingPng *ebiten.Image
+var PlayerHeadStrawPng *ebiten.Image
+var PlayerHeadWizardPurplePng *ebiten.Image
+var PlayerHeadEthericCagePng *ebiten.Image
+var PlayerHeadIsildurPng *ebiten.Image
+var PlayerHeadHelmGimliPng *ebiten.Image
+var PlayerHeadHornEvilPng *ebiten.Image
+var PlayerBodyFrodoPng *ebiten.Image
+var PlayerBodyChinaRedPng *ebiten.Image
+var PlayerBodyRobeBlackPng *ebiten.Image
+var PlayerBodyShirtWhite3Png *ebiten.Image
+var PlayerBodyBoromirPng *ebiten.Image
+var PlayerBodyLeatherArmor2Png *ebiten.Image
+var PlayerBodyGandalfGPng *ebiten.Image
+var PlayerBodyKarate2Png *ebiten.Image
+var PlayerBodyCrystalPlatePng *ebiten.Image
+var PlayerBodyShoulderPadPng *ebiten.Image
+var PlayerBodyVestRed2Png *ebiten.Image
+var PlayerBodyRobeBlueGreenPng *ebiten.Image
+var PlayerBodyRobeMisfortunePng *ebiten.Image
+var PlayerBodyJacket2Png *ebiten.Image
+var PlayerBodyDragonArmorBlueNewPng *ebiten.Image
+var PlayerBodyGilGaladPng *ebiten.Image
+var PlayerBodyDragonArmorGreenPng *ebiten.Image
+var PlayerBodyRobeCyanPng *ebiten.Image
+var PlayerBodyLeatherStudPng *ebiten.Image
+var PlayerBodyShirtWhiteYellowPng *ebiten.Image
+var PlayerBodyChainmail3Png *ebiten.Image
+var PlayerBodyDressWhitePng *ebiten.Image
+var PlayerBodyRobeBlackGoldPng *ebiten.Image
+var PlayerBodyDragonArmorCyanOldPng *ebiten.Image
+var PlayerBodyDragonArmorBrownNewPng *ebiten.Image
+var PlayerBodyJacketStudPng *ebiten.Image
+var PlayerBodyShirtHawaiiPng *ebiten.Image
+var PlayerBodyDressGreenPng *ebiten.Image
+var PlayerBodyJessicaPng *ebiten.Image
+var PlayerBodyDragonScaleBlueNewPng *ebiten.Image
+var PlayerBodyKaratePng *ebiten.Image
+var PlayerBodyRobeYellowPng *ebiten.Image
+var PlayerBodyDragonScalePearlPng *ebiten.Image
+var PlayerBodyMeshBlackPng *ebiten.Image
+var PlayerBodyHalfPlate3Png *ebiten.Image
+var PlayerBodyGreenChainPng *ebiten.Image
+var PlayerBodyDragonScaleWhiteNewPng *ebiten.Image
+var PlayerBodyRobeWhiteBluePng *ebiten.Image
+var PlayerBodyHalfPlate2Png *ebiten.Image
+var PlayerBodyScalemailPng *ebiten.Image
+var PlayerBodyPlatePng *ebiten.Image
+var PlayerBodyOrangeCrystalPng *ebiten.Image
+var PlayerBodyRobeWhitePng *ebiten.Image
+var PlayerBodyChunliPng *ebiten.Image
+var PlayerBodyDragonArmorWhiteOldPng *ebiten.Image
+var PlayerBodyRobeGray2Png *ebiten.Image
+var PlayerBodySuspBlackPng *ebiten.Image
+var PlayerBodyDragonArmorBrownOldPng *ebiten.Image
+var PlayerBodyChainmailPng *ebiten.Image
+var PlayerBodyLegolasPng *ebiten.Image
+var PlayerBodyRobeGreenGoldPng *ebiten.Image
+var PlayerBodyBanded2Png *ebiten.Image
+var PlayerBodyRobeBlackRedPng *ebiten.Image
+var PlayerBodyDragonArmorMagentaNewPng *ebiten.Image
+var PlayerBodyRobeBrown3Png *ebiten.Image
+var PlayerBodyDragonScaleCyanOldPng *ebiten.Image
+var PlayerBodyAnimalSkinPng *ebiten.Image
+var PlayerBodyDragonArmorGoldNewPng *ebiten.Image
+var PlayerBodyFaerieDragonArmorPng *ebiten.Image
+var PlayerBodyPlate2Png *ebiten.Image
+var PlayerBodyBreastBlackPng *ebiten.Image
+var PlayerBodyDragonScaleGoldOldPng *ebiten.Image
+var PlayerBodyCoatBlackPng *ebiten.Image
+var PlayerBodyDragonScaleQuicksilverPng *ebiten.Image
+var PlayerBodyLeatherGreenPng *ebiten.Image
+var PlayerBodyBikiniRedPng *ebiten.Image
+var PlayerBodyLeatherArmor3Png *ebiten.Image
+var PlayerBodyArmorMummyPng *ebiten.Image
+var PlayerBodySkirtOnepGreyPng *ebiten.Image
+var PlayerBodyTrollHidePng *ebiten.Image
+var PlayerBodyRobeOfNightPng *ebiten.Image
+var PlayerBodyBandedPng *ebiten.Image
+var PlayerBodyDragonScaleBrownNewPng *ebiten.Image
+var PlayerBodyDragonScaleShadowPng *ebiten.Image
+var PlayerBodyChinaRed2Png *ebiten.Image
+var PlayerBodySamPng *ebiten.Image
+var PlayerBodyDragonArmorMagentaOldPng *ebiten.Image
+var PlayerBodyMerryPng *ebiten.Image
+var PlayerBodyLeatherJacketPng *ebiten.Image
+var PlayerBodyCoatRedPng *ebiten.Image
+var PlayerBodyGreenSuspPng *ebiten.Image
+var PlayerBodyPlateBlackPng *ebiten.Image
+var PlayerBodyShirtCheckPng *ebiten.Image
+var PlayerBodyDragonArmorQuicksilverPng *ebiten.Image
+var PlayerBodyLeatherShortPng *ebiten.Image
+var PlayerBodyMetalBluePng *ebiten.Image
+var PlayerBodyDragonScaleCyanNewPng *ebiten.Image
+var PlayerBodyShirtBlackAndClothPng *ebiten.Image
+var PlayerBodyShirtVestPng *ebiten.Image
+var PlayerBodyDragonScaleMagentaNewPng *ebiten.Image
+var PlayerBodyLeatherMetalPng *ebiten.Image
+var PlayerBodyPlateAndCloth2Png *ebiten.Image
+var PlayerBodyShirtWhite2Png *ebiten.Image
+var PlayerBodyRobeCloudsPng *ebiten.Image
+var PlayerBodyBelt2Png *ebiten.Image
+var PlayerBodyBplateGreenPng *ebiten.Image
+var PlayerBodyBloodyPng *ebiten.Image
+var PlayerBodyZhorPng *ebiten.Image
+var PlayerBodyNeckPng *ebiten.Image
+var PlayerBodyLearsChainMailPng *ebiten.Image
+var PlayerBodyMonkBluePng *ebiten.Image
+var PlayerBodyDragonArmorBlueOldPng *ebiten.Image
+var PlayerBodyRobeWhiteGreenPng *ebiten.Image
+var PlayerBodyMonkBlackPng *ebiten.Image
+var PlayerBodyShirtWhite1Png *ebiten.Image
+var PlayerBodyDragonArmorGoldOldPng *ebiten.Image
+var PlayerBodyRobeJesterPng *ebiten.Image
+var PlayerBodyAragorn2Png *ebiten.Image
+var PlayerBodyHalfPlatePng *ebiten.Image
+var PlayerBodyRobeRainbowPng *ebiten.Image
+var PlayerBodySlitBlackPng *ebiten.Image
+var PlayerBodyScalemail2Png *ebiten.Image
+var PlayerBodyRobePurplePng *ebiten.Image
+var PlayerBodyDragonScaleBlueOldPng *ebiten.Image
+var PlayerBodyRobeGreenPng *ebiten.Image
+var PlayerBodyDragonArmorPearlPng *ebiten.Image
+var PlayerBodyDragonScaleBrownOldPng *ebiten.Image
+var PlayerBodyRobeBlueWhitePng *ebiten.Image
+var PlayerBodyGimliPng *ebiten.Image
+var PlayerBodyMeshRedPng *ebiten.Image
+var PlayerBodyRobeWhiteRedPng *ebiten.Image
+var PlayerBodyArmorBlueGoldPng *ebiten.Image
+var PlayerBodyRobeRed2Png *ebiten.Image
+var PlayerBodyVanhel1Png *ebiten.Image
+var PlayerBodyMaxwellOldPng *ebiten.Image
+var PlayerBodyDragonArmorShadowPng *ebiten.Image
+var PlayerBodyArwenPng *ebiten.Image
+var PlayerBodyRingmailPng *ebiten.Image
+var PlayerBodyRobeBlackHoodPng *ebiten.Image
+var PlayerBodyRobeWhite2Png *ebiten.Image
+var PlayerBodyLeatherArmorPng *ebiten.Image
+var PlayerBodySarumanPng *ebiten.Image
+var PlayerBodyPipinPng *ebiten.Image
+var PlayerBodyDragonScaleGoldNewPng *ebiten.Image
+var PlayerBodyShirtBlack3Png *ebiten.Image
+var PlayerBodyJacket3Png *ebiten.Image
+var PlayerBodyDragonScaleGreenPng *ebiten.Image
+var PlayerBodyRobeBrown2Png *ebiten.Image
+var PlayerBodyPjPng *ebiten.Image
+var PlayerBodyDragonArmorWhiteNewPng *ebiten.Image
+var PlayerBodyRobeBluePng *ebiten.Image
+var PlayerBodyDragonScaleWhiteOldPng *ebiten.Image
+var PlayerBodyAragornPng *ebiten.Image
+var PlayerBodyDragonScaleMagentaOldPng *ebiten.Image
+var PlayerBodyRobeRedGoldPng *ebiten.Image
+var PlayerBodyDragonArmorCyanNewPng *ebiten.Image
+var PlayerBodyShirtBluePng *ebiten.Image
+var PlayerBodyBelt1Png *ebiten.Image
+var PlayerBodyBplateMetal1Png *ebiten.Image
+var PlayerBodyLeatherRedPng *ebiten.Image
+var PlayerBodyPlateAndClothPng *ebiten.Image
+var PlayerBodyLeatherHeavyPng *ebiten.Image
+var PlayerBodyMaxwellNewPng *ebiten.Image
+var PlayerBodyIsildurPng *ebiten.Image
+var PlayerBodyLeather2Png *ebiten.Image
+var PlayerBodyVestRedPng *ebiten.Image
+var PlayerBodyRobeBrownPng *ebiten.Image
+var PlayerBodyRobeRedPng *ebiten.Image
+var PlayerBodyShirtBlackPng *ebiten.Image
+var PlayerBodyRobeRed3Png *ebiten.Image
+var PlayerMutationsCat7Png *ebiten.Image
+var PlayerMutationsCat8Png *ebiten.Image
+var PlayerMutationsCat9Png *ebiten.Image
+var PlayerMutationsCat10Png *ebiten.Image
+var PlayerMutationsOctopode1Png *ebiten.Image
+var PlayerMutationsCat6Png *ebiten.Image
+var PlayerBeardShortGreenPng *ebiten.Image
+var PlayerBeardShortRedPng *ebiten.Image
+var PlayerBeardShortBlackPng *ebiten.Image
+var PlayerBeardLongWhitePng *ebiten.Image
+var PlayerBeardShortYellowPng *ebiten.Image
+var PlayerBeardLongRedPng *ebiten.Image
+var PlayerBeardLongBlackPng *ebiten.Image
+var PlayerBeardLongYellowPng *ebiten.Image
+var PlayerBeardShortWhitePng *ebiten.Image
+var PlayerBeardLongGreenPng *ebiten.Image
+var PlayerBeardPjPng *ebiten.Image
+var PlayerDraconicWingDraconicWingBlackPng *ebiten.Image
+var PlayerDraconicWingDraconicWingYellowPng *ebiten.Image
+var PlayerDraconicWingDraconicWingWhitePng *ebiten.Image
+var PlayerDraconicWingDraconicWingRedPng *ebiten.Image
+var PlayerDraconicWingDraconicWingBrownPng *ebiten.Image
+var PlayerDraconicWingDraconicWingMottledPng *ebiten.Image
+var PlayerDraconicWingDraconicWingGreenPng *ebiten.Image
+var PlayerDraconicWingDraconicWingPurplePng *ebiten.Image
+var PlayerDraconicWingDraconicWingGreyPng *ebiten.Image
+var PlayerDraconicWingDraconicWingPalePng *ebiten.Image
+var PlayerFelidsCat7Png *ebiten.Image
+var PlayerFelidsCat8Png *ebiten.Image
+var PlayerFelidsCat9Png *ebiten.Image
+var PlayerFelidsCat10Png *ebiten.Image
+var PlayerFelidsCat6Png *ebiten.Image
+var PlayerTransformTreeFormPng *ebiten.Image
+var PlayerTransformLichFormPng *ebiten.Image
+var PlayerTransformDragonFormMottledPng *ebiten.Image
+var PlayerTransformIceFormPng *ebiten.Image
+var PlayerTransformDragonFormPurplePng *ebiten.Image
+var PlayerTransformLichFormOctopodePng *ebiten.Image
+var PlayerTransformDragonFormYellowPng *ebiten.Image
+var PlayerTransformPigFormNewPng *ebiten.Image
+var PlayerTransformDragonFormBlackPng *ebiten.Image
+var PlayerTransformDragonFormWhitePng *ebiten.Image
+var PlayerTransformDragonFormRedPng *ebiten.Image
+var PlayerTransformStatueFormFelidPng *ebiten.Image
+var PlayerTransformDragonFormPalePng *ebiten.Image
+var PlayerTransformDragonFormGreyPng *ebiten.Image
+var PlayerTransformStatueFormNagaPng *ebiten.Image
+var PlayerTransformPigFormOldPng *ebiten.Image
+var PlayerTransformStatueFormCentaurPng *ebiten.Image
+var PlayerTransformShadowFormPng *ebiten.Image
+var PlayerTransformStatueFormHumanoidPng *ebiten.Image
+var PlayerTransformDragonFormPng *ebiten.Image
+var PlayerTransformDragonFormGreenPng *ebiten.Image
+var PlayerTransformBatFormPng *ebiten.Image
+var PlayerTransformMushroomFormPng *ebiten.Image
+var PlayerBaseGhoul2MalePng *ebiten.Image
+var PlayerBaseLorcMale5Png *ebiten.Image
+var PlayerBaseSprigganMalePng *ebiten.Image
+var PlayerBaseOctopode2Png *ebiten.Image
+var PlayerBaseDraconianMalePng *ebiten.Image
+var PlayerBaseMummyMalePng *ebiten.Image
+var PlayerBaseLorcFemale6Png *ebiten.Image
+var PlayerBaseDemonspawnRedMalePng *ebiten.Image
+var PlayerBaseOctopode4Png *ebiten.Image
+var PlayerBaseGnomeMalePng *ebiten.Image
+var PlayerBaseFormicidPng *ebiten.Image
+var PlayerBaseMerfolkFemalePng *ebiten.Image
+var PlayerBaseNagaBlueMalePng *ebiten.Image
+var PlayerBaseMinotaurBrown1MalePng *ebiten.Image
+var PlayerBaseGargoyleFemalePng *ebiten.Image
+var PlayerBaseCentaurBrownFemalePng *ebiten.Image
+var PlayerBaseDraconianGrayFemalePng *ebiten.Image
+var PlayerBaseMerfolkMalePng *ebiten.Image
+var PlayerBaseShadowPng *ebiten.Image
+var PlayerBaseCentaurDarkbrownFemalePng *ebiten.Image
+var PlayerBaseDraconianPurpleMalePng *ebiten.Image
+var PlayerBaseTrollFemalePng *ebiten.Image
+var PlayerBaseMinotaurFemalePng *ebiten.Image
+var PlayerBaseTenguWinglessBrownFemalePng *ebiten.Image
+var PlayerBaseHalflingFemalePng *ebiten.Image
+var PlayerBaseNagaDarkgreenFemalePng *ebiten.Image
+var PlayerBaseDemonspawnRedFemalePng *ebiten.Image
+var PlayerBaseHumanFemalePng *ebiten.Image
+var PlayerBaseLorcFemale0Png *ebiten.Image
+var PlayerBaseDraconianMottledMalePng *ebiten.Image
+var PlayerBaseOrcMalePng *ebiten.Image
+var PlayerBaseOctopode5Png *ebiten.Image
+var PlayerBaseElfFemalePng *ebiten.Image
+var PlayerBaseDemonspawnPinkPng *ebiten.Image
+var PlayerBaseDraconianRedFemalePng *ebiten.Image
+var PlayerBaseNagaMalePng *ebiten.Image
+var PlayerBaseOctopode3Png *ebiten.Image
+var PlayerBaseNagaRedFemalePng *ebiten.Image
+var PlayerBaseDraconianWhiteFemalePng *ebiten.Image
+var PlayerBaseOgreFemalePng *ebiten.Image
+var PlayerBaseMerfolkWaterMalePng *ebiten.Image
+var PlayerBaseLorcMale4Png *ebiten.Image
+var PlayerBaseGnomeFemalePng *ebiten.Image
+var PlayerBaseNagaLightgreenFemalePng *ebiten.Image
+var PlayerBaseDraconianGoldFemalePng *ebiten.Image
+var PlayerBaseVampireFemalePng *ebiten.Image
+var PlayerBaseCentaurDarkgreyFemalePng *ebiten.Image
+var PlayerBaseCentaurDarkgreyMalePng *ebiten.Image
+var PlayerBaseKenkuWingedFemalePng *ebiten.Image
+var PlayerBaseDraconianWhiteMalePng *ebiten.Image
+var PlayerBaseNagaDarkgreenMalePng *ebiten.Image
+var PlayerBaseMinotaurMalePng *ebiten.Image
+var PlayerBaseNagaBlueFemalePng *ebiten.Image
+var PlayerBaseDraconianGreenFemalePng *ebiten.Image
+var PlayerBaseDraconianPaleMalePng *ebiten.Image
+var PlayerBaseDraconianGreenMalePng *ebiten.Image
+var PlayerBaseSprigganFemalePng *ebiten.Image
+var PlayerBaseKoboldFemaleOldPng *ebiten.Image
+var PlayerBaseElfMalePng *ebiten.Image
+var PlayerBaseLorcMale1Png *ebiten.Image
+var PlayerBaseLorcMale6Png *ebiten.Image
+var PlayerBaseMerfolkWaterFemalePng *ebiten.Image
+var PlayerBaseDraconianBlackFemalePng *ebiten.Image
+var PlayerBaseKenkuWinglessFemalePng *ebiten.Image
+var PlayerBaseKenkuWinglessMalePng *ebiten.Image
+var PlayerBaseDraconianPaleFemalePng *ebiten.Image
+var PlayerBaseDraconianFemalePng *ebiten.Image
+var PlayerBaseHalflingMalePng *ebiten.Image
+var PlayerBaseLorcMale2Png *ebiten.Image
+var PlayerBaseGhoulPng *ebiten.Image
+var PlayerBaseDraconianRedMalePng *ebiten.Image
+var PlayerBaseHumanMalePng *ebiten.Image
+var PlayerBaseLorcMale3Png *ebiten.Image
+var PlayerBaseOrcFemalePng *ebiten.Image
+var PlayerBaseOctopode1Png *ebiten.Image
+var PlayerBaseLorcFemale2Png *ebiten.Image
+var PlayerBaseLorcFemale4Png *ebiten.Image
+var PlayerBaseCentaurLightbrownFemalePng *ebiten.Image
+var PlayerBaseDeepElfMalePng *ebiten.Image
+var PlayerBaseVampireMalePng *ebiten.Image
+var PlayerBaseDeepDwarfFemalePng *ebiten.Image
+var PlayerBaseNagaFemalePng *ebiten.Image
+var PlayerBaseNagaRedMalePng *ebiten.Image
+var PlayerBaseCentaurLightgreyMalePng *ebiten.Image
+var PlayerBaseOgreMalePng *ebiten.Image
+var PlayerBaseNagaLightgreenMalePng *ebiten.Image
+var PlayerBaseMummyFemalePng *ebiten.Image
+var PlayerBaseDraconianBlackMalePng *ebiten.Image
+var PlayerBaseCentaurDarkbrownMalePng *ebiten.Image
+var PlayerBaseDemonspawnBlackMalePng *ebiten.Image
+var PlayerBaseKoboldFemaleNewPng *ebiten.Image
+var PlayerBaseMinotaurBrown2MalePng *ebiten.Image
+var PlayerBaseLorcMale0Png *ebiten.Image
+var PlayerBaseDwarfMalePng *ebiten.Image
+var PlayerBaseKoboldMaleNewPng *ebiten.Image
+var PlayerBaseLorcFemale1Png *ebiten.Image
+var PlayerBaseDemonspawnBlackFemalePng *ebiten.Image
+var PlayerBaseDraconianGoldMalePng *ebiten.Image
+var PlayerBaseCentaurLightgreyFemalePng *ebiten.Image
+var PlayerBaseDemigodMalePng *ebiten.Image
+var PlayerBaseDraconianMottledFemalePng *ebiten.Image
+var PlayerBaseDraconianPurpleFemalePng *ebiten.Image
+var PlayerBaseDeepDwarfMalePng *ebiten.Image
+var PlayerBaseCentaurLightbrownMalePng *ebiten.Image
+var PlayerBaseDraconianGrayMalePng *ebiten.Image
+var PlayerBaseLorcFemale5Png *ebiten.Image
+var PlayerBaseLorcFemale3Png *ebiten.Image
+var PlayerBaseGargoyleMalePng *ebiten.Image
+var PlayerBaseKoboldMaleOldPng *ebiten.Image
+var PlayerBaseGhoul2FemalePng *ebiten.Image
+var PlayerBaseTenguWinglessBrownMalePng *ebiten.Image
+var PlayerBaseDeepElfFemalePng *ebiten.Image
+var PlayerBaseDwarfFemalePng *ebiten.Image
+var PlayerBaseCentaurBrownMalePng *ebiten.Image
+var PlayerBaseKenkuWingedMalePng *ebiten.Image
+var PlayerBaseTrollMalePng *ebiten.Image
+var PlayerBardingLightningScalesPng *ebiten.Image
+var PlayerBardingNagaBardingMagentaPng *ebiten.Image
+var PlayerBardingBlackKnightPng *ebiten.Image
+var PlayerBardingCentaurBardingBluePng *ebiten.Image
+var PlayerBardingNagaBardingBluePng *ebiten.Image
+var PlayerBardingNagaBardingMetalPng *ebiten.Image
+var PlayerBardingNagaBardingRedPng *ebiten.Image
+var PlayerBardingCentaurBardingMetalPng *ebiten.Image
+var PlayerBardingCentaurBardingMagentaPng *ebiten.Image
+var PlayerBardingCentaurBardingRedPng *ebiten.Image
+var PlayerHairFrodoPng *ebiten.Image
+var PlayerHairDjinn2Png *ebiten.Image
+var PlayerHairBoromirPng *ebiten.Image
+var PlayerHairFemYellowPng *ebiten.Image
+var PlayerHairShortRedPng *ebiten.Image
+var PlayerHairPigtailsYellowPng *ebiten.Image
+var PlayerHairShortBlackPng *ebiten.Image
+var PlayerHairFemBlackPng *ebiten.Image
+var PlayerHairLongWhitePng *ebiten.Image
+var PlayerHairElfBlackPng *ebiten.Image
+var PlayerHairShortYellowPng *ebiten.Image
+var PlayerHairDjinn1Png *ebiten.Image
+var PlayerHairLegolasPng *ebiten.Image
+var PlayerHairLongRedPng *ebiten.Image
+var PlayerHairElfRedPng *ebiten.Image
+var PlayerHairKnotRedPng *ebiten.Image
+var PlayerHairLongBlackPng *ebiten.Image
+var PlayerHairSamPng *ebiten.Image
+var PlayerHairMerryPng *ebiten.Image
+var PlayerHairFemRedPng *ebiten.Image
+var PlayerHairElfWhitePng *ebiten.Image
+var PlayerHairLongYellowPng *ebiten.Image
+var PlayerHairPigtailRedPng *ebiten.Image
+var PlayerHairElfYellowPng *ebiten.Image
+var PlayerHairBrown1Png *ebiten.Image
+var PlayerHairPigtailsBrownPng *ebiten.Image
+var PlayerHairPonytailYellowPng *ebiten.Image
+var PlayerHairGreenPng *ebiten.Image
+var PlayerHairShortWhitePng *ebiten.Image
+var PlayerHairBrown2Png *ebiten.Image
+var PlayerHairArwenPng *ebiten.Image
+var PlayerHairPjPng *ebiten.Image
+var PlayerHairAragornPng *ebiten.Image
+var PlayerHairFemWhitePng *ebiten.Image
+var PlayerHairTenguCombPng *ebiten.Image
+var PlayerLegsLegArmor0Png *ebiten.Image
+var PlayerLegsSkirtWhitePng *ebiten.Image
+var PlayerLegsBeltGrayPng *ebiten.Image
+var PlayerLegsLoinclothRedPng *ebiten.Image
+var PlayerLegsLegArmor2Png *ebiten.Image
+var PlayerLegsMetalGreenPng *ebiten.Image
+var PlayerLegsPantsOrangePng *ebiten.Image
+var PlayerLegsSkirtBluePng *ebiten.Image
+var PlayerLegsTrouserGreenPng *ebiten.Image
+var PlayerLegsChunliPng *ebiten.Image
+var PlayerLegsSkirtGreenPng *ebiten.Image
+var PlayerLegsLegArmor3Png *ebiten.Image
+var PlayerLegsPantsShortBrown3Png *ebiten.Image
+var PlayerLegsLongRedPng *ebiten.Image
+var PlayerLegsBikiniRedPng *ebiten.Image
+var PlayerLegsGarterPng *ebiten.Image
+var PlayerLegsPantsShortBrownPng *ebiten.Image
+var PlayerLegsPantsShortGrayPng *ebiten.Image
+var PlayerLegsSkirtRedPng *ebiten.Image
+var PlayerLegsPantsRedPng *ebiten.Image
+var PlayerLegsLegArmor1Png *ebiten.Image
+var PlayerLegsPantsBlackPng *ebiten.Image
+var PlayerLegsPantsBrownPng *ebiten.Image
+var PlayerLegsPantsDarkgreenPng *ebiten.Image
+var PlayerLegsPantsShortDarkbrownPng *ebiten.Image
+var PlayerLegsLegArmor4Png *ebiten.Image
+var PlayerLegsBeltRedbrownPng *ebiten.Image
+var PlayerLegsSkirtWhite2Png *ebiten.Image
+var PlayerLegsMetalGrayPng *ebiten.Image
+var PlayerLegsPjPng *ebiten.Image
+var PlayerLegsLegArmor5Png *ebiten.Image
+var PlayerLegsPantsLWhitePng *ebiten.Image
+var PlayerLegsPantsBluePng *ebiten.Image
+var PlayerLegsPants16Png *ebiten.Image
+var PlayerHaloHaloPlayerPng *ebiten.Image
+var EffectTomahawk7Png *ebiten.Image
+var EffectDart7Png *ebiten.Image
+var EffectSearingRay5Png *ebiten.Image
+var EffectCrossbowBolt2Png *ebiten.Image
+var EffectMagicBolt4Png *ebiten.Image
+var EffectPoisonArrow5Png *ebiten.Image
+var EffectPoisonArrow4Png *ebiten.Image
+var EffectIronShot3Png *ebiten.Image
+var EffectDart2Png *ebiten.Image
+var EffectCrystalSpear5Png *ebiten.Image
+var EffectTomahawk4Png *ebiten.Image
+var EffectTomahawk1Png *ebiten.Image
+var EffectStoneArrow3Png *ebiten.Image
+var EffectCloudChaos2Png *ebiten.Image
+var EffectSting1Png *ebiten.Image
+var EffectCloudCalcDust3Png *ebiten.Image
+var EffectIcicle2Png *ebiten.Image
+var EffectSearingRay4Png *ebiten.Image
+var EffectArrow6Png *ebiten.Image
+var EffectTomahawk6Png *ebiten.Image
+var EffectCloudMutagenicLarge2Png *ebiten.Image
+var EffectJavelin0OldPng *ebiten.Image
+var EffectNeedle6Png *ebiten.Image
+var EffectDart5Png *ebiten.Image
+var EffectSanctuaryPng *ebiten.Image
+var EffectDart6Png *ebiten.Image
+var EffectCloudMagicTrail3Png *ebiten.Image
+var EffectCloudAcid1Png *ebiten.Image
+var EffectFlame0Png *ebiten.Image
+var EffectCrystalSpear4Png *ebiten.Image
+var EffectMagicBolt3Png *ebiten.Image
+var EffectCloudGloomNewPng *ebiten.Image
+var EffectJavelin2Png *ebiten.Image
+var EffectTornado1Png *ebiten.Image
+var EffectTornado2Png *ebiten.Image
+var EffectGoldaura1Png *ebiten.Image
+var EffectSandblast1Png *ebiten.Image
+var EffectMagicDart2Png *ebiten.Image
+var EffectArrow4Png *ebiten.Image
+var EffectArrow7Png *ebiten.Image
+var EffectNeedle7Png *ebiten.Image
+var EffectRock0NewPng *ebiten.Image
+var EffectStoneArrow1Png *ebiten.Image
+var EffectZap2Png *ebiten.Image
+var EffectCloudSpectral0Png *ebiten.Image
+var EffectIcicle7Png *ebiten.Image
+var EffectIronShot6Png *ebiten.Image
+var EffectHeataura0Png *ebiten.Image
+var EffectCloudMutagenicLarge4Png *ebiten.Image
+var EffectCloudChaos1Png *ebiten.Image
+var EffectArrow3Png *ebiten.Image
+var EffectJavelin7NewPng *ebiten.Image
+var EffectStoneArrow6Png *ebiten.Image
+var EffectCloudMeph0Png *ebiten.Image
+var EffectCloudMutagenicMedium1Png *ebiten.Image
+var EffectSearingRay0Png *ebiten.Image
+var EffectCrossbowBolt4Png *ebiten.Image
+var EffectCloudCold1Png *ebiten.Image
+var EffectNeedle4Png *ebiten.Image
+var EffectDrainRed0Png *ebiten.Image
+var EffectMagicBolt7Png *ebiten.Image
+var EffectSearingRay3Png *ebiten.Image
+var EffectXomSparklesBluePng *ebiten.Image
+var EffectDisjunct1Png *ebiten.Image
+var EffectIrradiate0Png *ebiten.Image
+var EffectNeedle5Png *ebiten.Image
+var EffectMagicDart1Png *ebiten.Image
+var EffectCloudTlocEnergyPng *ebiten.Image
+var EffectIrradiate3Png *ebiten.Image
+var EffectCloudRain1Png *ebiten.Image
+var EffectCloudMeph2Png *ebiten.Image
+var EffectCloudChaos3Png *ebiten.Image
+var EffectCrystalSpear0Png *ebiten.Image
+var EffectDart1Png *ebiten.Image
+var EffectIcicle5Png *ebiten.Image
+var EffectCloudPoison2Png *ebiten.Image
+var EffectGoldSparkles3Png *ebiten.Image
+var EffectPoisonArrow7Png *ebiten.Image
+var EffectCloudMagicTrail0Png *ebiten.Image
+var EffectCloudNeg1Png *ebiten.Image
+var EffectDart0Png *ebiten.Image
+var EffectCloudNeg2Png *ebiten.Image
+var EffectIronShot4Png *ebiten.Image
+var EffectIcicle1Png *ebiten.Image
+var EffectZap1Png *ebiten.Image
+var EffectCloudMutagenicLarge3Png *ebiten.Image
+var EffectMagicBolt1Png *ebiten.Image
+var EffectCloudFire0Png *ebiten.Image
+var EffectDisjunct0Png *ebiten.Image
+var EffectThrowingNet0Png *ebiten.Image
+var EffectPoisonArrow1Png *ebiten.Image
+var EffectThrowingNet6Png *ebiten.Image
+var EffectThrowingNet3Png *ebiten.Image
+var EffectNeedle1Png *ebiten.Image
+var EffectCloudSpectral2Png *ebiten.Image
+var EffectStone0NewPng *ebiten.Image
+var EffectPoisonArrow0Png *ebiten.Image
+var EffectSting0Png *ebiten.Image
+var EffectCloudFire2Png *ebiten.Image
+var EffectDart4Png *ebiten.Image
+var EffectCloudFire1Png *ebiten.Image
+var EffectCloudSpectral1Png *ebiten.Image
+var EffectCloudGloomOldPng *ebiten.Image
+var EffectIronShot2Png *ebiten.Image
+var EffectMagicDart5Png *ebiten.Image
+var EffectCloudGreySmokePng *ebiten.Image
+var EffectTomahawk2Png *ebiten.Image
+var EffectGoldSparkles2Png *ebiten.Image
+var EffectCloudChaos5Png *ebiten.Image
+var EffectStone0OldPng *ebiten.Image
+var EffectSandblast0Png *ebiten.Image
+var EffectDrain1NewPng *ebiten.Image
+var EffectIronShot7Png *ebiten.Image
+var EffectCloudPoison1Png *ebiten.Image
+var EffectThrowingNet7Png *ebiten.Image
+var EffectMagicBolt2Png *ebiten.Image
+var EffectCloudRain2Png *ebiten.Image
+var EffectCloudMutagenicLarge1Png *ebiten.Image
+var EffectTomahawk3Png *ebiten.Image
+var EffectZap3Png *ebiten.Image
+var EffectCloudCalcDust2Png *ebiten.Image
+var EffectHeataura1Png *ebiten.Image
+var EffectCloudMeph1Png *ebiten.Image
+var EffectRock0OldPng *ebiten.Image
+var EffectCloudAcid0Png *ebiten.Image
+var EffectMagicBolt6Png *ebiten.Image
+var EffectCloudBlackSmokePng *ebiten.Image
+var EffectThrowingNet2Png *ebiten.Image
+var EffectOrbGlow1Png *ebiten.Image
+var EffectFrost0Png *ebiten.Image
+var EffectCrossbowBolt0Png *ebiten.Image
+var EffectJavelin5NewPng *ebiten.Image
+var EffectCloudCold0Png *ebiten.Image
+var EffectJavelin4NewPng *ebiten.Image
+var EffectArrow5Png *ebiten.Image
+var EffectStoneArrow7Png *ebiten.Image
+var EffectEyeFilledPortalPng *ebiten.Image
+var EffectArrow2Png *ebiten.Image
+var EffectIronShot0Png *ebiten.Image
+var EffectUmbra3Png *ebiten.Image
+var EffectDrain2OldPng *ebiten.Image
+var EffectCloudNeg0Png *ebiten.Image
+var EffectIcicle4Png *ebiten.Image
+var EffectAcidVenomPng *ebiten.Image
+var EffectJavelin0NewPng *ebiten.Image
+var EffectCloudBlueSmokePng *ebiten.Image
+var EffectTomahawk0Png *ebiten.Image
+var EffectJavelin3OldPng *ebiten.Image
+var EffectJavelin5OldPng *ebiten.Image
+var EffectCrossbowBolt1Png *ebiten.Image
+var EffectMagicDart4Png *ebiten.Image
+var EffectHeataura2Png *ebiten.Image
+var EffectStoneArrow4Png *ebiten.Image
+var EffectMagicBolt5Png *ebiten.Image
+var EffectOrbGlow0Png *ebiten.Image
+var EffectDisjunct3Png *ebiten.Image
+var EffectCloudAcid2Png *ebiten.Image
+var EffectCloudMutagenicMedium2Png *ebiten.Image
+var EffectFlame1Png *ebiten.Image
+var EffectCloudCold2Png *ebiten.Image
+var EffectMagicDart0Png *ebiten.Image
+var EffectCloudCalcDust0Png *ebiten.Image
+var EffectCloudPoison0Png *ebiten.Image
+var EffectGoldSparkles1Png *ebiten.Image
+var EffectMagicDart3Png *ebiten.Image
+var EffectCrystalSpear6Png *ebiten.Image
+var EffectPoisonArrow2Png *ebiten.Image
+var EffectIrradiate1Png *ebiten.Image
+var EffectUmbra2Png *ebiten.Image
+var EffectJavelin4OldPng *ebiten.Image
+var EffectCrossbowBolt6Png *ebiten.Image
+var EffectUmbra1Png *ebiten.Image
+var EffectSandblast2Png *ebiten.Image
+var EffectCloudMutagenicSmall1Png *ebiten.Image
+var EffectIronShot1Png *ebiten.Image
+var EffectUmbra0Png *ebiten.Image
+var EffectNeedle0Png *ebiten.Image
+var EffectSilencedPng *ebiten.Image
+var EffectDrain0OldPng *ebiten.Image
+var EffectCrystalSpear2Png *ebiten.Image
+var EffectQuadGlowPng *ebiten.Image
+var EffectFlame2Png *ebiten.Image
+var EffectCloudMagicTrail1Png *ebiten.Image
+var EffectZap0Png *ebiten.Image
+var EffectCrystalSpear7Png *ebiten.Image
+var EffectIronShot5Png *ebiten.Image
+var EffectNeedle2Png *ebiten.Image
+var EffectCloudStorm2Png *ebiten.Image
+var EffectDart3Png *ebiten.Image
+var EffectDrain1OldPng *ebiten.Image
+var EffectThrowingNet5Png *ebiten.Image
+var EffectCrossbowBolt3Png *ebiten.Image
+var EffectStoneArrow2Png *ebiten.Image
+var EffectSearingRay2Png *ebiten.Image
+var EffectIcicle6Png *ebiten.Image
+var EffectCloudChaos4Png *ebiten.Image
+var EffectCloudMagicTrail2Png *ebiten.Image
+var EffectIrradiate2Png *ebiten.Image
+var EffectCloudMutagenicSmall2Png *ebiten.Image
+var EffectCrossbowBolt5Png *ebiten.Image
+var EffectJavelin6NewPng *ebiten.Image
+var EffectArrow0Png *ebiten.Image
+var EffectDisjunct2Png *ebiten.Image
+var EffectNetTrapPng *ebiten.Image
+var EffectCrystalSpear1Png *ebiten.Image
+var EffectIcicle3Png *ebiten.Image
+var EffectMagicBolt8Png *ebiten.Image
+var EffectFrost1Png *ebiten.Image
+var EffectNeedle3Png *ebiten.Image
+var EffectStoneArrow0Png *ebiten.Image
+var EffectCloudStorm1Png *ebiten.Image
+var EffectDrain0NewPng *ebiten.Image
+var EffectTomahawk5Png *ebiten.Image
+var EffectDrainRed2Png *ebiten.Image
+var EffectPoisonArrow3Png *ebiten.Image
+var EffectStoneArrow5Png *ebiten.Image
+var EffectJavelin7OldPng *ebiten.Image
+var EffectPoisonArrow6Png *ebiten.Image
+var EffectCrystalSpear3Png *ebiten.Image
+var EffectDrainRed1Png *ebiten.Image
+var EffectDrain2NewPng *ebiten.Image
+var EffectArrow1Png *ebiten.Image
+var EffectJavelin6OldPng *ebiten.Image
+var EffectGoldaura2Png *ebiten.Image
+var EffectThrowingNet1Png *ebiten.Image
+var EffectSearingRay1Png *ebiten.Image
+var EffectSlingBullet0NewPng *ebiten.Image
+var EffectJavelin3NewPng *ebiten.Image
+var EffectSlingBullet0OldPng *ebiten.Image
+var EffectIcicle0Png *ebiten.Image
+var EffectThrowingNet4Png *ebiten.Image
+var EffectCloudForestFirePng *ebiten.Image
+var EffectSting2Png *ebiten.Image
+var EffectJavelin1Png *ebiten.Image
+var EffectGoldaura0Png *ebiten.Image
+var EffectCloudCalcDust1Png *ebiten.Image
+var EffectCloudYellowSmokePng *ebiten.Image
+var EffectCrossbowBolt7Png *ebiten.Image
+var MiscUnseenMonsterPng *ebiten.Image
+var MiscOutOfSightNewPng *ebiten.Image
+var MiscTravelPathFrom4Png *ebiten.Image
+var MiscOutOfSightOldPng *ebiten.Image
+var MiscSlotCursedPng *ebiten.Image
+var MiscMdamModeratelyDamagedPng *ebiten.Image
+var MiscSensedMonsterToughPng *ebiten.Image
+var MiscTravelPathTo7Png *ebiten.Image
+var MiscDamageMeterLightlyDamagedPng *ebiten.Image
+var MiscTravelPathFrom2Png *ebiten.Image
+var MiscUnseenItemNewPng *ebiten.Image
+var MiscTravelExclusionOldPng *ebiten.Image
+var MiscTravelPathTo5Png *ebiten.Image
+var MiscMoldGlowing3Png *ebiten.Image
+var MiscUnseenArmorNewPng *ebiten.Image
+var MiscCursorGreenPng *ebiten.Image
+var MiscTravelPathFrom6Png *ebiten.Image
+var MiscTravelPathTo3Png *ebiten.Image
+var MiscMaskDeepWaterShoalsPng *ebiten.Image
+var MiscUnseenWeaponOldPng *ebiten.Image
+var MiscSlotPng *ebiten.Image
+var MiscSlotMeldedPng *ebiten.Image
+var MiscCursorRedPng *ebiten.Image
+var MiscDamageMeterAlmostDeadPng *ebiten.Image
+var MiscTravelExclusionCenterOldPng *ebiten.Image
+var MiscMoldGlowing1Png *ebiten.Image
+var MiscTravelPathFrom5Png *ebiten.Image
+var MiscMagicmapPng *ebiten.Image
+var MiscOutOfRangePng *ebiten.Image
+var MiscMaskDeepWaterPng *ebiten.Image
+var MiscUnseenItemOldPng *ebiten.Image
+var MiscSensedMonsterEasyPng *ebiten.Image
+var MiscMaskShallowWaterMurkyPng *ebiten.Image
+var MiscMaskDeepWaterMurkyPng *ebiten.Image
+var MiscTravelExclusionCenterNewPng *ebiten.Image
+var MiscTravelPathTo8Png *ebiten.Image
+var MiscSlotVehumetPng *ebiten.Image
+var MiscHaloPng *ebiten.Image
+var MiscErrorPng *ebiten.Image
+var MiscDamageMeterHeavilyDamagedPng *ebiten.Image
+var MiscMdamHeavilyDamagedPng *ebiten.Image
+var MiscTravelPathFrom1Png *ebiten.Image
+var MiscTravelPathFrom7Png *ebiten.Image
+var MiscTriedPng *ebiten.Image
+var MiscUnseenWeaponNewPng *ebiten.Image
+var MiscDamageMeterModeratelyDamagedPng *ebiten.Image
+var MiscSuppressedPng *ebiten.Image
+var MiscUnseenArmorOldPng *ebiten.Image
+var MiscMdamSeverelyDamagedPng *ebiten.Image
+var MiscTravelPathFrom8Png *ebiten.Image
+var MiscDamageMeterSeverelyDamagedPng *ebiten.Image
+var MiscStabBrandPng *ebiten.Image
+var MiscTravelExclusionNewPng *ebiten.Image
+var MiscRayOutOfRangePng *ebiten.Image
+var MiscCursorPng *ebiten.Image
+var MiscMoldGlowing2Png *ebiten.Image
+var MiscMaskShallowWaterShoalsPng *ebiten.Image
+var MiscMaskShallowWaterPng *ebiten.Image
+var MiscMoldGlowing4Png *ebiten.Image
+var MiscTodoPng *ebiten.Image
+var MiscTravelPathTo4Png *ebiten.Image
+var MiscSlotEquippedCursedPng *ebiten.Image
+var MiscRayPng *ebiten.Image
+var MiscMdamLightlyDamagedPng *ebiten.Image
+var MiscMdamAlmostDeadPng *ebiten.Image
+var MiscTravelPathTo6Png *ebiten.Image
+var MiscTutorialCursorPng *ebiten.Image
+var MiscMaskLavaPng *ebiten.Image
+var MiscTravelPathTo2Png *ebiten.Image
+var MiscTravelPathFrom3Png *ebiten.Image
+var MiscSensedMonsterTrivialPng *ebiten.Image
+var MiscTravelPathTo1Png *ebiten.Image
+var MiscSlotEquippedPng *ebiten.Image
+var MiscSensedMonsterNastyPng *ebiten.Image
+var MiscLandingPng *ebiten.Image
+var MiscSensedMonsterFriendlyPng *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagramLarge4Png *ebiten.Image
+var MiscBrandsBottomLeftSomethingUnderNewPng *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagram1Png *ebiten.Image
+var MiscBrandsBottomLeftSomethingUnderOldPng *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagramLarge1Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagramLarge2Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagram4Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagram5Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagramLarge5Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagram2Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagramLarge3Png *ebiten.Image
+var MiscBrandsBottomLeftDemonPentagram3Png *ebiten.Image
+var MiscBrandsTopLeftICFlightPng *ebiten.Image
+var MiscBrandsTopLeftIConservationOldPng *ebiten.Image
+var MiscBrandsTopLeftIStasisOldPng *ebiten.Image
+var MiscBrandsTopLeftIRMutationNewPng *ebiten.Image
+var MiscBrandsTopLeftIFaithOldPng *ebiten.Image
+var MiscBrandsTopLeftSummonedDurablePng *ebiten.Image
+var MiscBrandsTopLeftIWardingNewPng *ebiten.Image
+var MiscBrandsTopLeftISpiritOldPng *ebiten.Image
+var MiscBrandsTopLeftIConservationNewPng *ebiten.Image
+var MiscBrandsTopLeftSummonedPng *ebiten.Image
+var MiscBrandsTopLeftIRMutationOldPng *ebiten.Image
+var MiscBrandsTopLeftIStasisNewPng *ebiten.Image
+var MiscBrandsTopLeftAnimatedWeaponNewPng *ebiten.Image
+var MiscBrandsTopLeftIGourmandOldPng *ebiten.Image
+var MiscBrandsTopLeftAnimatedWeaponOldPng *ebiten.Image
+var MiscBrandsTopLeftIInaccuracyOldPng *ebiten.Image
+var MiscBrandsTopLeftIFaithNewPng *ebiten.Image
+var MiscBrandsTopLeftIRCorrosionNewPng *ebiten.Image
+var MiscBrandsTopLeftIRageNewPng *ebiten.Image
+var MiscBrandsTopLeftIInaccuracyNewPng *ebiten.Image
+var MiscBrandsTopLeftIWardingOldPng *ebiten.Image
+var MiscBrandsTopLeftIRCorrosionOldPng *ebiten.Image
+var MiscBrandsTopLeftIRageOldPng *ebiten.Image
+var MiscBrandsTopLeftIClarityOldPng *ebiten.Image
+var MiscBrandsTopLeftIGourmandNewPng *ebiten.Image
+var MiscBrandsTopLeftIClarityNewPng *ebiten.Image
+var MiscBrandsTopLeftISpiritNewPng *ebiten.Image
+var MiscBrandsBottomRightICurseArmorOldPng *ebiten.Image
+var MiscBrandsBottomRightIBlinkingOldPng *ebiten.Image
+var MiscBrandsBottomRightIAntimagicOldPng *ebiten.Image
+var MiscBrandsBottomRightIPoisonNewPng *ebiten.Image
+var MiscBrandsBottomRightICTeleportOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodStrikingOldPng *ebiten.Image
+var MiscBrandsBottomRightIDeckSummoningNewPng *ebiten.Image
+var MiscBrandsBottomRightIReturningNewPng *ebiten.Image
+var MiscBrandsBottomRightIOrcSlayingPng *ebiten.Image
+var MiscBrandsBottomRightIDeckDestructionNewPng *ebiten.Image
+var MiscBrandsBottomRightISpeedNewPng *ebiten.Image
+var MiscBrandsBottomRightIReturningOldPng *ebiten.Image
+var MiscBrandsBottomRightIHastePng *ebiten.Image
+var MiscBrandsBottomRightILignifyPng *ebiten.Image
+var MiscBrandsBottomRightIDegenerationNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffEarthNewPng *ebiten.Image
+var MiscBrandsBottomRightISlowingNewPng *ebiten.Image
+var MiscBrandsBottomRightIRLightningOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodSmitingPng *ebiten.Image
+var MiscBrandsBottomRightIWizardryNewPng *ebiten.Image
+var MiscBrandsBottomRightIInvisibilityOldPng *ebiten.Image
+var MiscBrandsBottomRightIReapingNewPng *ebiten.Image
+var MiscBrandsBottomRightISicknessNewPng *ebiten.Image
+var MiscBrandsBottomRightIFlameNewPng *ebiten.Image
+var MiscBrandsBottomRightIForbiddenNewPng *ebiten.Image
+var MiscBrandsBottomRightIArcheryNewPng *ebiten.Image
+var MiscBrandsBottomRightIDrainingPng *ebiten.Image
+var MiscBrandsBottomRightIStaffConjurationOldPng *ebiten.Image
+var MiscBrandsBottomRightIRPoisonOldPng *ebiten.Image
+var MiscBrandsBottomRightIPenetrationNewPng *ebiten.Image
+var MiscBrandsBottomRightIMagicalPowerNewPng *ebiten.Image
+var MiscBrandsBottomRightILabelOldPng *ebiten.Image
+var MiscBrandsBottomRightIDeckWarNewPng *ebiten.Image
+var MiscBrandsBottomRightIDeckDefenseOldPng *ebiten.Image
+var MiscBrandsBottomRightIJumpingPng *ebiten.Image
+var MiscBrandsBottomRightIPorridgeNewPng *ebiten.Image
+var MiscBrandsBottomRightIRMagicNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffConjurationNewPng *ebiten.Image
+var MiscBrandsBottomRightIAmbrosiaPng *ebiten.Image
+var MiscBrandsBottomRightIDeckEscapeOldPng *ebiten.Image
+var MiscBrandsBottomRightIHealingPng *ebiten.Image
+var MiscBrandsBottomRightILoudnessPng *ebiten.Image
+var MiscBrandsBottomRightIBloodNewPng *ebiten.Image
+var MiscBrandsBottomRightIAcquirementNewPng *ebiten.Image
+var MiscBrandsBottomRightITeleportationNewPng *ebiten.Image
+var MiscBrandsBottomRightIDecayOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodVenomNewPng *ebiten.Image
+var MiscBrandsBottomRightIVulnerabilityNewPng *ebiten.Image
+var MiscBrandsBottomRightIPoison2Png *ebiten.Image
+var MiscBrandsBottomRightIDeckWondersOldPng *ebiten.Image
+var MiscBrandsBottomRightIProtectionNewPng *ebiten.Image
+var MiscBrandsBottomRightIReapingOldPng *ebiten.Image
+var MiscBrandsBottomRightIVenomNewPng *ebiten.Image
+var MiscBrandsBottomRightIPorridgeOldPng *ebiten.Image
+var MiscBrandsBottomRightIReflectionOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodDiscoveryPng *ebiten.Image
+var MiscBrandsBottomRightICuringPng *ebiten.Image
+var MiscBrandsBottomRightIVenomOldPng *ebiten.Image
+var MiscBrandsBottomRightICurseWeaponNewPng *ebiten.Image
+var MiscBrandsBottomRightICurseJewelleryPng *ebiten.Image
+var MiscBrandsBottomRightICurarePng *ebiten.Image
+var MiscBrandsBottomRightIFireballOldPng *ebiten.Image
+var MiscBrandsBottomRightIHastingPng *ebiten.Image
+var MiscBrandsBottomRightIFogOldPng *ebiten.Image
+var MiscBrandsBottomRightIIdentifyNewPng *ebiten.Image
+var MiscBrandsBottomRightIAmnesiaPng *ebiten.Image
+var MiscBrandsBottomRightIProtectionOldPng *ebiten.Image
+var MiscBrandsBottomRightIIcePng *ebiten.Image
+var MiscBrandsBottomRightIMightOldPng *ebiten.Image
+var MiscBrandsBottomRightIStaffEarthOldPng *ebiten.Image
+var MiscBrandsBottomRightIParalysisNewPng *ebiten.Image
+var MiscBrandsBottomRightIFireResNewPng *ebiten.Image
+var MiscBrandsBottomRightISlayingNewPng *ebiten.Image
+var MiscBrandsBottomRightIHealWoundsNewPng *ebiten.Image
+var MiscBrandsBottomRightIDragonSlayingNewPng *ebiten.Image
+var MiscBrandsBottomRightIIdentifyOldPng *ebiten.Image
+var MiscBrandsBottomRightICurseWeaponOldPng *ebiten.Image
+var MiscBrandsBottomRightIEnchantWeapon3Png *ebiten.Image
+var MiscBrandsBottomRightIDeckWarOldPng *ebiten.Image
+var MiscBrandsBottomRightISpiritOldPng *ebiten.Image
+var MiscBrandsBottomRightIExperienceNewPng *ebiten.Image
+var MiscBrandsBottomRightIDeckSummoningOldPng *ebiten.Image
+var MiscBrandsBottomRightIStrengthOldPng *ebiten.Image
+var MiscBrandsBottomRightIPoisonResPng *ebiten.Image
+var MiscBrandsBottomRightIGainStrengthOldPng *ebiten.Image
+var MiscBrandsBottomRightIAcquirementOldPng *ebiten.Image
+var MiscBrandsBottomRightIMagicalPowerOldPng *ebiten.Image
+var MiscBrandsBottomRightIRestoreAbilitiesOldPng *ebiten.Image
+var MiscBrandsBottomRightIDeckEscapeNewPng *ebiten.Image
+var MiscBrandsBottomRightIRColdPng *ebiten.Image
+var MiscBrandsBottomRightIStaffEnergyNewPng *ebiten.Image
+var MiscBrandsBottomRightILevitationPng *ebiten.Image
+var MiscBrandsBottomRightIRestoreAbilitiesNewPng *ebiten.Image
+var MiscBrandsBottomRightIDarknessPng *ebiten.Image
+var MiscBrandsBottomRightIRodCloudsPng *ebiten.Image
+var MiscBrandsBottomRightIFire2Png *ebiten.Image
+var MiscBrandsBottomRightIFlameOldPng *ebiten.Image
+var MiscBrandsBottomRightIMutationNewPng *ebiten.Image
+var MiscBrandsBottomRightIDragonSlayingOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodShadowsPng *ebiten.Image
+var MiscBrandsBottomRightIStaffAirOldPng *ebiten.Image
+var MiscBrandsBottomRightIRFirePng *ebiten.Image
+var MiscBrandsBottomRightIFearOldPng *ebiten.Image
+var MiscBrandsBottomRightIWaterPng *ebiten.Image
+var MiscBrandsBottomRightIPreservationOldPng *ebiten.Image
+var MiscBrandsBottomRightISAbilPng *ebiten.Image
+var MiscBrandsBottomRightICureMutationNewPng *ebiten.Image
+var MiscBrandsBottomRightIFirePng *ebiten.Image
+var MiscBrandsBottomRightIDegenerationOldPng *ebiten.Image
+var MiscBrandsBottomRightIEnchantWeapon2Png *ebiten.Image
+var MiscBrandsBottomRightIPonderousPng *ebiten.Image
+var MiscBrandsBottomRightIImmolationPng *ebiten.Image
+var MiscBrandsBottomRightIReachingPng *ebiten.Image
+var MiscBrandsBottomRightIDisintegrationOldPng *ebiten.Image
+var MiscBrandsBottomRightIStaffEnchantmentOldPng *ebiten.Image
+var MiscBrandsBottomRightICTeleportNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodStrikingNewPng *ebiten.Image
+var MiscBrandsBottomRightIHungerOldPng *ebiten.Image
+var MiscBrandsBottomRightIResistanceNewPng *ebiten.Image
+var MiscBrandsBottomRightIDiggingNewPng *ebiten.Image
+var MiscBrandsBottomRightISlowingOldPng *ebiten.Image
+var MiscBrandsBottomRightIPolymorphPng *ebiten.Image
+var MiscBrandsBottomRightISAttrPng *ebiten.Image
+var MiscBrandsBottomRightIVorpalPng *ebiten.Image
+var MiscBrandsBottomRightIRandomEffectsPng *ebiten.Image
+var MiscBrandsBottomRightIArchmagiOldPng *ebiten.Image
+var MiscBrandsBottomRightIRegenerationOldPng *ebiten.Image
+var MiscBrandsBottomRightIRemoveCurseNewPng *ebiten.Image
+var MiscBrandsBottomRightIExperienceOldPng *ebiten.Image
+var MiscBrandsBottomRightIStaffAirNewPng *ebiten.Image
+var MiscBrandsBottomRightIRMagicOldPng *ebiten.Image
+var MiscBrandsBottomRightIRLightningNewPng *ebiten.Image
+var MiscBrandsBottomRightITormentNewPng *ebiten.Image
+var MiscBrandsBottomRightILevitation3Png *ebiten.Image
+var MiscBrandsBottomRightIEnchantArmorNewPng *ebiten.Image
+var MiscBrandsBottomRightISustenanceNewPng *ebiten.Image
+var MiscBrandsBottomRightIPenetrationOldPng *ebiten.Image
+var MiscBrandsBottomRightIStrongPoisonOldPng *ebiten.Image
+var MiscBrandsBottomRightIPainNewPng *ebiten.Image
+var MiscBrandsBottomRightIColdOldPng *ebiten.Image
+var MiscBrandsBottomRightIEnchantWeaponPng *ebiten.Image
+var MiscBrandsBottomRightIDeckWondersNewPng *ebiten.Image
+var MiscBrandsBottomRightIDeckDestructionOldPng *ebiten.Image
+var MiscBrandsBottomRightIVulnerabilityOldPng *ebiten.Image
+var MiscBrandsBottomRightIRechargingOldPng *ebiten.Image
+var MiscBrandsBottomRightIDispersalPng *ebiten.Image
+var MiscBrandsBottomRightIDistortionNewPng *ebiten.Image
+var MiscBrandsBottomRightIHealWoundsOldPng *ebiten.Image
+var MiscBrandsBottomRightIDisintegrationNewPng *ebiten.Image
+var MiscBrandsBottomRightIDexterityNewPng *ebiten.Image
+var MiscBrandsBottomRightILabelNewPng *ebiten.Image
+var MiscBrandsBottomRightIVampiricismPng *ebiten.Image
+var MiscBrandsBottomRightIRemoveCurseOldPng *ebiten.Image
+var MiscBrandsBottomRightIDeckDefenseNewPng *ebiten.Image
+var MiscBrandsBottomRightIBerserkRageOldPng *ebiten.Image
+var MiscBrandsBottomRightINoiseNewPng *ebiten.Image
+var MiscBrandsBottomRightIMutationOldPng *ebiten.Image
+var MiscBrandsBottomRightIStealthPng *ebiten.Image
+var MiscBrandsBottomRightIDeckDungeonsOldPng *ebiten.Image
+var MiscBrandsBottomRightISicknessOldPng *ebiten.Image
+var MiscBrandsBottomRightIWizardryOldPng *ebiten.Image
+var MiscBrandsBottomRightIHungerNewPng *ebiten.Image
+var MiscBrandsBottomRightIFrostOldPng *ebiten.Image
+var MiscBrandsBottomRightICoagulatedBloodNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffEnergyOldPng *ebiten.Image
+var MiscBrandsBottomRightIColdNewPng *ebiten.Image
+var MiscBrandsBottomRightIDexterityOldPng *ebiten.Image
+var MiscBrandsBottomRightIIntelligenceOldPng *ebiten.Image
+var MiscBrandsBottomRightIRegenerationNewPng *ebiten.Image
+var MiscBrandsBottomRightIDiggingOldPng *ebiten.Image
+var MiscBrandsBottomRightILightningNewPng *ebiten.Image
+var MiscBrandsBottomRightIPositiveEnergyPng *ebiten.Image
+var MiscBrandsBottomRightIMagicDartsOldPng *ebiten.Image
+var MiscBrandsBottomRightIEnchantWeapon1Png *ebiten.Image
+var MiscBrandsBottomRightISummoningPng *ebiten.Image
+var MiscBrandsBottomRightIPainOldPng *ebiten.Image
+var MiscBrandsBottomRightINoiseOldPng *ebiten.Image
+var MiscBrandsBottomRightIGainIntelligenceOldPng *ebiten.Image
+var MiscBrandsBottomRightIStrengthNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodDemonologyPng *ebiten.Image
+var MiscBrandsBottomRightIHolyWordNewPng *ebiten.Image
+var MiscBrandsBottomRightIFogNewPng *ebiten.Image
+var MiscBrandsBottomRightIPreservationNewPng *ebiten.Image
+var MiscBrandsBottomRightIHolyWordOldPng *ebiten.Image
+var MiscBrandsBottomRightIStaffChannelingOldPng *ebiten.Image
+var MiscBrandsBottomRightIGainDexterityNewPng *ebiten.Image
+var MiscBrandsBottomRightIBerserkRageNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffDeathPng *ebiten.Image
+var MiscBrandsBottomRightILightningOldPng *ebiten.Image
+var MiscBrandsBottomRightIEnslavementNewPng *ebiten.Image
+var MiscBrandsBottomRightIColdResNewPng *ebiten.Image
+var MiscBrandsBottomRightIEvasionNewPng *ebiten.Image
+var MiscBrandsBottomRightIFireballNewPng *ebiten.Image
+var MiscBrandsBottomRightIInvisibilityNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodSummoningPng *ebiten.Image
+var MiscBrandsBottomRightISustenanceOldPng *ebiten.Image
+var MiscBrandsBottomRightIAntimagicNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffEnchantmentNewPng *ebiten.Image
+var MiscBrandsBottomRightIChaosNewPng *ebiten.Image
+var MiscBrandsBottomRightIFrostNewPng *ebiten.Image
+var MiscBrandsBottomRightIGainIntelligenceNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffColdPng *ebiten.Image
+var MiscBrandsBottomRightIRechargingNewPng *ebiten.Image
+var MiscBrandsBottomRightIDetectCursePng *ebiten.Image
+var MiscBrandsBottomRightIRottenPng *ebiten.Image
+var MiscBrandsBottomRightIMagicResPng *ebiten.Image
+var MiscBrandsBottomRightIMightNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodVenomOldPng *ebiten.Image
+var MiscBrandsBottomRightISlayingOldPng *ebiten.Image
+var MiscBrandsBottomRightISeeInvisNewPng *ebiten.Image
+var MiscBrandsBottomRightITeleportationOldPng *ebiten.Image
+var MiscBrandsBottomRightIConfusionNewPng *ebiten.Image
+var MiscBrandsBottomRightIExplosionNewPng *ebiten.Image
+var MiscBrandsBottomRightIFlightPng *ebiten.Image
+var MiscBrandsBottomRightIDeckChangesOldPng *ebiten.Image
+var MiscBrandsBottomRightISpeedOldPng *ebiten.Image
+var MiscBrandsBottomRightIPoisonOldPng *ebiten.Image
+var MiscBrandsBottomRightISpeedPng *ebiten.Image
+var MiscBrandsBottomRightIDistortionOldPng *ebiten.Image
+var MiscBrandsBottomRightIHealWounds2Png *ebiten.Image
+var MiscBrandsBottomRightIStaffChannelingNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodInaccuracyPng *ebiten.Image
+var MiscBrandsBottomRightIBrandWeaponPng *ebiten.Image
+var MiscBrandsBottomRightIStrongPoisonNewPng *ebiten.Image
+var MiscBrandsBottomRightIForbiddenOldPng *ebiten.Image
+var MiscBrandsBottomRightIMagicDartsNewPng *ebiten.Image
+var MiscBrandsBottomRightIEnchantArmorOldPng *ebiten.Image
+var MiscBrandsBottomRightIChaosOldPng *ebiten.Image
+var MiscBrandsBottomRightIStaffPowerPng *ebiten.Image
+var MiscBrandsBottomRightIPolymorphOtherPng *ebiten.Image
+var MiscBrandsBottomRightIParalysisOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodDestructionInaccuracyPng *ebiten.Image
+var MiscBrandsBottomRightIDeckChangesNewPng *ebiten.Image
+var MiscBrandsBottomRightIStaffPoisonPng *ebiten.Image
+var MiscBrandsBottomRightIBloodOldPng *ebiten.Image
+var MiscBrandsBottomRightIDeckDungeonsNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodWardingOldPng *ebiten.Image
+var MiscBrandsBottomRightILifeProtectionOldPng *ebiten.Image
+var MiscBrandsBottomRightIConfusionOldPng *ebiten.Image
+var MiscBrandsBottomRightIExplosionOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodDestructionLightningPng *ebiten.Image
+var MiscBrandsBottomRightIColdResOldPng *ebiten.Image
+var MiscBrandsBottomRightIIntelligenceNewPng *ebiten.Image
+var MiscBrandsBottomRightIInediblePng *ebiten.Image
+var MiscBrandsBottomRightIHealWoundsPng *ebiten.Image
+var MiscBrandsBottomRightIReflectionNewPng *ebiten.Image
+var MiscBrandsBottomRightICureMutationOldPng *ebiten.Image
+var MiscBrandsBottomRightIFearNewPng *ebiten.Image
+var MiscBrandsBottomRightICoagulatedBloodOldPng *ebiten.Image
+var MiscBrandsBottomRightIMagicMappingOldPng *ebiten.Image
+var MiscBrandsBottomRightIMagicPng *ebiten.Image
+var MiscBrandsBottomRightIArchmagiNewPng *ebiten.Image
+var MiscBrandsBottomRightISpiritNewPng *ebiten.Image
+var MiscBrandsBottomRightIRPoisonNewPng *ebiten.Image
+var MiscBrandsBottomRightIBlinkingNewPng *ebiten.Image
+var MiscBrandsBottomRightIRunningPng *ebiten.Image
+var MiscBrandsBottomRightIGainDexterityOldPng *ebiten.Image
+var MiscBrandsBottomRightIGoodMutationPng *ebiten.Image
+var MiscBrandsBottomRightISeeInvisOldPng *ebiten.Image
+var MiscBrandsBottomRightIRodWardingNewPng *ebiten.Image
+var MiscBrandsBottomRightIGainStrengthNewPng *ebiten.Image
+var MiscBrandsBottomRightIResistanceOldPng *ebiten.Image
+var MiscBrandsBottomRightIEvasionOldPng *ebiten.Image
+var MiscBrandsBottomRightIEnslavementOldPng *ebiten.Image
+var MiscBrandsBottomRightIFireResOldPng *ebiten.Image
+var MiscBrandsBottomRightILifeProtectionNewPng *ebiten.Image
+var MiscBrandsBottomRightIRodDestructionPng *ebiten.Image
+var MiscBrandsBottomRightITormentOldPng *ebiten.Image
+var MiscBrandsBottomRightIArcheryOldPng *ebiten.Image
+var MiscBrandsBottomRightIDecayNewPng *ebiten.Image
+var MiscBrandsBottomRightIMagicMappingNewPng *ebiten.Image
+var MiscBrandsBottomRightILevitation2Png *ebiten.Image
+var MiscBrandsBottomRightICancelPng *ebiten.Image
+var MiscBrandsBottomRightICurseArmorNewPng *ebiten.Image
+var MiscBrandsTopRightMayStabBrandNewPng *ebiten.Image
+var MiscBrandsTopRightSleeping2Png *ebiten.Image
+var MiscBrandsTopRightDrainPng *ebiten.Image
+var MiscBrandsTopRightPetrifyingPng *ebiten.Image
+var MiscBrandsTopRightDeathsDoorPng *ebiten.Image
+var MiscBrandsTopRightHeartOldPng *ebiten.Image
+var MiscBrandsTopRightMightPng *ebiten.Image
+var MiscBrandsTopRightNewStairNewPng *ebiten.Image
+var MiscBrandsTopRightInnerFlamePng *ebiten.Image
+var MiscBrandsTopRightPoisonNewPng *ebiten.Image
+var MiscBrandsTopRightGoodNeutralNewPng *ebiten.Image
+var MiscBrandsTopRightPainMirrorPng *ebiten.Image
+var MiscBrandsTopRightNeutralOldPng *ebiten.Image
+var MiscBrandsTopRightGoodNeutralOldPng *ebiten.Image
+var MiscBrandsTopRightSleepingFullPng *ebiten.Image
+var MiscBrandsTopRightStickyFlamePng *ebiten.Image
+var MiscBrandsTopRightMayStabBrandOldPng *ebiten.Image
+var MiscBrandsTopRightHastedPng *ebiten.Image
+var MiscBrandsTopRightFleeingPng *ebiten.Image
+var MiscBrandsTopRightHeartNewPng *ebiten.Image
+var MiscBrandsTopRightRecallPng *ebiten.Image
+var MiscBrandsTopRightConstrictedPng *ebiten.Image
+var MiscBrandsTopRightNewStairOldPng *ebiten.Image
+var MiscBrandsTopRightBlindPng *ebiten.Image
+var MiscBrandsTopRightSleepingPng *ebiten.Image
+var MiscBrandsTopRightPoisonOldPng *ebiten.Image
+var MiscBrandsTopRightFlamePng *ebiten.Image
+var MiscBrandsTopRightPetrifiedPng *ebiten.Image
+var MiscBrandsTopRightNeutralNewPng *ebiten.Image
+var MiscBloodWallBlood13EastPng *ebiten.Image
+var MiscBloodBloodGreen4Png *ebiten.Image
+var MiscBloodBloodRedPng *ebiten.Image
+var MiscBloodWallBlood17WestPng *ebiten.Image
+var MiscBloodBloodGreen2Png *ebiten.Image
+var MiscBloodWallBlood12SouthPng *ebiten.Image
+var MiscBloodBloodPuddleRed2Png *ebiten.Image
+var MiscBloodWallOldBlood2Png *ebiten.Image
+var MiscBloodWallBlood14WestPng *ebiten.Image
+var MiscBloodWallBlood12NorthPng *ebiten.Image
+var MiscBloodBloodRed3NewPng *ebiten.Image
+var MiscBloodWallBlood6SouthPng *ebiten.Image
+var MiscBloodWallBlood5WestPng *ebiten.Image
+var MiscBloodBloodPuddleRed3Png *ebiten.Image
+var MiscBloodWallOldBlood3Png *ebiten.Image
+var MiscBloodWallBlood5NorthPng *ebiten.Image
+var MiscBloodWallBlood7WestPng *ebiten.Image
+var MiscBloodWallBlood5SouthPng *ebiten.Image
+var MiscBloodWallBlood0EastPng *ebiten.Image
+var MiscBloodBloodRed20Png *ebiten.Image
+var MiscBloodWallBlood7NorthPng *ebiten.Image
+var MiscBloodWallBlood3SouthPng *ebiten.Image
+var MiscBloodBloodGreenNewPng *ebiten.Image
+var MiscBloodBloodGreen1Png *ebiten.Image
+var MiscBloodWallBlood12EastPng *ebiten.Image
+var MiscBloodWallBlood1EastPng *ebiten.Image
+var MiscBloodWallBlood13WestPng *ebiten.Image
+var MiscBloodWallBlood0SouthPng *ebiten.Image
+var MiscBloodWallBlood15WestPng *ebiten.Image
+var MiscBloodBloodRed0Png *ebiten.Image
+var MiscBloodBloodRed1OldPng *ebiten.Image
+var MiscBloodBloodRed7Png *ebiten.Image
+var MiscBloodWallBlood16NorthPng *ebiten.Image
+var MiscBloodWallBlood6EastPng *ebiten.Image
+var MiscBloodWallBlood17NorthPng *ebiten.Image
+var MiscBloodWallBlood17EastPng *ebiten.Image
+var MiscBloodWallBlood7SouthPng *ebiten.Image
+var MiscBloodWallBlood9EastPng *ebiten.Image
+var MiscBloodWallBlood15SouthPng *ebiten.Image
+var MiscBloodBloodRed23Png *ebiten.Image
+var MiscBloodWallBlood15NorthPng *ebiten.Image
+var MiscBloodBloodRed9Png *ebiten.Image
+var MiscBloodWallBlood14EastPng *ebiten.Image
+var MiscBloodWallBlood15EastPng *ebiten.Image
+var MiscBloodWallBlood8NorthPng *ebiten.Image
+var MiscBloodBloodRed15Png *ebiten.Image
+var MiscBloodWallBlood10NorthPng *ebiten.Image
+var MiscBloodBloodRed8Png *ebiten.Image
+var MiscBloodWallBlood11SouthPng *ebiten.Image
+var MiscBloodWallBlood4EastPng *ebiten.Image
+var MiscBloodWallOldBlood6Png *ebiten.Image
+var MiscBloodBloodRed25Png *ebiten.Image
+var MiscBloodWallBlood0WestPng *ebiten.Image
+var MiscBloodBloodRed2OldPng *ebiten.Image
+var MiscBloodWallBlood1SouthPng *ebiten.Image
+var MiscBloodWallBlood13NorthPng *ebiten.Image
+var MiscBloodWallOldBlood9Png *ebiten.Image
+var MiscBloodWallOldBlood0Png *ebiten.Image
+var MiscBloodWallBlood8WestPng *ebiten.Image
+var MiscBloodBloodRed18Png *ebiten.Image
+var MiscBloodBloodRed29Png *ebiten.Image
+var MiscBloodWallBlood18NorthPng *ebiten.Image
+var MiscBloodBloodPuddleRed1Png *ebiten.Image
+var MiscBloodWallBlood4NorthPng *ebiten.Image
+var MiscBloodWallOldBlood7Png *ebiten.Image
+var MiscBloodWallBlood6WestPng *ebiten.Image
+var MiscBloodWallBlood1WestPng *ebiten.Image
+var MiscBloodBloodRed4OldPng *ebiten.Image
+var MiscBloodBloodRed11Png *ebiten.Image
+var MiscBloodWallBlood9SouthPng *ebiten.Image
+var MiscBloodWallBlood16WestPng *ebiten.Image
+var MiscBloodWallBlood11WestPng *ebiten.Image
+var MiscBloodBloodRed19Png *ebiten.Image
+var MiscBloodBloodPuddleRedPng *ebiten.Image
+var MiscBloodWallBlood17SouthPng *ebiten.Image
+var MiscBloodBloodRed13Png *ebiten.Image
+var MiscBloodWallBlood11NorthPng *ebiten.Image
+var MiscBloodBloodRed4NewPng *ebiten.Image
+var MiscBloodBloodRed21Png *ebiten.Image
+var MiscBloodWallBlood10SouthPng *ebiten.Image
+var MiscBloodWallBlood10WestPng *ebiten.Image
+var MiscBloodBloodRed5Png *ebiten.Image
+var MiscBloodWallBlood18WestPng *ebiten.Image
+var MiscBloodWallBlood7EastPng *ebiten.Image
+var MiscBloodWallBlood4WestPng *ebiten.Image
+var MiscBloodBloodRed22Png *ebiten.Image
+var MiscBloodWallBlood14NorthPng *ebiten.Image
+var MiscBloodWallBlood18EastPng *ebiten.Image
+var MiscBloodWallBlood3EastPng *ebiten.Image
+var MiscBloodBloodRed12Png *ebiten.Image
+var MiscBloodBloodRed17Png *ebiten.Image
+var MiscBloodBloodGreenOldPng *ebiten.Image
+var MiscBloodBloodRed3OldPng *ebiten.Image
+var MiscBloodBloodRed24Png *ebiten.Image
+var MiscBloodBloodRed16Png *ebiten.Image
+var MiscBloodBloodGreen3Png *ebiten.Image
+var MiscBloodBloodRed6Png *ebiten.Image
+var MiscBloodBloodPuddleRed4Png *ebiten.Image
+var MiscBloodBloodRed2NewPng *ebiten.Image
+var MiscBloodWallBlood12WestPng *ebiten.Image
+var MiscBloodWallBlood16EastPng *ebiten.Image
+var MiscBloodWallBlood18SouthPng *ebiten.Image
+var MiscBloodWallBlood8SouthPng *ebiten.Image
+var MiscBloodWallBlood10EastPng *ebiten.Image
+var MiscBloodWallBlood6NorthPng *ebiten.Image
+var MiscBloodWallOldBlood1Png *ebiten.Image
+var MiscBloodWallBlood9NorthPng *ebiten.Image
+var MiscBloodWallBlood1NorthPng *ebiten.Image
+var MiscBloodWallOldBlood5Png *ebiten.Image
+var MiscBloodWallOldBlood4Png *ebiten.Image
+var MiscBloodWallBlood8EastPng *ebiten.Image
+var MiscBloodWallBlood3WestPng *ebiten.Image
+var MiscBloodBloodRed1NewPng *ebiten.Image
+var MiscBloodWallBlood13SouthPng *ebiten.Image
+var MiscBloodWallBlood14SouthPng *ebiten.Image
+var MiscBloodWallBlood4SouthPng *ebiten.Image
+var MiscBloodBloodRed28Png *ebiten.Image
+var MiscBloodBloodRed14Png *ebiten.Image
+var MiscBloodWallBlood16SouthPng *ebiten.Image
+var MiscBloodBloodRed27Png *ebiten.Image
+var MiscBloodBloodRed10Png *ebiten.Image
+var MiscBloodBloodRed26Png *ebiten.Image
+var MiscBloodWallBlood3NorthPng *ebiten.Image
+var MiscBloodWallBlood9WestPng *ebiten.Image
+var MiscBloodWallBlood11EastPng *ebiten.Image
+var MiscBloodWallBlood5EastPng *ebiten.Image
+var MiscBloodWallOldBlood8Png *ebiten.Image
+var MiscBloodWallBlood0NorthPng *ebiten.Image
+var MiscNumbersNumber7Png *ebiten.Image
+var MiscNumbersMinus3Png *ebiten.Image
+var MiscNumbersNumber5Png *ebiten.Image
+var MiscNumbersMinus1Png *ebiten.Image
+var MiscNumbersDemonNumber1Png *ebiten.Image
+var MiscNumbersNumber0Png *ebiten.Image
+var MiscNumbersNumber9Png *ebiten.Image
+var MiscNumbersNum9Png *ebiten.Image
+var MiscNumbersNumber3Png *ebiten.Image
+var MiscNumbersPlus5Png *ebiten.Image
+var MiscNumbersNumber8Png *ebiten.Image
+var MiscNumbersMinus4Png *ebiten.Image
+var MiscNumbersNum2Png *ebiten.Image
+var MiscNumbersNum3Png *ebiten.Image
+var MiscNumbersNum6Png *ebiten.Image
+var MiscNumbersPlus2Png *ebiten.Image
+var MiscNumbersNumber1Png *ebiten.Image
+var MiscNumbersNumber6Png *ebiten.Image
+var MiscNumbersMinus2Png *ebiten.Image
+var MiscNumbersDemonNumber5Png *ebiten.Image
+var MiscNumbersNum4Png *ebiten.Image
+var MiscNumbersNum5Png *ebiten.Image
+var MiscNumbersDemonNumber4Png *ebiten.Image
+var MiscNumbersNum0Png *ebiten.Image
+var MiscNumbersPlus4Png *ebiten.Image
+var MiscNumbersDemonNumber3Png *ebiten.Image
+var MiscNumbersMinus5Png *ebiten.Image
+var MiscNumbersNum1Png *ebiten.Image
+var MiscNumbersNum8Png *ebiten.Image
+var MiscNumbersDemonNumber2Png *ebiten.Image
+var MiscNumbersPlus3Png *ebiten.Image
+var MiscNumbersNum7Png *ebiten.Image
+var MiscNumbersNumber4Png *ebiten.Image
+var MiscNumbersNumber2Png *ebiten.Image
+var MiscNumbersZeroPng *ebiten.Image
+var MiscNumbersPlus1Png *ebiten.Image
+
+func init() {
+EmissariesTsoBottomPng = loadImage("assets/emissaries/tso_bottom.png")
+    EmissariesTrogBottomPng = loadImage("assets/emissaries/trog_bottom.png")
+    EmissariesVehumetBottomPng = loadImage("assets/emissaries/vehumet_bottom.png")
+    EmissariesZinBottomPng = loadImage("assets/emissaries/zin_bottom.png")
+    EmissariesVehumetTopPng = loadImage("assets/emissaries/vehumet_top.png")
+    EmissariesZinTopPng = loadImage("assets/emissaries/zin_top.png")
+    EmissariesTsoTopPng = loadImage("assets/emissaries/tso_top.png")
+    EmissariesOkawaruBottomPng = loadImage("assets/emissaries/okawaru_bottom.png")
+    EmissariesElyvilonTopPng = loadImage("assets/emissaries/elyvilon_top.png")
+    EmissariesTrogTopPng = loadImage("assets/emissaries/trog_top.png")
+    EmissariesOkawaruTopPng = loadImage("assets/emissaries/okawaru_top.png")
+    EmissariesElyvilonBottomPng = loadImage("assets/emissaries/elyvilon_bottom.png")
+    GuiPromptYesPng = loadImage("assets/gui/prompt_yes.png")
+    GuiPromptNoPng = loadImage("assets/gui/prompt_no.png")
+    GuiTavernPng = loadImage("assets/gui/tavern.png")
+    GuiCommandsFindWaypointPng = loadImage("assets/gui/commands/find_waypoint.png")
+    GuiCommandsFindYouPng = loadImage("assets/gui/commands/find_you.png")
+    GuiCommandsKeyboardPng = loadImage("assets/gui/commands/keyboard.png")
+    GuiCommandsFindAltarPng = loadImage("assets/gui/commands/find_altar.png")
+    GuiCommandsFindUpstairPng = loadImage("assets/gui/commands/find_upstair.png")
+    GuiCommandsGotoTargetPng = loadImage("assets/gui/commands/goto_target.png")
+    GuiCommandsFindStashPng = loadImage("assets/gui/commands/find_stash.png")
+    GuiCommandsAddWaypointPng = loadImage("assets/gui/commands/add_waypoint.png")
+    GuiCommandsPrevLevelPng = loadImage("assets/gui/commands/prev_level.png")
+    GuiCommandsDisplayMapPng = loadImage("assets/gui/commands/display_map.png")
+    GuiCommandsNextLevelPng = loadImage("assets/gui/commands/next_level.png")
+    GuiCommandsLookupHelpPng = loadImage("assets/gui/commands/lookup_help.png")
+    GuiCommandsFindExcludedPng = loadImage("assets/gui/commands/find_excluded.png")
+    GuiCommandsClearExcludesPng = loadImage("assets/gui/commands/clear_excludes.png")
+    GuiCommandsFindPortalPng = loadImage("assets/gui/commands/find_portal.png")
+    GuiCommandsFindTrapsPng = loadImage("assets/gui/commands/find_traps.png")
+    GuiCommandsFindDownstairPng = loadImage("assets/gui/commands/find_downstair.png")
+    GuiCommandsExcludeAreaPng = loadImage("assets/gui/commands/exclude_area.png")
+    GuiCommandsGotoLevelPng = loadImage("assets/gui/commands/goto_level.png")
+    GuiStartupArenaPng = loadImage("assets/gui/startup/arena.png")
+    GuiStartupZotDefencePng = loadImage("assets/gui/startup/zot_defence.png")
+    GuiStartupInstructionsPng = loadImage("assets/gui/startup/instructions.png")
+    GuiStartupDungeonSprintPng = loadImage("assets/gui/startup/dungeon_sprint.png")
+    GuiStartupHintsModePng = loadImage("assets/gui/startup/hints_mode.png")
+    GuiStartupStonesoupPng = loadImage("assets/gui/startup/stonesoup.png")
+    GuiStartupTutorialPng = loadImage("assets/gui/startup/tutorial.png")
+    GuiSkillsFocusedFgPng = loadImage("assets/gui/skills/focused-fg.png")
+    GuiSkillsDisabledFgPng = loadImage("assets/gui/skills/disabled-fg.png")
+    GuiSkillsArmorPng = loadImage("assets/gui/skills/armor.png")
+    GuiSkillsDivinationsPng = loadImage("assets/gui/skills/divinations.png")
+    GuiSkillsPoisonMagicPng = loadImage("assets/gui/skills/poison_magic.png")
+    GuiSkillsDisabledBasePng = loadImage("assets/gui/skills/disabled-base.png")
+    GuiSkillsSummoningsPng = loadImage("assets/gui/skills/summonings.png")
+    GuiSkillsCharmsPng = loadImage("assets/gui/skills/charms.png")
+    GuiSkillsBowsPng = loadImage("assets/gui/skills/bows.png")
+    GuiSkillsDodgingPng = loadImage("assets/gui/skills/dodging.png")
+    GuiSkillsIceMagicPng = loadImage("assets/gui/skills/ice_magic.png")
+    GuiSkillsLongBladesPng = loadImage("assets/gui/skills/long_blades.png")
+    GuiSkillsAxesPng = loadImage("assets/gui/skills/axes.png")
+    GuiSkillsTrapsPng = loadImage("assets/gui/skills/traps.png")
+    GuiSkillsTranslocationsPng = loadImage("assets/gui/skills/translocations.png")
+    GuiSkillsUnarmedCombatPng = loadImage("assets/gui/skills/unarmed_combat.png")
+    GuiSkillsTransmutationsPng = loadImage("assets/gui/skills/transmutations.png")
+    GuiSkillsShortBladesPng = loadImage("assets/gui/skills/short_blades.png")
+    GuiSkillsCrossbowsPng = loadImage("assets/gui/skills/crossbows.png")
+    GuiSkillsSlingsPng = loadImage("assets/gui/skills/slings.png")
+    GuiSkillsEnabledFgPng = loadImage("assets/gui/skills/enabled-fg.png")
+    GuiSkillsAirMagicPng = loadImage("assets/gui/skills/air_magic.png")
+    GuiSkillsFightingPng = loadImage("assets/gui/skills/fighting.png")
+    GuiSkillsMacesFlailsPng = loadImage("assets/gui/skills/maces_flails.png")
+    GuiSkillsStabbingPng = loadImage("assets/gui/skills/stabbing.png")
+    GuiSkillsInvocationsPng = loadImage("assets/gui/skills/invocations.png")
+    GuiSkillsNecromancyPng = loadImage("assets/gui/skills/necromancy.png")
+    GuiSkillsMasteredFgPng = loadImage("assets/gui/skills/mastered-fg.png")
+    GuiSkillsEnabledBasePng = loadImage("assets/gui/skills/enabled-base.png")
+    GuiSkillsPolearmsPng = loadImage("assets/gui/skills/polearms.png")
+    GuiSkillsEarthMagicPng = loadImage("assets/gui/skills/earth_magic.png")
+    GuiSkillsFireMagicPng = loadImage("assets/gui/skills/fire_magic.png")
+    GuiSkillsThrowingPng = loadImage("assets/gui/skills/throwing.png")
+    GuiSkillsStavesPng = loadImage("assets/gui/skills/staves.png")
+    GuiSkillsShieldsPng = loadImage("assets/gui/skills/shields.png")
+    GuiSkillsEvocationsPng = loadImage("assets/gui/skills/evocations.png")
+    GuiSkillsSpellcastingPng = loadImage("assets/gui/skills/spellcasting.png")
+    GuiSkillsConjurationsPng = loadImage("assets/gui/skills/conjurations.png")
+    GuiSkillsMasteredBasePng = loadImage("assets/gui/skills/mastered-base.png")
+    GuiSkillsHexesPng = loadImage("assets/gui/skills/hexes.png")
+    GuiTabsTabMouseoverPng = loadImage("assets/gui/tabs/tab_mouseover.png")
+    GuiTabsTabLabelItemSwordPng = loadImage("assets/gui/tabs/tab_label_item_sword.png")
+    GuiTabsTabLabelSpellPng = loadImage("assets/gui/tabs/tab_label_spell.png")
+    GuiTabsTabLabelItemPng = loadImage("assets/gui/tabs/tab_label_item.png")
+    GuiTabsTabUnselectedSquarePng = loadImage("assets/gui/tabs/tab_unselected_square.png")
+    GuiTabsTabSelectedSquarePng = loadImage("assets/gui/tabs/tab_selected_square.png")
+    GuiTabsTabSelectedPng = loadImage("assets/gui/tabs/tab_selected.png")
+    GuiTabsTabLabelSpellFlamePng = loadImage("assets/gui/tabs/tab_label_spell_flame.png")
+    GuiTabsTabUnselectedPng = loadImage("assets/gui/tabs/tab_unselected.png")
+    GuiTabsTabLabelMemorisePng = loadImage("assets/gui/tabs/tab_label_memorise.png")
+    GuiTabsTabLabelMetacommandsPng = loadImage("assets/gui/tabs/tab_label_metacommands.png")
+    GuiTabsTabLabelMemoriseMPng = loadImage("assets/gui/tabs/tab_label_memorise_m.png")
+    GuiTabsTabLabelMonsterPng = loadImage("assets/gui/tabs/tab_label_monster.png")
+    GuiAbilitiesJumpPng = loadImage("assets/gui/abilities/jump.png")
+    GuiAbilitiesDigPng = loadImage("assets/gui/abilities/dig.png")
+    GuiAbilitiesEvokeFogPng = loadImage("assets/gui/abilities/evoke_fog.png")
+    GuiAbilitiesShaftSelfPng = loadImage("assets/gui/abilities/shaft_self.png")
+    GuiAbilitiesStopSingingPng = loadImage("assets/gui/abilities/stop_singing.png")
+    GuiAbilitiesStopRecallPng = loadImage("assets/gui/abilities/stop_recall.png")
+    GuiAbilitiesEvokeTeleportControlPng = loadImage("assets/gui/abilities/evoke_teleport_control.png")
+    GuiInvocationsGozagBribeBranchPng = loadImage("assets/gui/invocations/gozag_bribe_branch.png")
+    GuiInvocationsKikuNecronomiconPng = loadImage("assets/gui/invocations/kiku_necronomicon.png")
+    GuiInvocationsRuSacrificeExperiencePng = loadImage("assets/gui/invocations/ru_sacrifice_experience.png")
+    GuiInvocationsElyvilonHealOtherPng = loadImage("assets/gui/invocations/elyvilon_heal_other.png")
+    GuiInvocationsLugonuBlessWeaponPng = loadImage("assets/gui/invocations/lugonu_bless_weapon.png")
+    GuiInvocationsRuApocalypsePng = loadImage("assets/gui/invocations/ru_apocalypse.png")
+    GuiInvocationsRuDrawOutPowerPng = loadImage("assets/gui/invocations/ru_draw_out_power.png")
+    GuiInvocationsRuRejectSacrificesPng = loadImage("assets/gui/invocations/ru_reject_sacrifices.png")
+    GuiInvocationsRuSacrificeEyePng = loadImage("assets/gui/invocations/ru_sacrifice_eye.png")
+    GuiInvocationsRuSacrificeArtificePng = loadImage("assets/gui/invocations/ru_sacrifice_artifice.png")
+    GuiInvocationsTsoBlessWeaponPng = loadImage("assets/gui/invocations/tso_bless_weapon.png")
+    GuiInvocationsRuSacrificeLovePng = loadImage("assets/gui/invocations/ru_sacrifice_love.png")
+    GuiInvocationsRuSacrificeEssencePng = loadImage("assets/gui/invocations/ru_sacrifice_essence.png")
+    GuiInvocationsKikuBlessWeaponPng = loadImage("assets/gui/invocations/kiku_bless_weapon.png")
+    GuiInvocationsRuSacrificeDrinkPng = loadImage("assets/gui/invocations/ru_sacrifice_drink.png")
+    GuiInvocationsQazlalUpheavalPng = loadImage("assets/gui/invocations/qazlal_upheaval.png")
+    GuiInvocationsQazlalDisasterAreaPng = loadImage("assets/gui/invocations/qazlal_disaster_area.png")
+    GuiInvocationsRuSacrificePurityPng = loadImage("assets/gui/invocations/ru_sacrifice_purity.png")
+    GuiInvocationsRuSacrificeStealthPng = loadImage("assets/gui/invocations/ru_sacrifice_stealth.png")
+    GuiInvocationsRuSacrificeDurabilityPng = loadImage("assets/gui/invocations/ru_sacrifice_durability.png")
+    GuiInvocationsRuSacrificeSkillPng = loadImage("assets/gui/invocations/ru_sacrifice_skill.png")
+    GuiInvocationsZinDonatePng = loadImage("assets/gui/invocations/zin_donate.png")
+    GuiInvocationsQazlalElementalForcePng = loadImage("assets/gui/invocations/qazlal_elemental_force.png")
+    GuiInvocationsRuPowerLeapPng = loadImage("assets/gui/invocations/ru_power_leap.png")
+    GuiInvocationsGozagCallMerchantPng = loadImage("assets/gui/invocations/gozag_call_merchant.png")
+    GuiInvocationsRuSacrificeNimblenessPng = loadImage("assets/gui/invocations/ru_sacrifice_nimbleness.png")
+    GuiInvocationsRuSacrificeCouragePng = loadImage("assets/gui/invocations/ru_sacrifice_courage.png")
+    GuiInvocationsRuSacrificeArcanaPng = loadImage("assets/gui/invocations/ru_sacrifice_arcana.png")
+    GuiInvocationsRuSacrificeHealthPng = loadImage("assets/gui/invocations/ru_sacrifice_health.png")
+    GuiInvocationsDithmenosShadowStepPng = loadImage("assets/gui/invocations/dithmenos_shadow_step.png")
+    GuiInvocationsRuSacrificeWordsPng = loadImage("assets/gui/invocations/ru_sacrifice_words.png")
+    GuiInvocationsBeoghGiftPng = loadImage("assets/gui/invocations/beogh_gift.png")
+    GuiInvocationsDithmenosShadowFormPng = loadImage("assets/gui/invocations/dithmenos_shadow_form.png")
+    GuiInvocationsRuSacrificeHandPng = loadImage("assets/gui/invocations/ru_sacrifice_hand.png")
+    GuiInvocationsRuSacrificeResistancePng = loadImage("assets/gui/invocations/ru_sacrifice_resistance.png")
+    GuiInvocationsGozagPotionPetitionPng = loadImage("assets/gui/invocations/gozag_potion_petition.png")
+    GuiSpellsStonemailPng = loadImage("assets/gui/spells/stonemail.png")
+    GuiSpellsControlledTeleportPng = loadImage("assets/gui/spells/controlled_teleport.png")
+    GuiSpellsMemorisePng = loadImage("assets/gui/spells/memorise.png")
+    GuiSpellsForcefulDismissalPng = loadImage("assets/gui/spells/forceful_dismissal.png")
+    GuiSpellsAbjurationPng = loadImage("assets/gui/spells/abjuration.png")
+    GuiSpellsRemoveCursePng = loadImage("assets/gui/spells/remove_curse.png")
+    GuiSpellsComponentsIceSpearPng = loadImage("assets/gui/spells/components/ice_spear.png")
+    GuiSpellsComponentsSkullPng = loadImage("assets/gui/spells/components/skull.png")
+    GuiSpellsComponentsEyePng = loadImage("assets/gui/spells/components/eye.png")
+    GuiSpellsComponentsStonesPng = loadImage("assets/gui/spells/components/stones.png")
+    GuiSpellsComponentsPerson4Png = loadImage("assets/gui/spells/components/person_4.png")
+    GuiSpellsComponentsHornPng = loadImage("assets/gui/spells/components/horn.png")
+    GuiSpellsComponentsDragonPng = loadImage("assets/gui/spells/components/dragon.png")
+    GuiSpellsComponentsFacePng = loadImage("assets/gui/spells/components/face.png")
+    GuiSpellsComponentsPentagramHorizontalPng = loadImage("assets/gui/spells/components/pentagram_horizontal.png")
+    GuiSpellsComponentsStonePng = loadImage("assets/gui/spells/components/stone.png")
+    GuiSpellsComponentsSwordPng = loadImage("assets/gui/spells/components/sword.png")
+    GuiSpellsComponentsDog2Png = loadImage("assets/gui/spells/components/dog_2.png")
+    GuiSpellsComponentsPerson3Png = loadImage("assets/gui/spells/components/person_3.png")
+    GuiSpellsComponentsIcePng = loadImage("assets/gui/spells/components/ice.png")
+    GuiSpellsComponentsCorpsePng = loadImage("assets/gui/spells/components/corpse.png")
+    GuiSpellsComponentsHand4Png = loadImage("assets/gui/spells/components/hand_4.png")
+    GuiSpellsComponentsDog1Png = loadImage("assets/gui/spells/components/dog_1.png")
+    GuiSpellsComponentsBoltPng = loadImage("assets/gui/spells/components/bolt.png")
+    GuiSpellsComponentsHand5Png = loadImage("assets/gui/spells/components/hand_5.png")
+    GuiSpellsComponentsArrowPng = loadImage("assets/gui/spells/components/arrow.png")
+    GuiSpellsComponentsPerson1Png = loadImage("assets/gui/spells/components/person_1.png")
+    GuiSpellsComponentsSnowflakePng = loadImage("assets/gui/spells/components/snowflake.png")
+    GuiSpellsComponentsBirdPng = loadImage("assets/gui/spells/components/bird.png")
+    GuiSpellsComponentsRatPng = loadImage("assets/gui/spells/components/rat.png")
+    GuiSpellsComponentsPerson2Png = loadImage("assets/gui/spells/components/person_2.png")
+    GuiSpellsComponentsPentagramVerticalPng = loadImage("assets/gui/spells/components/pentagram_vertical.png")
+    GuiSpellsComponentsScrollPng = loadImage("assets/gui/spells/components/scroll.png")
+    GuiSpellsComponentsStoneCrackedPng = loadImage("assets/gui/spells/components/stone_cracked.png")
+    GuiSpellsComponentsHand1Png = loadImage("assets/gui/spells/components/hand_1.png")
+    GuiSpellsComponentsHand3Png = loadImage("assets/gui/spells/components/hand_3.png")
+    GuiSpellsComponentsBowlPng = loadImage("assets/gui/spells/components/bowl.png")
+    GuiSpellsComponentsHand2Png = loadImage("assets/gui/spells/components/hand_2.png")
+    GuiSpellsComponentsTornadoPng = loadImage("assets/gui/spells/components/tornado.png")
+    GuiSpellsComponentsRunningPng = loadImage("assets/gui/spells/components/running.png")
+    GuiSpellsEarthStatueFormOldPng = loadImage("assets/gui/spells/earth/statue_form_old.png")
+    GuiSpellsEarthStatueFormNewPng = loadImage("assets/gui/spells/earth/statue_form_new.png")
+    GuiSpellsEarthSandblastNewPng = loadImage("assets/gui/spells/earth/sandblast_new.png")
+    GuiSpellsEarthStoneskinOldPng = loadImage("assets/gui/spells/earth/stoneskin_old.png")
+    GuiSpellsEarthLeesRapidDeconstructionNewPng = loadImage("assets/gui/spells/earth/lees_rapid_deconstruction_new.png")
+    GuiSpellsEarthDigNewPng = loadImage("assets/gui/spells/earth/dig_new.png")
+    GuiSpellsEarthLehudibsCrystalSpearNewPng = loadImage("assets/gui/spells/earth/lehudibs_crystal_spear_new.png")
+    GuiSpellsEarthIronShotOldPng = loadImage("assets/gui/spells/earth/iron_shot_old.png")
+    GuiSpellsEarthLedasLiquefactionPng = loadImage("assets/gui/spells/earth/ledas_liquefaction.png")
+    GuiSpellsEarthShatterNewPng = loadImage("assets/gui/spells/earth/shatter_new.png")
+    GuiSpellsEarthIronShotNewPng = loadImage("assets/gui/spells/earth/iron_shot_new.png")
+    GuiSpellsEarthStoneArrowNewPng = loadImage("assets/gui/spells/earth/stone_arrow_new.png")
+    GuiSpellsEarthDigOldPng = loadImage("assets/gui/spells/earth/dig_old.png")
+    GuiSpellsEarthPasswallOldPng = loadImage("assets/gui/spells/earth/passwall_old.png")
+    GuiSpellsEarthShatterOldPng = loadImage("assets/gui/spells/earth/shatter_old.png")
+    GuiSpellsEarthPetrifyPng = loadImage("assets/gui/spells/earth/petrify.png")
+    GuiSpellsEarthMaxwellsSilverHammerPng = loadImage("assets/gui/spells/earth/maxwells_silver_hammer.png")
+    GuiSpellsEarthSandblastOldPng = loadImage("assets/gui/spells/earth/sandblast_old.png")
+    GuiSpellsEarthPasswallNewPng = loadImage("assets/gui/spells/earth/passwall_new.png")
+    GuiSpellsEarthStoneskinNewPng = loadImage("assets/gui/spells/earth/stoneskin_new.png")
+    GuiSpellsEarthStoneArrowOldPng = loadImage("assets/gui/spells/earth/stone_arrow_old.png")
+    GuiSpellsEarthLeesRapidDeconstructionOldPng = loadImage("assets/gui/spells/earth/lees_rapid_deconstruction_old.png")
+    GuiSpellsEarthLehudibsCrystalSpearOldPng = loadImage("assets/gui/spells/earth/lehudibs_crystal_spear_old.png")
+    GuiSpellsDivinationDetectTrapsPng = loadImage("assets/gui/spells/divination/detect_traps.png")
+    GuiSpellsDivinationIdentifyPng = loadImage("assets/gui/spells/divination/identify.png")
+    GuiSpellsDivinationDetectCreaturesPng = loadImage("assets/gui/spells/divination/detect_creatures.png")
+    GuiSpellsDivinationMagicMappingPng = loadImage("assets/gui/spells/divination/magic_mapping.png")
+    GuiSpellsDivinationDetectSecretDoorsPng = loadImage("assets/gui/spells/divination/detect_secret_doors.png")
+    GuiSpellsDivinationForescryPng = loadImage("assets/gui/spells/divination/forescry.png")
+    GuiSpellsDivinationDetectItemsPng = loadImage("assets/gui/spells/divination/detect_items.png")
+    GuiSpellsDivinationDetectCursePng = loadImage("assets/gui/spells/divination/detect_curse.png")
+    GuiSpellsNecromancyVampiricDrainingNewPng = loadImage("assets/gui/spells/necromancy/vampiric_draining_new.png")
+    GuiSpellsNecromancyDeathChannelNewPng = loadImage("assets/gui/spells/necromancy/death_channel_new.png")
+    GuiSpellsNecromancyPainNewPng = loadImage("assets/gui/spells/necromancy/pain_new.png")
+    GuiSpellsNecromancyExcruciatingWoundsNewPng = loadImage("assets/gui/spells/necromancy/excruciating_wounds_new.png")
+    GuiSpellsNecromancyAnimateSkeletonOldPng = loadImage("assets/gui/spells/necromancy/animate_skeleton_old.png")
+    GuiSpellsNecromancyHauntNewPng = loadImage("assets/gui/spells/necromancy/haunt_new.png")
+    GuiSpellsNecromancyPainOldPng = loadImage("assets/gui/spells/necromancy/pain_old.png")
+    GuiSpellsNecromancyBoneShardsPng = loadImage("assets/gui/spells/necromancy/bone_shards.png")
+    GuiSpellsNecromancyDeathChannelOldPng = loadImage("assets/gui/spells/necromancy/death_channel_old.png")
+    GuiSpellsNecromancyHauntOldPng = loadImage("assets/gui/spells/necromancy/haunt_old.png")
+    GuiSpellsNecromancyAgonyPng = loadImage("assets/gui/spells/necromancy/agony.png")
+    GuiSpellsNecromancyFulsomeDistillationPng = loadImage("assets/gui/spells/necromancy/fulsome_distillation.png")
+    GuiSpellsNecromancyDeathsDoorOldPng = loadImage("assets/gui/spells/necromancy/deaths_door_old.png")
+    GuiSpellsNecromancyLethalInfusionPng = loadImage("assets/gui/spells/necromancy/lethal_infusion.png")
+    GuiSpellsNecromancyDispelUndeadOldPng = loadImage("assets/gui/spells/necromancy/dispel_undead_old.png")
+    GuiSpellsNecromancyDispelUndeadNewPng = loadImage("assets/gui/spells/necromancy/dispel_undead_new.png")
+    GuiSpellsNecromancySymbolOfTormentOldPng = loadImage("assets/gui/spells/necromancy/symbol_of_torment_old.png")
+    GuiSpellsNecromancyControlUndeadOldPng = loadImage("assets/gui/spells/necromancy/control_undead_old.png")
+    GuiSpellsNecromancyAnimateSkeletonPng = loadImage("assets/gui/spells/necromancy/animate_skeleton.png")
+    GuiSpellsNecromancyCorpseRotOldPng = loadImage("assets/gui/spells/necromancy/corpse_rot_old.png")
+    GuiSpellsNecromancyRegenerationOldPng = loadImage("assets/gui/spells/necromancy/regeneration_old.png")
+    GuiSpellsNecromancyAnimateSkeletonNewPng = loadImage("assets/gui/spells/necromancy/animate_skeleton_new.png")
+    GuiSpellsNecromancyBoltOfDrainingOldPng = loadImage("assets/gui/spells/necromancy/bolt_of_draining_old.png")
+    GuiSpellsNecromancyVampiricDrainingOldPng = loadImage("assets/gui/spells/necromancy/vampiric_draining_old.png")
+    GuiSpellsNecromancySymbolOfTormentPng = loadImage("assets/gui/spells/necromancy/symbol_of_torment.png")
+    GuiSpellsNecromancyBoltOfDrainingNewPng = loadImage("assets/gui/spells/necromancy/bolt_of_draining_new.png")
+    GuiSpellsNecromancyExcruciatingWoundsOldPng = loadImage("assets/gui/spells/necromancy/excruciating_wounds_old.png")
+    GuiSpellsNecromancyBorgnjorsRevivificationNewPng = loadImage("assets/gui/spells/necromancy/borgnjors_revivification_new.png")
+    GuiSpellsNecromancyAnimateDeadNewPng = loadImage("assets/gui/spells/necromancy/animate_dead_new.png")
+    GuiSpellsNecromancyControlUndeadPng = loadImage("assets/gui/spells/necromancy/control_undead.png")
+    GuiSpellsNecromancyDeathChannelPng = loadImage("assets/gui/spells/necromancy/death_channel.png")
+    GuiSpellsNecromancySimulacrumNewPng = loadImage("assets/gui/spells/necromancy/simulacrum_new.png")
+    GuiSpellsNecromancyTwistedResurrectionNewPng = loadImage("assets/gui/spells/necromancy/twisted_resurrection_new.png")
+    GuiSpellsNecromancySymbolOfTormentNewPng = loadImage("assets/gui/spells/necromancy/symbol_of_torment_new.png")
+    GuiSpellsNecromancyControlUndeadNewPng = loadImage("assets/gui/spells/necromancy/control_undead_new.png")
+    GuiSpellsNecromancyNecromutationOldPng = loadImage("assets/gui/spells/necromancy/necromutation_old.png")
+    GuiSpellsNecromancySublimationOfBloodNewPng = loadImage("assets/gui/spells/necromancy/sublimation_of_blood_new.png")
+    GuiSpellsNecromancyBorgnjorsRevivificationOldPng = loadImage("assets/gui/spells/necromancy/borgnjors_revivification_old.png")
+    GuiSpellsNecromancyCorpseRotNewPng = loadImage("assets/gui/spells/necromancy/corpse_rot_new.png")
+    GuiSpellsNecromancyTombOfDoroklohePng = loadImage("assets/gui/spells/necromancy/tomb_of_doroklohe.png")
+    GuiSpellsNecromancyCigotuvisEmbracePng = loadImage("assets/gui/spells/necromancy/cigotuvis_embrace.png")
+    GuiSpellsNecromancyNecromutationNewPng = loadImage("assets/gui/spells/necromancy/necromutation_new.png")
+    GuiSpellsNecromancyTwistedResurrectionOldPng = loadImage("assets/gui/spells/necromancy/twisted_resurrection_old.png")
+    GuiSpellsNecromancyAnimateDeadOldPng = loadImage("assets/gui/spells/necromancy/animate_dead_old.png")
+    GuiSpellsNecromancySublimationOfBloodOldPng = loadImage("assets/gui/spells/necromancy/sublimation_of_blood_old.png")
+    GuiSpellsNecromancySimulacrumOldPng = loadImage("assets/gui/spells/necromancy/simulacrum_old.png")
+    GuiSpellsNecromancyAgonyOldPng = loadImage("assets/gui/spells/necromancy/agony_old.png")
+    GuiSpellsNecromancyRegenerationNewPng = loadImage("assets/gui/spells/necromancy/regeneration_new.png")
+    GuiSpellsNecromancyCigotuvisDegenerationPng = loadImage("assets/gui/spells/necromancy/cigotuvis_degeneration.png")
+    GuiSpellsNecromancySublimationOfBloodPng = loadImage("assets/gui/spells/necromancy/sublimation_of_blood.png")
+    GuiSpellsNecromancyDeathsDoorNewPng = loadImage("assets/gui/spells/necromancy/deaths_door_new.png")
+    GuiSpellsNecromancyAgonyNewPng = loadImage("assets/gui/spells/necromancy/agony_new.png")
+    GuiSpellsMonsterSummonUfetubusPng = loadImage("assets/gui/spells/monster/summon_ufetubus.png")
+    GuiSpellsMonsterStickyFlameRangePng = loadImage("assets/gui/spells/monster/sticky_flame_range.png")
+    GuiSpellsMonsterAirElementalsPng = loadImage("assets/gui/spells/monster/air_elementals.png")
+    GuiSpellsMonsterQuicksilverBoltPng = loadImage("assets/gui/spells/monster/quicksilver_bolt.png")
+    GuiSpellsMonsterSummonMinorDemonPng = loadImage("assets/gui/spells/monster/summon_minor_demon.png")
+    GuiSpellsMonsterSummonEyeballsPng = loadImage("assets/gui/spells/monster/summon_eyeballs.png")
+    GuiSpellsMonsterMetalSplintersPng = loadImage("assets/gui/spells/monster/metal_splinters.png")
+    GuiSpellsMonsterMiasmaBreathPng = loadImage("assets/gui/spells/monster/miasma_breath.png")
+    GuiSpellsMonsterBrainFeedPng = loadImage("assets/gui/spells/monster/brain_feed.png")
+    GuiSpellsMonsterFakeRakshasaSummonPng = loadImage("assets/gui/spells/monster/fake_rakshasa_summon.png")
+    GuiSpellsMonsterFireElementalsPng = loadImage("assets/gui/spells/monster/fire_elementals.png")
+    GuiSpellsMonsterIronElementalsPng = loadImage("assets/gui/spells/monster/iron_elementals.png")
+    GuiSpellsMonsterSummonHellBeastPng = loadImage("assets/gui/spells/monster/summon_hell_beast.png")
+    GuiSpellsMonsterEarthElementalsPng = loadImage("assets/gui/spells/monster/earth_elementals.png")
+    GuiSpellsMonsterHellfireBurstPng = loadImage("assets/gui/spells/monster/hellfire_burst.png")
+    GuiSpellsMonsterSummonUndeadPng = loadImage("assets/gui/spells/monster/summon_undead.png")
+    GuiSpellsMonsterSteamBallPng = loadImage("assets/gui/spells/monster/steam_ball.png")
+    GuiSpellsMonsterFireBreathPng = loadImage("assets/gui/spells/monster/fire_breath.png")
+    GuiSpellsMonsterHasteOtherPng = loadImage("assets/gui/spells/monster/haste_other.png")
+    GuiSpellsMonsterWaterElementalsPng = loadImage("assets/gui/spells/monster/water_elementals.png")
+    GuiSpellsMonsterSummonDrakesPng = loadImage("assets/gui/spells/monster/summon_drakes.png")
+    GuiSpellsMonsterFakeMaraSummonPng = loadImage("assets/gui/spells/monster/fake_mara_summon.png")
+    GuiSpellsMonsterBlinkOtherPng = loadImage("assets/gui/spells/monster/blink_other.png")
+    GuiSpellsMonsterCantripPng = loadImage("assets/gui/spells/monster/cantrip.png")
+    GuiSpellsMonsterSummonMushroomsPng = loadImage("assets/gui/spells/monster/summon_mushrooms.png")
+    GuiSpellsMonsterSummonVerminPng = loadImage("assets/gui/spells/monster/summon_vermin.png")
+    GuiSpellsMonsterColdBreathPng = loadImage("assets/gui/spells/monster/cold_breath.png")
+    GuiSpellsMonsterStickyFlameSplashPng = loadImage("assets/gui/spells/monster/sticky_flame_splash.png")
+    GuiSpellsSummoningSummonDemonPng = loadImage("assets/gui/spells/summoning/summon_demon.png")
+    GuiSpellsSummoningSummonDragonPng = loadImage("assets/gui/spells/summoning/summon_dragon.png")
+    GuiSpellsSummoningSpellforgedServitorPng = loadImage("assets/gui/spells/summoning/spellforged_servitor.png")
+    GuiSpellsSummoningSummonManaViperPng = loadImage("assets/gui/spells/summoning/summon_mana_viper.png")
+    GuiSpellsSummoningSummonSmallMammalsPng = loadImage("assets/gui/spells/summoning/summon_small_mammals.png")
+    GuiSpellsSummoningSticksToSnakesOldPng = loadImage("assets/gui/spells/summoning/sticks_to_snakes_old.png")
+    GuiSpellsSummoningMassAbjurationPng = loadImage("assets/gui/spells/summoning/mass_abjuration.png")
+    GuiSpellsSummoningSummonHydraPng = loadImage("assets/gui/spells/summoning/summon_hydra.png")
+    GuiSpellsSummoningSummonDemonNewPng = loadImage("assets/gui/spells/summoning/summon_demon_new.png")
+    GuiSpellsSummoningSummonScorpionsNewPng = loadImage("assets/gui/spells/summoning/summon_scorpions_new.png")
+    GuiSpellsSummoningCallImpOldPng = loadImage("assets/gui/spells/summoning/call_imp_old.png")
+    GuiSpellsSummoningSticksToSnakesNewPng = loadImage("assets/gui/spells/summoning/sticks_to_snakes_new.png")
+    GuiSpellsSummoningSummonLightningSpirePng = loadImage("assets/gui/spells/summoning/summon_lightning_spire.png")
+    GuiSpellsSummoningSummonButterfliesNewPng = loadImage("assets/gui/spells/summoning/summon_butterflies_new.png")
+    GuiSpellsSummoningSummonGuardianGolemPng = loadImage("assets/gui/spells/summoning/summon_guardian_golem.png")
+    GuiSpellsSummoningDemonicHordePng = loadImage("assets/gui/spells/summoning/demonic_horde.png")
+    GuiSpellsSummoningCallCanineFamiliarOldPng = loadImage("assets/gui/spells/summoning/call_canine_familiar_old.png")
+    GuiSpellsSummoningSummonWraithsPng = loadImage("assets/gui/spells/summoning/summon_wraiths.png")
+    GuiSpellsSummoningSummonButterfliesOldPng = loadImage("assets/gui/spells/summoning/summon_butterflies_old.png")
+    GuiSpellsSummoningRecallOldPng = loadImage("assets/gui/spells/summoning/recall_old.png")
+    GuiSpellsSummoningSummonElementalPng = loadImage("assets/gui/spells/summoning/summon_elemental.png")
+    GuiSpellsSummoningCallCanineFamiliarNewPng = loadImage("assets/gui/spells/summoning/call_canine_familiar_new.png")
+    GuiSpellsSummoningAbjurationPng = loadImage("assets/gui/spells/summoning/abjuration.png")
+    GuiSpellsSummoningSummonSmallMammalPng = loadImage("assets/gui/spells/summoning/summon_small_mammal.png")
+    GuiSpellsSummoningSummonUglyThingPng = loadImage("assets/gui/spells/summoning/summon_ugly_thing.png")
+    GuiSpellsSummoningSummonIceBeastOldPng = loadImage("assets/gui/spells/summoning/summon_ice_beast_old.png")
+    GuiSpellsSummoningMonstrousMenageriePng = loadImage("assets/gui/spells/summoning/monstrous_menagerie.png")
+    GuiSpellsSummoningSummonShadowCreaturesNewPng = loadImage("assets/gui/spells/summoning/summon_shadow_creatures_new.png")
+    GuiSpellsSummoningSummonForestPng = loadImage("assets/gui/spells/summoning/summon_forest.png")
+    GuiSpellsSummoningSummonGreaterDemonPng = loadImage("assets/gui/spells/summoning/summon_greater_demon.png")
+    GuiSpellsSummoningSummonGreaterDemonOldPng = loadImage("assets/gui/spells/summoning/summon_greater_demon_old.png")
+    GuiSpellsSummoningSummonShadowCreaturesOldPng = loadImage("assets/gui/spells/summoning/summon_shadow_creatures_old.png")
+    GuiSpellsSummoningSummonHorribleThingsPng = loadImage("assets/gui/spells/summoning/summon_horrible_things.png")
+    GuiSpellsSummoningSummonDemonOldPng = loadImage("assets/gui/spells/summoning/summon_demon_old.png")
+    GuiSpellsSummoningSummonScorpionsOldPng = loadImage("assets/gui/spells/summoning/summon_scorpions_old.png")
+    GuiSpellsSummoningSummonGreaterDemonNewPng = loadImage("assets/gui/spells/summoning/summon_greater_demon_new.png")
+    GuiSpellsSummoningRecallNewPng = loadImage("assets/gui/spells/summoning/recall_new.png")
+    GuiSpellsSummoningCallImpNewPng = loadImage("assets/gui/spells/summoning/call_imp_new.png")
+    GuiSpellsSummoningSummonIceBeastNewPng = loadImage("assets/gui/spells/summoning/summon_ice_beast_new.png")
+    GuiSpellsEnchantmentTameBeastsPng = loadImage("assets/gui/spells/enchantment/tame_beasts.png")
+    GuiSpellsEnchantmentProjectedNoisePng = loadImage("assets/gui/spells/enchantment/projected_noise.png")
+    GuiSpellsEnchantmentTukimasDanceNewPng = loadImage("assets/gui/spells/enchantment/tukimas_dance_new.png")
+    GuiSpellsEnchantmentBerserkerRageNewPng = loadImage("assets/gui/spells/enchantment/berserker_rage_new.png")
+    GuiSpellsEnchantmentEnslavementNewPng = loadImage("assets/gui/spells/enchantment/enslavement_new.png")
+    GuiSpellsEnchantmentSlowOldPng = loadImage("assets/gui/spells/enchantment/slow_old.png")
+    GuiSpellsEnchantmentInvisibilityOldPng = loadImage("assets/gui/spells/enchantment/invisibility_old.png")
+    GuiSpellsEnchantmentCoronaPng = loadImage("assets/gui/spells/enchantment/corona.png")
+    GuiSpellsEnchantmentSeeInvisiblePng = loadImage("assets/gui/spells/enchantment/see_invisible.png")
+    GuiSpellsEnchantmentTukimasVorpalBladePng = loadImage("assets/gui/spells/enchantment/tukimas_vorpal_blade.png")
+    GuiSpellsEnchantmentSongOfSlayingPng = loadImage("assets/gui/spells/enchantment/song_of_slaying.png")
+    GuiSpellsEnchantmentInfusionPng = loadImage("assets/gui/spells/enchantment/infusion.png")
+    GuiSpellsEnchantmentCauseFearNewPng = loadImage("assets/gui/spells/enchantment/cause_fear_new.png")
+    GuiSpellsEnchantmentInvisibilityNewPng = loadImage("assets/gui/spells/enchantment/invisibility_new.png")
+    GuiSpellsEnchantmentPetrifyPng = loadImage("assets/gui/spells/enchantment/petrify.png")
+    GuiSpellsEnchantmentConfuseNewPng = loadImage("assets/gui/spells/enchantment/confuse_new.png")
+    GuiSpellsEnchantmentBerserkerRageOldPng = loadImage("assets/gui/spells/enchantment/berserker_rage_old.png")
+    GuiSpellsEnchantmentDiscordPng = loadImage("assets/gui/spells/enchantment/discord.png")
+    GuiSpellsEnchantmentMassConfusionOldPng = loadImage("assets/gui/spells/enchantment/mass_confusion_old.png")
+    GuiSpellsEnchantmentMassConfusionNewPng = loadImage("assets/gui/spells/enchantment/mass_confusion_new.png")
+    GuiSpellsEnchantmentConfusingTouchNewPng = loadImage("assets/gui/spells/enchantment/confusing_touch_new.png")
+    GuiSpellsEnchantmentSlowNewPng = loadImage("assets/gui/spells/enchantment/slow_new.png")
+    GuiSpellsEnchantmentHasteOldPng = loadImage("assets/gui/spells/enchantment/haste_old.png")
+    GuiSpellsEnchantmentTukimasDanceOldPng = loadImage("assets/gui/spells/enchantment/tukimas_dance_old.png")
+    GuiSpellsEnchantmentExtensionPng = loadImage("assets/gui/spells/enchantment/extension.png")
+    GuiSpellsEnchantmentDarknessPng = loadImage("assets/gui/spells/enchantment/darkness.png")
+    GuiSpellsEnchantmentCauseFearOldPng = loadImage("assets/gui/spells/enchantment/cause_fear_old.png")
+    GuiSpellsEnchantmentConfusingTouchOldPng = loadImage("assets/gui/spells/enchantment/confusing_touch_old.png")
+    GuiSpellsEnchantmentHasteNewPng = loadImage("assets/gui/spells/enchantment/haste_new.png")
+    GuiSpellsEnchantmentEnslavementOldPng = loadImage("assets/gui/spells/enchantment/enslavement_old.png")
+    GuiSpellsEnchantmentSpectralWeaponPng = loadImage("assets/gui/spells/enchantment/spectral_weapon.png")
+    GuiSpellsEnchantmentConfuseOldPng = loadImage("assets/gui/spells/enchantment/confuse_old.png")
+    GuiSpellsEnchantmentSelectiveAmnesiaPng = loadImage("assets/gui/spells/enchantment/selective_amnesia.png")
+    GuiSpellsEnchantmentSureBladeNewPng = loadImage("assets/gui/spells/enchantment/sure_blade_new.png")
+    GuiSpellsEnchantmentSureBladeOldPng = loadImage("assets/gui/spells/enchantment/sure_blade_old.png")
+    GuiSpellsTranslocationDispersalNewPng = loadImage("assets/gui/spells/translocation/dispersal_new.png")
+    GuiSpellsTranslocationControlledBlinkNewPng = loadImage("assets/gui/spells/translocation/controlled_blink_new.png")
+    GuiSpellsTranslocationDispersalOldPng = loadImage("assets/gui/spells/translocation/dispersal_old.png")
+    GuiSpellsTranslocationPhaseShiftOldPng = loadImage("assets/gui/spells/translocation/phase_shift_old.png")
+    GuiSpellsTranslocationWarpWeaponOldPng = loadImage("assets/gui/spells/translocation/warp_weapon_old.png")
+    GuiSpellsTranslocationGravitasPng = loadImage("assets/gui/spells/translocation/gravitas.png")
+    GuiSpellsTranslocationControlledTeleportPng = loadImage("assets/gui/spells/translocation/controlled_teleport.png")
+    GuiSpellsTranslocationApportationOldPng = loadImage("assets/gui/spells/translocation/apportation_old.png")
+    GuiSpellsTranslocationShroudOfGolubriaPng = loadImage("assets/gui/spells/translocation/shroud_of_golubria.png")
+    GuiSpellsTranslocationApportationNewPng = loadImage("assets/gui/spells/translocation/apportation_new.png")
+    GuiSpellsTranslocationTeleportOtherOldPng = loadImage("assets/gui/spells/translocation/teleport_other_old.png")
+    GuiSpellsTranslocationPortalPng = loadImage("assets/gui/spells/translocation/portal.png")
+    GuiSpellsTranslocationWarpWeaponNewPng = loadImage("assets/gui/spells/translocation/warp_weapon_new.png")
+    GuiSpellsTranslocationPortalProjectileNewPng = loadImage("assets/gui/spells/translocation/portal_projectile_new.png")
+    GuiSpellsTranslocationBlinkPng = loadImage("assets/gui/spells/translocation/blink.png")
+    GuiSpellsTranslocationBanishmentPng = loadImage("assets/gui/spells/translocation/banishment.png")
+    GuiSpellsTranslocationPhaseShiftNewPng = loadImage("assets/gui/spells/translocation/phase_shift_new.png")
+    GuiSpellsTranslocationTeleportPng = loadImage("assets/gui/spells/translocation/teleport.png")
+    GuiSpellsTranslocationDisjunctionPng = loadImage("assets/gui/spells/translocation/disjunction.png")
+    GuiSpellsTranslocationPortalProjectileOldPng = loadImage("assets/gui/spells/translocation/portal_projectile_old.png")
+    GuiSpellsTranslocationControlledBlinkOldPng = loadImage("assets/gui/spells/translocation/controlled_blink_old.png")
+    GuiSpellsTranslocationTeleportOtherNewPng = loadImage("assets/gui/spells/translocation/teleport_other_new.png")
+    GuiSpellsTranslocationPassageOfGolubriaPng = loadImage("assets/gui/spells/translocation/passage_of_golubria.png")
+    GuiSpellsPoisonCurePoisonOldPng = loadImage("assets/gui/spells/poison/cure_poison_old.png")
+    GuiSpellsPoisonPoisonBrandPng = loadImage("assets/gui/spells/poison/poison_brand.png")
+    GuiSpellsPoisonVenomBoltNewPng = loadImage("assets/gui/spells/poison/venom_bolt_new.png")
+    GuiSpellsPoisonOlgrebsToxicRadianceOldPng = loadImage("assets/gui/spells/poison/olgrebs_toxic_radiance_old.png")
+    GuiSpellsPoisonStingOldPng = loadImage("assets/gui/spells/poison/sting_old.png")
+    GuiSpellsPoisonOlgrebsToxicRadianceNewPng = loadImage("assets/gui/spells/poison/olgrebs_toxic_radiance_new.png")
+    GuiSpellsPoisonStingNewPng = loadImage("assets/gui/spells/poison/sting_new.png")
+    GuiSpellsPoisonMephiticCloudOldPng = loadImage("assets/gui/spells/poison/mephitic_cloud_old.png")
+    GuiSpellsPoisonMephiticCloudPng = loadImage("assets/gui/spells/poison/mephitic_cloud.png")
+    GuiSpellsPoisonResistPoisonPng = loadImage("assets/gui/spells/poison/resist_poison.png")
+    GuiSpellsPoisonMephiticCloudNewPng = loadImage("assets/gui/spells/poison/mephitic_cloud_new.png")
+    GuiSpellsPoisonPoisonArrowNewPng = loadImage("assets/gui/spells/poison/poison_arrow_new.png")
+    GuiSpellsPoisonPoisonArrowOldPng = loadImage("assets/gui/spells/poison/poison_arrow_old.png")
+    GuiSpellsPoisonVenomBoltOldPng = loadImage("assets/gui/spells/poison/venom_bolt_old.png")
+    GuiSpellsPoisonPoisonousCloudOldPng = loadImage("assets/gui/spells/poison/poisonous_cloud_old.png")
+    GuiSpellsPoisonAlistairsIntoxicationNewPng = loadImage("assets/gui/spells/poison/alistairs_intoxication_new.png")
+    GuiSpellsPoisonPoisonousCloudNewPng = loadImage("assets/gui/spells/poison/poisonous_cloud_new.png")
+    GuiSpellsPoisonAlistairsIntoxicationOldPng = loadImage("assets/gui/spells/poison/alistairs_intoxication_old.png")
+    GuiSpellsPoisonSpiderFormPng = loadImage("assets/gui/spells/poison/spider_form.png")
+    GuiSpellsPoisonPoisonAmmunitionPng = loadImage("assets/gui/spells/poison/poison_ammunition.png")
+    GuiSpellsPoisonCurePoisonNewPng = loadImage("assets/gui/spells/poison/cure_poison_new.png")
+    GuiSpellsTransmutationAlterSelfPng = loadImage("assets/gui/spells/transmutation/alter_self.png")
+    GuiSpellsTransmutationBladeHandsNewPng = loadImage("assets/gui/spells/transmutation/blade_hands_new.png")
+    GuiSpellsTransmutationHydraFormPng = loadImage("assets/gui/spells/transmutation/hydra_form.png")
+    GuiSpellsTransmutationPolymorphOtherPng = loadImage("assets/gui/spells/transmutation/polymorph_other.png")
+    GuiSpellsTransmutationBeastlyAppendagePng = loadImage("assets/gui/spells/transmutation/beastly_appendage.png")
+    GuiSpellsTransmutationBladeHandsOldPng = loadImage("assets/gui/spells/transmutation/blade_hands_old.png")
+    GuiSpellsTransmutationIrradiatePng = loadImage("assets/gui/spells/transmutation/irradiate.png")
+    GuiSpellsTransmutationDragonFormPng = loadImage("assets/gui/spells/transmutation/dragon_form.png")
+    GuiSpellsIceFreezingAuraPng = loadImage("assets/gui/spells/ice/freezing_aura.png")
+    GuiSpellsIceOzocubusRefrigerationOldPng = loadImage("assets/gui/spells/ice/ozocubus_refrigeration_old.png")
+    GuiSpellsIceIceFormNewPng = loadImage("assets/gui/spells/ice/ice_form_new.png")
+    GuiSpellsIceMetabolicEnglaciationNewPng = loadImage("assets/gui/spells/ice/metabolic_englaciation_new.png")
+    GuiSpellsIceIceStormOldPng = loadImage("assets/gui/spells/ice/ice_storm_old.png")
+    GuiSpellsIceIceFormOldPng = loadImage("assets/gui/spells/ice/ice_form_old.png")
+    GuiSpellsIceOzocubusArmorOldPng = loadImage("assets/gui/spells/ice/ozocubus_armor_old.png")
+    GuiSpellsIceThrowIcicleNewPng = loadImage("assets/gui/spells/ice/throw_icicle_new.png")
+    GuiSpellsIceMetabolicEnglaciationOldPng = loadImage("assets/gui/spells/ice/metabolic_englaciation_old.png")
+    GuiSpellsIceOzocubusArmorNewPng = loadImage("assets/gui/spells/ice/ozocubus_armor_new.png")
+    GuiSpellsIceThrowFrostOldPng = loadImage("assets/gui/spells/ice/throw_frost_old.png")
+    GuiSpellsIceFreezeOldPng = loadImage("assets/gui/spells/ice/freeze_old.png")
+    GuiSpellsIceEnsorcelledHibernationNewPng = loadImage("assets/gui/spells/ice/ensorcelled_hibernation_new.png")
+    GuiSpellsIceIceStormNewPng = loadImage("assets/gui/spells/ice/ice_storm_new.png")
+    GuiSpellsIceBoltOfColdOldPng = loadImage("assets/gui/spells/ice/bolt_of_cold_old.png")
+    GuiSpellsIceCondensationShieldOldPng = loadImage("assets/gui/spells/ice/condensation_shield_old.png")
+    GuiSpellsIceFreezingCloudNewPng = loadImage("assets/gui/spells/ice/freezing_cloud_new.png")
+    GuiSpellsIceEnsorcelledHibernationOldPng = loadImage("assets/gui/spells/ice/ensorcelled_hibernation_old.png")
+    GuiSpellsIceFreezingCloudOldPng = loadImage("assets/gui/spells/ice/freezing_cloud_old.png")
+    GuiSpellsIceCondensationShieldNewPng = loadImage("assets/gui/spells/ice/condensation_shield_new.png")
+    GuiSpellsIceThrowIcicleOldPng = loadImage("assets/gui/spells/ice/throw_icicle_old.png")
+    GuiSpellsIceBoltOfColdNewPng = loadImage("assets/gui/spells/ice/bolt_of_cold_new.png")
+    GuiSpellsIceOzocubusRefrigerationNewPng = loadImage("assets/gui/spells/ice/ozocubus_refrigeration_new.png")
+    GuiSpellsIceFreezeNewPng = loadImage("assets/gui/spells/ice/freeze_new.png")
+    GuiSpellsIceThrowFrostNewPng = loadImage("assets/gui/spells/ice/throw_frost_new.png")
+    GuiSpellsDisciplinesConjurationPng = loadImage("assets/gui/spells/disciplines/conjuration.png")
+    GuiSpellsDisciplinesTranslocationPng = loadImage("assets/gui/spells/disciplines/translocation.png")
+    GuiSpellsDisciplinesEarthPng = loadImage("assets/gui/spells/disciplines/earth.png")
+    GuiSpellsDisciplinesIcePng = loadImage("assets/gui/spells/disciplines/ice.png")
+    GuiSpellsDisciplinesTransmutationPng = loadImage("assets/gui/spells/disciplines/transmutation.png")
+    GuiSpellsDisciplinesDivinationPng = loadImage("assets/gui/spells/disciplines/divination.png")
+    GuiSpellsDisciplinesSummoningPng = loadImage("assets/gui/spells/disciplines/summoning.png")
+    GuiSpellsDisciplinesPoisonPng = loadImage("assets/gui/spells/disciplines/poison.png")
+    GuiSpellsDisciplinesNecromancyPng = loadImage("assets/gui/spells/disciplines/necromancy.png")
+    GuiSpellsDisciplinesAirPng = loadImage("assets/gui/spells/disciplines/air.png")
+    GuiSpellsDisciplinesEnchantmentPng = loadImage("assets/gui/spells/disciplines/enchantment.png")
+    GuiSpellsDisciplinesFirePng = loadImage("assets/gui/spells/disciplines/fire.png")
+    GuiSpellsConjurationSearingRayPng = loadImage("assets/gui/spells/conjuration/searing_ray.png")
+    GuiSpellsConjurationBattlespherePng = loadImage("assets/gui/spells/conjuration/battlesphere.png")
+    GuiSpellsConjurationForceLancePng = loadImage("assets/gui/spells/conjuration/force_lance.png")
+    GuiSpellsConjurationOrbOfDestructionNewPng = loadImage("assets/gui/spells/conjuration/orb_of_destruction_new.png")
+    GuiSpellsConjurationOrbOfDestructionBigPng = loadImage("assets/gui/spells/conjuration/orb_of_destruction_big.png")
+    GuiSpellsConjurationIskenderunsMysticBlastOldPng = loadImage("assets/gui/spells/conjuration/iskenderuns_mystic_blast_old.png")
+    GuiSpellsConjurationMagicDartPng = loadImage("assets/gui/spells/conjuration/magic_dart.png")
+    GuiSpellsConjurationOrbOfDestructionPng = loadImage("assets/gui/spells/conjuration/orb_of_destruction.png")
+    GuiSpellsConjurationIskenderunsMysticBlastNewPng = loadImage("assets/gui/spells/conjuration/iskenderuns_mystic_blast_new.png")
+    GuiSpellsConjurationOrbOfDestructionSmallPng = loadImage("assets/gui/spells/conjuration/orb_of_destruction_small.png")
+    GuiSpellsConjurationFulminantPrismPng = loadImage("assets/gui/spells/conjuration/fulminant_prism.png")
+    GuiSpellsConjurationDazzlingSprayPng = loadImage("assets/gui/spells/conjuration/dazzling_spray.png")
+    GuiSpellsFireInnerFlamePng = loadImage("assets/gui/spells/fire/inner_flame.png")
+    GuiSpellsFireThrowFlameOldPng = loadImage("assets/gui/spells/fire/throw_flame_old.png")
+    GuiSpellsFireRingOfFlamesNewPng = loadImage("assets/gui/spells/fire/ring_of_flames_new.png")
+    GuiSpellsFireFireballNewPng = loadImage("assets/gui/spells/fire/fireball_new.png")
+    GuiSpellsFireFireStormOldPng = loadImage("assets/gui/spells/fire/fire_storm_old.png")
+    GuiSpellsFireFireballOldPng = loadImage("assets/gui/spells/fire/fireball_old.png")
+    GuiSpellsFireEvaporatePng = loadImage("assets/gui/spells/fire/evaporate.png")
+    GuiSpellsFireBoltOfFireNewPng = loadImage("assets/gui/spells/fire/bolt_of_fire_new.png")
+    GuiSpellsFireFireBrandPng = loadImage("assets/gui/spells/fire/fire_brand.png")
+    GuiSpellsFireFlameTongueOldPng = loadImage("assets/gui/spells/fire/flame_tongue_old.png")
+    GuiSpellsFireBoltOfMagmaOldPng = loadImage("assets/gui/spells/fire/bolt_of_magma_old.png")
+    GuiSpellsFireIgnitePoisonNewPng = loadImage("assets/gui/spells/fire/ignite_poison_new.png")
+    GuiSpellsFireFlameTongueNewPng = loadImage("assets/gui/spells/fire/flame_tongue_new.png")
+    GuiSpellsFireFireStormNewPng = loadImage("assets/gui/spells/fire/fire_storm_new.png")
+    GuiSpellsFireRingOfFlamesOldPng = loadImage("assets/gui/spells/fire/ring_of_flames_old.png")
+    GuiSpellsFireIgnitePoisonOldPng = loadImage("assets/gui/spells/fire/ignite_poison_old.png")
+    GuiSpellsFireBoltOfFireOldPng = loadImage("assets/gui/spells/fire/bolt_of_fire_old.png")
+    GuiSpellsFireDelayedFireballPng = loadImage("assets/gui/spells/fire/delayed_fireball.png")
+    GuiSpellsFireConjureFlameOldPng = loadImage("assets/gui/spells/fire/conjure_flame_old.png")
+    GuiSpellsFireThrowFlameNewPng = loadImage("assets/gui/spells/fire/throw_flame_new.png")
+    GuiSpellsFireStickyFlameNewPng = loadImage("assets/gui/spells/fire/sticky_flame_new.png")
+    GuiSpellsFireConjureFlameNewPng = loadImage("assets/gui/spells/fire/conjure_flame_new.png")
+    GuiSpellsFireBoltOfMagmaNewPng = loadImage("assets/gui/spells/fire/bolt_of_magma_new.png")
+    GuiSpellsFireStickyFlameOldPng = loadImage("assets/gui/spells/fire/sticky_flame_old.png")
+    GuiSpellsAirLightningBoltNewPng = loadImage("assets/gui/spells/air/lightning_bolt_new.png")
+    GuiSpellsAirSilenceOldPng = loadImage("assets/gui/spells/air/silence_old.png")
+    GuiSpellsAirLightningBoltOldPng = loadImage("assets/gui/spells/air/lightning_bolt_old.png")
+    GuiSpellsAirStaticDischargeNewPng = loadImage("assets/gui/spells/air/static_discharge_new.png")
+    GuiSpellsAirDeflectMissilesOldPng = loadImage("assets/gui/spells/air/deflect_missiles_old.png")
+    GuiSpellsAirChainLightningNewPng = loadImage("assets/gui/spells/air/chain_lightning_new.png")
+    GuiSpellsAirSwiftnessNewPng = loadImage("assets/gui/spells/air/swiftness_new.png")
+    GuiSpellsAirShockNewPng = loadImage("assets/gui/spells/air/shock_new.png")
+    GuiSpellsAirConjureBallLightningOldPng = loadImage("assets/gui/spells/air/conjure_ball_lightning_old.png")
+    GuiSpellsAirSilenceNewPng = loadImage("assets/gui/spells/air/silence_new.png")
+    GuiSpellsAirCloudConePng = loadImage("assets/gui/spells/air/cloud_cone.png")
+    GuiSpellsAirInsulationPng = loadImage("assets/gui/spells/air/insulation.png")
+    GuiSpellsAirDeflectMissilesNewPng = loadImage("assets/gui/spells/air/deflect_missiles_new.png")
+    GuiSpellsAirChainLightningOldPng = loadImage("assets/gui/spells/air/chain_lightning_old.png")
+    GuiSpellsAirShockOldPng = loadImage("assets/gui/spells/air/shock_old.png")
+    GuiSpellsAirAirstrikeOldPng = loadImage("assets/gui/spells/air/airstrike_old.png")
+    GuiSpellsAirRepelMissilesNewPng = loadImage("assets/gui/spells/air/repel_missiles_new.png")
+    GuiSpellsAirRepelMissilesOldPng = loadImage("assets/gui/spells/air/repel_missiles_old.png")
+    GuiSpellsAirSwiftnessOldPng = loadImage("assets/gui/spells/air/swiftness_old.png")
+    GuiSpellsAirAirstrikeNewPng = loadImage("assets/gui/spells/air/airstrike_new.png")
+    GuiSpellsAirLevitationPng = loadImage("assets/gui/spells/air/levitation.png")
+    GuiSpellsAirStaticDischargeOldPng = loadImage("assets/gui/spells/air/static_discharge_old.png")
+    GuiSpellsAirConjureBallLightningNewPng = loadImage("assets/gui/spells/air/conjure_ball_lightning_new.png")
+    GuiSpellsAirTornadoPng = loadImage("assets/gui/spells/air/tornado.png")
+    GuiSpellsAirFlightPng = loadImage("assets/gui/spells/air/flight.png")
+    ItemScrollScrollNewPng = loadImage("assets/item/scroll/scroll_new.png")
+    ItemScrollScrollPurplePng = loadImage("assets/item/scroll/scroll-purple.png")
+    ItemScrollScrollBrownPng = loadImage("assets/item/scroll/scroll-brown.png")
+    ItemScrollScrollRedPng = loadImage("assets/item/scroll/scroll-red.png")
+    ItemScrollBlankPaperPng = loadImage("assets/item/scroll/blank_paper.png")
+    ItemScrollScrollCyanPng = loadImage("assets/item/scroll/scroll-cyan.png")
+    ItemScrollScrollGreenPng = loadImage("assets/item/scroll/scroll-green.png")
+    ItemScrollScrollOldPng = loadImage("assets/item/scroll/scroll_old.png")
+    ItemScrollScrollBluePng = loadImage("assets/item/scroll/scroll-blue.png")
+    ItemScrollScrollGreyPng = loadImage("assets/item/scroll/scroll-grey.png")
+    ItemScrollScrollYellowPng = loadImage("assets/item/scroll/scroll-yellow.png")
+    ItemBookCopperPng = loadImage("assets/item/book/copper.png")
+    ItemBookClothNewPng = loadImage("assets/item/book/cloth_new.png")
+    ItemBookDarkBlueNewPng = loadImage("assets/item/book/dark_blue_new.png")
+    ItemBookLightBrownOldPng = loadImage("assets/item/book/light_brown_old.png")
+    ItemBookBookGrayPng = loadImage("assets/item/book/book_gray.png")
+    ItemBookDarkBrownOldPng = loadImage("assets/item/book/dark_brown_old.png")
+    ItemBookDarkBrownNewPng = loadImage("assets/item/book/dark_brown_new.png")
+    ItemBookMetalGreenNewPng = loadImage("assets/item/book/metal_green_new.png")
+    ItemBookClothOldPng = loadImage("assets/item/book/cloth_old.png")
+    ItemBookBookOfTheDeadOldPng = loadImage("assets/item/book/book_of_the_dead_old.png")
+    ItemBookPurpleOldPng = loadImage("assets/item/book/purple_old.png")
+    ItemBookManual2Png = loadImage("assets/item/book/manual_2.png")
+    ItemBookMiscBookPng = loadImage("assets/item/book/misc_book.png")
+    ItemBookRedOldPng = loadImage("assets/item/book/red_old.png")
+    ItemBookDarkBlueOldPng = loadImage("assets/item/book/dark_blue_old.png")
+    ItemBookDarkGrayOldPng = loadImage("assets/item/book/dark_gray_old.png")
+    ItemBookMetalCyanNewPng = loadImage("assets/item/book/metal_cyan_new.png")
+    ItemBookParchmentNewPng = loadImage("assets/item/book/parchment_new.png")
+    ItemBookTanOldPng = loadImage("assets/item/book/tan_old.png")
+    ItemBookMetalBlueOldPng = loadImage("assets/item/book/metal_blue_old.png")
+    ItemBookGoldPng = loadImage("assets/item/book/gold.png")
+    ItemBookTurquoiseNewPng = loadImage("assets/item/book/turquoise_new.png")
+    ItemBookMagentaNewPng = loadImage("assets/item/book/magenta_new.png")
+    ItemBookDarkGreenOldPng = loadImage("assets/item/book/dark_green_old.png")
+    ItemBookLightGrayOldPng = loadImage("assets/item/book/light_gray_old.png")
+    ItemBookDarkGrayNewPng = loadImage("assets/item/book/dark_gray_new.png")
+    ItemBookWhiteNewPng = loadImage("assets/item/book/white_new.png")
+    ItemBookPlaidNewPng = loadImage("assets/item/book/plaid_new.png")
+    ItemBookYellowNewPng = loadImage("assets/item/book/yellow_new.png")
+    ItemBookBookDogEaredPng = loadImage("assets/item/book/book_dog_eared.png")
+    ItemBookWhiteOldPng = loadImage("assets/item/book/white_old.png")
+    ItemBookTurquoiseOldPng = loadImage("assets/item/book/turquoise_old.png")
+    ItemBookBronzePng = loadImage("assets/item/book/bronze.png")
+    ItemBookBookOrangePng = loadImage("assets/item/book/book_orange.png")
+    ItemBookLightGreenNewPng = loadImage("assets/item/book/light_green_new.png")
+    ItemBookPurpleNewPng = loadImage("assets/item/book/purple_new.png")
+    ItemBookLightGreenOldPng = loadImage("assets/item/book/light_green_old.png")
+    ItemBookMetalBlueNewPng = loadImage("assets/item/book/metal_blue_new.png")
+    ItemBookParchmentOldPng = loadImage("assets/item/book/parchment_old.png")
+    ItemBookLightBlueNewPng = loadImage("assets/item/book/light_blue_new.png")
+    ItemBookLeatherOldPng = loadImage("assets/item/book/leather_old.png")
+    ItemBookManual1Png = loadImage("assets/item/book/manual_1.png")
+    ItemBookRedNewPng = loadImage("assets/item/book/red_new.png")
+    ItemBookGlitteringPng = loadImage("assets/item/book/glittering.png")
+    ItemBookBookIndigoPng = loadImage("assets/item/book/book_indigo.png")
+    ItemBookLightGrayNewPng = loadImage("assets/item/book/light_gray_new.png")
+    ItemBookPlaidOldPng = loadImage("assets/item/book/plaid_old.png")
+    ItemBookBookOfTheDeadNewPng = loadImage("assets/item/book/book_of_the_dead_new.png")
+    ItemBookMagentaOldPng = loadImage("assets/item/book/magenta_old.png")
+    ItemBookPinkPng = loadImage("assets/item/book/pink.png")
+    ItemBookCyanNewPng = loadImage("assets/item/book/cyan_new.png")
+    ItemBookMetalCyanOldPng = loadImage("assets/item/book/metal_cyan_old.png")
+    ItemBookLightBrownNewPng = loadImage("assets/item/book/light_brown_new.png")
+    ItemBookLightBlueOldPng = loadImage("assets/item/book/light_blue_old.png")
+    ItemBookCyanOldPng = loadImage("assets/item/book/cyan_old.png")
+    ItemBookDarkGreenNewPng = loadImage("assets/item/book/dark_green_new.png")
+    ItemBookLeatherNewPng = loadImage("assets/item/book/leather_new.png")
+    ItemBookMetalGreenOldPng = loadImage("assets/item/book/metal_green_old.png")
+    ItemBookSilverPng = loadImage("assets/item/book/silver.png")
+    ItemBookTanNewPng = loadImage("assets/item/book/tan_new.png")
+    ItemBookYellowOldPng = loadImage("assets/item/book/yellow_old.png")
+    ItemBookArtefactThinNewPng = loadImage("assets/item/book/artefact/thin_new.png")
+    ItemBookArtefactBookmarkNewPng = loadImage("assets/item/book/artefact/bookmark_new.png")
+    ItemBookArtefactVelvetOldPng = loadImage("assets/item/book/artefact/velvet_old.png")
+    ItemBookArtefactVellumNewPng = loadImage("assets/item/book/artefact/vellum_new.png")
+    ItemBookArtefactWrinkledOldPng = loadImage("assets/item/book/artefact/wrinkled_old.png")
+    ItemBookArtefactBuckleNewPng = loadImage("assets/item/book/artefact/buckle_new.png")
+    ItemBookArtefactBuckleOldPng = loadImage("assets/item/book/artefact/buckle_old.png")
+    ItemBookArtefactThinOldPng = loadImage("assets/item/book/artefact/thin_old.png")
+    ItemBookArtefactThickOldPng = loadImage("assets/item/book/artefact/thick_old.png")
+    ItemBookArtefactThickNewPng = loadImage("assets/item/book/artefact/thick_new.png")
+    ItemBookArtefactBookmarkOldPng = loadImage("assets/item/book/artefact/bookmark_old.png")
+    ItemBookArtefactVellumOldPng = loadImage("assets/item/book/artefact/vellum_old.png")
+    ItemBookArtefactWrinkledNewPng = loadImage("assets/item/book/artefact/wrinkled_new.png")
+    ItemBookArtefactVelvetNewPng = loadImage("assets/item/book/artefact/velvet_new.png")
+    ItemRingCopperPng = loadImage("assets/item/ring/copper.png")
+    ItemRingTourmalinePng = loadImage("assets/item/ring/tourmaline.png")
+    ItemRingPlainRedPng = loadImage("assets/item/ring/plain_red.png")
+    ItemRingWoodenPng = loadImage("assets/item/ring/wooden.png")
+    ItemRingRingTopazPng = loadImage("assets/item/ring/ring_topaz.png")
+    ItemRingRingIvoryPng = loadImage("assets/item/ring/ring_ivory.png")
+    ItemRingRingPlainBluePng = loadImage("assets/item/ring/ring_plain_blue.png")
+    ItemRingDiamondPng = loadImage("assets/item/ring/diamond.png")
+    ItemRingPlainYellowPng = loadImage("assets/item/ring/plain_yellow.png")
+    ItemRingRingPlainMagentaPng = loadImage("assets/item/ring/ring_plain_magenta.png")
+    ItemRingAgatePng = loadImage("assets/item/ring/agate.png")
+    ItemRingRingGoldCyanPng = loadImage("assets/item/ring/ring_gold_cyan.png")
+    ItemRingTigerEyePng = loadImage("assets/item/ring/tiger_eye.png")
+    ItemRingGoldPng = loadImage("assets/item/ring/gold.png")
+    ItemRingGoldBluePng = loadImage("assets/item/ring/gold_blue.png")
+    ItemRingGranitePng = loadImage("assets/item/ring/granite.png")
+    ItemRingEmeraldPng = loadImage("assets/item/ring/emerald.png")
+    ItemRingCoralPng = loadImage("assets/item/ring/coral.png")
+    ItemRingGlassPng = loadImage("assets/item/ring/glass.png")
+    ItemRingRingGoldWhitePng = loadImage("assets/item/ring/ring_gold_white.png")
+    ItemRingClayPng = loadImage("assets/item/ring/clay.png")
+    ItemRingIronPng = loadImage("assets/item/ring/iron.png")
+    ItemRingRingPlainGreenPng = loadImage("assets/item/ring/ring_plain_green.png")
+    ItemRingJadePng = loadImage("assets/item/ring/jade.png")
+    ItemRingBronzePng = loadImage("assets/item/ring/bronze.png")
+    ItemRingRingBlackOnyxPng = loadImage("assets/item/ring/ring_black_onyx.png")
+    ItemRingMoonstonePng = loadImage("assets/item/ring/moonstone.png")
+    ItemRingGoldGreenPng = loadImage("assets/item/ring/gold_green.png")
+    ItemRingRingRubyPng = loadImage("assets/item/ring/ring_ruby.png")
+    ItemRingRingGoldMagentaPng = loadImage("assets/item/ring/ring_gold_magenta.png")
+    ItemRingRingTwistedPng = loadImage("assets/item/ring/ring_twisted.png")
+    ItemRingGoldRedPng = loadImage("assets/item/ring/gold_red.png")
+    ItemRingPearlPng = loadImage("assets/item/ring/pearl.png")
+    ItemRingBrassPng = loadImage("assets/item/ring/brass.png")
+    ItemRingOpalPng = loadImage("assets/item/ring/opal.png")
+    ItemRingRingGoldYellowPng = loadImage("assets/item/ring/ring_gold_yellow.png")
+    ItemRingRubyPng = loadImage("assets/item/ring/ruby.png")
+    ItemRingRingSapphirePng = loadImage("assets/item/ring/ring_sapphire.png")
+    ItemRingRingEngagementPng = loadImage("assets/item/ring/ring_engagement.png")
+    ItemRingPlainBlackPng = loadImage("assets/item/ring/plain_black.png")
+    ItemRingSilverPng = loadImage("assets/item/ring/silver.png")
+    ItemRingSteelPng = loadImage("assets/item/ring/steel.png")
+    ItemRingRingShinyPng = loadImage("assets/item/ring/ring_shiny.png")
+    ItemRingArtefactUrandMagePng = loadImage("assets/item/ring/artefact/urand_mage.png")
+    ItemRingArtefactUrandShadowsOldPng = loadImage("assets/item/ring/artefact/urand_shadows_old.png")
+    ItemRingArtefactUrandShaolinPng = loadImage("assets/item/ring/artefact/urand_shaolin.png")
+    ItemRingArtefactUrandRobustnessPng = loadImage("assets/item/ring/artefact/urand_robustness.png")
+    ItemRingArtefactUrandOctoringPng = loadImage("assets/item/ring/artefact/urand_octoring.png")
+    ItemRingArtefactUrandShadowsNewPng = loadImage("assets/item/ring/artefact/urand_shadows_new.png")
+    ItemWandGemPlasticOldPng = loadImage("assets/item/wand/gem_plastic_old.png")
+    ItemWandWandCopperPng = loadImage("assets/item/wand/wand_copper.png")
+    ItemWandGemGoldOldPng = loadImage("assets/item/wand/gem_gold_old.png")
+    ItemWandGemBrassNewPng = loadImage("assets/item/wand/gem_brass_new.png")
+    ItemWandGemWoodNewPng = loadImage("assets/item/wand/gem_wood_new.png")
+    ItemWandGemSilverOldPng = loadImage("assets/item/wand/gem_silver_old.png")
+    ItemWandGemCopperNewPng = loadImage("assets/item/wand/gem_copper_new.png")
+    ItemWandGemGlassOldPng = loadImage("assets/item/wand/gem_glass_old.png")
+    ItemWandGemBoneOldPng = loadImage("assets/item/wand/gem_bone_old.png")
+    ItemWandGemBronzeOldPng = loadImage("assets/item/wand/gem_bronze_old.png")
+    ItemWandGemIronOldPng = loadImage("assets/item/wand/gem_iron_old.png")
+    ItemWandGemBoneNewPng = loadImage("assets/item/wand/gem_bone_new.png")
+    ItemWandGemIvoryNewPng = loadImage("assets/item/wand/gem_ivory_new.png")
+    ItemWandGemIronNewPng = loadImage("assets/item/wand/gem_iron_new.png")
+    ItemWandWandBrassPng = loadImage("assets/item/wand/wand_brass.png")
+    ItemWandGemCopperOldPng = loadImage("assets/item/wand/gem_copper_old.png")
+    ItemWandWandSilverPng = loadImage("assets/item/wand/wand_silver.png")
+    ItemWandGemGoldNewPng = loadImage("assets/item/wand/gem_gold_new.png")
+    ItemWandGemGlassNewPng = loadImage("assets/item/wand/gem_glass_new.png")
+    ItemWandGemBronzeNewPng = loadImage("assets/item/wand/gem_bronze_new.png")
+    ItemWandGemSilverNewPng = loadImage("assets/item/wand/gem_silver_new.png")
+    ItemWandGemPlasticNewPng = loadImage("assets/item/wand/gem_plastic_new.png")
+    ItemWandGemIvoryOldPng = loadImage("assets/item/wand/gem_ivory_old.png")
+    ItemWandGemLeadOldPng = loadImage("assets/item/wand/gem_lead_old.png")
+    ItemWandGemBrassOldPng = loadImage("assets/item/wand/gem_brass_old.png")
+    ItemWandGemWoodOldPng = loadImage("assets/item/wand/gem_wood_old.png")
+    ItemWandGemLeadNewPng = loadImage("assets/item/wand/gem_lead_new.png")
+    ItemStaffStaff6Png = loadImage("assets/item/staff/staff_6.png")
+    ItemStaffStaff3Png = loadImage("assets/item/staff/staff_3.png")
+    ItemStaffStaff0Png = loadImage("assets/item/staff/staff_0.png")
+    ItemStaffStaff2Png = loadImage("assets/item/staff/staff_2.png")
+    ItemStaffStaff9Png = loadImage("assets/item/staff/staff_9.png")
+    ItemStaffStaff8Png = loadImage("assets/item/staff/staff_8.png")
+    ItemStaffStaff5Png = loadImage("assets/item/staff/staff_5.png")
+    ItemStaffStaff1Png = loadImage("assets/item/staff/staff_1.png")
+    ItemStaffStaff7Png = loadImage("assets/item/staff/staff_7.png")
+    ItemStaffStaff4Png = loadImage("assets/item/staff/staff_4.png")
+    ItemRodRod2OldPng = loadImage("assets/item/rod/rod_2_old.png")
+    ItemRodRod3OldPng = loadImage("assets/item/rod/rod_3_old.png")
+    ItemRodRod4OldPng = loadImage("assets/item/rod/rod_4_old.png")
+    ItemRodRod6OldPng = loadImage("assets/item/rod/rod_6_old.png")
+    ItemRodRod7OldPng = loadImage("assets/item/rod/rod_7_old.png")
+    ItemRodRod0NewPng = loadImage("assets/item/rod/rod_0_new.png")
+    ItemRodRod5OldPng = loadImage("assets/item/rod/rod_5_old.png")
+    ItemRodRod5NewPng = loadImage("assets/item/rod/rod_5_new.png")
+    ItemRodRod9NewPng = loadImage("assets/item/rod/rod_9_new.png")
+    ItemRodRod2NewPng = loadImage("assets/item/rod/rod_2_new.png")
+    ItemRodRod7NewPng = loadImage("assets/item/rod/rod_7_new.png")
+    ItemRodRod0OldPng = loadImage("assets/item/rod/rod_0_old.png")
+    ItemRodRod4NewPng = loadImage("assets/item/rod/rod_4_new.png")
+    ItemRodRod6NewPng = loadImage("assets/item/rod/rod_6_new.png")
+    ItemRodRod9OldPng = loadImage("assets/item/rod/rod_9_old.png")
+    ItemRodRod8OldPng = loadImage("assets/item/rod/rod_8_old.png")
+    ItemRodRod8NewPng = loadImage("assets/item/rod/rod_8_new.png")
+    ItemRodRodForkedPng = loadImage("assets/item/rod/rod_forked.png")
+    ItemRodRod3NewPng = loadImage("assets/item/rod/rod_3_new.png")
+    ItemRodRod1NewPng = loadImage("assets/item/rod/rod_1_new.png")
+    ItemRodRod1OldPng = loadImage("assets/item/rod/rod_1_old.png")
+    ItemArmorBackCloak3Png = loadImage("assets/item/armor/back/cloak_3.png")
+    ItemArmorBackCloak1LeatherPng = loadImage("assets/item/armor/back/cloak_1_leather.png")
+    ItemArmorBackCloak2Png = loadImage("assets/item/armor/back/cloak_2.png")
+    ItemArmorBackCloak4Png = loadImage("assets/item/armor/back/cloak_4.png")
+    ItemArmorTorsoShadowDragonScaleMailPng = loadImage("assets/item/armor/torso/shadow_dragon_scale_mail.png")
+    ItemArmorTorsoLeatherArmor2Png = loadImage("assets/item/armor/torso/leather_armor_2.png")
+    ItemArmorTorsoBlueDragonScaleMailOldPng = loadImage("assets/item/armor/torso/blue_dragon_scale_mail_old.png")
+    ItemArmorTorsoIceDragonArmorOldPng = loadImage("assets/item/armor/torso/ice_dragon_armor_old.png")
+    ItemArmorTorsoElvenLeatherArmorPng = loadImage("assets/item/armor/torso/elven_leather_armor.png")
+    ItemArmorTorsoTrollLeatherArmorPng = loadImage("assets/item/armor/torso/troll_leather_armor.png")
+    ItemArmorTorsoChainMail1Png = loadImage("assets/item/armor/torso/chain_mail_1.png")
+    ItemArmorTorsoRingMail2NewPng = loadImage("assets/item/armor/torso/ring_mail_2_new.png")
+    ItemArmorTorsoCrystalPlateMailPng = loadImage("assets/item/armor/torso/crystal_plate_mail.png")
+    ItemArmorTorsoOrcishChainMailPng = loadImage("assets/item/armor/torso/orcish_chain_mail.png")
+    ItemArmorTorsoAnimalSkin2OldPng = loadImage("assets/item/armor/torso/animal_skin_2_old.png")
+    ItemArmorTorsoOrcishRingmailPng = loadImage("assets/item/armor/torso/orcish_ringmail.png")
+    ItemArmorTorsoRobeArt1Png = loadImage("assets/item/armor/torso/robe_art_1.png")
+    ItemArmorTorsoMottledDragonHideOldPng = loadImage("assets/item/armor/torso/mottled_dragon_hide_old.png")
+    ItemArmorTorsoSwampDragonHideOldPng = loadImage("assets/item/armor/torso/swamp_dragon_hide_old.png")
+    ItemArmorTorsoSwampDragonArmorNewPng = loadImage("assets/item/armor/torso/swamp_dragon_armor_new.png")
+    ItemArmorTorsoRingMail1NewPng = loadImage("assets/item/armor/torso/ring_mail_1_new.png")
+    ItemArmorTorsoRobe2OldPng = loadImage("assets/item/armor/torso/robe_2_old.png")
+    ItemArmorTorsoLeatherArmor1Png = loadImage("assets/item/armor/torso/leather_armor_1.png")
+    ItemArmorTorsoGoldDragonArmorOldPng = loadImage("assets/item/armor/torso/gold_dragon_armor_old.png")
+    ItemArmorTorsoMottledDragonArmorOldPng = loadImage("assets/item/armor/torso/mottled_dragon_armor_old.png")
+    ItemArmorTorsoMottledDragonHideNewPng = loadImage("assets/item/armor/torso/mottled_dragon_hide_new.png")
+    ItemArmorTorsoSplintMail2Png = loadImage("assets/item/armor/torso/splint_mail_2.png")
+    ItemArmorTorsoSilverDragonScalesNewPng = loadImage("assets/item/armor/torso/silver_dragon_scales_new.png")
+    ItemArmorTorsoSilverDragonScaleMailNewPng = loadImage("assets/item/armor/torso/silver_dragon_scale_mail_new.png")
+    ItemArmorTorsoSilverDragonScalesOldPng = loadImage("assets/item/armor/torso/silver_dragon_scales_old.png")
+    ItemArmorTorsoChainMail3Png = loadImage("assets/item/armor/torso/chain_mail_3.png")
+    ItemArmorTorsoBlueDragonScaleMailNewPng = loadImage("assets/item/armor/torso/blue_dragon_scale_mail_new.png")
+    ItemArmorTorsoGreenDragonScalesPng = loadImage("assets/item/armor/torso/green_dragon_scales.png")
+    ItemArmorTorsoRobe1OldPng = loadImage("assets/item/armor/torso/robe_1_old.png")
+    ItemArmorTorsoBandedMail2Png = loadImage("assets/item/armor/torso/banded_mail_2.png")
+    ItemArmorTorsoGoldDragonHideNewPng = loadImage("assets/item/armor/torso/gold_dragon_hide_new.png")
+    ItemArmorTorsoRobe2NewPng = loadImage("assets/item/armor/torso/robe_2_new.png")
+    ItemArmorTorsoElvenRingmailPng = loadImage("assets/item/armor/torso/elven_ringmail.png")
+    ItemArmorTorsoScaleMail1NewPng = loadImage("assets/item/armor/torso/scale_mail_1_new.png")
+    ItemArmorTorsoPlateMail2Png = loadImage("assets/item/armor/torso/plate_mail_2.png")
+    ItemArmorTorsoChainMail2Png = loadImage("assets/item/armor/torso/chain_mail_2.png")
+    ItemArmorTorsoPlate1Png = loadImage("assets/item/armor/torso/plate_1.png")
+    ItemArmorTorsoScaleMail2OldPng = loadImage("assets/item/armor/torso/scale_mail_2_old.png")
+    ItemArmorTorsoBlueDragonScalesOldPng = loadImage("assets/item/armor/torso/blue_dragon_scales_old.png")
+    ItemArmorTorsoShadowDragonScalesPng = loadImage("assets/item/armor/torso/shadow_dragon_scales.png")
+    ItemArmorTorsoRobe3Png = loadImage("assets/item/armor/torso/robe_3.png")
+    ItemArmorTorsoIceDragonHideNewPng = loadImage("assets/item/armor/torso/ice_dragon_hide_new.png")
+    ItemArmorTorsoLeatherArmor3Png = loadImage("assets/item/armor/torso/leather_armor_3.png")
+    ItemArmorTorsoRobeArt2Png = loadImage("assets/item/armor/torso/robe_art_2.png")
+    ItemArmorTorsoTrollHidePng = loadImage("assets/item/armor/torso/troll_hide.png")
+    ItemArmorTorsoRingMail2OldPng = loadImage("assets/item/armor/torso/ring_mail_2_old.png")
+    ItemArmorTorsoScaleMail2NewPng = loadImage("assets/item/armor/torso/scale_mail_2_new.png")
+    ItemArmorTorsoGoldDragonHideOldPng = loadImage("assets/item/armor/torso/gold_dragon_hide_old.png")
+    ItemArmorTorsoQuicksilverDragonScaleMailPng = loadImage("assets/item/armor/torso/quicksilver_dragon_scale_mail.png")
+    ItemArmorTorsoSplintMail1Png = loadImage("assets/item/armor/torso/splint_mail_1.png")
+    ItemArmorTorsoAnimalSkin2NewPng = loadImage("assets/item/armor/torso/animal_skin_2_new.png")
+    ItemArmorTorsoOrcishPlate2Png = loadImage("assets/item/armor/torso/orcish_plate_2.png")
+    ItemArmorTorsoBandedMail1Png = loadImage("assets/item/armor/torso/banded_mail_1.png")
+    ItemArmorTorsoBlueDragonScalesNewPng = loadImage("assets/item/armor/torso/blue_dragon_scales_new.png")
+    ItemArmorTorsoSwampDragonArmorOldPng = loadImage("assets/item/armor/torso/swamp_dragon_armor_old.png")
+    ItemArmorTorsoRingMail3Png = loadImage("assets/item/armor/torso/ring_mail_3.png")
+    ItemArmorTorsoRobe1NewPng = loadImage("assets/item/armor/torso/robe_1_new.png")
+    ItemArmorTorsoElvenScalemailPng = loadImage("assets/item/armor/torso/elven_scalemail.png")
+    ItemArmorTorsoAnimalSkin1OldPng = loadImage("assets/item/armor/torso/animal_skin_1_old.png")
+    ItemArmorTorsoSilverDragonScaleMailOldPng = loadImage("assets/item/armor/torso/silver_dragon_scale_mail_old.png")
+    ItemArmorTorsoOrcishLeatherArmorPng = loadImage("assets/item/armor/torso/orcish_leather_armor.png")
+    ItemArmorTorsoQuicksilverDragonScalesPng = loadImage("assets/item/armor/torso/quicksilver_dragon_scales.png")
+    ItemArmorTorsoGoldDragonArmorNewPng = loadImage("assets/item/armor/torso/gold_dragon_armor_new.png")
+    ItemArmorTorsoGreenDragonScaleMailPng = loadImage("assets/item/armor/torso/green_dragon_scale_mail.png")
+    ItemArmorTorsoSwampDragonHideNewPng = loadImage("assets/item/armor/torso/swamp_dragon_hide_new.png")
+    ItemArmorTorsoOrcishPlatemailPng = loadImage("assets/item/armor/torso/orcish_platemail.png")
+    ItemArmorTorsoPearlDragonArmorPng = loadImage("assets/item/armor/torso/pearl_dragon_armor.png")
+    ItemArmorTorsoAnimalSkin1NewPng = loadImage("assets/item/armor/torso/animal_skin_1_new.png")
+    ItemArmorTorsoIceDragonHideOldPng = loadImage("assets/item/armor/torso/ice_dragon_hide_old.png")
+    ItemArmorTorsoDwarvenRingmailPng = loadImage("assets/item/armor/torso/dwarven_ringmail.png")
+    ItemArmorTorsoScaleMail1OldPng = loadImage("assets/item/armor/torso/scale_mail_1_old.png")
+    ItemArmorTorsoShimmeringDragonScalesPng = loadImage("assets/item/armor/torso/shimmering_dragon_scales.png")
+    ItemArmorTorsoRobeEgo1Png = loadImage("assets/item/armor/torso/robe_ego_1.png")
+    ItemArmorTorsoMottledDragonArmorNewPng = loadImage("assets/item/armor/torso/mottled_dragon_armor_new.png")
+    ItemArmorTorsoScaleMail3Png = loadImage("assets/item/armor/torso/scale_mail_3.png")
+    ItemArmorTorsoAnimalSkin3Png = loadImage("assets/item/armor/torso/animal_skin_3.png")
+    ItemArmorTorsoPlateMail1Png = loadImage("assets/item/armor/torso/plate_mail_1.png")
+    ItemArmorTorsoRobeEgo2Png = loadImage("assets/item/armor/torso/robe_ego_2.png")
+    ItemArmorTorsoStuddedLeatherArmorPng = loadImage("assets/item/armor/torso/studded_leather_armor.png")
+    ItemArmorTorsoIceDragonArmorNewPng = loadImage("assets/item/armor/torso/ice_dragon_armor_new.png")
+    ItemArmorTorsoPearlDragonHidePng = loadImage("assets/item/armor/torso/pearl_dragon_hide.png")
+    ItemArmorTorsoRingMail1OldPng = loadImage("assets/item/armor/torso/ring_mail_1_old.png")
+    ItemArmorFeetBoots3StripeOldPng = loadImage("assets/item/armor/feet/boots_3_stripe_old.png")
+    ItemArmorFeetBoots3StripeNewPng = loadImage("assets/item/armor/feet/boots_3_stripe_new.png")
+    ItemArmorFeetBoots1BrownNewPng = loadImage("assets/item/armor/feet/boots_1_brown_new.png")
+    ItemArmorFeetBoots2JackbootsPng = loadImage("assets/item/armor/feet/boots_2_jackboots.png")
+    ItemArmorFeetBootsIron2Png = loadImage("assets/item/armor/feet/boots_iron_2.png")
+    ItemArmorFeetBoots4GreenPng = loadImage("assets/item/armor/feet/boots_4_green.png")
+    ItemArmorFeetLowBootsPng = loadImage("assets/item/armor/feet/low_boots.png")
+    ItemArmorFeetBoots1BrownOldPng = loadImage("assets/item/armor/feet/boots_1_brown_old.png")
+    ItemArmorBardingsNagaBardingMagentaPng = loadImage("assets/item/armor/bardings/naga_barding_magenta.png")
+    ItemArmorBardingsCentaurBardingBluePng = loadImage("assets/item/armor/bardings/centaur_barding_blue.png")
+    ItemArmorBardingsNagaBardingBluePng = loadImage("assets/item/armor/bardings/naga_barding_blue.png")
+    ItemArmorBardingsNagaBardingMetalPng = loadImage("assets/item/armor/bardings/naga_barding_metal.png")
+    ItemArmorBardingsNagaBardingRedPng = loadImage("assets/item/armor/bardings/naga_barding_red.png")
+    ItemArmorBardingsCentaurBardingMetalPng = loadImage("assets/item/armor/bardings/centaur_barding_metal.png")
+    ItemArmorBardingsCentaurBardingMagentaPng = loadImage("assets/item/armor/bardings/centaur_barding_magenta.png")
+    ItemArmorBardingsCentaurBardingRedPng = loadImage("assets/item/armor/bardings/centaur_barding_red.png")
+    ItemArmorArtefactUrandRatskinCloakPng = loadImage("assets/item/armor/artefact/urand_ratskin_cloak.png")
+    ItemArmorArtefactUrandFlashPng = loadImage("assets/item/armor/artefact/urand_flash.png")
+    ItemArmorArtefactUrandLearPng = loadImage("assets/item/armor/artefact/urand_lear.png")
+    ItemArmorArtefactUrandIgnorancePng = loadImage("assets/item/armor/artefact/urand_ignorance.png")
+    ItemArmorArtefactUrandResistancePng = loadImage("assets/item/armor/artefact/urand_resistance.png")
+    ItemArmorArtefactUrandBullseyePng = loadImage("assets/item/armor/artefact/urand_bullseye.png")
+    ItemArmorArtefactUrandOrangeCrystalPng = loadImage("assets/item/armor/artefact/urand_orange_crystal.png")
+    ItemArmorArtefactUrandGongPng = loadImage("assets/item/armor/artefact/urand_gong.png")
+    ItemArmorArtefactUrandDragonmaskPng = loadImage("assets/item/armor/artefact/urand_dragonmask.png")
+    ItemArmorArtefactUrandDyroveprevaOldPng = loadImage("assets/item/armor/artefact/urand_dyrovepreva_old.png")
+    ItemArmorArtefactUrandDragonskinPng = loadImage("assets/item/armor/artefact/urand_dragonskin.png")
+    ItemArmorArtefactUrandCloudsPng = loadImage("assets/item/armor/artefact/urand_clouds.png")
+    ItemArmorArtefactUrandThiefPng = loadImage("assets/item/armor/artefact/urand_thief.png")
+    ItemArmorArtefactUrandMaxwellPng = loadImage("assets/item/armor/artefact/urand_maxwell.png")
+    ItemArmorArtefactUrandAugmentationPng = loadImage("assets/item/armor/artefact/urand_augmentation.png")
+    ItemArmorArtefactUrandFollyPng = loadImage("assets/item/armor/artefact/urand_folly.png")
+    ItemArmorArtefactUrandPonderingOldPng = loadImage("assets/item/armor/artefact/urand_pondering_old.png")
+    ItemArmorArtefactUrandHighCouncilPng = loadImage("assets/item/armor/artefact/urand_high_council.png")
+    ItemArmorArtefactUrandDragonKingPng = loadImage("assets/item/armor/artefact/urand_dragon_king.png")
+    ItemArmorArtefactUrandZhorPng = loadImage("assets/item/armor/artefact/urand_zhor.png")
+    ItemArmorArtefactUrandEternalTormentPng = loadImage("assets/item/armor/artefact/urand_eternal_torment.png")
+    ItemArmorArtefactUrandFaeriePng = loadImage("assets/item/armor/artefact/urand_faerie.png")
+    ItemArmorArtefactUrandNightOldPng = loadImage("assets/item/armor/artefact/urand_night_old.png")
+    ItemArmorArtefactUrandBkBardingPng = loadImage("assets/item/armor/artefact/urand_bk_barding.png")
+    ItemArmorArtefactUrandEthericCagePng = loadImage("assets/item/armor/artefact/urand_etheric_cage.png")
+    ItemArmorArtefactUrandFencerNewPng = loadImage("assets/item/armor/artefact/urand_fencer_new.png")
+    ItemArmorArtefactUrandAssassinPng = loadImage("assets/item/armor/artefact/urand_assassin.png")
+    ItemArmorArtefactUrandStarlightPng = loadImage("assets/item/armor/artefact/urand_starlight.png")
+    ItemArmorArtefactUrandNightNewPng = loadImage("assets/item/armor/artefact/urand_night_new.png")
+    ItemArmorArtefactUrandAlchemistPng = loadImage("assets/item/armor/artefact/urand_alchemist.png")
+    ItemArmorArtefactUrandDyroveprevaNewPng = loadImage("assets/item/armor/artefact/urand_dyrovepreva_new.png")
+    ItemArmorArtefactUrandBearPng = loadImage("assets/item/armor/artefact/urand_bear.png")
+    ItemArmorArtefactUrandMisfortunePng = loadImage("assets/item/armor/artefact/urand_misfortune.png")
+    ItemArmorArtefactUrandPonderingNewPng = loadImage("assets/item/armor/artefact/urand_pondering_new.png")
+    ItemArmorArtefactUrandSalamanderPng = loadImage("assets/item/armor/artefact/urand_salamander.png")
+    ItemArmorArtefactUrandLightningScalesPng = loadImage("assets/item/armor/artefact/urand_lightning_scales.png")
+    ItemArmorArtefactUrandWarPng = loadImage("assets/item/armor/artefact/urand_war.png")
+    ItemArmorArtefactUrandFencerOldPng = loadImage("assets/item/armor/artefact/urand_fencer_old.png")
+    ItemArmorHeadgearHelmet4VisorPng = loadImage("assets/item/armor/headgear/helmet_4_visor.png")
+    ItemArmorHeadgearWizardHat1Png = loadImage("assets/item/armor/headgear/wizard_hat_1.png")
+    ItemArmorHeadgearHelmet1Png = loadImage("assets/item/armor/headgear/helmet_1.png")
+    ItemArmorHeadgearHelmetArt1Png = loadImage("assets/item/armor/headgear/helmet_art_1.png")
+    ItemArmorHeadgearCrestedHelmetPng = loadImage("assets/item/armor/headgear/crested_helmet.png")
+    ItemArmorHeadgearWizardHat2Png = loadImage("assets/item/armor/headgear/wizard_hat_2.png")
+    ItemArmorHeadgearCornuthaumPng = loadImage("assets/item/armor/headgear/cornuthaum.png")
+    ItemArmorHeadgearHelmetEgo1Png = loadImage("assets/item/armor/headgear/helmet_ego_1.png")
+    ItemArmorHeadgearHelmet2Png = loadImage("assets/item/armor/headgear/helmet_2.png")
+    ItemArmorHeadgearHelmet3NewPng = loadImage("assets/item/armor/headgear/helmet_3_new.png")
+    ItemArmorHeadgearHelmet3OldPng = loadImage("assets/item/armor/headgear/helmet_3_old.png")
+    ItemArmorHeadgearHelmet2EtchedPng = loadImage("assets/item/armor/headgear/helmet_2_etched.png")
+    ItemArmorHeadgearHelmet4Png = loadImage("assets/item/armor/headgear/helmet_4.png")
+    ItemArmorHeadgearHelmetEgo2Png = loadImage("assets/item/armor/headgear/helmet_ego_2.png")
+    ItemArmorHeadgearHat3Png = loadImage("assets/item/armor/headgear/hat_3.png")
+    ItemArmorHeadgearElvenLeatherHelmPng = loadImage("assets/item/armor/headgear/elven_leather_helm.png")
+    ItemArmorHeadgearCap1Png = loadImage("assets/item/armor/headgear/cap_1.png")
+    ItemArmorHeadgearHelmetArt3Png = loadImage("assets/item/armor/headgear/helmet_art_3.png")
+    ItemArmorHeadgearHelmetEgo4Png = loadImage("assets/item/armor/headgear/helmet_ego_4.png")
+    ItemArmorHeadgearPlumedHelmetPng = loadImage("assets/item/armor/headgear/plumed_helmet.png")
+    ItemArmorHeadgearCapJesterPng = loadImage("assets/item/armor/headgear/cap_jester.png")
+    ItemArmorHeadgearHelmetArt2Png = loadImage("assets/item/armor/headgear/helmet_art_2.png")
+    ItemArmorHeadgearHat2Png = loadImage("assets/item/armor/headgear/hat_2.png")
+    ItemArmorHeadgearHelmet5Png = loadImage("assets/item/armor/headgear/helmet_5.png")
+    ItemArmorHeadgearGreenMaskPng = loadImage("assets/item/armor/headgear/green_mask.png")
+    ItemArmorHeadgearHat1Png = loadImage("assets/item/armor/headgear/hat_1.png")
+    ItemArmorHeadgearHelmet1VisoredPng = loadImage("assets/item/armor/headgear/helmet_1_visored.png")
+    ItemArmorHeadgearHelmetEgo3Png = loadImage("assets/item/armor/headgear/helmet_ego_3.png")
+    ItemArmorHeadgearCap2Png = loadImage("assets/item/armor/headgear/cap_2.png")
+    ItemArmorShieldsShieldOfReflectionPng = loadImage("assets/item/armor/shields/shield_of_reflection.png")
+    ItemArmorShieldsShieldDdPng = loadImage("assets/item/armor/shields/shield_dd.png")
+    ItemArmorShieldsShield2KitePng = loadImage("assets/item/armor/shields/shield_2_kite.png")
+    ItemArmorShieldsBuckler3OldPng = loadImage("assets/item/armor/shields/buckler_3_old.png")
+    ItemArmorShieldsShield2OldPng = loadImage("assets/item/armor/shields/shield_2_old.png")
+    ItemArmorShieldsShield3Png = loadImage("assets/item/armor/shields/shield_3.png")
+    ItemArmorShieldsShield1ElvenPng = loadImage("assets/item/armor/shields/shield_1_elven.png")
+    ItemArmorShieldsBuckler3NewPng = loadImage("assets/item/armor/shields/buckler_3_new.png")
+    ItemArmorShieldsShield1Png = loadImage("assets/item/armor/shields/shield_1.png")
+    ItemArmorShieldsShield4SprigganPng = loadImage("assets/item/armor/shields/shield_4_spriggan.png")
+    ItemArmorShieldsLargeShield2NewPng = loadImage("assets/item/armor/shields/large_shield_2_new.png")
+    ItemArmorShieldsShield2NewPng = loadImage("assets/item/armor/shields/shield_2_new.png")
+    ItemArmorShieldsBuckler2NewPng = loadImage("assets/item/armor/shields/buckler_2_new.png")
+    ItemArmorShieldsLargeShield1NewPng = loadImage("assets/item/armor/shields/large_shield_1_new.png")
+    ItemArmorShieldsLshieldDdDkPng = loadImage("assets/item/armor/shields/lshield_dd_dk.png")
+    ItemArmorShieldsShieldDonaldPng = loadImage("assets/item/armor/shields/shield_donald.png")
+    ItemArmorShieldsLargeShield2OldPng = loadImage("assets/item/armor/shields/large_shield_2_old.png")
+    ItemArmorShieldsLshieldLouisePng = loadImage("assets/item/armor/shields/lshield_louise.png")
+    ItemArmorShieldsLargeShield3OldPng = loadImage("assets/item/armor/shields/large_shield_3_old.png")
+    ItemArmorShieldsLargeShield3NewPng = loadImage("assets/item/armor/shields/large_shield_3_new.png")
+    ItemArmorShieldsBuckler2OldPng = loadImage("assets/item/armor/shields/buckler_2_old.png")
+    ItemArmorShieldsElvenBuckler1Png = loadImage("assets/item/armor/shields/elven_buckler_1.png")
+    ItemArmorShieldsBuckler1OldPng = loadImage("assets/item/armor/shields/buckler_1_old.png")
+    ItemArmorShieldsDwarvenBuckler2Png = loadImage("assets/item/armor/shields/dwarven_buckler_2.png")
+    ItemArmorShieldsBuckler1NewPng = loadImage("assets/item/armor/shields/buckler_1_new.png")
+    ItemArmorShieldsShieldDdScionPng = loadImage("assets/item/armor/shields/shield_dd_scion.png")
+    ItemArmorShieldsDwarvenBuckler1Png = loadImage("assets/item/armor/shields/dwarven_buckler_1.png")
+    ItemArmorShieldsElvenBuckler2Png = loadImage("assets/item/armor/shields/elven_buckler_2.png")
+    ItemArmorShieldsShield3RoundPng = loadImage("assets/item/armor/shields/shield_3_round.png")
+    ItemArmorShieldsLargeShield1OldPng = loadImage("assets/item/armor/shields/large_shield_1_old.png")
+    ItemArmorHandsGlove2NewPng = loadImage("assets/item/armor/hands/glove_2_new.png")
+    ItemArmorHandsGlove2OldPng = loadImage("assets/item/armor/hands/glove_2_old.png")
+    ItemArmorHandsGlove3OldPng = loadImage("assets/item/armor/hands/glove_3_old.png")
+    ItemArmorHandsGauntlet1Png = loadImage("assets/item/armor/hands/gauntlet_1.png")
+    ItemArmorHandsGlove1NewPng = loadImage("assets/item/armor/hands/glove_1_new.png")
+    ItemArmorHandsGlove4OldPng = loadImage("assets/item/armor/hands/glove_4_old.png")
+    ItemArmorHandsGlove5Png = loadImage("assets/item/armor/hands/glove_5.png")
+    ItemArmorHandsGlove4NewPng = loadImage("assets/item/armor/hands/glove_4_new.png")
+    ItemArmorHandsGlove1OldPng = loadImage("assets/item/armor/hands/glove_1_old.png")
+    ItemArmorHandsGlove4GauntletsPng = loadImage("assets/item/armor/hands/glove_4_gauntlets.png")
+    ItemArmorHandsGlove3NewPng = loadImage("assets/item/armor/hands/glove_3_new.png")
+    ItemPotionPotionGoldenPng = loadImage("assets/item/potion/potion_golden.png")
+    ItemPotionPotionPurpleRedPng = loadImage("assets/item/potion/potion_purple_red.png")
+    ItemPotionBlackNewPng = loadImage("assets/item/potion/black_new.png")
+    ItemPotionMurkyPng = loadImage("assets/item/potion/murky.png")
+    ItemPotionPotionPucePng = loadImage("assets/item/potion/potion_puce.png")
+    ItemPotionDarkPng = loadImage("assets/item/potion/dark.png")
+    ItemPotionOrangeOldPng = loadImage("assets/item/potion/orange_old.png")
+    ItemPotionEffervescentPng = loadImage("assets/item/potion/effervescent.png")
+    ItemPotionPotionCloudyPng = loadImage("assets/item/potion/potion_cloudy.png")
+    ItemPotionPurpleRedPng = loadImage("assets/item/potion/purple_red.png")
+    ItemPotionBlackOldPng = loadImage("assets/item/potion/black_old.png")
+    ItemPotionILabelPng = loadImage("assets/item/potion/i-label.png")
+    ItemPotionEmeraldPng = loadImage("assets/item/potion/emerald.png")
+    ItemPotionMagentaNewPng = loadImage("assets/item/potion/magenta_new.png")
+    ItemPotionClearPng = loadImage("assets/item/potion/clear.png")
+    ItemPotionWhiteNewPng = loadImage("assets/item/potion/white_new.png")
+    ItemPotionBrownOldPng = loadImage("assets/item/potion/brown_old.png")
+    ItemPotionYellowNewPng = loadImage("assets/item/potion/yellow_new.png")
+    ItemPotionRubyOldPng = loadImage("assets/item/potion/ruby_old.png")
+    ItemPotionPotionMurkyPng = loadImage("assets/item/potion/potion_murky.png")
+    ItemPotionOrangeNewPng = loadImage("assets/item/potion/orange_new.png")
+    ItemPotionWhiteOldPng = loadImage("assets/item/potion/white_old.png")
+    ItemPotionBubblyPng = loadImage("assets/item/potion/bubbly.png")
+    ItemPotionBrilliantBlueNewPng = loadImage("assets/item/potion/brilliant_blue_new.png")
+    ItemPotionFizzyPng = loadImage("assets/item/potion/fizzy.png")
+    ItemPotionGoldenPng = loadImage("assets/item/potion/golden.png")
+    ItemPotionPotionEffervescentPng = loadImage("assets/item/potion/potion_effervescent.png")
+    ItemPotionCloudyPng = loadImage("assets/item/potion/cloudy.png")
+    ItemPotionPotionFizzyPng = loadImage("assets/item/potion/potion_fizzy.png")
+    ItemPotionUnknownPng = loadImage("assets/item/potion/unknown.png")
+    ItemPotionPotionSkyBluePng = loadImage("assets/item/potion/potion_sky_blue.png")
+    ItemPotionMagentaOldPng = loadImage("assets/item/potion/magenta_old.png")
+    ItemPotionPotionBubblyPng = loadImage("assets/item/potion/potion_bubbly.png")
+    ItemPotionBrownNewPng = loadImage("assets/item/potion/brown_new.png")
+    ItemPotionPinkPng = loadImage("assets/item/potion/pink.png")
+    ItemPotionSkyBluePng = loadImage("assets/item/potion/sky_blue.png")
+    ItemPotionCyanNewPng = loadImage("assets/item/potion/cyan_new.png")
+    ItemPotionPucePng = loadImage("assets/item/potion/puce.png")
+    ItemPotionBrilliantBlueOldPng = loadImage("assets/item/potion/brilliant_blue_old.png")
+    ItemPotionCyanOldPng = loadImage("assets/item/potion/cyan_old.png")
+    ItemPotionRubyNewPng = loadImage("assets/item/potion/ruby_new.png")
+    ItemPotionSilverPng = loadImage("assets/item/potion/silver.png")
+    ItemPotionYellowOldPng = loadImage("assets/item/potion/yellow_old.png")
+    ItemWeaponFalchion1OldPng = loadImage("assets/item/weapon/falchion_1_old.png")
+    ItemWeaponFlail7Png = loadImage("assets/item/weapon/flail_7.png")
+    ItemWeaponLongSword2Png = loadImage("assets/item/weapon/long_sword_2.png")
+    ItemWeaponCutlass5Png = loadImage("assets/item/weapon/cutlass_5.png")
+    ItemWeaponStaffMummyPng = loadImage("assets/item/weapon/staff_mummy.png")
+    ItemWeaponDireFlail1Png = loadImage("assets/item/weapon/dire_flail_1.png")
+    ItemWeaponEveningstar6Png = loadImage("assets/item/weapon/eveningstar_6.png")
+    ItemWeaponGreatsword1NewPng = loadImage("assets/item/weapon/greatsword_1_new.png")
+    ItemWeaponMaceLarge2OldPng = loadImage("assets/item/weapon/mace_large_2_old.png")
+    ItemWeaponFalchion3Png = loadImage("assets/item/weapon/falchion_3.png")
+    ItemWeaponElvenDaggerPng = loadImage("assets/item/weapon/elven_dagger.png")
+    ItemWeaponSpikedFlail2OldPng = loadImage("assets/item/weapon/spiked_flail_2_old.png")
+    ItemWeaponScythe1OldPng = loadImage("assets/item/weapon/scythe_1_old.png")
+    ItemWeaponSpear1ElvenPng = loadImage("assets/item/weapon/spear_1_elven.png")
+    ItemWeaponGiantClubOldPng = loadImage("assets/item/weapon/giant_club_old.png")
+    ItemWeaponHandAxe2OldPng = loadImage("assets/item/weapon/hand_axe_2_old.png")
+    ItemWeaponScythe3Png = loadImage("assets/item/weapon/scythe_3.png")
+    ItemWeaponEveningstar1NewPng = loadImage("assets/item/weapon/eveningstar_1_new.png")
+    ItemWeaponEveningstar4Png = loadImage("assets/item/weapon/eveningstar_4.png")
+    ItemWeaponShortSword6Png = loadImage("assets/item/weapon/short_sword_6.png")
+    ItemWeaponFlail3Png = loadImage("assets/item/weapon/flail_3.png")
+    ItemWeaponCutlass8Png = loadImage("assets/item/weapon/cutlass_8.png")
+    ItemWeaponGreatsword3OldPng = loadImage("assets/item/weapon/greatsword_3_old.png")
+    ItemWeaponClaymore2Png = loadImage("assets/item/weapon/claymore_2.png")
+    ItemWeaponMace1OldPng = loadImage("assets/item/weapon/mace_1_old.png")
+    ItemWeaponFlail1NewPng = loadImage("assets/item/weapon/flail_1_new.png")
+    ItemWeaponGreatFlail1Png = loadImage("assets/item/weapon/great_flail_1.png")
+    ItemWeaponBattleAxe1Png = loadImage("assets/item/weapon/battle_axe_1.png")
+    ItemWeaponElvenShortSwordPng = loadImage("assets/item/weapon/elven_short_sword.png")
+    ItemWeaponDagger6Png = loadImage("assets/item/weapon/dagger_6.png")
+    ItemWeaponHandAxe1NewPng = loadImage("assets/item/weapon/hand_axe_1_new.png")
+    ItemWeaponClub2Png = loadImage("assets/item/weapon/club_2.png")
+    ItemWeaponMorningstar2NewPng = loadImage("assets/item/weapon/morningstar_2_new.png")
+    ItemWeaponMorningstar2OldPng = loadImage("assets/item/weapon/morningstar_2_old.png")
+    ItemWeaponKatanaPng = loadImage("assets/item/weapon/katana.png")
+    ItemWeaponEveningstar2OldPng = loadImage("assets/item/weapon/eveningstar_2_old.png")
+    ItemWeaponGlaive2Png = loadImage("assets/item/weapon/glaive_2.png")
+    ItemWeaponLongSword5Png = loadImage("assets/item/weapon/long_sword_5.png")
+    ItemWeaponScythe1NewPng = loadImage("assets/item/weapon/scythe_1_new.png")
+    ItemWeaponSpear2NewPng = loadImage("assets/item/weapon/spear_2_new.png")
+    ItemWeaponOrcishGreatSwordPng = loadImage("assets/item/weapon/orcish_great_sword.png")
+    ItemWeaponSpear1Png = loadImage("assets/item/weapon/spear_1.png")
+    ItemWeaponBroadAxe4Png = loadImage("assets/item/weapon/broad_axe_4.png")
+    ItemWeaponAnkusPng = loadImage("assets/item/weapon/ankus.png")
+    ItemWeaponEveningstar7Png = loadImage("assets/item/weapon/eveningstar_7.png")
+    ItemWeaponLongSword7Png = loadImage("assets/item/weapon/long_sword_7.png")
+    ItemWeaponExecutionerAxe5Png = loadImage("assets/item/weapon/executioner_axe_5.png")
+    ItemWeaponClaymore3Png = loadImage("assets/item/weapon/claymore_3.png")
+    ItemWeaponDireFlail2Png = loadImage("assets/item/weapon/dire_flail_2.png")
+    ItemWeaponTripleSword2Png = loadImage("assets/item/weapon/triple_sword_2.png")
+    ItemWeaponFlail2NewPng = loadImage("assets/item/weapon/flail_2_new.png")
+    ItemWeaponMace7Png = loadImage("assets/item/weapon/mace_7.png")
+    ItemWeaponScythe2NewPng = loadImage("assets/item/weapon/scythe_2_new.png")
+    ItemWeaponQuickbladePng = loadImage("assets/item/weapon/quickblade.png")
+    ItemWeaponSpear6Png = loadImage("assets/item/weapon/spear_6.png")
+    ItemWeaponFalchion4Png = loadImage("assets/item/weapon/falchion_4.png")
+    ItemWeaponSpikedFlail3Png = loadImage("assets/item/weapon/spiked_flail_3.png")
+    ItemWeaponFalchion5Png = loadImage("assets/item/weapon/falchion_5.png")
+    ItemWeaponBattleAxe3Png = loadImage("assets/item/weapon/battle_axe_3.png")
+    ItemWeaponBroadAxe1Png = loadImage("assets/item/weapon/broad_axe_1.png")
+    ItemWeaponScimitar2Png = loadImage("assets/item/weapon/scimitar_2.png")
+    ItemWeaponGiantSpikedClubNewPng = loadImage("assets/item/weapon/giant_spiked_club_new.png")
+    ItemWeaponTripleSwordNewPng = loadImage("assets/item/weapon/triple_sword_new.png")
+    ItemWeaponWarHammerPng = loadImage("assets/item/weapon/war_hammer.png")
+    ItemWeaponAncientSwordPng = loadImage("assets/item/weapon/ancient_sword.png")
+    ItemWeaponSpear3Png = loadImage("assets/item/weapon/spear_3.png")
+    ItemWeaponFlail6Png = loadImage("assets/item/weapon/flail_6.png")
+    ItemWeaponMorningstar4Png = loadImage("assets/item/weapon/morningstar_4.png")
+    ItemWeaponShortSword2NewPng = loadImage("assets/item/weapon/short_sword_2_new.png")
+    ItemWeaponClaymoreBlessedPng = loadImage("assets/item/weapon/claymore_blessed.png")
+    ItemWeaponDaggerOldPng = loadImage("assets/item/weapon/dagger_old.png")
+    ItemWeaponGiantClub3Png = loadImage("assets/item/weapon/giant_club_3.png")
+    ItemWeaponShortSword1OldPng = loadImage("assets/item/weapon/short_sword_1_old.png")
+    ItemWeaponBroadAxe2Png = loadImage("assets/item/weapon/broad_axe_2.png")
+    ItemWeaponMaceLarge2NewPng = loadImage("assets/item/weapon/mace_large_2_new.png")
+    ItemWeaponFalchion1NewPng = loadImage("assets/item/weapon/falchion_1_new.png")
+    ItemWeaponGreatFlail2Png = loadImage("assets/item/weapon/great_flail_2.png")
+    ItemWeaponKnifePng = loadImage("assets/item/weapon/knife.png")
+    ItemWeaponTrishulaPng = loadImage("assets/item/weapon/trishula.png")
+    ItemWeaponLongSword1NewPng = loadImage("assets/item/weapon/long_sword_1_new.png")
+    ItemWeaponSpear4Png = loadImage("assets/item/weapon/spear_4.png")
+    ItemWeaponMace3OldPng = loadImage("assets/item/weapon/mace_3_old.png")
+    ItemWeaponDagger3Png = loadImage("assets/item/weapon/dagger_3.png")
+    ItemWeaponGreatsword2Png = loadImage("assets/item/weapon/greatsword_2.png")
+    ItemWeaponHammer1NewPng = loadImage("assets/item/weapon/hammer_1_new.png")
+    ItemWeaponShortSword3Png = loadImage("assets/item/weapon/short_sword_3.png")
+    ItemWeaponTripleSwordOldPng = loadImage("assets/item/weapon/triple_sword_old.png")
+    ItemWeaponBattleAxe5Png = loadImage("assets/item/weapon/battle_axe_5.png")
+    ItemWeaponEveningstar3Png = loadImage("assets/item/weapon/eveningstar_3.png")
+    ItemWeaponFalchion6Png = loadImage("assets/item/weapon/falchion_6.png")
+    ItemWeaponWarAxe2Png = loadImage("assets/item/weapon/war_axe_2.png")
+    ItemWeaponBattleAxe2Png = loadImage("assets/item/weapon/battle_axe_2.png")
+    ItemWeaponGiantSpikedClub2Png = loadImage("assets/item/weapon/giant_spiked_club_2.png")
+    ItemWeaponHalberd2Png = loadImage("assets/item/weapon/halberd_2.png")
+    ItemWeaponGoldenSwordPng = loadImage("assets/item/weapon/golden_sword.png")
+    ItemWeaponLajatang1Png = loadImage("assets/item/weapon/lajatang_1.png")
+    ItemWeaponCutlass6Png = loadImage("assets/item/weapon/cutlass_6.png")
+    ItemWeaponBullwhip2Png = loadImage("assets/item/weapon/bullwhip_2.png")
+    ItemWeaponBullwhip3Png = loadImage("assets/item/weapon/bullwhip_3.png")
+    ItemWeaponQuarterstaff2Png = loadImage("assets/item/weapon/quarterstaff_2.png")
+    ItemWeaponDemonTridentPng = loadImage("assets/item/weapon/demon_trident.png")
+    ItemWeaponScimitar3Png = loadImage("assets/item/weapon/scimitar_3.png")
+    ItemWeaponFlail1OldPng = loadImage("assets/item/weapon/flail_1_old.png")
+    ItemWeaponHammer2OldPng = loadImage("assets/item/weapon/hammer_2_old.png")
+    ItemWeaponExecutionerAxe7Png = loadImage("assets/item/weapon/executioner_axe_7.png")
+    ItemWeaponOrcishGlaivePng = loadImage("assets/item/weapon/orcish_glaive.png")
+    ItemWeaponQuarterstaff3Png = loadImage("assets/item/weapon/quarterstaff_3.png")
+    ItemWeaponOrcishDaggerPng = loadImage("assets/item/weapon/orcish_dagger.png")
+    ItemWeaponLongSword1OldPng = loadImage("assets/item/weapon/long_sword_1_old.png")
+    ItemWeaponShortSword5Png = loadImage("assets/item/weapon/short_sword_5.png")
+    ItemWeaponShortSword1NewPng = loadImage("assets/item/weapon/short_sword_1_new.png")
+    ItemWeaponSpikedFlail2NewPng = loadImage("assets/item/weapon/spiked_flail_2_new.png")
+    ItemWeaponGreatsword1OldPng = loadImage("assets/item/weapon/greatsword_1_old.png")
+    ItemWeaponSpearPng = loadImage("assets/item/weapon/spear.png")
+    ItemWeaponBattleAxe7Png = loadImage("assets/item/weapon/battle_axe_7.png")
+    ItemWeaponHalberd1Png = loadImage("assets/item/weapon/halberd_1.png")
+    ItemWeaponEveningstar5Png = loadImage("assets/item/weapon/eveningstar_5.png")
+    ItemWeaponSpear2OldPng = loadImage("assets/item/weapon/spear_2_old.png")
+    ItemWeaponMace2OldPng = loadImage("assets/item/weapon/mace_2_old.png")
+    ItemWeaponSpear7Png = loadImage("assets/item/weapon/spear_7.png")
+    ItemWeaponMace2NewPng = loadImage("assets/item/weapon/mace_2_new.png")
+    ItemWeaponMorningstar7Png = loadImage("assets/item/weapon/morningstar_7.png")
+    ItemWeaponShortSword2OldPng = loadImage("assets/item/weapon/short_sword_2_old.png")
+    ItemWeaponBroadAxe3Png = loadImage("assets/item/weapon/broad_axe_3.png")
+    ItemWeaponGreatsword3NewPng = loadImage("assets/item/weapon/greatsword_3_new.png")
+    ItemWeaponBullwhipOldPng = loadImage("assets/item/weapon/bullwhip_old.png")
+    ItemWeaponWarAxe5Png = loadImage("assets/item/weapon/war_axe_5.png")
+    ItemWeaponExecutionerAxe2NewPng = loadImage("assets/item/weapon/executioner_axe_2_new.png")
+    ItemWeaponExecutionerAxePng = loadImage("assets/item/weapon/executioner_axe.png")
+    ItemWeaponOrcishLongSwordPng = loadImage("assets/item/weapon/orcish_long_sword.png")
+    ItemWeaponLajatang2Png = loadImage("assets/item/weapon/lajatang_2.png")
+    ItemWeaponGreatsword4Png = loadImage("assets/item/weapon/greatsword_4.png")
+    ItemWeaponHammer1OldPng = loadImage("assets/item/weapon/hammer_1_old.png")
+    ItemWeaponEveningstar1OldPng = loadImage("assets/item/weapon/eveningstar_1_old.png")
+    ItemWeaponDagger7Png = loadImage("assets/item/weapon/dagger_7.png")
+    ItemWeaponLucernHammerPng = loadImage("assets/item/weapon/lucern_hammer.png")
+    ItemWeaponGlaive1Png = loadImage("assets/item/weapon/glaive_1.png")
+    ItemWeaponBattleAxe4Png = loadImage("assets/item/weapon/battle_axe_4.png")
+    ItemWeaponWarAxe4Png = loadImage("assets/item/weapon/war_axe_4.png")
+    ItemWeaponCutlass7Png = loadImage("assets/item/weapon/cutlass_7.png")
+    ItemWeaponExecutionerAxe1Png = loadImage("assets/item/weapon/executioner_axe_1.png")
+    ItemWeaponMace3NewPng = loadImage("assets/item/weapon/mace_3_new.png")
+    ItemWeaponDaggerNewPng = loadImage("assets/item/weapon/dagger_new.png")
+    ItemWeaponSpikedFlail1OldPng = loadImage("assets/item/weapon/spiked_flail_1_old.png")
+    ItemWeaponBattleAxe6Png = loadImage("assets/item/weapon/battle_axe_6.png")
+    ItemWeaponDireFlail3Png = loadImage("assets/item/weapon/dire_flail_3.png")
+    ItemWeaponExecutionerAxe6Png = loadImage("assets/item/weapon/executioner_axe_6.png")
+    ItemWeaponSpikedFlail1NewPng = loadImage("assets/item/weapon/spiked_flail_1_new.png")
+    ItemWeaponMorningstar6Png = loadImage("assets/item/weapon/morningstar_6.png")
+    ItemWeaponFalchion2OldPng = loadImage("assets/item/weapon/falchion_2_old.png")
+    ItemWeaponDemonBladePng = loadImage("assets/item/weapon/demon_blade.png")
+    ItemWeaponMace1NewPng = loadImage("assets/item/weapon/mace_1_new.png")
+    ItemWeaponCutlass1Png = loadImage("assets/item/weapon/cutlass_1.png")
+    ItemWeaponWarAxe7Png = loadImage("assets/item/weapon/war_axe_7.png")
+    ItemWeaponHolyScourgePng = loadImage("assets/item/weapon/holy_scourge.png")
+    ItemWeaponExecutionerAxe4Png = loadImage("assets/item/weapon/executioner_axe_4.png")
+    ItemWeaponBullwhipNewPng = loadImage("assets/item/weapon/bullwhip_new.png")
+    ItemWeaponGiantSpikedClubOldPng = loadImage("assets/item/weapon/giant_spiked_club_old.png")
+    ItemWeaponRapier2Png = loadImage("assets/item/weapon/rapier_2.png")
+    ItemWeaponFalchion2NewPng = loadImage("assets/item/weapon/falchion_2_new.png")
+    ItemWeaponBardiche4Png = loadImage("assets/item/weapon/bardiche_4.png")
+    ItemWeaponHandAxe2NewPng = loadImage("assets/item/weapon/hand_axe_2_new.png")
+    ItemWeaponKatana1Png = loadImage("assets/item/weapon/katana_1.png")
+    ItemWeaponRapier3Png = loadImage("assets/item/weapon/rapier_3.png")
+    ItemWeaponBroadAxe5Png = loadImage("assets/item/weapon/broad_axe_5.png")
+    ItemWeaponScythe2OldPng = loadImage("assets/item/weapon/scythe_2_old.png")
+    ItemWeaponBardiche1Png = loadImage("assets/item/weapon/bardiche_1.png")
+    ItemWeaponAxePng = loadImage("assets/item/weapon/axe.png")
+    ItemWeaponHandCrossbowPng = loadImage("assets/item/weapon/hand_crossbow.png")
+    ItemWeaponBroadAxe6Png = loadImage("assets/item/weapon/broad_axe_6.png")
+    ItemWeaponElvenBroadswordPng = loadImage("assets/item/weapon/elven_broadsword.png")
+    ItemWeaponTwoHandedSwordPng = loadImage("assets/item/weapon/two_handed_sword.png")
+    ItemWeaponHammer3Png = loadImage("assets/item/weapon/hammer_3.png")
+    ItemWeaponBlessedBladePng = loadImage("assets/item/weapon/blessed_blade.png")
+    ItemWeaponGiantClubNewPng = loadImage("assets/item/weapon/giant_club_new.png")
+    ItemWeaponSabre2Png = loadImage("assets/item/weapon/sabre_2.png")
+    ItemWeaponClaymorePng = loadImage("assets/item/weapon/claymore.png")
+    ItemWeaponWarAxe1Png = loadImage("assets/item/weapon/war_axe_1.png")
+    ItemWeaponLongSword3Png = loadImage("assets/item/weapon/long_sword_3.png")
+    ItemWeaponLongSword6Png = loadImage("assets/item/weapon/long_sword_6.png")
+    ItemWeaponMorningstar1NewPng = loadImage("assets/item/weapon/morningstar_1_new.png")
+    ItemWeaponFlail2OldPng = loadImage("assets/item/weapon/flail_2_old.png")
+    ItemWeaponCutlass3Png = loadImage("assets/item/weapon/cutlass_3.png")
+    ItemWeaponShortSword7Png = loadImage("assets/item/weapon/short_sword_7.png")
+    ItemWeaponHalberd5Png = loadImage("assets/item/weapon/halberd_5.png")
+    ItemWeaponHandCrossbow2Png = loadImage("assets/item/weapon/hand_crossbow_2.png")
+    ItemWeaponDoubleSwordOldPng = loadImage("assets/item/weapon/double_sword_old.png")
+    ItemWeaponSpear5Png = loadImage("assets/item/weapon/spear_5.png")
+    ItemWeaponTsurugiPng = loadImage("assets/item/weapon/tsurugi.png")
+    ItemWeaponDemonWhipPng = loadImage("assets/item/weapon/demon_whip.png")
+    ItemWeaponScimitar1OldPng = loadImage("assets/item/weapon/scimitar_1_old.png")
+    ItemWeaponQuarterstaffOldPng = loadImage("assets/item/weapon/quarterstaff_old.png")
+    ItemWeaponHandAxe3Png = loadImage("assets/item/weapon/hand_axe_3.png")
+    ItemWeaponCutlass9Png = loadImage("assets/item/weapon/cutlass_9.png")
+    ItemWeaponClubOldPng = loadImage("assets/item/weapon/club_old.png")
+    ItemWeaponKatana2Png = loadImage("assets/item/weapon/katana_2.png")
+    ItemWeaponCutlass4Png = loadImage("assets/item/weapon/cutlass_4.png")
+    ItemWeaponHandAxe1OldPng = loadImage("assets/item/weapon/hand_axe_1_old.png")
+    ItemWeaponMaceLarge1NewPng = loadImage("assets/item/weapon/mace_large_1_new.png")
+    ItemWeaponScimitar1NewPng = loadImage("assets/item/weapon/scimitar_1_new.png")
+    ItemWeaponTrident1Png = loadImage("assets/item/weapon/trident_1.png")
+    ItemWeaponBardiche5Png = loadImage("assets/item/weapon/bardiche_5.png")
+    ItemWeaponOrcishShortSwordPng = loadImage("assets/item/weapon/orcish_short_sword.png")
+    ItemWeaponTrident2Png = loadImage("assets/item/weapon/trident_2.png")
+    ItemWeaponMorningstar5Png = loadImage("assets/item/weapon/morningstar_5.png")
+    ItemWeaponDoubleSword2Png = loadImage("assets/item/weapon/double_sword_2.png")
+    ItemWeaponGiantClub2Png = loadImage("assets/item/weapon/giant_club_2.png")
+    ItemWeaponQuarterstaffNewPng = loadImage("assets/item/weapon/quarterstaff_new.png")
+    ItemWeaponMorningstar3Png = loadImage("assets/item/weapon/morningstar_3.png")
+    ItemWeaponFalchion7Png = loadImage("assets/item/weapon/falchion_7.png")
+    ItemWeaponBroadAxe7Png = loadImage("assets/item/weapon/broad_axe_7.png")
+    ItemWeaponGiantSpikedClub3Png = loadImage("assets/item/weapon/giant_spiked_club_3.png")
+    ItemWeaponMorningstar1OldPng = loadImage("assets/item/weapon/morningstar_1_old.png")
+    ItemWeaponHammer2NewPng = loadImage("assets/item/weapon/hammer_2_new.png")
+    ItemWeaponDoubleSwordNewPng = loadImage("assets/item/weapon/double_sword_new.png")
+    ItemWeaponClubNewPng = loadImage("assets/item/weapon/club_new.png")
+    ItemWeaponMaceLarge3Png = loadImage("assets/item/weapon/mace_large_3.png")
+    ItemWeaponBardiche2Png = loadImage("assets/item/weapon/bardiche_2.png")
+    ItemWeaponWarAxe6Png = loadImage("assets/item/weapon/war_axe_6.png")
+    ItemWeaponMaceLarge1OldPng = loadImage("assets/item/weapon/mace_large_1_old.png")
+    ItemWeaponExecutionerAxe2OldPng = loadImage("assets/item/weapon/executioner_axe_2_old.png")
+    ItemWeaponEveningstar2NewPng = loadImage("assets/item/weapon/eveningstar_2_new.png")
+    ItemWeaponRapier1Png = loadImage("assets/item/weapon/rapier_1.png")
+    ItemWeaponSabre1SilverPng = loadImage("assets/item/weapon/sabre_1_silver.png")
+    ItemWeaponHalberd4Png = loadImage("assets/item/weapon/halberd_4.png")
+    ItemWeaponTripleSword3Png = loadImage("assets/item/weapon/triple_sword_3.png")
+    ItemWeaponDoubleSword3Png = loadImage("assets/item/weapon/double_sword_3.png")
+    ItemWeaponArtefactUrandKatanaPng = loadImage("assets/item/weapon/artefact/urand_katana.png")
+    ItemWeaponArtefactSpwpnWrathOfTrog2Png = loadImage("assets/item/weapon/artefact/spwpn_wrath_of_trog_2.png")
+    ItemWeaponArtefactUrandHellfirePng = loadImage("assets/item/weapon/artefact/urand_hellfire.png")
+    ItemWeaponArtefactSpwpnSwordOfPowerNewPng = loadImage("assets/item/weapon/artefact/spwpn_sword_of_power_new.png")
+    ItemWeaponArtefactUrandOctopusKingPng = loadImage("assets/item/weapon/artefact/urand_octopus_king.png")
+    ItemWeaponArtefactUrandSpriggansKnifeNewPng = loadImage("assets/item/weapon/artefact/urand_spriggans_knife_new.png")
+    ItemWeaponArtefactUrandSkullcrusherPng = loadImage("assets/item/weapon/artefact/urand_skullcrusher.png")
+    ItemWeaponArtefactUrandBloodbaneNewPng = loadImage("assets/item/weapon/artefact/urand_bloodbane_new.png")
+    ItemWeaponArtefactUrandCrystalSpearNewPng = loadImage("assets/item/weapon/artefact/urand_crystal_spear_new.png")
+    ItemWeaponArtefactUrandGuardNewPng = loadImage("assets/item/weapon/artefact/urand_guard_new.png")
+    ItemWeaponArtefactUrandGyrePng = loadImage("assets/item/weapon/artefact/urand_gyre.png")
+    ItemWeaponArtefactUrandKrishnaOldPng = loadImage("assets/item/weapon/artefact/urand_krishna_old.png")
+    ItemWeaponArtefactUrandCrystalSpearOldPng = loadImage("assets/item/weapon/artefact/urand_crystal_spear_old.png")
+    ItemWeaponArtefactUrandJihadOldPng = loadImage("assets/item/weapon/artefact/urand_jihad_old.png")
+    ItemWeaponArtefactUrandBotonoPng = loadImage("assets/item/weapon/artefact/urand_botono.png")
+    ItemWeaponArtefactUrandPlutoniumOldPng = loadImage("assets/item/weapon/artefact/urand_plutonium_old.png")
+    ItemWeaponArtefactSpwpnSwordOfZonguldrokOldPng = loadImage("assets/item/weapon/artefact/spwpn_sword_of_zonguldrok_old.png")
+    ItemWeaponArtefactUrandKnifeOfAccuracyPng = loadImage("assets/item/weapon/artefact/urand_knife_of_accuracy.png")
+    ItemWeaponArtefactUrandEosPng = loadImage("assets/item/weapon/artefact/urand_eos.png")
+    ItemWeaponArtefactUrandCutlassOldPng = loadImage("assets/item/weapon/artefact/urand_cutlass_old.png")
+    ItemWeaponArtefactUrandAxeOfWoePng = loadImage("assets/item/weapon/artefact/urand_axe_of_woe.png")
+    ItemWeaponArtefactUrandFinisherPng = loadImage("assets/item/weapon/artefact/urand_finisher.png")
+    ItemWeaponArtefactUrandPunkPng = loadImage("assets/item/weapon/artefact/urand_punk.png")
+    ItemWeaponArtefactUrandFlamingDeathOldPng = loadImage("assets/item/weapon/artefact/urand_flaming_death_old.png")
+    ItemWeaponArtefactUrandArgaNewPng = loadImage("assets/item/weapon/artefact/urand_arga_new.png")
+    ItemWeaponArtefactSpwpnWrathOfTrogNewPng = loadImage("assets/item/weapon/artefact/spwpn_wrath_of_trog_new.png")
+    ItemWeaponArtefactUrandPiercerOldPng = loadImage("assets/item/weapon/artefact/urand_piercer_old.png")
+    ItemWeaponArtefactSpwpnStaffOfDispaterOldPng = loadImage("assets/item/weapon/artefact/spwpn_staff_of_dispater_old.png")
+    ItemWeaponArtefactUrandArgaOldPng = loadImage("assets/item/weapon/artefact/urand_arga_old.png")
+    ItemWeaponArtefactSpwpnStaffOfDispaterNewPng = loadImage("assets/item/weapon/artefact/spwpn_staff_of_dispater_new.png")
+    ItemWeaponArtefactUrandSerpentScourgePng = loadImage("assets/item/weapon/artefact/urand_serpent_scourge.png")
+    ItemWeaponArtefactUrandOrderPng = loadImage("assets/item/weapon/artefact/urand_order.png")
+    ItemWeaponArtefactSpwpnStaffOfDispater2Png = loadImage("assets/item/weapon/artefact/spwpn_staff_of_dispater_2.png")
+    ItemWeaponArtefactSpwpnSwordOfPowerOldPng = loadImage("assets/item/weapon/artefact/spwpn_sword_of_power_old.png")
+    ItemWeaponArtefactSpwpnScytheOfCursesOldPng = loadImage("assets/item/weapon/artefact/spwpn_scythe_of_curses_old.png")
+    ItemWeaponArtefactUrandStormBowPng = loadImage("assets/item/weapon/artefact/urand_storm_bow.png")
+    ItemWeaponArtefactUrandWyrmbaneOldPng = loadImage("assets/item/weapon/artefact/urand_wyrmbane_old.png")
+    ItemWeaponArtefactSpwpnSingingSwordPng = loadImage("assets/item/weapon/artefact/spwpn_singing_sword.png")
+    ItemWeaponArtefactSpwpnSceptreOfAsmodeusPng = loadImage("assets/item/weapon/artefact/spwpn_sceptre_of_asmodeus.png")
+    ItemWeaponArtefactSpwpnWucadMuOldPng = loadImage("assets/item/weapon/artefact/spwpn_wucad_mu_old.png")
+    ItemWeaponArtefactUrandSpriggansKnifeOldPng = loadImage("assets/item/weapon/artefact/urand_spriggans_knife_old.png")
+    ItemWeaponArtefactSpwpnSceptreOfTormentPng = loadImage("assets/item/weapon/artefact/spwpn_sceptre_of_torment.png")
+    ItemWeaponArtefactUrandSniperPng = loadImage("assets/item/weapon/artefact/urand_sniper.png")
+    ItemWeaponArtefactUrandCutlassNewPng = loadImage("assets/item/weapon/artefact/urand_cutlass_new.png")
+    ItemWeaponArtefactSpwpnGlaiveOfPruneOldPng = loadImage("assets/item/weapon/artefact/spwpn_glaive_of_prune_old.png")
+    ItemWeaponArtefactSpwpnScepterOfAsmodeus2Png = loadImage("assets/item/weapon/artefact/spwpn_scepter_of_asmodeus_2.png")
+    ItemWeaponArtefactSpwpnWrathOfTrogOldPng = loadImage("assets/item/weapon/artefact/spwpn_wrath_of_trog_old.png")
+    ItemWeaponArtefactUrandJihadNewPng = loadImage("assets/item/weapon/artefact/urand_jihad_new.png")
+    ItemWeaponArtefactSpwpnScepterOfAsmodeusPng = loadImage("assets/item/weapon/artefact/spwpn_scepter_of_asmodeus.png")
+    ItemWeaponArtefactSpwpnSwordOfZonguldrokNewPng = loadImage("assets/item/weapon/artefact/spwpn_sword_of_zonguldrok_new.png")
+    ItemWeaponArtefactUrandUndeadhunterPng = loadImage("assets/item/weapon/artefact/urand_undeadhunter.png")
+    ItemWeaponArtefactUrandLeechPng = loadImage("assets/item/weapon/artefact/urand_leech.png")
+    ItemWeaponArtefactUrandDoomKnightOldPng = loadImage("assets/item/weapon/artefact/urand_doom_knight_old.png")
+    ItemWeaponArtefactSpwpnScytheOfCursesNewPng = loadImage("assets/item/weapon/artefact/spwpn_scythe_of_curses_new.png")
+    ItemWeaponArtefactUrandBloodbaneOldPng = loadImage("assets/item/weapon/artefact/urand_bloodbane_old.png")
+    ItemWeaponArtefactUrandKrishnaNewPng = loadImage("assets/item/weapon/artefact/urand_krishna_new.png")
+    ItemWeaponArtefactUrandShillelaghPng = loadImage("assets/item/weapon/artefact/urand_shillelagh.png")
+    ItemWeaponArtefactSpwpnMajinPng = loadImage("assets/item/weapon/artefact/spwpn_majin.png")
+    ItemWeaponArtefactUrandBlowgunPng = loadImage("assets/item/weapon/artefact/urand_blowgun.png")
+    ItemWeaponArtefactUrandElementalPng = loadImage("assets/item/weapon/artefact/urand_elemental.png")
+    ItemWeaponArtefactUrandChillyDeathNewPng = loadImage("assets/item/weapon/artefact/urand_chilly_death_new.png")
+    ItemWeaponArtefactSpwpnScepterOfTormentPng = loadImage("assets/item/weapon/artefact/spwpn_scepter_of_torment.png")
+    ItemWeaponArtefactUrandWyrmbaneNewPng = loadImage("assets/item/weapon/artefact/urand_wyrmbane_new.png")
+    ItemWeaponArtefactSpwpnMaceOfVariabilityNewPng = loadImage("assets/item/weapon/artefact/spwpn_mace_of_variability_new.png")
+    ItemWeaponArtefactUrandBrilliancePng = loadImage("assets/item/weapon/artefact/urand_brilliance.png")
+    ItemWeaponArtefactSpwpnSwordOfZonguldrok2Png = loadImage("assets/item/weapon/artefact/spwpn_sword_of_zonguldrok_2.png")
+    ItemWeaponArtefactUrandPlutoniumNewPng = loadImage("assets/item/weapon/artefact/urand_plutonium_new.png")
+    ItemWeaponArtefactUrandDoomKnightNewPng = loadImage("assets/item/weapon/artefact/urand_doom_knight_new.png")
+    ItemWeaponArtefactUrandSnakebitePng = loadImage("assets/item/weapon/artefact/urand_snakebite.png")
+    ItemWeaponArtefactUrandGuardOldPng = loadImage("assets/item/weapon/artefact/urand_guard_old.png")
+    ItemWeaponArtefactSpwpnGlaiveOfPruneNewPng = loadImage("assets/item/weapon/artefact/spwpn_glaive_of_prune_new.png")
+    ItemWeaponArtefactSpwpnWucadMuNewPng = loadImage("assets/item/weapon/artefact/spwpn_wucad_mu_new.png")
+    ItemWeaponArtefactSpwpnMaceOfVariabilityOldPng = loadImage("assets/item/weapon/artefact/spwpn_mace_of_variability_old.png")
+    ItemWeaponArtefactUrandFlamingDeathNewPng = loadImage("assets/item/weapon/artefact/urand_flaming_death_new.png")
+    ItemWeaponArtefactUrandMorgPng = loadImage("assets/item/weapon/artefact/urand_morg.png")
+    ItemWeaponArtefactSpwpnStaffOfOlgrebPng = loadImage("assets/item/weapon/artefact/spwpn_staff_of_olgreb.png")
+    ItemWeaponArtefactUrandPiercerNewPng = loadImage("assets/item/weapon/artefact/urand_piercer_new.png")
+    ItemWeaponArtefactSpwpnVampiresToothPng = loadImage("assets/item/weapon/artefact/spwpn_vampires_tooth.png")
+    ItemWeaponArtefactUrandArcBladePng = loadImage("assets/item/weapon/artefact/urand_arc_blade.png")
+    ItemWeaponArtefactSpwpnSwordOfCerebovNewPng = loadImage("assets/item/weapon/artefact/spwpn_sword_of_cerebov_new.png")
+    ItemWeaponArtefactSpwpnScepterOfTorment2Png = loadImage("assets/item/weapon/artefact/spwpn_scepter_of_torment_2.png")
+    ItemWeaponArtefactUrandChillyDeathOldPng = loadImage("assets/item/weapon/artefact/urand_chilly_death_old.png")
+    ItemWeaponArtefactSpwpnSwordOfCerebovOldPng = loadImage("assets/item/weapon/artefact/spwpn_sword_of_cerebov_old.png")
+    ItemWeaponArtefactUrandFirestarterPng = loadImage("assets/item/weapon/artefact/urand_firestarter.png")
+    ItemWeaponRangedStoneOldPng = loadImage("assets/item/weapon/ranged/stone_old.png")
+    ItemWeaponRangedHandCrossbow3Png = loadImage("assets/item/weapon/ranged/hand_crossbow_3.png")
+    ItemWeaponRangedSling2Png = loadImage("assets/item/weapon/ranged/sling_2.png")
+    ItemWeaponRangedBlowgun1Png = loadImage("assets/item/weapon/ranged/blowgun_1.png")
+    ItemWeaponRangedTomahawk1Png = loadImage("assets/item/weapon/ranged/tomahawk_1.png")
+    ItemWeaponRangedLongbow3Png = loadImage("assets/item/weapon/ranged/longbow_3.png")
+    ItemWeaponRangedNeedleCPng = loadImage("assets/item/weapon/ranged/needle-c.png")
+    ItemWeaponRangedLongbow2Png = loadImage("assets/item/weapon/ranged/longbow_2.png")
+    ItemWeaponRangedCrossbow1Png = loadImage("assets/item/weapon/ranged/crossbow_1.png")
+    ItemWeaponRangedArbalest1Png = loadImage("assets/item/weapon/ranged/arbalest_1.png")
+    ItemWeaponRangedLongbowPng = loadImage("assets/item/weapon/ranged/longbow.png")
+    ItemWeaponRangedArbalest2Png = loadImage("assets/item/weapon/ranged/arbalest_2.png")
+    ItemWeaponRangedBow1Png = loadImage("assets/item/weapon/ranged/bow_1.png")
+    ItemWeaponRangedArbalest3Png = loadImage("assets/item/weapon/ranged/arbalest_3.png")
+    ItemWeaponRangedSilverArrowPng = loadImage("assets/item/weapon/ranged/silver_arrow.png")
+    ItemWeaponRangedBlowgun2Png = loadImage("assets/item/weapon/ranged/blowgun_2.png")
+    ItemWeaponRangedElvenArrowPng = loadImage("assets/item/weapon/ranged/elven_arrow.png")
+    ItemWeaponRangedStoneNewPng = loadImage("assets/item/weapon/ranged/stone_new.png")
+    ItemWeaponRangedSlingBullet2OldPng = loadImage("assets/item/weapon/ranged/sling_bullet_2_old.png")
+    ItemWeaponRangedSlingBullet1OldPng = loadImage("assets/item/weapon/ranged/sling_bullet_1_old.png")
+    ItemWeaponRangedTomahawk2Png = loadImage("assets/item/weapon/ranged/tomahawk_2.png")
+    ItemWeaponRangedShortbow1Png = loadImage("assets/item/weapon/ranged/shortbow_1.png")
+    ItemWeaponRangedShortbow3Png = loadImage("assets/item/weapon/ranged/shortbow_3.png")
+    ItemWeaponRangedRockNewPng = loadImage("assets/item/weapon/ranged/rock_new.png")
+    ItemWeaponRangedSilverTomahawkPng = loadImage("assets/item/weapon/ranged/silver_tomahawk.png")
+    ItemWeaponRangedCrossbow2Png = loadImage("assets/item/weapon/ranged/crossbow_2.png")
+    ItemWeaponRangedSling1Png = loadImage("assets/item/weapon/ranged/sling_1.png")
+    ItemWeaponRangedHandCrossbowPng = loadImage("assets/item/weapon/ranged/hand_crossbow.png")
+    ItemWeaponRangedShortbow2Png = loadImage("assets/item/weapon/ranged/shortbow_2.png")
+    ItemWeaponRangedThrowingNetPng = loadImage("assets/item/weapon/ranged/throwing_net.png")
+    ItemWeaponRangedSlingBullet2NewPng = loadImage("assets/item/weapon/ranged/sling_bullet_2_new.png")
+    ItemWeaponRangedBow2Png = loadImage("assets/item/weapon/ranged/bow_2.png")
+    ItemWeaponRangedHandCrossbow2Png = loadImage("assets/item/weapon/ranged/hand_crossbow_2.png")
+    ItemWeaponRangedRockOldPng = loadImage("assets/item/weapon/ranged/rock_old.png")
+    ItemWeaponRangedGreatslingPng = loadImage("assets/item/weapon/ranged/greatsling.png")
+    ItemWeaponRangedOrcishArrowPng = loadImage("assets/item/weapon/ranged/orcish_arrow.png")
+    ItemWeaponRangedSlingBullet1NewPng = loadImage("assets/item/weapon/ranged/sling_bullet_1_new.png")
+    ItemWeaponRangedGreatsling2Png = loadImage("assets/item/weapon/ranged/greatsling_2.png")
+    ItemWeaponRangedSteelTomahawkPng = loadImage("assets/item/weapon/ranged/steel_tomahawk.png")
+    ItemWeaponRangedLongbow1Png = loadImage("assets/item/weapon/ranged/longbow_1.png")
+    ItemGoldGoldPile3Png = loadImage("assets/item/gold/gold_pile_3.png")
+    ItemGoldGoldPile6Png = loadImage("assets/item/gold/gold_pile_6.png")
+    ItemGoldGoldPile10Png = loadImage("assets/item/gold/gold_pile_10.png")
+    ItemGoldGoldPile19Png = loadImage("assets/item/gold/gold_pile_19.png")
+    ItemGoldGoldPile7Png = loadImage("assets/item/gold/gold_pile_7.png")
+    ItemGoldGoldPile2Png = loadImage("assets/item/gold/gold_pile_2.png")
+    ItemGoldGoldPile1Png = loadImage("assets/item/gold/gold_pile_1.png")
+    ItemGoldGoldPile4Png = loadImage("assets/item/gold/gold_pile_4.png")
+    ItemGoldGoldPile9Png = loadImage("assets/item/gold/gold_pile_9.png")
+    ItemGoldGoldPile25Png = loadImage("assets/item/gold/gold_pile_25.png")
+    ItemGoldGoldPile8Png = loadImage("assets/item/gold/gold_pile_8.png")
+    ItemGoldGoldPilePng = loadImage("assets/item/gold/gold_pile.png")
+    ItemGoldGoldPile5Png = loadImage("assets/item/gold/gold_pile_5.png")
+    ItemGoldGoldPile23Png = loadImage("assets/item/gold/gold_pile_23.png")
+    ItemGoldGoldPile16Png = loadImage("assets/item/gold/gold_pile_16.png")
+    ItemFoodMeatRationOldPng = loadImage("assets/item/food/meat_ration_old.png")
+    ItemFoodSultanaPng = loadImage("assets/item/food/sultana.png")
+    ItemFoodLemonOldPng = loadImage("assets/item/food/lemon_old.png")
+    ItemFoodBreadRationOldPng = loadImage("assets/item/food/bread_ration_old.png")
+    ItemFoodGrapePng = loadImage("assets/item/food/grape.png")
+    ItemFoodChunkPng = loadImage("assets/item/food/chunk.png")
+    ItemFoodBananaOldPng = loadImage("assets/item/food/banana_old.png")
+    ItemFoodPizzaNewPng = loadImage("assets/item/food/pizza_new.png")
+    ItemFoodSnozzcumberPng = loadImage("assets/item/food/snozzcumber.png")
+    ItemFoodStrawberryNewPng = loadImage("assets/item/food/strawberry_new.png")
+    ItemFoodRambutanOldPng = loadImage("assets/item/food/rambutan_old.png")
+    ItemFoodApplePng = loadImage("assets/item/food/apple.png")
+    ItemFoodHoneycombOldPng = loadImage("assets/item/food/honeycomb_old.png")
+    ItemFoodLycheeOldPng = loadImage("assets/item/food/lychee_old.png")
+    ItemFoodCheesePng = loadImage("assets/item/food/cheese.png")
+    ItemFoodLemonNewPng = loadImage("assets/item/food/lemon_new.png")
+    ItemFoodOrangePng = loadImage("assets/item/food/orange.png")
+    ItemFoodBonePng = loadImage("assets/item/food/bone.png")
+    ItemFoodBeefJerkyOldPng = loadImage("assets/item/food/beef_jerky_old.png")
+    ItemFoodLumpOfRoyalJellyNewPng = loadImage("assets/item/food/lump_of_royal_jelly_new.png")
+    ItemFoodPearPng = loadImage("assets/item/food/pear.png")
+    ItemFoodStrawberryOldPng = loadImage("assets/item/food/strawberry_old.png")
+    ItemFoodPieceOfAmbrosiaNewPng = loadImage("assets/item/food/piece_of_ambrosia_new.png")
+    ItemFoodBeefJerkyNewPng = loadImage("assets/item/food/beef_jerky_new.png")
+    ItemFoodLumpOfRoyalJellyOldPng = loadImage("assets/item/food/lump_of_royal_jelly_old.png")
+    ItemFoodChokoPng = loadImage("assets/item/food/choko.png")
+    ItemFoodBreadRationNewPng = loadImage("assets/item/food/bread_ration_new.png")
+    ItemFoodRambutanNewPng = loadImage("assets/item/food/rambutan_new.png")
+    ItemFoodFruitPng = loadImage("assets/item/food/fruit.png")
+    ItemFoodPieceOfAmbrosiaOldPng = loadImage("assets/item/food/piece_of_ambrosia_old.png")
+    ItemFoodSausagePng = loadImage("assets/item/food/sausage.png")
+    ItemFoodApricotOldPng = loadImage("assets/item/food/apricot_old.png")
+    ItemFoodLycheeNewPng = loadImage("assets/item/food/lychee_new.png")
+    ItemFoodChunkRottenPng = loadImage("assets/item/food/chunk_rotten.png")
+    ItemFoodPizzaOldPng = loadImage("assets/item/food/pizza_old.png")
+    ItemFoodBananaNewPng = loadImage("assets/item/food/banana_new.png")
+    ItemFoodApricotNewPng = loadImage("assets/item/food/apricot_new.png")
+    ItemFoodMeatRationNewPng = loadImage("assets/item/food/meat_ration_new.png")
+    ItemFoodHoneycombNewPng = loadImage("assets/item/food/honeycomb_new.png")
+    ItemAmuletCameoBluePng = loadImage("assets/item/amulet/cameo_blue.png")
+    ItemAmuletEyeMagentaPng = loadImage("assets/item/amulet/eye_magenta.png")
+    ItemAmuletCelticYellowPng = loadImage("assets/item/amulet/celtic_yellow.png")
+    ItemAmuletRingCyanPng = loadImage("assets/item/amulet/ring_cyan.png")
+    ItemAmuletStone1CyanPng = loadImage("assets/item/amulet/stone_1_cyan.png")
+    ItemAmuletStone3MagentaPng = loadImage("assets/item/amulet/stone_3_magenta.png")
+    ItemAmuletCelticRedPng = loadImage("assets/item/amulet/celtic_red.png")
+    ItemAmuletStone2GreenPng = loadImage("assets/item/amulet/stone_2_green.png")
+    ItemAmuletPentaOrangePng = loadImage("assets/item/amulet/penta_orange.png")
+    ItemAmuletStone1GreenPng = loadImage("assets/item/amulet/stone_1_green.png")
+    ItemAmuletStone3GreenPng = loadImage("assets/item/amulet/stone_3_green.png")
+    ItemAmuletEyeCyanPng = loadImage("assets/item/amulet/eye_cyan.png")
+    ItemAmuletPentaGreenPng = loadImage("assets/item/amulet/penta_green.png")
+    ItemAmuletCelticBluePng = loadImage("assets/item/amulet/celtic_blue.png")
+    ItemAmuletStone3BluePng = loadImage("assets/item/amulet/stone_3_blue.png")
+    ItemAmuletStone2BluePng = loadImage("assets/item/amulet/stone_2_blue.png")
+    ItemAmuletCylinderGrayPng = loadImage("assets/item/amulet/cylinder_gray.png")
+    ItemAmuletCameoOrangePng = loadImage("assets/item/amulet/cameo_orange.png")
+    ItemAmuletCrystalWhitePng = loadImage("assets/item/amulet/crystal_white.png")
+    ItemAmuletFace1GoldPng = loadImage("assets/item/amulet/face_1_gold.png")
+    ItemAmuletRingGreenPng = loadImage("assets/item/amulet/ring_green.png")
+    ItemAmuletStone2RedPng = loadImage("assets/item/amulet/stone_2_red.png")
+    ItemAmuletRingRedPng = loadImage("assets/item/amulet/ring_red.png")
+    ItemAmuletBoneGrayPng = loadImage("assets/item/amulet/bone_gray.png")
+    ItemAmuletStone1PinkPng = loadImage("assets/item/amulet/stone_1_pink.png")
+    ItemAmuletCrystalGreenPng = loadImage("assets/item/amulet/crystal_green.png")
+    ItemAmuletFace2Png = loadImage("assets/item/amulet/face_2.png")
+    ItemAmuletCrystalRedPng = loadImage("assets/item/amulet/crystal_red.png")
+    ItemAmuletEyeGreenPng = loadImage("assets/item/amulet/eye_green.png")
+    ItemAmuletArtefactUrandFourWindsOldPng = loadImage("assets/item/amulet/artefact/urand_four_winds_old.png")
+    ItemAmuletArtefactUrandFourWindsNewPng = loadImage("assets/item/amulet/artefact/urand_four_winds_new.png")
+    ItemAmuletArtefactUrandCekugobNewPng = loadImage("assets/item/amulet/artefact/urand_cekugob_new.png")
+    ItemAmuletArtefactUrandVitalityPng = loadImage("assets/item/amulet/artefact/urand_vitality.png")
+    ItemAmuletArtefactUrandBroochOfShieldingNewPng = loadImage("assets/item/amulet/artefact/urand_brooch_of_shielding_new.png")
+    ItemAmuletArtefactUrandBroochOfShieldingOldPng = loadImage("assets/item/amulet/artefact/urand_brooch_of_shielding_old.png")
+    ItemAmuletArtefactUrandCekugobOldPng = loadImage("assets/item/amulet/artefact/urand_cekugob_old.png")
+    ItemAmuletArtefactUrandFingerPng = loadImage("assets/item/amulet/artefact/urand_finger.png")
+    ItemAmuletArtefactUrandBloodlustNewPng = loadImage("assets/item/amulet/artefact/urand_bloodlust_new.png")
+    ItemAmuletArtefactUrandBloodlustOldPng = loadImage("assets/item/amulet/artefact/urand_bloodlust_old.png")
+    ItemAmuletArtefactUrandAirNewPng = loadImage("assets/item/amulet/artefact/urand_air_new.png")
+    ItemAmuletArtefactUrandAirOldPng = loadImage("assets/item/amulet/artefact/urand_air_old.png")
+    ItemMiscMagicLampPng = loadImage("assets/item/misc/magic_lamp.png")
+    ItemMiscMiscStoneNewPng = loadImage("assets/item/misc/misc_stone_new.png")
+    ItemMiscMiscDeckOldPng = loadImage("assets/item/misc/misc_deck_old.png")
+    ItemMiscMiscDiscOldPng = loadImage("assets/item/misc/misc_disc_old.png")
+    ItemMiscMiscRunePng = loadImage("assets/item/misc/misc_rune.png")
+    ItemMiscMiscQuadPng = loadImage("assets/item/misc/misc_quad.png")
+    ItemMiscMiscHornPng = loadImage("assets/item/misc/misc_horn.png")
+    ItemMiscMiscDeckRareOldPng = loadImage("assets/item/misc/misc_deck_rare_old.png")
+    ItemMiscMiscBoxPng = loadImage("assets/item/misc/misc_box.png")
+    ItemMiscMiscDeckLegendaryNewPng = loadImage("assets/item/misc/misc_deck_legendary_new.png")
+    ItemMiscMiscDeckRareNewPng = loadImage("assets/item/misc/misc_deck_rare_new.png")
+    ItemMiscMiscPhialPng = loadImage("assets/item/misc/misc_phial.png")
+    ItemMiscMiscDeckLegendaryOldPng = loadImage("assets/item/misc/misc_deck_legendary_old.png")
+    ItemMiscMiscDeckNewPng = loadImage("assets/item/misc/misc_deck_new.png")
+    ItemMiscMiscPhantomMirrorPng = loadImage("assets/item/misc/misc_phantom_mirror.png")
+    ItemMiscMiscCrystalOldPng = loadImage("assets/item/misc/misc_crystal_old.png")
+    ItemMiscMiscLampOldPng = loadImage("assets/item/misc/misc_lamp_old.png")
+    ItemMiscMiscOrbPng = loadImage("assets/item/misc/misc_orb.png")
+    ItemMiscMiscLampInertPng = loadImage("assets/item/misc/misc_lamp_inert.png")
+    ItemMiscKeyPng = loadImage("assets/item/misc/key.png")
+    ItemMiscMirrorPng = loadImage("assets/item/misc/mirror.png")
+    ItemMiscMiscOrb2Png = loadImage("assets/item/misc/misc_orb_2.png")
+    ItemMiscMiscCrystalNewPng = loadImage("assets/item/misc/misc_crystal_new.png")
+    ItemMiscMiscLampNewPng = loadImage("assets/item/misc/misc_lamp_new.png")
+    ItemMiscMiscStoneOldPng = loadImage("assets/item/misc/misc_stone_old.png")
+    ItemMiscMiscLanternPng = loadImage("assets/item/misc/misc_lantern.png")
+    ItemMiscMiscFanOldPng = loadImage("assets/item/misc/misc_fan_old.png")
+    ItemMiscMiscFanNewPng = loadImage("assets/item/misc/misc_fan_new.png")
+    ItemMiscMiscFanInertPng = loadImage("assets/item/misc/misc_fan_inert.png")
+    ItemMiscMiscStoneInertPng = loadImage("assets/item/misc/misc_stone_inert.png")
+    ItemMiscMiscDiscNewPng = loadImage("assets/item/misc/misc_disc_new.png")
+    ItemMiscMiscPhialInertPng = loadImage("assets/item/misc/misc_phial_inert.png")
+    ItemMiscMiscBottlePng = loadImage("assets/item/misc/misc_bottle.png")
+    ItemMiscRunesRuneLomLobonNewPng = loadImage("assets/item/misc/runes/rune_lom_lobon_new.png")
+    ItemMiscRunesRuneAbyssPng = loadImage("assets/item/misc/runes/rune_abyss.png")
+    ItemMiscRunesGenericPng = loadImage("assets/item/misc/runes/generic.png")
+    ItemMiscRunesRuneGehennaOldPng = loadImage("assets/item/misc/runes/rune_gehenna_old.png")
+    ItemMiscRunesRuneDemonic2Png = loadImage("assets/item/misc/runes/rune_demonic_2.png")
+    ItemMiscRunesRuneVaultsPng = loadImage("assets/item/misc/runes/rune_vaults.png")
+    ItemMiscRunesRuneDisOldPng = loadImage("assets/item/misc/runes/rune_dis_old.png")
+    ItemMiscRunesRuneMnolegOldPng = loadImage("assets/item/misc/runes/rune_mnoleg_old.png")
+    ItemMiscRunesRuneCocytusNewPng = loadImage("assets/item/misc/runes/rune_cocytus_new.png")
+    ItemMiscRunesRuneDemonic1Png = loadImage("assets/item/misc/runes/rune_demonic_1.png")
+    ItemMiscRunesRuneTartarusNewPng = loadImage("assets/item/misc/runes/rune_tartarus_new.png")
+    ItemMiscRunesRuneDemonic3Png = loadImage("assets/item/misc/runes/rune_demonic_3.png")
+    ItemMiscRunesRuneGehennaNewPng = loadImage("assets/item/misc/runes/rune_gehenna_new.png")
+    ItemMiscRunesRuneElvenPng = loadImage("assets/item/misc/runes/rune_elven.png")
+    ItemMiscRunesRuneGloorxVloqOldPng = loadImage("assets/item/misc/runes/rune_gloorx_vloq_old.png")
+    ItemMiscRunesRuneTartarusOldPng = loadImage("assets/item/misc/runes/rune_tartarus_old.png")
+    ItemMiscRunesRuneDemonic6Png = loadImage("assets/item/misc/runes/rune_demonic_6.png")
+    ItemMiscRunesRuneDemonic4Png = loadImage("assets/item/misc/runes/rune_demonic_4.png")
+    ItemMiscRunesRuneCerebovOldPng = loadImage("assets/item/misc/runes/rune_cerebov_old.png")
+    ItemMiscRunesRuneCerebovNewPng = loadImage("assets/item/misc/runes/rune_cerebov_new.png")
+    ItemMiscRunesRuneGloorxVloqNewPng = loadImage("assets/item/misc/runes/rune_gloorx_vloq_new.png")
+    ItemMiscRunesRuneLomLobonOldPng = loadImage("assets/item/misc/runes/rune_lom_lobon_old.png")
+    ItemMiscRunesRuneSwampPng = loadImage("assets/item/misc/runes/rune_swamp.png")
+    ItemMiscRunesRuneTombPng = loadImage("assets/item/misc/runes/rune_tomb.png")
+    ItemMiscRunesRuneMnolegNewPng = loadImage("assets/item/misc/runes/rune_mnoleg_new.png")
+    ItemMiscRunesRuneShoalsPng = loadImage("assets/item/misc/runes/rune_shoals.png")
+    ItemMiscRunesRuneDisNewPng = loadImage("assets/item/misc/runes/rune_dis_new.png")
+    ItemMiscRunesRuneSlimePng = loadImage("assets/item/misc/runes/rune_slime.png")
+    ItemMiscRunesRuneCocytusOldPng = loadImage("assets/item/misc/runes/rune_cocytus_old.png")
+    ItemMiscRunesRuneDemonic5Png = loadImage("assets/item/misc/runes/rune_demonic_5.png")
+    ItemMiscRunesRuneSpiderPng = loadImage("assets/item/misc/runes/rune_spider.png")
+    MonsterShadowImpPng = loadImage("assets/monster/shadow_imp.png")
+    MonsterMerfolkFighterWaterPng = loadImage("assets/monster/merfolk_fighter_water.png")
+    MonsterYaktaurOldPng = loadImage("assets/monster/yaktaur_old.png")
+    MonsterLabratUnseenPng = loadImage("assets/monster/labrat_unseen.png")
+    MonsterOgreMageOldPng = loadImage("assets/monster/ogre_mage_old.png")
+    MonsterHydrataurPng = loadImage("assets/monster/hydrataur.png")
+    MonsterSphinxNewPng = loadImage("assets/monster/sphinx_new.png")
+    MonsterFaunPng = loadImage("assets/monster/faun.png")
+    MonsterHumanNewPng = loadImage("assets/monster/human_new.png")
+    MonsterCyclopsOldPng = loadImage("assets/monster/cyclops_old.png")
+    MonsterDeepElfHighPriestPng = loadImage("assets/monster/deep_elf_high_priest.png")
+    MonsterKillerKlownGreenPng = loadImage("assets/monster/killer_klown_green.png")
+    MonsterTitanOldPng = loadImage("assets/monster/titan_old.png")
+    MonsterYaktaurMeleeOldPng = loadImage("assets/monster/yaktaur-melee_old.png")
+    MonsterGiantAmoebaOldPng = loadImage("assets/monster/giant_amoeba_old.png")
+    MonsterGuardianSerpentNewPng = loadImage("assets/monster/guardian_serpent_new.png")
+    MonsterOrcKnightOldPng = loadImage("assets/monster/orc_knight_old.png")
+    MonsterFormicidPng = loadImage("assets/monster/formicid.png")
+    MonsterGreaterNagaPng = loadImage("assets/monster/greater_naga.png")
+    MonsterTitanNewPng = loadImage("assets/monster/titan_new.png")
+    MonsterHellKnightOldPng = loadImage("assets/monster/hell_knight_old.png")
+    MonsterCentaurWarriorMeleePng = loadImage("assets/monster/centaur_warrior-melee.png")
+    MonsterGoldenDragonPng = loadImage("assets/monster/golden_dragon.png")
+    MonsterOrcWarriorOldPng = loadImage("assets/monster/orc_warrior_old.png")
+    MonsterDeepDwarfBerserkerPng = loadImage("assets/monster/deep_dwarf_berserker.png")
+    MonsterHippogriffNewPng = loadImage("assets/monster/hippogriff_new.png")
+    MonsterHalflingOldPng = loadImage("assets/monster/halfling_old.png")
+    MonsterCyclopsNewPng = loadImage("assets/monster/cyclops_new.png")
+    MonsterSphinxOldPng = loadImage("assets/monster/sphinx_old.png")
+    MonsterMinotaurPng = loadImage("assets/monster/minotaur.png")
+    MonsterManticorePng = loadImage("assets/monster/manticore.png")
+    MonsterSalamanderFirebrandPng = loadImage("assets/monster/salamander_firebrand.png")
+    MonsterIceBeastPng = loadImage("assets/monster/ice_beast.png")
+    MonsterKillerKlownPurplePng = loadImage("assets/monster/killer_klown_purple.png")
+    MonsterHarpyPng = loadImage("assets/monster/harpy.png")
+    MonsterMerfolkJavelineerOldPng = loadImage("assets/monster/merfolk_javelineer_old.png")
+    MonsterSprigganEnchanterPng = loadImage("assets/monster/spriggan_enchanter.png")
+    MonsterDwarfNewPng = loadImage("assets/monster/dwarf_new.png")
+    MonsterEttinNewPng = loadImage("assets/monster/ettin_new.png")
+    MonsterMerfolkWaterPng = loadImage("assets/monster/merfolk_water.png")
+    MonsterSirenNewPng = loadImage("assets/monster/siren_new.png")
+    MonsterFormicidVenomMagePng = loadImage("assets/monster/formicid_venom_mage.png")
+    MonsterDeepTrollShamanPng = loadImage("assets/monster/deep_troll_shaman.png")
+    MonsterDeepElfSummonerPng = loadImage("assets/monster/deep_elf_summoner.png")
+    MonsterDeepElfConjurerPng = loadImage("assets/monster/deep_elf_conjurer.png")
+    MonsterDeepElfMasterArcherPng = loadImage("assets/monster/deep_elf_master_archer.png")
+    MonsterBoggartNewPng = loadImage("assets/monster/boggart_new.png")
+    MonsterGoblinOldPng = loadImage("assets/monster/goblin_old.png")
+    MonsterDeepElfDemonologistPng = loadImage("assets/monster/deep_elf_demonologist.png")
+    MonsterMothOfSuppressionPng = loadImage("assets/monster/moth_of_suppression.png")
+    MonsterHellKnightNewPng = loadImage("assets/monster/hell_knight_new.png")
+    MonsterNagaMagePng = loadImage("assets/monster/naga_mage.png")
+    MonsterHobgoblinOldPng = loadImage("assets/monster/hobgoblin_old.png")
+    MonsterMerfolkAquamancerWaterNewPng = loadImage("assets/monster/merfolk_aquamancer_water_new.png")
+    MonsterForestDrakePng = loadImage("assets/monster/forest_drake.png")
+    MonsterElfOldPng = loadImage("assets/monster/elf_old.png")
+    MonsterIronTrollPng = loadImage("assets/monster/iron_troll.png")
+    MonsterFireDrakePng = loadImage("assets/monster/fire_drake.png")
+    MonsterWaterNymphPng = loadImage("assets/monster/water_nymph.png")
+    MonsterSprigganDefenderShieldlessPng = loadImage("assets/monster/spriggan_defender_shieldless.png")
+    MonsterNagaRitualistPng = loadImage("assets/monster/naga_ritualist.png")
+    MonsterTenguWarriorPng = loadImage("assets/monster/tengu_warrior.png")
+    MonsterPhoenixPng = loadImage("assets/monster/phoenix.png")
+    MonsterBigKoboldOldPng = loadImage("assets/monster/big_kobold_old.png")
+    MonsterGnollSergeantPng = loadImage("assets/monster/gnoll_sergeant.png")
+    MonsterStoneGiantNewPng = loadImage("assets/monster/stone_giant_new.png")
+    MonsterMerfolkAquamancerNewPng = loadImage("assets/monster/merfolk_aquamancer_new.png")
+    MonsterGnollNewPng = loadImage("assets/monster/gnoll_new.png")
+    MonsterGlowingShapeshifterPng = loadImage("assets/monster/glowing_shapeshifter.png")
+    MonsterEttinOldPng = loadImage("assets/monster/ettin_old.png")
+    MonsterSlaveFreedPng = loadImage("assets/monster/slave_freed.png")
+    MonsterQuasitPng = loadImage("assets/monster/quasit.png")
+    MonsterKillerKlownRedPng = loadImage("assets/monster/killer_klown_red.png")
+    MonsterMerfolkPlainPng = loadImage("assets/monster/merfolk_plain.png")
+    MonsterIronTrollMonkGhostPng = loadImage("assets/monster/iron_troll_monk_ghost.png")
+    MonsterOrcHighPriestNewPng = loadImage("assets/monster/orc_high_priest_new.png")
+    MonsterYaktaurCaptainMeleeOldPng = loadImage("assets/monster/yaktaur_captain-melee_old.png")
+    MonsterMerfolkImpalerWaterNewPng = loadImage("assets/monster/merfolk_impaler_water_new.png")
+    MonsterYaktaurCaptainMeleeNewPng = loadImage("assets/monster/yaktaur_captain-melee_new.png")
+    MonsterSalamanderStormcallerPng = loadImage("assets/monster/salamander_stormcaller.png")
+    MonsterOrcNewPng = loadImage("assets/monster/orc_new.png")
+    MonsterDeepElfDeathMagePng = loadImage("assets/monster/deep_elf_death_mage.png")
+    MonsterNagaPng = loadImage("assets/monster/naga.png")
+    MonsterSirenOldPng = loadImage("assets/monster/siren_old.png")
+    MonsterDeepElfKnightNewPng = loadImage("assets/monster/deep_elf_knight_new.png")
+    MonsterOrbGuardianOldPng = loadImage("assets/monster/orb_guardian_old.png")
+    MonsterOrcPriestNewPng = loadImage("assets/monster/orc_priest_new.png")
+    MonsterKenkuWingedPng = loadImage("assets/monster/kenku_winged.png")
+    MonsterMerfolkJavelineerWaterNewPng = loadImage("assets/monster/merfolk_javelineer_water_new.png")
+    MonsterRockTrollMonkGhostPng = loadImage("assets/monster/rock_troll_monk_ghost.png")
+    MonsterFireGiantNewPng = loadImage("assets/monster/fire_giant_new.png")
+    MonsterOrcSorcererOldPng = loadImage("assets/monster/orc_sorcerer_old.png")
+    MonsterEntropyWeaverPng = loadImage("assets/monster/entropy_weaver.png")
+    MonsterMerfolkJavelineerWaterOldPng = loadImage("assets/monster/merfolk_javelineer_water_old.png")
+    MonsterMerfolkImpalerNewPng = loadImage("assets/monster/merfolk_impaler_new.png")
+    MonsterDeepDwarfPng = loadImage("assets/monster/deep_dwarf.png")
+    MonsterMermaidPng = loadImage("assets/monster/mermaid.png")
+    MonsterMerfolkFighterPng = loadImage("assets/monster/merfolk_fighter.png")
+    MonsterGiantAmoebaNewPng = loadImage("assets/monster/giant_amoeba_new.png")
+    MonsterMerfolkAvatarPng = loadImage("assets/monster/merfolk_avatar.png")
+    MonsterTenguPng = loadImage("assets/monster/tengu.png")
+    MonsterDeepDwarfDeathKnightPng = loadImage("assets/monster/deep_dwarf_death_knight.png")
+    MonsterBigKoboldNewPng = loadImage("assets/monster/big_kobold_new.png")
+    MonsterHillGiantNewPng = loadImage("assets/monster/hill_giant_new.png")
+    MonsterHumanSlavePng = loadImage("assets/monster/human_slave.png")
+    MonsterIronheartPreserverPng = loadImage("assets/monster/ironheart_preserver.png")
+    MonsterOgreOldPng = loadImage("assets/monster/ogre_old.png")
+    MonsterHumanOldPng = loadImage("assets/monster/human_old.png")
+    MonsterGnollOldPng = loadImage("assets/monster/gnoll_old.png")
+    MonsterBoggartOldPng = loadImage("assets/monster/boggart_old.png")
+    MonsterKillerKlownBluePng = loadImage("assets/monster/killer_klown_blue.png")
+    MonsterDeepTrollEarthMagePng = loadImage("assets/monster/deep_troll_earth_mage.png")
+    MonsterDwarfOldPng = loadImage("assets/monster/dwarf_old.png")
+    MonsterCentaurMeleePng = loadImage("assets/monster/centaur-melee.png")
+    MonsterOgreNewPng = loadImage("assets/monster/ogre_new.png")
+    MonsterAngelPng = loadImage("assets/monster/angel.png")
+    MonsterGuardianNagaPng = loadImage("assets/monster/guardian_naga.png")
+    MonsterMerfolkPlainWaterPng = loadImage("assets/monster/merfolk_plain_water.png")
+    MonsterYaktaurCaptainOldPng = loadImage("assets/monster/yaktaur_captain_old.png")
+    MonsterHalflingNewPng = loadImage("assets/monster/halfling_new.png")
+    MonsterDeepElfMagePng = loadImage("assets/monster/deep_elf_mage.png")
+    MonsterDeepElfSoldierPng = loadImage("assets/monster/deep_elf_soldier.png")
+    MonsterOrcHighPriestOldPng = loadImage("assets/monster/orc_high_priest_old.png")
+    MonsterIronbrandConvokerPng = loadImage("assets/monster/ironbrand_convoker.png")
+    MonsterYaktaurNewPng = loadImage("assets/monster/yaktaur_new.png")
+    MonsterDeepElfAnnihilatorPng = loadImage("assets/monster/deep_elf_annihilator.png")
+    MonsterStoneGiantOldPng = loadImage("assets/monster/stone_giant_old.png")
+    MonsterGuardianSerpentOldPng = loadImage("assets/monster/guardian_serpent_old.png")
+    MonsterHobgoblinNewPng = loadImage("assets/monster/hobgoblin_new.png")
+    MonsterSwampDrakePng = loadImage("assets/monster/swamp_drake.png")
+    MonsterSalamanderPng = loadImage("assets/monster/salamander.png")
+    MonsterHumanPng = loadImage("assets/monster/human.png")
+    MonsterDemonspawnPng = loadImage("assets/monster/demonspawn.png")
+    MonsterMerfolkAquamancerOldPng = loadImage("assets/monster/merfolk_aquamancer_old.png")
+    MonsterTwoHeadedOgreOldPng = loadImage("assets/monster/two_headed_ogre_old.png")
+    MonsterOrcWizardOldPng = loadImage("assets/monster/orc_wizard_old.png")
+    MonsterElfNewPng = loadImage("assets/monster/elf_new.png")
+    MonsterTwoHeadedOgreNewPng = loadImage("assets/monster/two_headed_ogre_new.png")
+    MonsterEnchantressHumanPng = loadImage("assets/monster/enchantress_human.png")
+    MonsterMermaidWaterPng = loadImage("assets/monster/mermaid_water.png")
+    MonsterNagaWarriorPng = loadImage("assets/monster/naga_warrior.png")
+    MonsterOrcKnightNewPng = loadImage("assets/monster/orc_knight_new.png")
+    MonsterSprigganBerserkerPng = loadImage("assets/monster/spriggan_berserker.png")
+    MonsterHillGiantOldPng = loadImage("assets/monster/hill_giant_old.png")
+    MonsterGriffonPng = loadImage("assets/monster/griffon.png")
+    MonsterCentaurWarriorPng = loadImage("assets/monster/centaur_warrior.png")
+    MonsterRavenPng = loadImage("assets/monster/raven.png")
+    MonsterKoboldNewPng = loadImage("assets/monster/kobold_new.png")
+    MonsterOrcWarriorNewPng = loadImage("assets/monster/orc_warrior_new.png")
+    MonsterNagaWarriorUniquePng = loadImage("assets/monster/naga_warrior_unique.png")
+    MonsterDeathDrakePng = loadImage("assets/monster/death_drake.png")
+    MonsterLindwurmPng = loadImage("assets/monster/lindwurm.png")
+    MonsterOrcWizardNewPng = loadImage("assets/monster/orc_wizard_new.png")
+    MonsterOrbGuardianNewPng = loadImage("assets/monster/orb_guardian_new.png")
+    MonsterMerfolkAquamancerWaterOldPng = loadImage("assets/monster/merfolk_aquamancer_water_old.png")
+    MonsterCentaurPng = loadImage("assets/monster/centaur.png")
+    MonsterGnollShamanPng = loadImage("assets/monster/gnoll_shaman.png")
+    MonsterBrownOozePng = loadImage("assets/monster/brown_ooze.png")
+    MonsterPulsatingLumpPng = loadImage("assets/monster/pulsating_lump.png")
+    MonsterYaktaurMeleeNewPng = loadImage("assets/monster/yaktaur-melee_new.png")
+    MonsterOrcOldPng = loadImage("assets/monster/orc_old.png")
+    MonsterNecromancerOldPng = loadImage("assets/monster/necromancer_old.png")
+    MonsterFrostGiantOldPng = loadImage("assets/monster/frost_giant_old.png")
+    MonsterNagaSharpshooterPng = loadImage("assets/monster/naga_sharpshooter.png")
+    MonsterTrollPng = loadImage("assets/monster/troll.png")
+    MonsterMerfolkJavelineerNewPng = loadImage("assets/monster/merfolk_javelineer_new.png")
+    MonsterRockTrollPng = loadImage("assets/monster/rock_troll.png")
+    MonsterSirenWaterNewPng = loadImage("assets/monster/siren_water_new.png")
+    MonsterSirenWaterOldPng = loadImage("assets/monster/siren_water_old.png")
+    MonsterMutantBeastPng = loadImage("assets/monster/mutant_beast.png")
+    MonsterFrostGiantNewPng = loadImage("assets/monster/frost_giant_new.png")
+    MonsterDeathKnightPng = loadImage("assets/monster/death_knight.png")
+    MonsterGiantOrangeBrainPng = loadImage("assets/monster/giant_orange_brain.png")
+    MonsterHumanMonkGhostPng = loadImage("assets/monster/human_monk_ghost.png")
+    MonsterDeepElfSorcererPng = loadImage("assets/monster/deep_elf_sorcerer.png")
+    MonsterKoboldDemonologistPng = loadImage("assets/monster/kobold_demonologist.png")
+    MonsterTenguReaverPng = loadImage("assets/monster/tengu_reaver.png")
+    MonsterYaktaurCaptainNewPng = loadImage("assets/monster/yaktaur_captain_new.png")
+    MonsterDeepElfPriestPng = loadImage("assets/monster/deep_elf_priest.png")
+    MonsterGoblinNewPng = loadImage("assets/monster/goblin_new.png")
+    MonsterKoboldOldPng = loadImage("assets/monster/kobold_old.png")
+    MonsterMerfolkImpalerOldPng = loadImage("assets/monster/merfolk_impaler_old.png")
+    MonsterOgreMageNewPng = loadImage("assets/monster/ogre_mage_new.png")
+    MonsterDeepTrollPng = loadImage("assets/monster/deep_troll.png")
+    MonsterHippogriffOldPng = loadImage("assets/monster/hippogriff_old.png")
+    MonsterSprigganRiderPng = loadImage("assets/monster/spriggan_rider.png")
+    MonsterShapeshifterPng = loadImage("assets/monster/shapeshifter.png")
+    MonsterSalamanderMysticPng = loadImage("assets/monster/salamander_mystic.png")
+    MonsterDeepElfKnightOldPng = loadImage("assets/monster/deep_elf_knight_old.png")
+    MonsterNecromancerNewPng = loadImage("assets/monster/necromancer_new.png")
+    MonsterSatyrPng = loadImage("assets/monster/satyr.png")
+    MonsterDeepDwarfArtificerPng = loadImage("assets/monster/deep_dwarf_artificer.png")
+    MonsterMerfolkAvatarWaterPng = loadImage("assets/monster/merfolk_avatar_water.png")
+    MonsterKillerKlownYellowPng = loadImage("assets/monster/killer_klown_yellow.png")
+    MonsterLavaWormPng = loadImage("assets/monster/lava_worm.png")
+    MonsterFireGiantOldPng = loadImage("assets/monster/fire_giant_old.png")
+    MonsterDryadPng = loadImage("assets/monster/dryad.png")
+    MonsterDeepElfBlademasterPng = loadImage("assets/monster/deep_elf_blademaster.png")
+    MonsterOrcSorcererNewPng = loadImage("assets/monster/orc_sorcerer_new.png")
+    MonsterDeepElfFighterOldPng = loadImage("assets/monster/deep_elf_fighter_old.png")
+    MonsterOrcWarlordPng = loadImage("assets/monster/orc_warlord.png")
+    MonsterGnomePng = loadImage("assets/monster/gnome.png")
+    MonsterKillerKlownPng = loadImage("assets/monster/killer_klown.png")
+    MonsterDaevaPng = loadImage("assets/monster/daeva.png")
+    MonsterDeepTrollBerserkerPng = loadImage("assets/monster/deep_troll_berserker.png")
+    MonsterGrandAvatarPng = loadImage("assets/monster/grand_avatar.png")
+    MonsterMerfolkPng = loadImage("assets/monster/merfolk.png")
+    MonsterAnubisGuardPng = loadImage("assets/monster/anubis_guard.png")
+    MonsterTenguConjurerPng = loadImage("assets/monster/tengu_conjurer.png")
+    MonsterMerfolkImpalerWaterOldPng = loadImage("assets/monster/merfolk_impaler_water_old.png")
+    MonsterDeepElfFighterNewPng = loadImage("assets/monster/deep_elf_fighter_new.png")
+    MonsterWizardPng = loadImage("assets/monster/wizard.png")
+    MonsterOrcPriestOldPng = loadImage("assets/monster/orc_priest_old.png")
+    MonsterJellyPng = loadImage("assets/monster/jelly.png")
+    MonsterJuggernautPng = loadImage("assets/monster/juggernaut.png")
+    MonsterAberrationUnseenHorrorOldPng = loadImage("assets/monster/aberration/unseen_horror_old.png")
+    MonsterAberrationUnseenHorrorNewPng = loadImage("assets/monster/aberration/unseen_horror_new.png")
+    MonsterAmorphousAcidBlobPng = loadImage("assets/monster/amorphous/acid_blob.png")
+    MonsterAmorphousOozeOldPng = loadImage("assets/monster/amorphous/ooze_old.png")
+    MonsterAmorphousDeathOozeNewPng = loadImage("assets/monster/amorphous/death_ooze_new.png")
+    MonsterAmorphousAzureJellyOldPng = loadImage("assets/monster/amorphous/azure_jelly_old.png")
+    MonsterAmorphousOozeNewPng = loadImage("assets/monster/amorphous/ooze_new.png")
+    MonsterAmorphousDeathOozeOldPng = loadImage("assets/monster/amorphous/death_ooze_old.png")
+    MonsterAmorphousAzureJellyNewPng = loadImage("assets/monster/amorphous/azure_jelly_new.png")
+    MonsterAmorphousJellyPng = loadImage("assets/monster/amorphous/jelly.png")
+    MonsterPanlordDemonBodySpottyBottomNewPng = loadImage("assets/monster/panlord/demon_body_spotty_bottom_new.png")
+    MonsterPanlordDemonHeadRamTopOldPng = loadImage("assets/monster/panlord/demon_head_ram_top_old.png")
+    MonsterPanlordDemonBodyCrouchTopPng = loadImage("assets/monster/panlord/demon_body_crouch_top.png")
+    MonsterPanlordDemonWingsBatTopPng = loadImage("assets/monster/panlord/demon_wings_bat_top.png")
+    MonsterPanlordDemonBodyArmorTopPng = loadImage("assets/monster/panlord/demon_body_armor_top.png")
+    MonsterPanlordDemonWingsButterflyTopNewPng = loadImage("assets/monster/panlord/demon_wings_butterfly_top_new.png")
+    MonsterPanlordDemonHeadHelmetTopOldPng = loadImage("assets/monster/panlord/demon_head_helmet_top_old.png")
+    MonsterPanlordDemonHeadHorseTopOldPng = loadImage("assets/monster/panlord/demon_head_horse_top_old.png")
+    MonsterPanlordDemonBodySkeletalBottomPng = loadImage("assets/monster/panlord/demon_body_skeletal_bottom.png")
+    MonsterPanlordDemonHeadElephantTopNewPng = loadImage("assets/monster/panlord/demon_head_elephant_top_new.png")
+    MonsterPanlordDemonHeadFungusTopPng = loadImage("assets/monster/panlord/demon_head_fungus_top.png")
+    MonsterPanlordDemonHeadRhinoTopOldPng = loadImage("assets/monster/panlord/demon_head_rhino_top_old.png")
+    MonsterPanlordDemonHeadMedusaTopNewPng = loadImage("assets/monster/panlord/demon_head_medusa_top_new.png")
+    MonsterPanlordDemonBodySpottyTopOldPng = loadImage("assets/monster/panlord/demon_body_spotty_top_old.png")
+    MonsterPanlordDemonBodyThinTopOldPng = loadImage("assets/monster/panlord/demon_body_thin_top_old.png")
+    MonsterPanlordDemonHeadElephantTopOldPng = loadImage("assets/monster/panlord/demon_head_elephant_top_old.png")
+    MonsterPanlordDemonWingsBonesBottomPng = loadImage("assets/monster/panlord/demon_wings_bones_bottom.png")
+    MonsterPanlordDemonHeadTentaclesTopNewPng = loadImage("assets/monster/panlord/demon_head_tentacles_top_new.png")
+    MonsterPanlordDemonHeadHorseTopNewPng = loadImage("assets/monster/panlord/demon_head_horse_top_new.png")
+    MonsterPanlordDemonBodySuccubusTopPng = loadImage("assets/monster/panlord/demon_body_succubus_top.png")
+    MonsterPanlordDemonHeadSuccubusTopPng = loadImage("assets/monster/panlord/demon_head_succubus_top.png")
+    MonsterPanlordDemonBodyThinBottomNewPng = loadImage("assets/monster/panlord/demon_body_thin_bottom_new.png")
+    MonsterPanlordDemonWingsMediumBottomPng = loadImage("assets/monster/panlord/demon_wings_medium_bottom.png")
+    MonsterPanlordDemonHeadFrogTopPng = loadImage("assets/monster/panlord/demon_head_frog_top.png")
+    MonsterPanlordDemonHeadMonkeyTopNewPng = loadImage("assets/monster/panlord/demon_head_monkey_top_new.png")
+    MonsterPanlordDemonWingsRedTopOldPng = loadImage("assets/monster/panlord/demon_wings_red_top_old.png")
+    MonsterPanlordDemonHeadTentaclesTopOldPng = loadImage("assets/monster/panlord/demon_head_tentacles_top_old.png")
+    MonsterPanlordDemonBodyFatterTopNewPng = loadImage("assets/monster/panlord/demon_body_fatter_top_new.png")
+    MonsterPanlordDemonWingsButterflySmallTopPng = loadImage("assets/monster/panlord/demon_wings_butterfly_small_top.png")
+    MonsterPanlordDemonHeadFlyTopPng = loadImage("assets/monster/panlord/demon_head_fly_top.png")
+    MonsterPanlordDemonWingsDemonicTopNewPng = loadImage("assets/monster/panlord/demon_wings_demonic_top_new.png")
+    MonsterPanlordDemonBodyMantisTopPng = loadImage("assets/monster/panlord/demon_body_mantis_top.png")
+    MonsterPanlordDemonHeadHornsTopNewPng = loadImage("assets/monster/panlord/demon_head_horns_top_new.png")
+    MonsterPanlordDemonWingsHookedTopPng = loadImage("assets/monster/panlord/demon_wings_hooked_top.png")
+    MonsterPanlordDemonHeadTeethTopPng = loadImage("assets/monster/panlord/demon_head_teeth_top.png")
+    MonsterPanlordDemonHeadRhinoTopNewPng = loadImage("assets/monster/panlord/demon_head_rhino_top_new.png")
+    MonsterPanlordDemonWingsLargeTopOldPng = loadImage("assets/monster/panlord/demon_wings_large_top_old.png")
+    MonsterPanlordDemonHeadHairTopPng = loadImage("assets/monster/panlord/demon_head_hair_top.png")
+    MonsterPanlordDemonBodyFatBottomNewPng = loadImage("assets/monster/panlord/demon_body_fat_bottom_new.png")
+    MonsterPanlordDemonBodySpikedTopNewPng = loadImage("assets/monster/panlord/demon_body_spiked_top_new.png")
+    MonsterPanlordDemonHeadCowSkullTopPng = loadImage("assets/monster/panlord/demon_head_cow_skull_top.png")
+    MonsterPanlordDemonWingsKnobsTopPng = loadImage("assets/monster/panlord/demon_wings_knobs_top.png")
+    MonsterPanlordDemonWingsMediumTopOldPng = loadImage("assets/monster/panlord/demon_wings_medium_top_old.png")
+    MonsterPanlordDemonWingsLargeBottomPng = loadImage("assets/monster/panlord/demon_wings_large_bottom.png")
+    MonsterPanlordDemonWingsSparrowTopPng = loadImage("assets/monster/panlord/demon_wings_sparrow_top.png")
+    MonsterPanlordDemonBodySuccubusBottomPng = loadImage("assets/monster/panlord/demon_body_succubus_bottom.png")
+    MonsterPanlordDemonWingsDemonicTopOldPng = loadImage("assets/monster/panlord/demon_wings_demonic_top_old.png")
+    MonsterPanlordDemonHeadSkullTopPng = loadImage("assets/monster/panlord/demon_head_skull_top.png")
+    MonsterPanlordDemonHeadHeadsTopPng = loadImage("assets/monster/panlord/demon_head_heads_top.png")
+    MonsterPanlordDemonBodyThinBottomOldPng = loadImage("assets/monster/panlord/demon_body_thin_bottom_old.png")
+    MonsterPanlordDemonHeadBoxesTopPng = loadImage("assets/monster/panlord/demon_head_boxes_top.png")
+    MonsterPanlordDemonHeadHornTopPng = loadImage("assets/monster/panlord/demon_head_horn_top.png")
+    MonsterPanlordDemonHeadMedusaTopOldPng = loadImage("assets/monster/panlord/demon_head_medusa_top_old.png")
+    MonsterPanlordDemonHeadRamTopNewPng = loadImage("assets/monster/panlord/demon_head_ram_top_new.png")
+    MonsterPanlordDemonBodyFatterBottomNewPng = loadImage("assets/monster/panlord/demon_body_fatter_bottom_new.png")
+    MonsterPanlordDemonWingsButterflyBottomPng = loadImage("assets/monster/panlord/demon_wings_butterfly_bottom.png")
+    MonsterPanlordDemonWingsButterflyTopOldPng = loadImage("assets/monster/panlord/demon_wings_butterfly_top_old.png")
+    MonsterPanlordDemonHeadMouseTopOldPng = loadImage("assets/monster/panlord/demon_head_mouse_top_old.png")
+    MonsterPanlordDemonBodyNormalTopNewPng = loadImage("assets/monster/panlord/demon_body_normal_top_new.png")
+    MonsterPanlordDemonHeadBrainTopPng = loadImage("assets/monster/panlord/demon_head_brain_top.png")
+    MonsterPanlordDemonBodyCaterpillarBottomPng = loadImage("assets/monster/panlord/demon_body_caterpillar_bottom.png")
+    MonsterPanlordDemonBodyFatTopOldPng = loadImage("assets/monster/panlord/demon_body_fat_top_old.png")
+    MonsterPanlordDemonHeadMonkeyTopOldPng = loadImage("assets/monster/panlord/demon_head_monkey_top_old.png")
+    MonsterPanlordDemonWingsDragonflyTopPng = loadImage("assets/monster/panlord/demon_wings_dragonfly_top.png")
+    MonsterPanlordPandemoniumDemonPng = loadImage("assets/monster/panlord/pandemonium_demon.png")
+    MonsterPanlordDemonHeadHelmetTopNewPng = loadImage("assets/monster/panlord/demon_head_helmet_top_new.png")
+    MonsterPanlordDemonWingsLargeTopNewPng = loadImage("assets/monster/panlord/demon_wings_large_top_new.png")
+    MonsterPanlordDemonBodyCrouchBottomPng = loadImage("assets/monster/panlord/demon_body_crouch_bottom.png")
+    MonsterPanlordDemonBodySkeletalTopPng = loadImage("assets/monster/panlord/demon_body_skeletal_top.png")
+    MonsterPanlordDemonHeadCthulhuTopOldPng = loadImage("assets/monster/panlord/demon_head_cthulhu_top_old.png")
+    MonsterPanlordDemonBodyFatterTopOldPng = loadImage("assets/monster/panlord/demon_body_fatter_top_old.png")
+    MonsterPanlordDemonHeadIncubusTopPng = loadImage("assets/monster/panlord/demon_head_incubus_top.png")
+    MonsterPanlordDemonBodySpikedTopOldPng = loadImage("assets/monster/panlord/demon_body_spiked_top_old.png")
+    MonsterPanlordDemonHeadEyeballTopNewPng = loadImage("assets/monster/panlord/demon_head_eyeball_top_new.png")
+    MonsterPanlordDemonHeadButterflyTopPng = loadImage("assets/monster/panlord/demon_head_butterfly_top.png")
+    MonsterPanlordDemonHeadEyeballTopOldPng = loadImage("assets/monster/panlord/demon_head_eyeball_top_old.png")
+    MonsterPanlordDemonBodyNormalBottomOldPng = loadImage("assets/monster/panlord/demon_body_normal_bottom_old.png")
+    MonsterPanlordDemonBodyFatBottomOldPng = loadImage("assets/monster/panlord/demon_body_fat_bottom_old.png")
+    MonsterPanlordDemonBodySpottyTopNewPng = loadImage("assets/monster/panlord/demon_body_spotty_top_new.png")
+    MonsterPanlordDemonBodySpottyBottomOldPng = loadImage("assets/monster/panlord/demon_body_spotty_bottom_old.png")
+    MonsterPanlordDemonBodyThinTopNewPng = loadImage("assets/monster/panlord/demon_body_thin_top_new.png")
+    MonsterPanlordDemonWingsMediumTopNewPng = loadImage("assets/monster/panlord/demon_wings_medium_top_new.png")
+    MonsterPanlordDemonHeadBirdTopNewPng = loadImage("assets/monster/panlord/demon_head_bird_top_new.png")
+    MonsterPanlordDemonHeadMouseTopNewPng = loadImage("assets/monster/panlord/demon_head_mouse_top_new.png")
+    MonsterPanlordDemonBodyTentacleyBottomPng = loadImage("assets/monster/panlord/demon_body_tentacley_bottom.png")
+    MonsterPanlordDemonHeadHornsTopOldPng = loadImage("assets/monster/panlord/demon_head_horns_top_old.png")
+    MonsterPanlordDemonBodyFatTopNewPng = loadImage("assets/monster/panlord/demon_body_fat_top_new.png")
+    MonsterPanlordDemonHeadCthulhuTopNewPng = loadImage("assets/monster/panlord/demon_head_cthulhu_top_new.png")
+    MonsterPanlordDemonBodyNormalBottomNewPng = loadImage("assets/monster/panlord/demon_body_normal_bottom_new.png")
+    MonsterPanlordDemonWingsRedBottomPng = loadImage("assets/monster/panlord/demon_wings_red_bottom.png")
+    MonsterPanlordDemonBodyTentacleyTopPng = loadImage("assets/monster/panlord/demon_body_tentacley_top.png")
+    MonsterPanlordDemonBodyArmorBottomPng = loadImage("assets/monster/panlord/demon_body_armor_bottom.png")
+    MonsterPanlordDemonWingsBonesTopOldPng = loadImage("assets/monster/panlord/demon_wings_bones_top_old.png")
+    MonsterPanlordDemonBodyMantisBottomPng = loadImage("assets/monster/panlord/demon_body_mantis_bottom.png")
+    MonsterPanlordDemonBodyCaterpillarTopPng = loadImage("assets/monster/panlord/demon_body_caterpillar_top.png")
+    MonsterPanlordDemonBodySpikedBottomOldPng = loadImage("assets/monster/panlord/demon_body_spiked_bottom_old.png")
+    MonsterPanlordDemonHeadBirdTopOldPng = loadImage("assets/monster/panlord/demon_head_bird_top_old.png")
+    MonsterPanlordDemonBodyNormalTopOldPng = loadImage("assets/monster/panlord/demon_body_normal_top_old.png")
+    MonsterPanlordDemonBodySpikedBottomNewPng = loadImage("assets/monster/panlord/demon_body_spiked_bottom_new.png")
+    MonsterPanlordDemonHeadWormTopPng = loadImage("assets/monster/panlord/demon_head_worm_top.png")
+    MonsterPanlordDemonWingsBonesTopNewPng = loadImage("assets/monster/panlord/demon_wings_bones_top_new.png")
+    MonsterPanlordDemonWingsTornTopPng = loadImage("assets/monster/panlord/demon_wings_torn_top.png")
+    MonsterPanlordDemonBodyFatterBottomOldPng = loadImage("assets/monster/panlord/demon_body_fatter_bottom_old.png")
+    MonsterPanlordDemonWingsRedTopNewPng = loadImage("assets/monster/panlord/demon_wings_red_top_new.png")
+    MonsterDemonspawnBlackSunPng = loadImage("assets/monster/demonspawn/black_sun.png")
+    MonsterDemonspawnGelidPng = loadImage("assets/monster/demonspawn/gelid.png")
+    MonsterDemonspawnBloodSaintPng = loadImage("assets/monster/demonspawn/blood_saint.png")
+    MonsterDemonspawnInfernalPng = loadImage("assets/monster/demonspawn/infernal.png")
+    MonsterDemonspawnWarmongerPng = loadImage("assets/monster/demonspawn/warmonger.png")
+    MonsterDemonspawnPutridPng = loadImage("assets/monster/demonspawn/putrid.png")
+    MonsterDemonspawnCorrupterPng = loadImage("assets/monster/demonspawn/corrupter.png")
+    MonsterDemonspawnDemonspawnPng = loadImage("assets/monster/demonspawn/demonspawn.png")
+    MonsterDemonspawnTorturousPng = loadImage("assets/monster/demonspawn/torturous.png")
+    MonsterDemonspawnMonstrousPng = loadImage("assets/monster/demonspawn/monstrous.png")
+    MonsterDemonspawnChaosChampionPng = loadImage("assets/monster/demonspawn/chaos_champion.png")
+    MonsterEyesShiningEyeNewPng = loadImage("assets/monster/eyes/shining_eye_new.png")
+    MonsterEyesGoldenEyeNewPng = loadImage("assets/monster/eyes/golden_eye_new.png")
+    MonsterEyesEyeOfDevastationNewPng = loadImage("assets/monster/eyes/eye_of_devastation_new.png")
+    MonsterEyesEyeOfDevastationOldPng = loadImage("assets/monster/eyes/eye_of_devastation_old.png")
+    MonsterEyesEyeOfDrainingPng = loadImage("assets/monster/eyes/eye_of_draining.png")
+    MonsterEyesGoldenEyeOldPng = loadImage("assets/monster/eyes/golden_eye_old.png")
+    MonsterEyesShiningEyeOldPng = loadImage("assets/monster/eyes/shining_eye_old.png")
+    MonsterEyesGiantEyeballPng = loadImage("assets/monster/eyes/giant_eyeball.png")
+    MonsterEyesGreatOrbOfEyesPng = loadImage("assets/monster/eyes/great_orb_of_eyes.png")
+    MonsterHolySeraphBottomPng = loadImage("assets/monster/holy/seraph_bottom.png")
+    MonsterHolySheduOldPng = loadImage("assets/monster/holy/shedu_old.png")
+    MonsterHolyEasternDragonPng = loadImage("assets/monster/holy/eastern_dragon.png")
+    MonsterHolySheduNewPng = loadImage("assets/monster/holy/shedu_new.png")
+    MonsterHolyAngelMacePng = loadImage("assets/monster/holy/angel_mace.png")
+    MonsterHolyCherubPng = loadImage("assets/monster/holy/cherub.png")
+    MonsterHolyAngelOldPng = loadImage("assets/monster/holy/angel_old.png")
+    MonsterHolyPaladinPng = loadImage("assets/monster/holy/paladin.png")
+    MonsterHolyApisPng = loadImage("assets/monster/holy/apis.png")
+    MonsterHolySeraphTopPng = loadImage("assets/monster/holy/seraph_top.png")
+    MonsterHolyCentaurPaladinPng = loadImage("assets/monster/holy/centaur_paladin.png")
+    MonsterHolyOphanPng = loadImage("assets/monster/holy/ophan.png")
+    MonsterHolyHolyDragonPng = loadImage("assets/monster/holy/holy_dragon.png")
+    MonsterHolyDaevaPng = loadImage("assets/monster/holy/daeva.png")
+    MonsterHolyAngelNewPng = loadImage("assets/monster/holy/angel_new.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentSoutheastSouthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_southeast_southwest.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNortheastNorthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_northeast_northwest.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentSouthNorthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_south_northwest.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentEastNorthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_east_northwest.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentWestNortheastPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_west_northeast.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentEastSouthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_east_southwest.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNorthSoutheastPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_north_southeast.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentSouthNortheastPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_south_northeast.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNortheastSoutheastPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_northeast_southeast.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNorthSouthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_north_southwest.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentWestSoutheastPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_west_southeast.png")
+    MonsterTentaclesKrakenSegmentsKrakenTentacleSegmentNorthwestSouthwestPng = loadImage("assets/monster/tentacles/kraken_segments/kraken_tentacle_segment_northwest_southwest.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleSouthwestPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_southwest.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleWestPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_west.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleEastPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_east.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleNorthwestPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_northwest.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleSoutheastPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_southeast.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleNortheastPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_northeast.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleSouthPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_south.png")
+    MonsterTentaclesStarspawnEndsStarspawnTentacleNorthPng = loadImage("assets/monster/tentacles/starspawn_ends/starspawn_tentacle_north.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNortheastSoutheastPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_northeast_southeast.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthwestSouthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_northwest_southwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSouthWestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_south_west.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthWestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_north_west.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentWestNortheastPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_west_northeast.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastSouthPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_east_south.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSouthNorthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_south_northwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthSouthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_north_southwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthwestSoutheastPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_northwest_southeast.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastSouthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_east_southwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSouthNortheastPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_south_northeast.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNortheastNorthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_northeast_northwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthSouthPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_north_south.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastNorthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_east_northwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNorthSoutheastPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_north_southeast.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentWestSoutheastPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_west_southeast.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastWestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_east_west.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentSoutheastSouthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_southeast_southwest.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentEastNorthPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_east_north.png")
+    MonsterTentaclesStarspawnSegmentsStarspawnTentacleSegmentNortheastSouthwestPng = loadImage("assets/monster/tentacles/starspawn_segments/starspawn_tentacle_segment_northeast_southwest.png")
+    MonsterTentaclesKrakenEndsKrakenTentacle3Png = loadImage("assets/monster/tentacles/kraken_ends/kraken_tentacle_3.png")
+    MonsterTentaclesKrakenEndsKrakenTentacle5Png = loadImage("assets/monster/tentacles/kraken_ends/kraken_tentacle_5.png")
+    MonsterTentaclesKrakenEndsKrakenTentacle1Png = loadImage("assets/monster/tentacles/kraken_ends/kraken_tentacle_1.png")
+    MonsterTentaclesKrakenEndsKrakenTentacle6Png = loadImage("assets/monster/tentacles/kraken_ends/kraken_tentacle_6.png")
+    MonsterTentaclesKrakenEndsKrakenTentacle2Png = loadImage("assets/monster/tentacles/kraken_ends/kraken_tentacle_2.png")
+    MonsterTentaclesKrakenEndsKrakenTentacle4Png = loadImage("assets/monster/tentacles/kraken_ends/kraken_tentacle_4.png")
+    MonsterTentaclesVineEndsVineNortheastPng = loadImage("assets/monster/tentacles/vine_ends/vine_northeast.png")
+    MonsterTentaclesVineEndsVineSouthPng = loadImage("assets/monster/tentacles/vine_ends/vine_south.png")
+    MonsterTentaclesVineEndsVineNorthPng = loadImage("assets/monster/tentacles/vine_ends/vine_north.png")
+    MonsterTentaclesVineEndsVineSouthwestPng = loadImage("assets/monster/tentacles/vine_ends/vine_southwest.png")
+    MonsterTentaclesVineEndsVineEastPng = loadImage("assets/monster/tentacles/vine_ends/vine_east.png")
+    MonsterTentaclesVineEndsVineNorthwestPng = loadImage("assets/monster/tentacles/vine_ends/vine_northwest.png")
+    MonsterTentaclesVineEndsVineWestPng = loadImage("assets/monster/tentacles/vine_ends/vine_west.png")
+    MonsterTentaclesVineEndsVineSoutheastPng = loadImage("assets/monster/tentacles/vine_ends/vine_southeast.png")
+    MonsterTentaclesKrakenCornersKrakenCornerNortheastPng = loadImage("assets/monster/tentacles/kraken_corners/kraken_corner_northeast.png")
+    MonsterTentaclesKrakenCornersKrakenCornerSouthwestPng = loadImage("assets/monster/tentacles/kraken_corners/kraken_corner_southwest.png")
+    MonsterTentaclesKrakenCornersKrakenCornerNorthwestPng = loadImage("assets/monster/tentacles/kraken_corners/kraken_corner_northwest.png")
+    MonsterTentaclesKrakenCornersKrakenCornerSoutheastPng = loadImage("assets/monster/tentacles/kraken_corners/kraken_corner_southeast.png")
+    MonsterTentaclesVineCornersVineCornerNorthwestPng = loadImage("assets/monster/tentacles/vine_corners/vine_corner_northwest.png")
+    MonsterTentaclesVineCornersVineCornerSoutheastPng = loadImage("assets/monster/tentacles/vine_corners/vine_corner_southeast.png")
+    MonsterTentaclesVineCornersVineCornerNortheastPng = loadImage("assets/monster/tentacles/vine_corners/vine_corner_northeast.png")
+    MonsterTentaclesVineCornersVineCornerSouthwestPng = loadImage("assets/monster/tentacles/vine_corners/vine_corner_southwest.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle1Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_1.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle5Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_5.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle9Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_9.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle2Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_2.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle4Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_4.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle3Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_3.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle8Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_8.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle6Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_6.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle10Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_10.png")
+    MonsterTentaclesEldritchEndsEldritchTentacle7Png = loadImage("assets/monster/tentacles/eldritch_ends/eldritch_tentacle_7.png")
+    MonsterTentaclesStarspawnCornersStarspawnCornerNorthwestPng = loadImage("assets/monster/tentacles/starspawn_corners/starspawn_corner_northwest.png")
+    MonsterTentaclesStarspawnCornersStarspawnCornerNortheastPng = loadImage("assets/monster/tentacles/starspawn_corners/starspawn_corner_northeast.png")
+    MonsterTentaclesStarspawnCornersStarspawnCornerSouthwestPng = loadImage("assets/monster/tentacles/starspawn_corners/starspawn_corner_southwest.png")
+    MonsterTentaclesStarspawnCornersStarspawnCornerSoutheastPng = loadImage("assets/monster/tentacles/starspawn_corners/starspawn_corner_southeast.png")
+    MonsterTentaclesEldritchCornersEldritchCornerSoutheastPng = loadImage("assets/monster/tentacles/eldritch_corners/eldritch_corner_southeast.png")
+    MonsterTentaclesEldritchCornersEldritchCornerNortheastPng = loadImage("assets/monster/tentacles/eldritch_corners/eldritch_corner_northeast.png")
+    MonsterTentaclesEldritchCornersEldritchCornerSouthwestPng = loadImage("assets/monster/tentacles/eldritch_corners/eldritch_corner_southwest.png")
+    MonsterTentaclesEldritchCornersEldritchCornerNorthwestPng = loadImage("assets/monster/tentacles/eldritch_corners/eldritch_corner_northwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentNortheastSoutheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_northeast_southeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentSouthSoutheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_south_southeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthNorthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_north_northwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentWestNorthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_west_northwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthwestSoutheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_northwest_southeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastNorthPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_north.png")
+    MonsterTentaclesVineSegmentsVineSegmentNortheastSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_northeast_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthwestSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_northwest_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentSoutheastSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_southeast_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentWestSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_west_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentSouthWestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_south_west.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthNortheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_north_northeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthSouthPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_north_south.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_north_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastNortheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_northeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentWestNortheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_west_northeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastNorthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_northwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentSouthSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_south_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthWestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_north_west.png")
+    MonsterTentaclesVineSegmentsVineSegmentSouthNorthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_south_northwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentNortheastNorthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_northeast_northwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentWestSoutheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_west_southeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastSoutheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_southeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastSouthPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_south.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastSouthwestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_southwest.png")
+    MonsterTentaclesVineSegmentsVineSegmentSouthNortheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_south_northeast.png")
+    MonsterTentaclesVineSegmentsVineSegmentEastWestPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_east_west.png")
+    MonsterTentaclesVineSegmentsVineSegmentNorthSoutheastPng = loadImage("assets/monster/tentacles/vine_segments/vine_segment_north_southeast.png")
+    MonsterAbyssWorldbinderPng = loadImage("assets/monster/abyss/worldbinder.png")
+    MonsterAbyssStarcursedMassPng = loadImage("assets/monster/abyss/starcursed_mass.png")
+    MonsterAbyssAncientZymePng = loadImage("assets/monster/abyss/ancient_zyme.png")
+    MonsterAbyssSilverStarPng = loadImage("assets/monster/abyss/silver_star.png")
+    MonsterAbyssTentacledStarspawnPng = loadImage("assets/monster/abyss/tentacled_starspawn.png")
+    MonsterAbyssLurkingHorrorPng = loadImage("assets/monster/abyss/lurking_horror.png")
+    MonsterAbyssApocalypseCrabPng = loadImage("assets/monster/abyss/apocalypse_crab.png")
+    MonsterAbyssWretchedStarPng = loadImage("assets/monster/abyss/wretched_star.png")
+    MonsterUniqueSonjaOldPng = loadImage("assets/monster/unique/sonja_old.png")
+    MonsterUniqueDispaterSmallPng = loadImage("assets/monster/unique/dispater_small.png")
+    MonsterUniqueAsmodeusPng = loadImage("assets/monster/unique/asmodeus.png")
+    MonsterUniqueMaraPng = loadImage("assets/monster/unique/mara.png")
+    MonsterUniqueTiamatMottledPng = loadImage("assets/monster/unique/tiamat_mottled.png")
+    MonsterUniqueErolchaOldPng = loadImage("assets/monster/unique/erolcha_old.png")
+    MonsterUniqueSerpentOfHellDisTopPng = loadImage("assets/monster/unique/serpent_of_hell-dis_top.png")
+    MonsterUniqueGrumPng = loadImage("assets/monster/unique/grum.png")
+    MonsterUniqueGeryonNewPng = loadImage("assets/monster/unique/geryon_new.png")
+    MonsterUniqueGeryonOldPng = loadImage("assets/monster/unique/geryon_old.png")
+    MonsterUniqueSaintRokaNewPng = loadImage("assets/monster/unique/saint_roka_new.png")
+    MonsterUniqueSigmundOldPng = loadImage("assets/monster/unique/sigmund_old.png")
+    MonsterUniqueMargeryOldPng = loadImage("assets/monster/unique/margery_old.png")
+    MonsterUniqueJessicaOldPng = loadImage("assets/monster/unique/jessica_old.png")
+    MonsterUniqueLomLobonPng = loadImage("assets/monster/unique/lom_lobon.png")
+    MonsterUniqueNergalleOldPng = loadImage("assets/monster/unique/nergalle_old.png")
+    MonsterUniqueSaintRokaOldPng = loadImage("assets/monster/unique/saint_roka_old.png")
+    MonsterUniqueLamiaPng = loadImage("assets/monster/unique/lamia.png")
+    MonsterUniqueSonjaNewPng = loadImage("assets/monster/unique/sonja_new.png")
+    MonsterUniqueFrancisPng = loadImage("assets/monster/unique/francis.png")
+    MonsterUniqueIlsuiwWaterOldPng = loadImage("assets/monster/unique/ilsuiw_water_old.png")
+    MonsterUniqueLernaeanHydra7BottomPng = loadImage("assets/monster/unique/lernaean_hydra_7_bottom.png")
+    MonsterUniqueLernaeanHydra6TopPng = loadImage("assets/monster/unique/lernaean_hydra_6_top.png")
+    MonsterUniqueJessicaNewPng = loadImage("assets/monster/unique/jessica_new.png")
+    MonsterUniqueLernaeanHydra1TopPng = loadImage("assets/monster/unique/lernaean_hydra_1_top.png")
+    MonsterUniqueTiamatRedPng = loadImage("assets/monster/unique/tiamat_red.png")
+    MonsterUniqueBorisNewPng = loadImage("assets/monster/unique/boris_new.png")
+    MonsterUniqueEdmundOldPng = loadImage("assets/monster/unique/edmund_old.png")
+    MonsterUniqueFrederickOldPng = loadImage("assets/monster/unique/frederick_old.png")
+    MonsterUniqueNorbertPng = loadImage("assets/monster/unique/norbert.png")
+    MonsterUniqueFrancesMalePng = loadImage("assets/monster/unique/frances_male.png")
+    MonsterUniqueNessosNewPng = loadImage("assets/monster/unique/nessos_new.png")
+    MonsterUniqueDispaterBottomPng = loadImage("assets/monster/unique/dispater_bottom.png")
+    MonsterUniqueTerenceNewPng = loadImage("assets/monster/unique/terence_new.png")
+    MonsterUniquePurgyOldPng = loadImage("assets/monster/unique/purgy_old.png")
+    MonsterUniqueEreshkigalBottomPng = loadImage("assets/monster/unique/ereshkigal_bottom.png")
+    MonsterUniqueEnchantressPng = loadImage("assets/monster/unique/enchantress.png")
+    MonsterUniqueSnorgNewPng = loadImage("assets/monster/unique/snorg_new.png")
+    MonsterUniqueMenkaurePng = loadImage("assets/monster/unique/menkaure.png")
+    MonsterUniqueIronGiantPng = loadImage("assets/monster/unique/iron_giant.png")
+    MonsterUniqueIjybOldPng = loadImage("assets/monster/unique/ijyb_old.png")
+    MonsterUniqueFrederickNewPng = loadImage("assets/monster/unique/frederick_new.png")
+    MonsterUniqueAizulOldPng = loadImage("assets/monster/unique/aizul_old.png")
+    MonsterUniqueBlorkTheOrcNewPng = loadImage("assets/monster/unique/blork_the_orc_new.png")
+    MonsterUniqueWiglafNewPng = loadImage("assets/monster/unique/wiglaf_new.png")
+    MonsterUniqueLernaeanHydra5TopPng = loadImage("assets/monster/unique/lernaean_hydra_5_top.png")
+    MonsterUniqueAntaeusPng = loadImage("assets/monster/unique/antaeus.png")
+    MonsterUniqueTiamatBlackPng = loadImage("assets/monster/unique/tiamat_black.png")
+    MonsterUniqueMnolegTopPng = loadImage("assets/monster/unique/mnoleg_top.png")
+    MonsterUniqueGastronokOldPng = loadImage("assets/monster/unique/gastronok_old.png")
+    MonsterUniqueLouisePng = loadImage("assets/monster/unique/louise.png")
+    MonsterUniqueUrugOldPng = loadImage("assets/monster/unique/urug_old.png")
+    MonsterUniqueMauriceNewPng = loadImage("assets/monster/unique/maurice_new.png")
+    MonsterUniqueLernaeanHydra9BottomPng = loadImage("assets/monster/unique/lernaean_hydra_9_bottom.png")
+    MonsterUniqueRupertOldPng = loadImage("assets/monster/unique/rupert_old.png")
+    MonsterUniqueGrinderOldPng = loadImage("assets/monster/unique/grinder_old.png")
+    MonsterUniqueEustachioOldPng = loadImage("assets/monster/unique/eustachio_old.png")
+    MonsterUniquePsycheNewPng = loadImage("assets/monster/unique/psyche_new.png")
+    MonsterUniquePsycheOldPng = loadImage("assets/monster/unique/psyche_old.png")
+    MonsterUniqueSerpentOfHellDisBottomPng = loadImage("assets/monster/unique/serpent_of_hell-dis_bottom.png")
+    MonsterUniqueDissolutionNewPng = loadImage("assets/monster/unique/dissolution_new.png")
+    MonsterUniqueTerenceOldPng = loadImage("assets/monster/unique/terence_old.png")
+    MonsterUniqueUrugNewPng = loadImage("assets/monster/unique/urug_new.png")
+    MonsterUniqueSerpentOfHellPng = loadImage("assets/monster/unique/serpent_of_hell.png")
+    MonsterUniqueLernaeanHydra9TopPng = loadImage("assets/monster/unique/lernaean_hydra_9_top.png")
+    MonsterUniqueTiamatPng = loadImage("assets/monster/unique/tiamat.png")
+    MonsterUniqueFrancesPng = loadImage("assets/monster/unique/frances.png")
+    MonsterUniqueSerpentOfHellCocTopPng = loadImage("assets/monster/unique/serpent_of_hell-coc_top.png")
+    MonsterUniqueNorrisWithBoardPng = loadImage("assets/monster/unique/norris_with_board.png")
+    MonsterUniqueLernaeanHydra4TopPng = loadImage("assets/monster/unique/lernaean_hydra_4_top.png")
+    MonsterUniqueMichaelPng = loadImage("assets/monster/unique/michael.png")
+    MonsterUniqueIjybNewPng = loadImage("assets/monster/unique/ijyb_new.png")
+    MonsterUniqueGloorxVloqBottomPng = loadImage("assets/monster/unique/gloorx_vloq_bottom.png")
+    MonsterUniqueMaudNewPng = loadImage("assets/monster/unique/maud_new.png")
+    MonsterUniqueKirkeNewPng = loadImage("assets/monster/unique/kirke_new.png")
+    MonsterUniqueMaudOldPng = loadImage("assets/monster/unique/maud_old.png")
+    MonsterUniqueMennasPng = loadImage("assets/monster/unique/mennas.png")
+    MonsterUniqueEreshkigalSmallPng = loadImage("assets/monster/unique/ereshkigal_small.png")
+    MonsterUniqueNessosOldPng = loadImage("assets/monster/unique/nessos_old.png")
+    MonsterUniqueMnolegPng = loadImage("assets/monster/unique/mnoleg.png")
+    MonsterUniqueGloorxVloqPng = loadImage("assets/monster/unique/gloorx_vloq.png")
+    MonsterUniqueRupertNewPng = loadImage("assets/monster/unique/rupert_new.png")
+    MonsterUniqueIlsuiwWaterNewPng = loadImage("assets/monster/unique/ilsuiw_water_new.png")
+    MonsterUniqueJoryPng = loadImage("assets/monster/unique/jory.png")
+    MonsterUniqueMargeryNewPng = loadImage("assets/monster/unique/margery_new.png")
+    MonsterUniqueAsmodeusSmallPng = loadImage("assets/monster/unique/asmodeus_small.png")
+    MonsterUniqueCerebovBottomPng = loadImage("assets/monster/unique/cerebov_bottom.png")
+    MonsterUniqueEricaOldPng = loadImage("assets/monster/unique/erica_old.png")
+    MonsterUniqueNorrisPng = loadImage("assets/monster/unique/norris.png")
+    MonsterUniquePurgyNewPng = loadImage("assets/monster/unique/purgy_new.png")
+    MonsterUniqueGiaggostuonoPng = loadImage("assets/monster/unique/giaggostuono.png")
+    MonsterUniqueLomLobonBottomPng = loadImage("assets/monster/unique/lom_lobon_bottom.png")
+    MonsterUniqueErolchaNewPng = loadImage("assets/monster/unique/erolcha_new.png")
+    MonsterUniqueDonaldNewPng = loadImage("assets/monster/unique/donald_new.png")
+    MonsterUniquePrinceRibbitPng = loadImage("assets/monster/unique/prince_ribbit.png")
+    MonsterUniqueJozefPng = loadImage("assets/monster/unique/jozef.png")
+    MonsterUniqueDissolutionOldPng = loadImage("assets/monster/unique/dissolution_old.png")
+    MonsterUniqueAsmodeusBottomPng = loadImage("assets/monster/unique/asmodeus_bottom.png")
+    MonsterUniqueRoyalJellyTopPng = loadImage("assets/monster/unique/royal_jelly_top.png")
+    MonsterUniqueSerpentOfHellGehTopPng = loadImage("assets/monster/unique/serpent_of_hell-geh_top.png")
+    MonsterUniqueRoyalJellyPng = loadImage("assets/monster/unique/royal_jelly.png")
+    MonsterUniqueNergalleNewPng = loadImage("assets/monster/unique/nergalle_new.png")
+    MonsterUniqueTiamatWhitePng = loadImage("assets/monster/unique/tiamat_white.png")
+    MonsterUniqueGrinderNewPng = loadImage("assets/monster/unique/grinder_new.png")
+    MonsterUniqueDonaldOldPng = loadImage("assets/monster/unique/donald_old.png")
+    MonsterUniqueSigmundNewPng = loadImage("assets/monster/unique/sigmund_new.png")
+    MonsterUniqueSerpentOfHellTarBottomPng = loadImage("assets/monster/unique/serpent_of_hell-tar_bottom.png")
+    MonsterUniqueLeshyPng = loadImage("assets/monster/unique/leshy.png")
+    MonsterUniqueAgnesOldPng = loadImage("assets/monster/unique/agnes_old.png")
+    MonsterUniqueSojoboPng = loadImage("assets/monster/unique/sojobo.png")
+    MonsterUniqueMauriceOldPng = loadImage("assets/monster/unique/maurice_old.png")
+    MonsterUniqueEdmundNewPng = loadImage("assets/monster/unique/edmund_new.png")
+    MonsterUniqueJosephNewPng = loadImage("assets/monster/unique/joseph_new.png")
+    MonsterUniqueTiamatGreyPng = loadImage("assets/monster/unique/tiamat_grey.png")
+    MonsterUniqueCerebovTopPng = loadImage("assets/monster/unique/cerebov_top.png")
+    MonsterUniqueLernaeanHydra8BottomPng = loadImage("assets/monster/unique/lernaean_hydra_8_bottom.png")
+    MonsterUniqueVashniaPng = loadImage("assets/monster/unique/vashnia.png")
+    MonsterUniqueGloorxVloqTopPng = loadImage("assets/monster/unique/gloorx_vloq_top.png")
+    MonsterUniqueEustachioNewPng = loadImage("assets/monster/unique/eustachio_new.png")
+    MonsterUniqueAizulNewPng = loadImage("assets/monster/unique/aizul_new.png")
+    MonsterUniquePolyphemusNewPng = loadImage("assets/monster/unique/polyphemus_new.png")
+    MonsterUniqueTiamatPalePng = loadImage("assets/monster/unique/tiamat_pale.png")
+    MonsterUniqueEricaNewPng = loadImage("assets/monster/unique/erica_new.png")
+    MonsterUniqueJorgrunPng = loadImage("assets/monster/unique/jorgrun.png")
+    MonsterUniqueDispaterTopPng = loadImage("assets/monster/unique/dispater_top.png")
+    MonsterUniqueNellieOldPng = loadImage("assets/monster/unique/nellie_old.png")
+    MonsterUniqueLernaeanHydra7TopPng = loadImage("assets/monster/unique/lernaean_hydra_7_top.png")
+    MonsterUniqueSnorgOldPng = loadImage("assets/monster/unique/snorg_old.png")
+    MonsterUniqueRobinPng = loadImage("assets/monster/unique/robin.png")
+    MonsterUniqueBorisOldPng = loadImage("assets/monster/unique/boris_old.png")
+    MonsterUniqueMnolegBottomPng = loadImage("assets/monster/unique/mnoleg_bottom.png")
+    MonsterUniqueRoxanneNewPng = loadImage("assets/monster/unique/roxanne_new.png")
+    MonsterUniqueIlsuiwOldPng = loadImage("assets/monster/unique/ilsuiw_old.png")
+    MonsterUniqueKirkeOldPng = loadImage("assets/monster/unique/kirke_old.png")
+    MonsterUniqueTiamatGreenPng = loadImage("assets/monster/unique/tiamat_green.png")
+    MonsterUniquePolyphemusOldPng = loadImage("assets/monster/unique/polyphemus_old.png")
+    MonsterUniqueJosephOldPng = loadImage("assets/monster/unique/joseph_old.png")
+    MonsterUniqueLernaeanHydra10TopPng = loadImage("assets/monster/unique/lernaean_hydra_10_top.png")
+    MonsterUniqueFannarPng = loadImage("assets/monster/unique/fannar.png")
+    MonsterUniqueSerpentOfHellCocBottomPng = loadImage("assets/monster/unique/serpent_of_hell-coc_bottom.png")
+    MonsterUniqueJosephineNewPng = loadImage("assets/monster/unique/josephine_new.png")
+    MonsterUniqueJormungandrPng = loadImage("assets/monster/unique/jormungandr.png")
+    MonsterUniqueGrinderCleaverPng = loadImage("assets/monster/unique/grinder_cleaver.png")
+    MonsterUniqueEreshkigalTopPng = loadImage("assets/monster/unique/ereshkigal_top.png")
+    MonsterUniqueRoyalJellyBottomPng = loadImage("assets/monster/unique/royal_jelly_bottom.png")
+    MonsterUniqueDispaterPng = loadImage("assets/monster/unique/dispater.png")
+    MonsterUniqueTiamatYellowPng = loadImage("assets/monster/unique/tiamat_yellow.png")
+    MonsterUniqueCrazyYiufPng = loadImage("assets/monster/unique/crazy_yiuf.png")
+    MonsterUniqueWiglafOldPng = loadImage("assets/monster/unique/wiglaf_old.png")
+    MonsterUniqueSerpentOfHellTarTopPng = loadImage("assets/monster/unique/serpent_of_hell-tar_top.png")
+    MonsterUniqueLernaeanHydra5BottomPng = loadImage("assets/monster/unique/lernaean_hydra_5_bottom.png")
+    MonsterUniqueLernaeanHydra3TopPng = loadImage("assets/monster/unique/lernaean_hydra_3_top.png")
+    MonsterUniqueAgnesNewPng = loadImage("assets/monster/unique/agnes_new.png")
+    MonsterUniqueMurrayPng = loadImage("assets/monster/unique/murray.png")
+    MonsterUniqueXtahuaNewPng = loadImage("assets/monster/unique/xtahua_new.png")
+    MonsterUniqueLernaeanHydraPng = loadImage("assets/monster/unique/lernaean_hydra.png")
+    MonsterUniqueLomLobonTopPng = loadImage("assets/monster/unique/lom_lobon_top.png")
+    MonsterUniqueGastronokNewPng = loadImage("assets/monster/unique/gastronok_new.png")
+    MonsterUniqueChuckPng = loadImage("assets/monster/unique/chuck.png")
+    MonsterUniqueIgnacioPng = loadImage("assets/monster/unique/ignacio.png")
+    MonsterUniqueAsmodeusTopPng = loadImage("assets/monster/unique/asmodeus_top.png")
+    MonsterUniqueXtahuaOldPng = loadImage("assets/monster/unique/xtahua_old.png")
+    MonsterUniqueNellieNewPng = loadImage("assets/monster/unique/nellie_new.png")
+    MonsterUniqueIlsuiwNewPng = loadImage("assets/monster/unique/ilsuiw_new.png")
+    MonsterUniqueLernaeanHydra1BottomPng = loadImage("assets/monster/unique/lernaean_hydra_1_bottom.png")
+    MonsterUniqueHaroldPng = loadImage("assets/monster/unique/harold.png")
+    MonsterUniqueNatashaPng = loadImage("assets/monster/unique/natasha.png")
+    MonsterUniqueRoxanneOldPng = loadImage("assets/monster/unique/roxanne_old.png")
+    MonsterUniqueDuanePng = loadImage("assets/monster/unique/duane.png")
+    MonsterUniqueSerpentOfHellGehBottomPng = loadImage("assets/monster/unique/serpent_of_hell-geh_bottom.png")
+    MonsterUniqueAzraelPng = loadImage("assets/monster/unique/azrael.png")
+    MonsterUniqueCerebovPng = loadImage("assets/monster/unique/cerebov.png")
+    MonsterUniqueLernaeanHydra2TopPng = loadImage("assets/monster/unique/lernaean_hydra_2_top.png")
+    MonsterUniqueBlorkTheOrcOldPng = loadImage("assets/monster/unique/blork_the_orc_old.png")
+    MonsterUniqueDonaldPng = loadImage("assets/monster/unique/donald.png")
+    MonsterUniqueEreshkigalPng = loadImage("assets/monster/unique/ereshkigal.png")
+    MonsterUniqueJosephineOldPng = loadImage("assets/monster/unique/josephine_old.png")
+    MonsterVaultVaultGuardNewPng = loadImage("assets/monster/vault/vault_guard_new.png")
+    MonsterVaultMicrobatPng = loadImage("assets/monster/vault/microbat.png")
+    MonsterVaultCigotuvisMonsterPng = loadImage("assets/monster/vault/cigotuvis_monster.png")
+    MonsterVaultDemonspawnMonkGhostPng = loadImage("assets/monster/vault/demonspawn_monk_ghost.png")
+    MonsterVaultVaultSentinelPng = loadImage("assets/monster/vault/vault_sentinel.png")
+    MonsterVaultMegabatPng = loadImage("assets/monster/vault/megabat.png")
+    MonsterVaultVaultWardenPng = loadImage("assets/monster/vault/vault_warden.png")
+    MonsterVaultDeformedElfPng = loadImage("assets/monster/vault/deformed_elf.png")
+    MonsterVaultHellbinderPng = loadImage("assets/monster/vault/hellbinder.png")
+    MonsterVaultHellWizard100Png = loadImage("assets/monster/vault/hell_wizard_100.png")
+    MonsterVaultPhaseBatPng = loadImage("assets/monster/vault/phase_bat.png")
+    MonsterVaultMoonTrollPng = loadImage("assets/monster/vault/moon_troll.png")
+    MonsterVaultHellWizard75Png = loadImage("assets/monster/vault/hell_wizard_75.png")
+    MonsterVaultVaultGuardOldPng = loadImage("assets/monster/vault/vault_guard_old.png")
+    MonsterVaultHellWizard50Png = loadImage("assets/monster/vault/hell_wizard_50.png")
+    MonsterVaultDeformedHumanPng = loadImage("assets/monster/vault/deformed_human.png")
+    MonsterVaultDraconianMonkGhostPng = loadImage("assets/monster/vault/draconian_monk_ghost.png")
+    MonsterVaultDeformedOrcPng = loadImage("assets/monster/vault/deformed_orc.png")
+    MonsterVaultGigabatPng = loadImage("assets/monster/vault/gigabat.png")
+    MonsterAquaticSharkOldPng = loadImage("assets/monster/aquatic/shark_old.png")
+    MonsterAquaticElectricEelPng = loadImage("assets/monster/aquatic/electric_eel.png")
+    MonsterAquaticSwampWormOldPng = loadImage("assets/monster/aquatic/swamp_worm_old.png")
+    MonsterAquaticLavaSnakeOldPng = loadImage("assets/monster/aquatic/lava_snake_old.png")
+    MonsterAquaticKrakenHeadOldPng = loadImage("assets/monster/aquatic/kraken_head_old.png")
+    MonsterAquaticKrakenHeadNewPng = loadImage("assets/monster/aquatic/kraken_head_new.png")
+    MonsterAquaticSwampWormNewPng = loadImage("assets/monster/aquatic/swamp_worm_new.png")
+    MonsterAquaticLavaSnakeNewPng = loadImage("assets/monster/aquatic/lava_snake_new.png")
+    MonsterAquaticSharkNewPng = loadImage("assets/monster/aquatic/shark_new.png")
+    MonsterDraconicDraconicJobZealotOldPng = loadImage("assets/monster/draconic/draconic_job-zealot_old.png")
+    MonsterDraconicDraconicBaseWhiteOldPng = loadImage("assets/monster/draconic/draconic_base-white_old.png")
+    MonsterDraconicDraconicBaseMottleOldPng = loadImage("assets/monster/draconic/draconic_base-mottle_old.png")
+    MonsterDraconicDraconicBaseWhiteNewPng = loadImage("assets/monster/draconic/draconic_base-white_new.png")
+    MonsterDraconicDraconicJobScorcherOldPng = loadImage("assets/monster/draconic/draconic_job-scorcher_old.png")
+    MonsterDraconicDraconicBaseBlackNewPng = loadImage("assets/monster/draconic/draconic_base-black_new.png")
+    MonsterDraconicDraconicJobShifterNewPng = loadImage("assets/monster/draconic/draconic_job-shifter_new.png")
+    MonsterDraconicDraconicJobCallerNewPng = loadImage("assets/monster/draconic/draconic_job-caller_new.png")
+    MonsterDraconicDraconicBaseMottleNewPng = loadImage("assets/monster/draconic/draconic_base-mottle_new.png")
+    MonsterDraconicDraconicBasePurpleOldPng = loadImage("assets/monster/draconic/draconic_base-purple_old.png")
+    MonsterDraconicDraconicBaseBrownNewPng = loadImage("assets/monster/draconic/draconic_base-brown_new.png")
+    MonsterDraconicDraconicBaseRedNewPng = loadImage("assets/monster/draconic/draconic_base-red_new.png")
+    MonsterDraconicDraconicJobKnightOldPng = loadImage("assets/monster/draconic/draconic_job-knight_old.png")
+    MonsterDraconicDraconicBaseBlackOldPng = loadImage("assets/monster/draconic/draconic_base-black_old.png")
+    MonsterDraconicDraconicJobZealotNewPng = loadImage("assets/monster/draconic/draconic_job-zealot_new.png")
+    MonsterDraconicDraconicJobKnightNewPng = loadImage("assets/monster/draconic/draconic_job-knight_new.png")
+    MonsterDraconicDraconicJobAnnihilatorNewPng = loadImage("assets/monster/draconic/draconic_job-annihilator_new.png")
+    MonsterDraconicDraconicBaseYellowOldPng = loadImage("assets/monster/draconic/draconic_base-yellow_old.png")
+    MonsterDraconicDraconicBaseGreenOldPng = loadImage("assets/monster/draconic/draconic_base-green_old.png")
+    MonsterDraconicDraconicJobAnnihilatorOldPng = loadImage("assets/monster/draconic/draconic_job-annihilator_old.png")
+    MonsterDraconicDraconicBasePurpleNewPng = loadImage("assets/monster/draconic/draconic_base-purple_new.png")
+    MonsterDraconicDraconicBasePaleNewPng = loadImage("assets/monster/draconic/draconic_base-pale_new.png")
+    MonsterDraconicDraconicBaseGreenNewPng = loadImage("assets/monster/draconic/draconic_base-green_new.png")
+    MonsterDraconicDraconicBaseRedOldPng = loadImage("assets/monster/draconic/draconic_base-red_old.png")
+    MonsterDraconicDraconicJobMonkNewPng = loadImage("assets/monster/draconic/draconic_job-monk_new.png")
+    MonsterDraconicDraconicBaseYellowNewPng = loadImage("assets/monster/draconic/draconic_base-yellow_new.png")
+    MonsterDraconicDraconicBasePaleOldPng = loadImage("assets/monster/draconic/draconic_base-pale_old.png")
+    MonsterDraconicDraconicJobShifterOldPng = loadImage("assets/monster/draconic/draconic_job-shifter_old.png")
+    MonsterDraconicDraconicJobScorcherNewPng = loadImage("assets/monster/draconic/draconic_job-scorcher_new.png")
+    MonsterDraconicDraconicJobMonkOldPng = loadImage("assets/monster/draconic/draconic_job-monk_old.png")
+    MonsterDraconicDraconicBaseBrownOldPng = loadImage("assets/monster/draconic/draconic_base-brown_old.png")
+    MonsterDraconicDraconicJobCallerOldPng = loadImage("assets/monster/draconic/draconic_job-caller_old.png")
+    MonsterFungiPlantsBush2Png = loadImage("assets/monster/fungi_plants/bush_2.png")
+    MonsterFungiPlantsOklobPlantPng = loadImage("assets/monster/fungi_plants/oklob_plant.png")
+    MonsterFungiPlantsWanderingMushroomOldPng = loadImage("assets/monster/fungi_plants/wandering_mushroom_old.png")
+    MonsterFungiPlantsBush4Png = loadImage("assets/monster/fungi_plants/bush_4.png")
+    MonsterFungiPlantsHyperactiveBallistomycetePng = loadImage("assets/monster/fungi_plants/hyperactive_ballistomycete.png")
+    MonsterFungiPlantsBush3Png = loadImage("assets/monster/fungi_plants/bush_3.png")
+    MonsterFungiPlantsPlantCryptPng = loadImage("assets/monster/fungi_plants/plant_crypt.png")
+    MonsterFungiPlantsPlantPng = loadImage("assets/monster/fungi_plants/plant.png")
+    MonsterFungiPlantsGiantSporePng = loadImage("assets/monster/fungi_plants/giant_spore.png")
+    MonsterFungiPlantsDeathcapPng = loadImage("assets/monster/fungi_plants/deathcap.png")
+    MonsterFungiPlantsThornHunterPng = loadImage("assets/monster/fungi_plants/thorn_hunter.png")
+    MonsterFungiPlantsBriarPatchPng = loadImage("assets/monster/fungi_plants/briar_patch.png")
+    MonsterFungiPlantsVineStalkerPng = loadImage("assets/monster/fungi_plants/vine_stalker.png")
+    MonsterFungiPlantsPlantDemonicPng = loadImage("assets/monster/fungi_plants/plant_demonic.png")
+    MonsterFungiPlantsWanderingMushroomNewPng = loadImage("assets/monster/fungi_plants/wandering_mushroom_new.png")
+    MonsterFungiPlantsThornLotusPng = loadImage("assets/monster/fungi_plants/thorn_lotus.png")
+    MonsterFungiPlantsTreantPng = loadImage("assets/monster/fungi_plants/treant.png")
+    MonsterUndeadCurseToePng = loadImage("assets/monster/undead/curse_toe.png")
+    MonsterUndeadRevenantPng = loadImage("assets/monster/undead/revenant.png")
+    MonsterUndeadShadowWraithPng = loadImage("assets/monster/undead/shadow_wraith.png")
+    MonsterUndeadNecrophageOldPng = loadImage("assets/monster/undead/necrophage_old.png")
+    MonsterUndeadCurseSkullPng = loadImage("assets/monster/undead/curse_skull.png")
+    MonsterUndeadVampireMageNewPng = loadImage("assets/monster/undead/vampire_mage_new.png")
+    MonsterUndeadMummyPng = loadImage("assets/monster/undead/mummy.png")
+    MonsterUndeadZonguldrokLich2Png = loadImage("assets/monster/undead/zonguldrok_lich_2.png")
+    MonsterUndeadGreaterMummyPng = loadImage("assets/monster/undead/greater_mummy.png")
+    MonsterUndeadShadowOldPng = loadImage("assets/monster/undead/shadow_old.png")
+    MonsterUndeadFlayedGhostNewPng = loadImage("assets/monster/undead/flayed_ghost_new.png")
+    MonsterUndeadDeathCobPng = loadImage("assets/monster/undead/death_cob.png")
+    MonsterUndeadJiangshiPng = loadImage("assets/monster/undead/jiangshi.png")
+    MonsterUndeadProfaneServitorPng = loadImage("assets/monster/undead/profane_servitor.png")
+    MonsterUndeadVampireKnightOldPng = loadImage("assets/monster/undead/vampire_knight_old.png")
+    MonsterUndeadManesPng = loadImage("assets/monster/undead/manes.png")
+    MonsterUndeadRottingHulkOldPng = loadImage("assets/monster/undead/rotting_hulk_old.png")
+    MonsterUndeadShadowNewPng = loadImage("assets/monster/undead/shadow_new.png")
+    MonsterUndeadNecrophageNewPng = loadImage("assets/monster/undead/necrophage_new.png")
+    MonsterUndeadPhantasmalWarriorPng = loadImage("assets/monster/undead/phantasmal_warrior.png")
+    MonsterUndeadGuardianMummyPng = loadImage("assets/monster/undead/guardian_mummy.png")
+    MonsterUndeadSpectralWarriorPng = loadImage("assets/monster/undead/spectral_warrior.png")
+    MonsterUndeadWightKingPng = loadImage("assets/monster/undead/wight_king.png")
+    MonsterUndeadRottingHulkNewPng = loadImage("assets/monster/undead/rotting_hulk_new.png")
+    MonsterUndeadSkeletalWarriorNewPng = loadImage("assets/monster/undead/skeletal_warrior_new.png")
+    MonsterUndeadMummyPriestPng = loadImage("assets/monster/undead/mummy_priest.png")
+    MonsterUndeadCrawlingCorpsePng = loadImage("assets/monster/undead/crawling_corpse.png")
+    MonsterUndeadFlayedGhostOldPng = loadImage("assets/monster/undead/flayed_ghost_old.png")
+    MonsterUndeadPhantomNewPng = loadImage("assets/monster/undead/phantom_new.png")
+    MonsterUndeadVampireNewPng = loadImage("assets/monster/undead/vampire_new.png")
+    MonsterUndeadLichPng = loadImage("assets/monster/undead/lich.png")
+    MonsterUndeadVampireOldPng = loadImage("assets/monster/undead/vampire_old.png")
+    MonsterUndeadGhoulPng = loadImage("assets/monster/undead/ghoul.png")
+    MonsterUndeadMacabreMassPng = loadImage("assets/monster/undead/macabre_mass.png")
+    MonsterUndeadWraithPng = loadImage("assets/monster/undead/wraith.png")
+    MonsterUndeadBogBodyPng = loadImage("assets/monster/undead/bog_body.png")
+    MonsterUndeadSilentSpectrePng = loadImage("assets/monster/undead/silent_spectre.png")
+    MonsterUndeadWightNewPng = loadImage("assets/monster/undead/wight_new.png")
+    MonsterUndeadBoneDragonOldPng = loadImage("assets/monster/undead/bone_dragon_old.png")
+    MonsterUndeadAncientLichOldPng = loadImage("assets/monster/undead/ancient_lich_old.png")
+    MonsterUndeadHungryGhostPng = loadImage("assets/monster/undead/hungry_ghost.png")
+    MonsterUndeadFreezingWraithPng = loadImage("assets/monster/undead/freezing_wraith.png")
+    MonsterUndeadPhantomOldPng = loadImage("assets/monster/undead/phantom_old.png")
+    MonsterUndeadMissingGhostPng = loadImage("assets/monster/undead/missing_ghost.png")
+    MonsterUndeadBoneDragonNewPng = loadImage("assets/monster/undead/bone_dragon_new.png")
+    MonsterUndeadZonguldrokLich1Png = loadImage("assets/monster/undead/zonguldrok_lich_1.png")
+    MonsterUndeadVampireMageOldPng = loadImage("assets/monster/undead/vampire_mage_old.png")
+    MonsterUndeadGhostOldPng = loadImage("assets/monster/undead/ghost_old.png")
+    MonsterUndeadWightOldPng = loadImage("assets/monster/undead/wight_old.png")
+    MonsterUndeadDrownedSoulPng = loadImage("assets/monster/undead/drowned_soul.png")
+    MonsterUndeadLostSoulPng = loadImage("assets/monster/undead/lost_soul.png")
+    MonsterUndeadEidolonPng = loadImage("assets/monster/undead/eidolon.png")
+    MonsterUndeadGhostNewPng = loadImage("assets/monster/undead/ghost_new.png")
+    MonsterUndeadAncientLichNewPng = loadImage("assets/monster/undead/ancient_lich_new.png")
+    MonsterUndeadFlyingSkullPng = loadImage("assets/monster/undead/flying_skull.png")
+    MonsterUndeadVampireKnightNewPng = loadImage("assets/monster/undead/vampire_knight_new.png")
+    MonsterUndeadUnbornPng = loadImage("assets/monster/undead/unborn.png")
+    MonsterUndeadSkeletalWarriorOldPng = loadImage("assets/monster/undead/skeletal_warrior_old.png")
+    MonsterUndeadZombiesZombieTurtlePng = loadImage("assets/monster/undead/zombies/zombie_turtle.png")
+    MonsterUndeadZombiesZombieKrakenHeadPng = loadImage("assets/monster/undead/zombies/zombie_kraken_head.png")
+    MonsterUndeadZombiesZombieOctopodePng = loadImage("assets/monster/undead/zombies/zombie_octopode.png")
+    MonsterUndeadZombiesZombieDrakePng = loadImage("assets/monster/undead/zombies/zombie_drake.png")
+    MonsterUndeadZombiesZombieHoundPng = loadImage("assets/monster/undead/zombies/zombie_hound.png")
+    MonsterUndeadZombiesZombieCrabPng = loadImage("assets/monster/undead/zombies/zombie_crab.png")
+    MonsterUndeadZombiesZombieLizardPng = loadImage("assets/monster/undead/zombies/zombie_lizard.png")
+    MonsterUndeadZombiesZombieUglyThingPng = loadImage("assets/monster/undead/zombies/zombie_ugly_thing.png")
+    MonsterUndeadZombiesZombieToadPng = loadImage("assets/monster/undead/zombies/zombie_toad.png")
+    MonsterUndeadZombiesZombieSmallPng = loadImage("assets/monster/undead/zombies/zombie_small.png")
+    MonsterUndeadZombiesZombieRatPng = loadImage("assets/monster/undead/zombies/zombie_rat.png")
+    MonsterUndeadZombiesZombieOgrePng = loadImage("assets/monster/undead/zombies/zombie_ogre.png")
+    MonsterUndeadSkeletonsSkeletonQuadrupedLargeOldPng = loadImage("assets/monster/undead/skeletons/skeleton_quadruped_large_old.png")
+    MonsterUndeadSkeletonsSkeletonHumanoidLargeOldPng = loadImage("assets/monster/undead/skeletons/skeleton_humanoid_large_old.png")
+    MonsterUndeadSkeletonsSkeletonHydra5OldPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_5_old.png")
+    MonsterUndeadSkeletonsSkeletonHydra4NewPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_4_new.png")
+    MonsterUndeadSkeletonsSkeletonSmallPng = loadImage("assets/monster/undead/skeletons/skeleton_small.png")
+    MonsterUndeadSkeletonsSkeletonHydra2OldPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_2_old.png")
+    MonsterUndeadSkeletonsSkeletonHydra5NewPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_5_new.png")
+    MonsterUndeadSkeletonsSkeletonFishPng = loadImage("assets/monster/undead/skeletons/skeleton_fish.png")
+    MonsterUndeadSkeletonsSkeletonHumanoidLargeNewPng = loadImage("assets/monster/undead/skeletons/skeleton_humanoid_large_new.png")
+    MonsterUndeadSkeletonsSkeletonHydra1OldPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_1_old.png")
+    MonsterUndeadSkeletonsSkeletonHydra3OldPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_3_old.png")
+    MonsterUndeadSkeletonsSkeletonDragonPng = loadImage("assets/monster/undead/skeletons/skeleton_dragon.png")
+    MonsterUndeadSkeletonsSkeletonHydra3NewPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_3_new.png")
+    MonsterUndeadSkeletonsSkeletonHydra1NewPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_1_new.png")
+    MonsterUndeadSkeletonsSkeletonNagaPng = loadImage("assets/monster/undead/skeletons/skeleton_naga.png")
+    MonsterUndeadSkeletonsSkeletonUglyThingPng = loadImage("assets/monster/undead/skeletons/skeleton_ugly_thing.png")
+    MonsterUndeadSkeletonsSkeletonQuadrupedLargeNewPng = loadImage("assets/monster/undead/skeletons/skeleton_quadruped_large_new.png")
+    MonsterUndeadSkeletonsSkeletonHumanoidSmallOldPng = loadImage("assets/monster/undead/skeletons/skeleton_humanoid_small_old.png")
+    MonsterUndeadSkeletonsSkeletonBatPng = loadImage("assets/monster/undead/skeletons/skeleton_bat.png")
+    MonsterUndeadSkeletonsSkeletonHydra2NewPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_2_new.png")
+    MonsterUndeadSkeletonsSkeletonSnakePng = loadImage("assets/monster/undead/skeletons/skeleton_snake.png")
+    MonsterUndeadSkeletonsSkeletonHumanoidSmallNewPng = loadImage("assets/monster/undead/skeletons/skeleton_humanoid_small_new.png")
+    MonsterUndeadSkeletonsSkeletonHydra4OldPng = loadImage("assets/monster/undead/skeletons/skeleton_hydra_4_old.png")
+    MonsterUndeadSkeletonsSkeletonQuadrupedSmallPng = loadImage("assets/monster/undead/skeletons/skeleton_quadruped_small.png")
+    MonsterUndeadSkeletonsSkeletonCentaurPng = loadImage("assets/monster/undead/skeletons/skeleton_centaur.png")
+    MonsterUndeadSimulacraSimulacrumSmallOldPng = loadImage("assets/monster/undead/simulacra/simulacrum_small_old.png")
+    MonsterUndeadSimulacraSimulacrumHydra4Png = loadImage("assets/monster/undead/simulacra/simulacrum_hydra_4.png")
+    MonsterUndeadSimulacraSimulacrumHydra3Png = loadImage("assets/monster/undead/simulacra/simulacrum_hydra_3.png")
+    MonsterUndeadSimulacraSimulacrumCentaurPng = loadImage("assets/monster/undead/simulacra/simulacrum_centaur.png")
+    MonsterUndeadSimulacraSimulacrumHydra1Png = loadImage("assets/monster/undead/simulacra/simulacrum_hydra_1.png")
+    MonsterUndeadSimulacraSimulacrumBatPng = loadImage("assets/monster/undead/simulacra/simulacrum_bat.png")
+    MonsterUndeadSimulacraSimulacrumHydra5Png = loadImage("assets/monster/undead/simulacra/simulacrum_hydra_5.png")
+    MonsterUndeadSimulacraSimulacrumLargeNewPng = loadImage("assets/monster/undead/simulacra/simulacrum_large_new.png")
+    MonsterUndeadSimulacraSimulacrumSnakePng = loadImage("assets/monster/undead/simulacra/simulacrum_snake.png")
+    MonsterUndeadSimulacraSimulacrumDrakePng = loadImage("assets/monster/undead/simulacra/simulacrum_drake.png")
+    MonsterUndeadSimulacraSimulacrumKrakenPng = loadImage("assets/monster/undead/simulacra/simulacrum_kraken.png")
+    MonsterUndeadSimulacraSimulacrumQuadrupedSmallPng = loadImage("assets/monster/undead/simulacra/simulacrum_quadruped_small.png")
+    MonsterUndeadSimulacraSimulacrumFishPng = loadImage("assets/monster/undead/simulacra/simulacrum_fish.png")
+    MonsterUndeadSimulacraSimulacrumHydra2Png = loadImage("assets/monster/undead/simulacra/simulacrum_hydra_2.png")
+    MonsterUndeadSimulacraSimulacrumLizardPng = loadImage("assets/monster/undead/simulacra/simulacrum_lizard.png")
+    MonsterUndeadSimulacraSimulacrumDragonPng = loadImage("assets/monster/undead/simulacra/simulacrum_dragon.png")
+    MonsterUndeadSimulacraSimulacrumQuadrupedLargePng = loadImage("assets/monster/undead/simulacra/simulacrum_quadruped_large.png")
+    MonsterUndeadSimulacraSimulacrumAntPng = loadImage("assets/monster/undead/simulacra/simulacrum_ant.png")
+    MonsterUndeadSimulacraSimulacrumBeePng = loadImage("assets/monster/undead/simulacra/simulacrum_bee.png")
+    MonsterUndeadSimulacraSimulacrumSmallNewPng = loadImage("assets/monster/undead/simulacra/simulacrum_small_new.png")
+    MonsterUndeadSimulacraSimulacrumNagaPng = loadImage("assets/monster/undead/simulacra/simulacrum_naga.png")
+    MonsterUndeadSimulacraSimulacrumLargeOldPng = loadImage("assets/monster/undead/simulacra/simulacrum_large_old.png")
+    MonsterUndeadSimulacraSimulacrumSpiderPng = loadImage("assets/monster/undead/simulacra/simulacrum_spider.png")
+    MonsterUndeadSpectralsSpectralCentaurNewPng = loadImage("assets/monster/undead/spectrals/spectral_centaur_new.png")
+    MonsterUndeadSpectralsSpectralQuadrupedSmallOldPng = loadImage("assets/monster/undead/spectrals/spectral_quadruped_small_old.png")
+    MonsterUndeadSpectralsSpectralFishOldPng = loadImage("assets/monster/undead/spectrals/spectral_fish_old.png")
+    MonsterUndeadSpectralsSpectralHydra4NewPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_4_new.png")
+    MonsterUndeadSpectralsSpectralHydra1NewPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_1_new.png")
+    MonsterUndeadSpectralsSpectralLargePng = loadImage("assets/monster/undead/spectrals/spectral_large.png")
+    MonsterUndeadSpectralsSpectralHydra1OldPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_1_old.png")
+    MonsterUndeadSpectralsSpectralHydra3NewPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_3_new.png")
+    MonsterUndeadSpectralsSpectralAntNewPng = loadImage("assets/monster/undead/spectrals/spectral_ant_new.png")
+    MonsterUndeadSpectralsSpectralLizardPng = loadImage("assets/monster/undead/spectrals/spectral_lizard.png")
+    MonsterUndeadSpectralsSpectralDragonOldPng = loadImage("assets/monster/undead/spectrals/spectral_dragon_old.png")
+    MonsterUndeadSpectralsSpectralHydra3OldPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_3_old.png")
+    MonsterUndeadSpectralsSpectralDrakePng = loadImage("assets/monster/undead/spectrals/spectral_drake.png")
+    MonsterUndeadSpectralsSpectralSpiderNewPng = loadImage("assets/monster/undead/spectrals/spectral_spider_new.png")
+    MonsterUndeadSpectralsSpectralHydra5NewPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_5_new.png")
+    MonsterUndeadSpectralsSpectralBeeNewPng = loadImage("assets/monster/undead/spectrals/spectral_bee_new.png")
+    MonsterUndeadSpectralsSpectralFishNewPng = loadImage("assets/monster/undead/spectrals/spectral_fish_new.png")
+    MonsterUndeadSpectralsSpectralDragonNewPng = loadImage("assets/monster/undead/spectrals/spectral_dragon_new.png")
+    MonsterUndeadSpectralsSpectralQuadrupedLargeNewPng = loadImage("assets/monster/undead/spectrals/spectral_quadruped_large_new.png")
+    MonsterUndeadSpectralsSpectralAntOldPng = loadImage("assets/monster/undead/spectrals/spectral_ant_old.png")
+    MonsterUndeadSpectralsSpectralSpiderOldPng = loadImage("assets/monster/undead/spectrals/spectral_spider_old.png")
+    MonsterUndeadSpectralsSpectralCentaurOldPng = loadImage("assets/monster/undead/spectrals/spectral_centaur_old.png")
+    MonsterUndeadSpectralsSpectralSmallPng = loadImage("assets/monster/undead/spectrals/spectral_small.png")
+    MonsterUndeadSpectralsSpectralBatOldPng = loadImage("assets/monster/undead/spectrals/spectral_bat_old.png")
+    MonsterUndeadSpectralsSpectralQuadrupedLargeOldPng = loadImage("assets/monster/undead/spectrals/spectral_quadruped_large_old.png")
+    MonsterUndeadSpectralsSpectralKrakenPng = loadImage("assets/monster/undead/spectrals/spectral_kraken.png")
+    MonsterUndeadSpectralsSpectralHydra2OldPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_2_old.png")
+    MonsterUndeadSpectralsSpectralHydra5OldPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_5_old.png")
+    MonsterUndeadSpectralsSpectralSnakeNewPng = loadImage("assets/monster/undead/spectrals/spectral_snake_new.png")
+    MonsterUndeadSpectralsSpectralThingPng = loadImage("assets/monster/undead/spectrals/spectral_thing.png")
+    MonsterUndeadSpectralsSpectralBeeOldPng = loadImage("assets/monster/undead/spectrals/spectral_bee_old.png")
+    MonsterUndeadSpectralsSpectralQuadrupedSmallNewPng = loadImage("assets/monster/undead/spectrals/spectral_quadruped_small_new.png")
+    MonsterUndeadSpectralsSpectralWormPng = loadImage("assets/monster/undead/spectrals/spectral_worm.png")
+    MonsterUndeadSpectralsSpectralHydra2NewPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_2_new.png")
+    MonsterUndeadSpectralsSpectralNagaOldPng = loadImage("assets/monster/undead/spectrals/spectral_naga_old.png")
+    MonsterUndeadSpectralsSpectralBatNewPng = loadImage("assets/monster/undead/spectrals/spectral_bat_new.png")
+    MonsterUndeadSpectralsSpectralSnakeOldPng = loadImage("assets/monster/undead/spectrals/spectral_snake_old.png")
+    MonsterUndeadSpectralsSpectralHydra4OldPng = loadImage("assets/monster/undead/spectrals/spectral_hydra_4_old.png")
+    MonsterUndeadSpectralsSpectralNagaNewPng = loadImage("assets/monster/undead/spectrals/spectral_naga_new.png")
+    MonsterSprigganSprigganAirMagePng = loadImage("assets/monster/spriggan/spriggan_air_mage.png")
+    MonsterSprigganSprigganPng = loadImage("assets/monster/spriggan/spriggan.png")
+    MonsterSprigganSprigganDefenderPng = loadImage("assets/monster/spriggan/spriggan_defender.png")
+    MonsterSprigganSprigganDruidPng = loadImage("assets/monster/spriggan/spriggan_druid.png")
+    MonsterSprigganSprigganRiderPng = loadImage("assets/monster/spriggan/spriggan_rider.png")
+    MonsterAnimalsRockWormPng = loadImage("assets/monster/animals/rock_worm.png")
+    MonsterAnimalsSnappingTurtleShellPng = loadImage("assets/monster/animals/snapping_turtle_shell.png")
+    MonsterAnimalsGrizzlyBearPng = loadImage("assets/monster/animals/grizzly_bear.png")
+    MonsterAnimalsOrbSpiderPng = loadImage("assets/monster/animals/orb_spider.png")
+    MonsterAnimalsElephantDireOldPng = loadImage("assets/monster/animals/elephant_dire_old.png")
+    MonsterAnimalsKillerBeePng = loadImage("assets/monster/animals/killer_bee.png")
+    MonsterAnimalsGiantLizardPng = loadImage("assets/monster/animals/giant_lizard.png")
+    MonsterAnimalsSpinyFrogPng = loadImage("assets/monster/animals/spiny_frog.png")
+    MonsterAnimalsGiantBatPng = loadImage("assets/monster/animals/giant_bat.png")
+    MonsterAnimalsButterfly6OldPng = loadImage("assets/monster/animals/butterfly_6_old.png")
+    MonsterAnimalsSpinyWormPng = loadImage("assets/monster/animals/spiny_worm.png")
+    MonsterAnimalsHellHogNewPng = loadImage("assets/monster/animals/hell_hog_new.png")
+    MonsterAnimalsYakOldPng = loadImage("assets/monster/animals/yak_old.png")
+    MonsterAnimalsGiantCockroachNewPng = loadImage("assets/monster/animals/giant_cockroach_new.png")
+    MonsterAnimalsSheepPng = loadImage("assets/monster/animals/sheep.png")
+    MonsterAnimalsWorkerAntPng = loadImage("assets/monster/animals/worker_ant.png")
+    MonsterAnimalsTarantellaOldPng = loadImage("assets/monster/animals/tarantella_old.png")
+    MonsterAnimalsHolySwinePng = loadImage("assets/monster/animals/holy_swine.png")
+    MonsterAnimalsButterfly1NewPng = loadImage("assets/monster/animals/butterfly_1_new.png")
+    MonsterAnimalsTurtlePng = loadImage("assets/monster/animals/turtle.png")
+    MonsterAnimalsButterfly7Png = loadImage("assets/monster/animals/butterfly_7.png")
+    MonsterAnimalsJumpingSpiderOldPng = loadImage("assets/monster/animals/jumping_spider_old.png")
+    MonsterAnimalsGiantMosquitoPng = loadImage("assets/monster/animals/giant_mosquito.png")
+    MonsterAnimalsBigFishPng = loadImage("assets/monster/animals/big_fish.png")
+    MonsterAnimalsGhostMothOldPng = loadImage("assets/monster/animals/ghost_moth_old.png")
+    MonsterAnimalsOrangeRatPng = loadImage("assets/monster/animals/orange_rat.png")
+    MonsterAnimalsGiantBeetlePng = loadImage("assets/monster/animals/giant_beetle.png")
+    MonsterAnimalsBearPng = loadImage("assets/monster/animals/bear.png")
+    MonsterAnimalsIceBeastPng = loadImage("assets/monster/animals/ice_beast.png")
+    MonsterAnimalsAlligatorSnappingTurtleShellPng = loadImage("assets/monster/animals/alligator_snapping_turtle_shell.png")
+    MonsterAnimalsButterfly5Png = loadImage("assets/monster/animals/butterfly_5.png")
+    MonsterAnimalsQuokkaNewPng = loadImage("assets/monster/animals/quokka_new.png")
+    MonsterAnimalsIguanaPng = loadImage("assets/monster/animals/iguana.png")
+    MonsterAnimalsYakNewPng = loadImage("assets/monster/animals/yak_new.png")
+    MonsterAnimalsButterfly8Png = loadImage("assets/monster/animals/butterfly_8.png")
+    MonsterAnimalsPolarBearPng = loadImage("assets/monster/animals/polar_bear.png")
+    MonsterAnimalsButterfly3NewPng = loadImage("assets/monster/animals/butterfly_3_new.png")
+    MonsterAnimalsRedbackNewPng = loadImage("assets/monster/animals/redback_new.png")
+    MonsterAnimalsButterfly9Png = loadImage("assets/monster/animals/butterfly_9.png")
+    MonsterAnimalsWolfPng = loadImage("assets/monster/animals/wolf.png")
+    MonsterAnimalsCatoblepasPng = loadImage("assets/monster/animals/catoblepas.png")
+    MonsterAnimalsElephantDemonicNewPng = loadImage("assets/monster/animals/elephant_demonic_new.png")
+    MonsterAnimalsViperPng = loadImage("assets/monster/animals/viper.png")
+    MonsterAnimalsSnakePng = loadImage("assets/monster/animals/snake.png")
+    MonsterAnimalsBlinkFrogOldPng = loadImage("assets/monster/animals/blink_frog_old.png")
+    MonsterAnimalsQueenBeePng = loadImage("assets/monster/animals/queen_bee.png")
+    MonsterAnimalsButterfly2Png = loadImage("assets/monster/animals/butterfly_2.png")
+    MonsterAnimalsSnappingTurtleNewPng = loadImage("assets/monster/animals/snapping_turtle_new.png")
+    MonsterAnimalsDeathYakNewPng = loadImage("assets/monster/animals/death_yak_new.png")
+    MonsterAnimalsSnappingTurtleOldPng = loadImage("assets/monster/animals/snapping_turtle_old.png")
+    MonsterAnimalsSeaSnakeNewPng = loadImage("assets/monster/animals/sea_snake_new.png")
+    MonsterAnimalsGreySnakePng = loadImage("assets/monster/animals/grey_snake.png")
+    MonsterAnimalsButterfly4NewPng = loadImage("assets/monster/animals/butterfly_4_new.png")
+    MonsterAnimalsButterfly4OldPng = loadImage("assets/monster/animals/butterfly_4_old.png")
+    MonsterAnimalsButterfly6NewPng = loadImage("assets/monster/animals/butterfly_6_new.png")
+    MonsterAnimalsGiantCockroachOldPng = loadImage("assets/monster/animals/giant_cockroach_old.png")
+    MonsterAnimalsGiantScorpionPng = loadImage("assets/monster/animals/giant_scorpion.png")
+    MonsterAnimalsDeathYakOldPng = loadImage("assets/monster/animals/death_yak_old.png")
+    MonsterAnimalsWaterMoccasinOldPng = loadImage("assets/monster/animals/water_moccasin_old.png")
+    MonsterAnimalsFireCrabPng = loadImage("assets/monster/animals/fire_crab.png")
+    MonsterAnimalsGiantGoldfishPng = loadImage("assets/monster/animals/giant_goldfish.png")
+    MonsterAnimalsBlackMambaOldPng = loadImage("assets/monster/animals/black_mamba_old.png")
+    MonsterAnimalsElephantDemonicOldPng = loadImage("assets/monster/animals/elephant_demonic_old.png")
+    MonsterAnimalsSoldierAntOldPng = loadImage("assets/monster/animals/soldier_ant_old.png")
+    MonsterAnimalsWolfSpiderNewPng = loadImage("assets/monster/animals/wolf_spider_new.png")
+    MonsterAnimalsGilaMonsterPng = loadImage("assets/monster/animals/gila_monster.png")
+    MonsterAnimalsGiantNewtNewPng = loadImage("assets/monster/animals/giant_newt_new.png")
+    MonsterAnimalsBlackBearOldPng = loadImage("assets/monster/animals/black_bear_old.png")
+    MonsterAnimalsGiantSlugPng = loadImage("assets/monster/animals/giant_slug.png")
+    MonsterAnimalsElephantNewPng = loadImage("assets/monster/animals/elephant_new.png")
+    MonsterAnimalsGiantAntPng = loadImage("assets/monster/animals/giant_ant.png")
+    MonsterAnimalsGiantLeechNewPng = loadImage("assets/monster/animals/giant_leech_new.png")
+    MonsterAnimalsAlligatorPng = loadImage("assets/monster/animals/alligator.png")
+    MonsterAnimalsSpiderPng = loadImage("assets/monster/animals/spider.png")
+    MonsterAnimalsWormOldPng = loadImage("assets/monster/animals/worm_old.png")
+    MonsterAnimalsGreenRatPng = loadImage("assets/monster/animals/green_rat.png")
+    MonsterAnimalsWormNewPng = loadImage("assets/monster/animals/worm_new.png")
+    MonsterAnimalsBlackMambaNewPng = loadImage("assets/monster/animals/black_mamba_new.png")
+    MonsterAnimalsCrocodilePng = loadImage("assets/monster/animals/crocodile.png")
+    MonsterAnimalsRaijuPng = loadImage("assets/monster/animals/raiju.png")
+    MonsterAnimalsFireBatPng = loadImage("assets/monster/animals/fire_bat.png")
+    MonsterAnimalsQueenAntOldPng = loadImage("assets/monster/animals/queen_ant_old.png")
+    MonsterAnimalsButterflyNewPng = loadImage("assets/monster/animals/butterfly_new.png")
+    MonsterAnimalsQuokkaOldPng = loadImage("assets/monster/animals/quokka_old.png")
+    MonsterAnimalsRatPng = loadImage("assets/monster/animals/rat.png")
+    MonsterAnimalsGiantMitePng = loadImage("assets/monster/animals/giant_mite.png")
+    MonsterAnimalsYellowSnakePng = loadImage("assets/monster/animals/yellow_snake.png")
+    MonsterAnimalsJellyfishPng = loadImage("assets/monster/animals/jellyfish.png")
+    MonsterAnimalsBumblebeePng = loadImage("assets/monster/animals/bumblebee.png")
+    MonsterAnimalsGhostMothNewPng = loadImage("assets/monster/animals/ghost_moth_new.png")
+    MonsterAnimalsLavaFishPng = loadImage("assets/monster/animals/lava_fish.png")
+    MonsterAnimalsGiantSnailPng = loadImage("assets/monster/animals/giant_snail.png")
+    MonsterAnimalsKillerBeeLarvaPng = loadImage("assets/monster/animals/killer_bee_larva.png")
+    MonsterAnimalsHellHoundOldPng = loadImage("assets/monster/animals/hell_hound_old.png")
+    MonsterAnimalsBlackBearNewPng = loadImage("assets/monster/animals/black_bear_new.png")
+    MonsterAnimalsGiantLeechPng = loadImage("assets/monster/animals/giant_leech.png")
+    MonsterAnimalsSalamanderPng = loadImage("assets/monster/animals/salamander.png")
+    MonsterAnimalsShockSerpentPng = loadImage("assets/monster/animals/shock_serpent.png")
+    MonsterAnimalsElephantOldPng = loadImage("assets/monster/animals/elephant_old.png")
+    MonsterAnimalsTrapdoorSpiderNewPng = loadImage("assets/monster/animals/trapdoor_spider_new.png")
+    MonsterAnimalsBlackSheepPng = loadImage("assets/monster/animals/black_sheep.png")
+    MonsterAnimalsQueenAntNewPng = loadImage("assets/monster/animals/queen_ant_new.png")
+    MonsterAnimalsRedbackOldPng = loadImage("assets/monster/animals/redback_old.png")
+    MonsterAnimalsElephantSlugPng = loadImage("assets/monster/animals/elephant_slug.png")
+    MonsterAnimalsAnacondaNewPng = loadImage("assets/monster/animals/anaconda_new.png")
+    MonsterAnimalsEmperorScorpionPng = loadImage("assets/monster/animals/emperor_scorpion.png")
+    MonsterAnimalsBatPng = loadImage("assets/monster/animals/bat.png")
+    MonsterAnimalsAlligatorBabyPng = loadImage("assets/monster/animals/alligator_baby.png")
+    MonsterAnimalsHogNewPng = loadImage("assets/monster/animals/hog_new.png")
+    MonsterAnimalsJumpingSpiderNewPng = loadImage("assets/monster/animals/jumping_spider_new.png")
+    MonsterAnimalsWaterMoccasinNewPng = loadImage("assets/monster/animals/water_moccasin_new.png")
+    MonsterAnimalsTarantellaNewPng = loadImage("assets/monster/animals/tarantella_new.png")
+    MonsterAnimalsGiantCentipedePng = loadImage("assets/monster/animals/giant_centipede.png")
+    MonsterAnimalsElephantDireNewPng = loadImage("assets/monster/animals/elephant_dire_new.png")
+    MonsterAnimalsHogOldPng = loadImage("assets/monster/animals/hog_old.png")
+    MonsterAnimalsAnacondaOldPng = loadImage("assets/monster/animals/anaconda_old.png")
+    MonsterAnimalsBallPythonPng = loadImage("assets/monster/animals/ball_python.png")
+    MonsterAnimalsWolfSpiderOldPng = loadImage("assets/monster/animals/wolf_spider_old.png")
+    MonsterAnimalsAdderPng = loadImage("assets/monster/animals/adder.png")
+    MonsterAnimalsBlinkFrogNewPng = loadImage("assets/monster/animals/blink_frog_new.png")
+    MonsterAnimalsJackalNewPng = loadImage("assets/monster/animals/jackal_new.png")
+    MonsterAnimalsGiantFrogPng = loadImage("assets/monster/animals/giant_frog.png")
+    MonsterAnimalsButterfly1OldPng = loadImage("assets/monster/animals/butterfly_1_old.png")
+    MonsterAnimalsBrainWormOldPng = loadImage("assets/monster/animals/brain_worm_old.png")
+    MonsterAnimalsButterfly10Png = loadImage("assets/monster/animals/butterfly_10.png")
+    MonsterAnimalsButterfly3OldPng = loadImage("assets/monster/animals/butterfly_3_old.png")
+    MonsterAnimalsGreyRatPng = loadImage("assets/monster/animals/grey_rat.png")
+    MonsterAnimalsJackalOldPng = loadImage("assets/monster/animals/jackal_old.png")
+    MonsterAnimalsTrapdoorSpiderOldPng = loadImage("assets/monster/animals/trapdoor_spider_old.png")
+    MonsterAnimalsManaViperPng = loadImage("assets/monster/animals/mana_viper.png")
+    MonsterAnimalsSmallSnakePng = loadImage("assets/monster/animals/small_snake.png")
+    MonsterAnimalsBrainWormNewPng = loadImage("assets/monster/animals/brain_worm_new.png")
+    MonsterAnimalsMothOfWrathNewPng = loadImage("assets/monster/animals/moth_of_wrath_new.png")
+    MonsterAnimalsSoldierAntNewPng = loadImage("assets/monster/animals/soldier_ant_new.png")
+    MonsterAnimalsRedWaspPng = loadImage("assets/monster/animals/red_wasp.png")
+    MonsterAnimalsWarDogPng = loadImage("assets/monster/animals/war_dog.png")
+    MonsterAnimalsAlligatorSnappingTurtleOldPng = loadImage("assets/monster/animals/alligator_snapping_turtle_old.png")
+    MonsterAnimalsButterflyOldPng = loadImage("assets/monster/animals/butterfly_old.png")
+    MonsterAnimalsHellHoundNewPng = loadImage("assets/monster/animals/hell_hound_new.png")
+    MonsterAnimalsGiantToadPng = loadImage("assets/monster/animals/giant_toad.png")
+    MonsterAnimalsSeaSnakeOldPng = loadImage("assets/monster/animals/sea_snake_old.png")
+    MonsterAnimalsKomodoDragonPng = loadImage("assets/monster/animals/komodo_dragon.png")
+    MonsterAnimalsLavaWormPng = loadImage("assets/monster/animals/lava_worm.png")
+    MonsterAnimalsCausticShrikePng = loadImage("assets/monster/animals/caustic_shrike.png")
+    MonsterAnimalsGiantNewtOldPng = loadImage("assets/monster/animals/giant_newt_old.png")
+    MonsterAnimalsWargPng = loadImage("assets/monster/animals/warg.png")
+    MonsterAnimalsMothOfWrathOldPng = loadImage("assets/monster/animals/moth_of_wrath_old.png")
+    MonsterAnimalsHellHogOldPng = loadImage("assets/monster/animals/hell_hog_old.png")
+    MonsterAnimalsGiantGeckoPng = loadImage("assets/monster/animals/giant_gecko.png")
+    MonsterAnimalsYellowWaspPng = loadImage("assets/monster/animals/yellow_wasp.png")
+    MonsterAnimalsBoringBeetlePng = loadImage("assets/monster/animals/boring_beetle.png")
+    MonsterAnimalsGiantBlowflyPng = loadImage("assets/monster/animals/giant_blowfly.png")
+    MonsterAnimalsGiantFireflyPng = loadImage("assets/monster/animals/giant_firefly.png")
+    MonsterAnimalsAlligatorSnappingTurtleNewPng = loadImage("assets/monster/animals/alligator_snapping_turtle_new.png")
+    MonsterAnimalsScorpionNewPng = loadImage("assets/monster/animals/scorpion_new.png")
+    MonsterAnimalsScorpionOldPng = loadImage("assets/monster/animals/scorpion_old.png")
+    MonsterAnimalsHoundPng = loadImage("assets/monster/animals/hound.png")
+    MonsterAnimalsGiantLeechOldPng = loadImage("assets/monster/animals/giant_leech_old.png")
+    MonsterAnimalsBoulderBeetlePng = loadImage("assets/monster/animals/boulder_beetle.png")
+    MonsterAnimalsBasiliskPng = loadImage("assets/monster/animals/basilisk.png")
+    MonsterDemonsSmokeDemonNewPng = loadImage("assets/monster/demons/smoke_demon_new.png")
+    MonsterDemonsDemonicCrawlerPng = loadImage("assets/monster/demons/demonic_crawler.png")
+    MonsterDemonsUglyThing3Png = loadImage("assets/monster/demons/ugly_thing_3.png")
+    MonsterDemonsTormentorNewPng = loadImage("assets/monster/demons/tormentor_new.png")
+    MonsterDemonsCigotuvisMonsterPng = loadImage("assets/monster/demons/cigotuvis_monster.png")
+    MonsterDemonsVeryUglyThing5Png = loadImage("assets/monster/demons/very_ugly_thing_5.png")
+    MonsterDemonsTentacledMonstrosityPng = loadImage("assets/monster/demons/tentacled_monstrosity.png")
+    MonsterDemonsUglyThing4Png = loadImage("assets/monster/demons/ugly_thing_4.png")
+    MonsterDemonsNeqoxecOldPng = loadImage("assets/monster/demons/neqoxec_old.png")
+    MonsterDemonsUnspeakableBottomPng = loadImage("assets/monster/demons/unspeakable_bottom.png")
+    MonsterDemonsSoulEaterPng = loadImage("assets/monster/demons/soul_eater.png")
+    MonsterDemonsPitFiendPng = loadImage("assets/monster/demons/pit_fiend.png")
+    MonsterDemonsSixfirhyNewPng = loadImage("assets/monster/demons/sixfirhy_new.png")
+    MonsterDemonsLorocyprocaNewPng = loadImage("assets/monster/demons/lorocyproca_new.png")
+    MonsterDemonsHellwingPng = loadImage("assets/monster/demons/hellwing.png")
+    MonsterDemonsUglyThing1Png = loadImage("assets/monster/demons/ugly_thing_1.png")
+    MonsterDemonsRedDevilOldPng = loadImage("assets/monster/demons/red_devil_old.png")
+    MonsterDemonsLemurePng = loadImage("assets/monster/demons/lemure.png")
+    MonsterDemonsVeryUglyThing3Png = loadImage("assets/monster/demons/very_ugly_thing_3.png")
+    MonsterDemonsAbominationLargePng = loadImage("assets/monster/demons/abomination_large.png")
+    MonsterDemonsChaosSpawn4Png = loadImage("assets/monster/demons/chaos_spawn_4.png")
+    MonsterDemonsQuasitOldPng = loadImage("assets/monster/demons/quasit_old.png")
+    MonsterDemonsBlueDevilNewPng = loadImage("assets/monster/demons/blue_devil_new.png")
+    MonsterDemonsIronImpOldPng = loadImage("assets/monster/demons/iron_imp_old.png")
+    MonsterDemonsChaosSpawn5Png = loadImage("assets/monster/demons/chaos_spawn_5.png")
+    MonsterDemonsChaosSpawn1Png = loadImage("assets/monster/demons/chaos_spawn_1.png")
+    MonsterDemonsBalrugNewPng = loadImage("assets/monster/demons/balrug_new.png")
+    MonsterDemonsShadowImpOldPng = loadImage("assets/monster/demons/shadow_imp_old.png")
+    MonsterDemonsUfetubusPng = loadImage("assets/monster/demons/ufetubus.png")
+    MonsterDemonsHellionNewPng = loadImage("assets/monster/demons/hellion_new.png")
+    MonsterDemonsExecutionerPng = loadImage("assets/monster/demons/executioner.png")
+    MonsterDemonsVeryUglyThing2Png = loadImage("assets/monster/demons/very_ugly_thing_2.png")
+    MonsterDemonsEfreetPng = loadImage("assets/monster/demons/efreet.png")
+    MonsterDemonsIronImpNewPng = loadImage("assets/monster/demons/iron_imp_new.png")
+    MonsterDemonsAbominationSmall1Png = loadImage("assets/monster/demons/abomination_small_1.png")
+    MonsterDemonsBlizzardDemonPng = loadImage("assets/monster/demons/blizzard_demon.png")
+    MonsterDemonsShadowFiendNewPng = loadImage("assets/monster/demons/shadow_fiend_new.png")
+    MonsterDemonsUglyThingPng = loadImage("assets/monster/demons/ugly_thing.png")
+    MonsterDemonsAbominationSmallPng = loadImage("assets/monster/demons/abomination_small.png")
+    MonsterDemonsBeastPng = loadImage("assets/monster/demons/beast.png")
+    MonsterDemonsWhiteImpPng = loadImage("assets/monster/demons/white_imp.png")
+    MonsterDemonsAbominationLarge1Png = loadImage("assets/monster/demons/abomination_large_1.png")
+    MonsterDemonsRedDevilNewPng = loadImage("assets/monster/demons/red_devil_new.png")
+    MonsterDemonsHellionOldPng = loadImage("assets/monster/demons/hellion_old.png")
+    MonsterDemonsBalrugOldPng = loadImage("assets/monster/demons/balrug_old.png")
+    MonsterDemonsRakshasaPng = loadImage("assets/monster/demons/rakshasa.png")
+    MonsterDemonsShadowFiendOldPng = loadImage("assets/monster/demons/shadow_fiend_old.png")
+    MonsterDemonsHairyDevilPng = loadImage("assets/monster/demons/hairy_devil.png")
+    MonsterDemonsDimmePng = loadImage("assets/monster/demons/dimme.png")
+    MonsterDemonsRottingDevilPng = loadImage("assets/monster/demons/rotting_devil.png")
+    MonsterDemonsReaperNewPng = loadImage("assets/monster/demons/reaper_new.png")
+    MonsterDemonsAbominationLarge6Png = loadImage("assets/monster/demons/abomination_large_6.png")
+    MonsterDemonsQuasitNewPng = loadImage("assets/monster/demons/quasit_new.png")
+    MonsterDemonsShadowDemonPng = loadImage("assets/monster/demons/shadow_demon.png")
+    MonsterDemonsSmokeDemonOldPng = loadImage("assets/monster/demons/smoke_demon_old.png")
+    MonsterDemonsShadowImpNewPng = loadImage("assets/monster/demons/shadow_imp_new.png")
+    MonsterDemonsLorocyprocaOldPng = loadImage("assets/monster/demons/lorocyproca_old.png")
+    MonsterDemonsFiendPng = loadImage("assets/monster/demons/fiend.png")
+    MonsterDemonsNeqoxecNewPng = loadImage("assets/monster/demons/neqoxec_new.png")
+    MonsterDemonsYnoxinulNewPng = loadImage("assets/monster/demons/ynoxinul_new.png")
+    MonsterDemonsBlueDevilOldPng = loadImage("assets/monster/demons/blue_devil_old.png")
+    MonsterDemonsChaosSpawnPng = loadImage("assets/monster/demons/chaos_spawn.png")
+    MonsterDemonsOrangeDemonNewPng = loadImage("assets/monster/demons/orange_demon_new.png")
+    MonsterDemonsVeryUglyThingPng = loadImage("assets/monster/demons/very_ugly_thing.png")
+    MonsterDemonsGreenDeathPng = loadImage("assets/monster/demons/green_death.png")
+    MonsterDemonsUglyThing2Png = loadImage("assets/monster/demons/ugly_thing_2.png")
+    MonsterDemonsOrangeDemonOldPng = loadImage("assets/monster/demons/orange_demon_old.png")
+    MonsterDemonsMidgePng = loadImage("assets/monster/demons/midge.png")
+    MonsterDemonsIceDevilPng = loadImage("assets/monster/demons/ice_devil.png")
+    MonsterDemonsImpPng = loadImage("assets/monster/demons/imp.png")
+    MonsterDemonsAbominationLarge3Png = loadImage("assets/monster/demons/abomination_large_3.png")
+    MonsterDemonsHellSentinelPng = loadImage("assets/monster/demons/hell_sentinel.png")
+    MonsterDemonsUnspeakableTopPng = loadImage("assets/monster/demons/unspeakable_top.png")
+    MonsterDemonsYnoxinulOldPng = loadImage("assets/monster/demons/ynoxinul_old.png")
+    MonsterDemonsBlueDeathPng = loadImage("assets/monster/demons/blue_death.png")
+    MonsterDemonsSunDemonPng = loadImage("assets/monster/demons/sun_demon.png")
+    MonsterDemonsRustDevilPng = loadImage("assets/monster/demons/rust_devil.png")
+    MonsterDemonsVeryUglyThing1Png = loadImage("assets/monster/demons/very_ugly_thing_1.png")
+    MonsterDemonsChaosSpawn3Png = loadImage("assets/monster/demons/chaos_spawn_3.png")
+    MonsterDemonsIceFiendPng = loadImage("assets/monster/demons/ice_fiend.png")
+    MonsterDemonsVeryUglyThing4Png = loadImage("assets/monster/demons/very_ugly_thing_4.png")
+    MonsterDemonsReaperOldPng = loadImage("assets/monster/demons/reaper_old.png")
+    MonsterDemonsAbominationLarge5Png = loadImage("assets/monster/demons/abomination_large_5.png")
+    MonsterDemonsSixfirhyOldPng = loadImage("assets/monster/demons/sixfirhy_old.png")
+    MonsterDemonsAbominationLarge2Png = loadImage("assets/monster/demons/abomination_large_2.png")
+    MonsterDemonsTormentorOldPng = loadImage("assets/monster/demons/tormentor_old.png")
+    MonsterDemonsChaosSpawn2Png = loadImage("assets/monster/demons/chaos_spawn_2.png")
+    MonsterDemonsUglyThing5Png = loadImage("assets/monster/demons/ugly_thing_5.png")
+    MonsterDemonsIronDevilPng = loadImage("assets/monster/demons/iron_devil.png")
+    MonsterDemonsCacodemonPng = loadImage("assets/monster/demons/cacodemon.png")
+    MonsterDemonsAbominationLarge4Png = loadImage("assets/monster/demons/abomination_large_4.png")
+    MonsterStatuesOverlayMageHatNewPng = loadImage("assets/monster/statues/overlay_mage_hat_new.png")
+    MonsterStatuesSpookyStatuePng = loadImage("assets/monster/statues/spooky_statue.png")
+    MonsterStatuesOverlayBowOldPng = loadImage("assets/monster/statues/overlay_bow_old.png")
+    MonsterStatuesIceStatuePng = loadImage("assets/monster/statues/ice_statue.png")
+    MonsterStatuesWaterElementalistStatuePng = loadImage("assets/monster/statues/water_elementalist_statue.png")
+    MonsterStatuesOverlayAxeOldPng = loadImage("assets/monster/statues/overlay_axe_old.png")
+    MonsterStatuesEarthElementalistStatuePng = loadImage("assets/monster/statues/earth_elementalist_statue.png")
+    MonsterStatuesStatueBaseOldPng = loadImage("assets/monster/statues/statue_base_old.png")
+    MonsterStatuesZotStatuePng = loadImage("assets/monster/statues/zot_statue.png")
+    MonsterStatuesGuardianEyeopenFlame3Png = loadImage("assets/monster/statues/guardian-eyeopen-flame_3.png")
+    MonsterStatuesOrangeCrystalStatueOldPng = loadImage("assets/monster/statues/orange_crystal_statue_old.png")
+    MonsterStatuesOverlayMageHatOldPng = loadImage("assets/monster/statues/overlay_mage_hat_old.png")
+    MonsterStatuesOverlayMagePng = loadImage("assets/monster/statues/overlay_mage.png")
+    MonsterStatuesWucadMuStatueNewPng = loadImage("assets/monster/statues/wucad_mu_statue_new.png")
+    MonsterStatuesObeliskPng = loadImage("assets/monster/statues/obelisk.png")
+    MonsterStatuesOverlayScytheOldPng = loadImage("assets/monster/statues/overlay_scythe_old.png")
+    MonsterStatuesOrangeCrystalStatueNewPng = loadImage("assets/monster/statues/orange_crystal_statue_new.png")
+    MonsterStatuesBlockOfIcePng = loadImage("assets/monster/statues/block_of_ice.png")
+    MonsterStatuesDarkVineStatueBaseOldPng = loadImage("assets/monster/statues/dark_vine_statue_base_old.png")
+    MonsterStatuesOverlayScytheNewPng = loadImage("assets/monster/statues/overlay_scythe_new.png")
+    MonsterStatuesGuardianEyeclosedFlame2Png = loadImage("assets/monster/statues/guardian-eyeclosed-flame_2.png")
+    MonsterStatuesLightVineStatueBaseNewPng = loadImage("assets/monster/statues/light_vine_statue_base_new.png")
+    MonsterStatuesAirElementalistStatuePng = loadImage("assets/monster/statues/air_elementalist_statue.png")
+    MonsterStatuesSnailStatuePng = loadImage("assets/monster/statues/snail_statue.png")
+    MonsterStatuesOverlaySwordOldPng = loadImage("assets/monster/statues/overlay_sword_old.png")
+    MonsterStatuesPillarOfSaltPng = loadImage("assets/monster/statues/pillar_of_salt.png")
+    MonsterStatuesDarkVineStatueBaseNewPng = loadImage("assets/monster/statues/dark_vine_statue_base_new.png")
+    MonsterStatuesGuardianEyeopenFlame1Png = loadImage("assets/monster/statues/guardian-eyeopen-flame_1.png")
+    MonsterStatuesGuardianEyeclosedFlame4Png = loadImage("assets/monster/statues/guardian-eyeclosed-flame_4.png")
+    MonsterStatuesSilverStatuePng = loadImage("assets/monster/statues/silver_statue.png")
+    MonsterStatuesStatueBaseNewPng = loadImage("assets/monster/statues/statue_base_new.png")
+    MonsterStatuesFirespitterStatueOldPng = loadImage("assets/monster/statues/firespitter_statue_old.png")
+    MonsterStatuesGuardianEyeclosedFlame3Png = loadImage("assets/monster/statues/guardian-eyeclosed-flame_3.png")
+    MonsterStatuesOverlayMaceOldPng = loadImage("assets/monster/statues/overlay_mace_old.png")
+    MonsterStatuesTrainingDummyOldPng = loadImage("assets/monster/statues/training_dummy_old.png")
+    MonsterStatuesOverlayCrossbowOldPng = loadImage("assets/monster/statues/overlay_crossbow_old.png")
+    MonsterStatuesOverlayCrossbowNewPng = loadImage("assets/monster/statues/overlay_crossbow_new.png")
+    MonsterStatuesLightVineStatueBaseOldPng = loadImage("assets/monster/statues/light_vine_statue_base_old.png")
+    MonsterStatuesWucadMuStatueOldPng = loadImage("assets/monster/statues/wucad_mu_statue_old.png")
+    MonsterStatuesOverlayMaceNewPng = loadImage("assets/monster/statues/overlay_mace_new.png")
+    MonsterStatuesTrainingDummyNewPng = loadImage("assets/monster/statues/training_dummy_new.png")
+    MonsterStatuesOverlayWhipNewPng = loadImage("assets/monster/statues/overlay_whip_new.png")
+    MonsterStatuesGuardianEyeopenFlame2Png = loadImage("assets/monster/statues/guardian-eyeopen-flame_2.png")
+    MonsterStatuesOverlayAxeNewPng = loadImage("assets/monster/statues/overlay_axe_new.png")
+    MonsterStatuesFireElementalistStatuePng = loadImage("assets/monster/statues/fire_elementalist_statue.png")
+    MonsterStatuesFirespitterStatueNewPng = loadImage("assets/monster/statues/firespitter_statue_new.png")
+    MonsterStatuesChillingStatuePng = loadImage("assets/monster/statues/chilling_statue.png")
+    MonsterStatuesOverlayBowNewPng = loadImage("assets/monster/statues/overlay_bow_new.png")
+    MonsterStatuesGuardianEyeclosedFlame1Png = loadImage("assets/monster/statues/guardian-eyeclosed-flame_1.png")
+    MonsterStatuesOverlayWhipOldPng = loadImage("assets/monster/statues/overlay_whip_old.png")
+    MonsterStatuesGuardianEyeopenFlame4Png = loadImage("assets/monster/statues/guardian-eyeopen-flame_4.png")
+    MonsterStatuesBlockOfIce2Png = loadImage("assets/monster/statues/block_of_ice_2.png")
+    MonsterStatuesOverlaySwordNewPng = loadImage("assets/monster/statues/overlay_sword_new.png")
+    MonsterDragonsHydra4NewPng = loadImage("assets/monster/dragons/hydra_4_new.png")
+    MonsterDragonsGoldenDragonPng = loadImage("assets/monster/dragons/golden_dragon.png")
+    MonsterDragonsHydra2NewPng = loadImage("assets/monster/dragons/hydra_2_new.png")
+    MonsterDragonsHydra3NewPng = loadImage("assets/monster/dragons/hydra_3_new.png")
+    MonsterDragonsDragonPng = loadImage("assets/monster/dragons/dragon.png")
+    MonsterDragonsSteamDragonPng = loadImage("assets/monster/dragons/steam_dragon.png")
+    MonsterDragonsHydra5NewPng = loadImage("assets/monster/dragons/hydra_5_new.png")
+    MonsterDragonsIronDragonPng = loadImage("assets/monster/dragons/iron_dragon.png")
+    MonsterDragonsQuicksilverDragonOldPng = loadImage("assets/monster/dragons/quicksilver_dragon_old.png")
+    MonsterDragonsSwampDragonNewPng = loadImage("assets/monster/dragons/swamp_dragon_new.png")
+    MonsterDragonsIceDragonNewPng = loadImage("assets/monster/dragons/ice_dragon_new.png")
+    MonsterDragonsQuicksilverDragonNewPng = loadImage("assets/monster/dragons/quicksilver_dragon_new.png")
+    MonsterDragonsHydra1NewPng = loadImage("assets/monster/dragons/hydra_1_new.png")
+    MonsterDragonsMottledDragonPng = loadImage("assets/monster/dragons/mottled_dragon.png")
+    MonsterDragonsShadowDragonPng = loadImage("assets/monster/dragons/shadow_dragon.png")
+    MonsterDragonsWyvernNewPng = loadImage("assets/monster/dragons/wyvern_new.png")
+    MonsterDragonsStormDragonNewPng = loadImage("assets/monster/dragons/storm_dragon_new.png")
+    MonsterNonlivingOrbOfFireNewPng = loadImage("assets/monster/nonliving/orb_of_fire_new.png")
+    MonsterNonlivingTestSpawnerNewPng = loadImage("assets/monster/nonliving/test_spawner_new.png")
+    MonsterNonlivingFireVortex3Png = loadImage("assets/monster/nonliving/fire_vortex_3.png")
+    MonsterNonlivingWaterElementalOldPng = loadImage("assets/monster/nonliving/water_elemental_old.png")
+    MonsterNonlivingSpectralSblPng = loadImage("assets/monster/nonliving/spectral_sbl.png")
+    MonsterNonlivingBattlespherePng = loadImage("assets/monster/nonliving/battlesphere.png")
+    MonsterNonlivingSpectralWhipPng = loadImage("assets/monster/nonliving/spectral_whip.png")
+    MonsterNonlivingFulminantPrism2Png = loadImage("assets/monster/nonliving/fulminant_prism_2.png")
+    MonsterNonlivingSpellforgedServitorPng = loadImage("assets/monster/nonliving/spellforged_servitor.png")
+    MonsterNonlivingOrbOfFireOldPng = loadImage("assets/monster/nonliving/orb_of_fire_old.png")
+    MonsterNonlivingTestSpawnerOldPng = loadImage("assets/monster/nonliving/test_spawner_old.png")
+    MonsterNonlivingSpectralStaffPng = loadImage("assets/monster/nonliving/spectral_staff.png")
+    MonsterNonlivingSpatialVortex2Png = loadImage("assets/monster/nonliving/spatial_vortex_2.png")
+    MonsterNonlivingFireVortex2Png = loadImage("assets/monster/nonliving/fire_vortex_2.png")
+    MonsterNonlivingBallLightningPng = loadImage("assets/monster/nonliving/ball_lightning.png")
+    MonsterNonlivingMetalGargoylePng = loadImage("assets/monster/nonliving/metal_gargoyle.png")
+    MonsterNonlivingSpatialVortex1Png = loadImage("assets/monster/nonliving/spatial_vortex_1.png")
+    MonsterNonlivingOrbOfElectricityPng = loadImage("assets/monster/nonliving/orb_of_electricity.png")
+    MonsterNonlivingMaelstrom2Png = loadImage("assets/monster/nonliving/maelstrom_2.png")
+    MonsterNonlivingGargoylePng = loadImage("assets/monster/nonliving/gargoyle.png")
+    MonsterNonlivingSpectralLblPng = loadImage("assets/monster/nonliving/spectral_lbl.png")
+    MonsterNonlivingTwister1Png = loadImage("assets/monster/nonliving/twister_1.png")
+    MonsterNonlivingMoltenGargoylePng = loadImage("assets/monster/nonliving/molten_gargoyle.png")
+    MonsterNonlivingSpatialVortexPng = loadImage("assets/monster/nonliving/spatial_vortex.png")
+    MonsterNonlivingIronGolemPng = loadImage("assets/monster/nonliving/iron_golem.png")
+    MonsterNonlivingFireElementalNewPng = loadImage("assets/monster/nonliving/fire_elemental_new.png")
+    MonsterNonlivingWellspringPng = loadImage("assets/monster/nonliving/wellspring.png")
+    MonsterNonlivingFireVortex4Png = loadImage("assets/monster/nonliving/fire_vortex_4.png")
+    MonsterNonlivingMaelstrom1Png = loadImage("assets/monster/nonliving/maelstrom_1.png")
+    MonsterNonlivingSpectralSpearPng = loadImage("assets/monster/nonliving/spectral_spear.png")
+    MonsterNonlivingVapourPng = loadImage("assets/monster/nonliving/vapour.png")
+    MonsterNonlivingToenailGolemPng = loadImage("assets/monster/nonliving/toenail_golem.png")
+    MonsterNonlivingSpectralAxePng = loadImage("assets/monster/nonliving/spectral_axe.png")
+    MonsterNonlivingSpectralMacePng = loadImage("assets/monster/nonliving/spectral_mace.png")
+    MonsterNonlivingFulminantPrism3Png = loadImage("assets/monster/nonliving/fulminant_prism_3.png")
+    MonsterNonlivingMaelstrom4Png = loadImage("assets/monster/nonliving/maelstrom_4.png")
+    MonsterNonlivingCrystalGolemPng = loadImage("assets/monster/nonliving/crystal_golem.png")
+    MonsterNonlivingStoneGolemPng = loadImage("assets/monster/nonliving/stone_golem.png")
+    MonsterNonlivingEarthElementalPng = loadImage("assets/monster/nonliving/earth_elemental.png")
+    MonsterNonlivingAirElementalOldPng = loadImage("assets/monster/nonliving/air_elemental_old.png")
+    MonsterNonlivingFulminantPrism4Png = loadImage("assets/monster/nonliving/fulminant_prism_4.png")
+    MonsterNonlivingOrbOfDestruction1Png = loadImage("assets/monster/nonliving/orb_of_destruction_1.png")
+    MonsterNonlivingTwister3Png = loadImage("assets/monster/nonliving/twister_3.png")
+    MonsterNonlivingFireElementalOldPng = loadImage("assets/monster/nonliving/fire_elemental_old.png")
+    MonsterNonlivingFleshGolemPng = loadImage("assets/monster/nonliving/flesh_golem.png")
+    MonsterNonlivingFireVortexPng = loadImage("assets/monster/nonliving/fire_vortex.png")
+    MonsterNonlivingCrystalGuardianPng = loadImage("assets/monster/nonliving/crystal_guardian.png")
+    MonsterNonlivingFireVortex1Png = loadImage("assets/monster/nonliving/fire_vortex_1.png")
+    MonsterNonlivingAirElementalNewPng = loadImage("assets/monster/nonliving/air_elemental_new.png")
+    MonsterNonlivingGuardianGolemPng = loadImage("assets/monster/nonliving/guardian_golem.png")
+    MonsterNonlivingTwister4Png = loadImage("assets/monster/nonliving/twister_4.png")
+    MonsterNonlivingSpatialVortex3Png = loadImage("assets/monster/nonliving/spatial_vortex_3.png")
+    MonsterNonlivingWoodGolemPng = loadImage("assets/monster/nonliving/wood_golem.png")
+    MonsterNonlivingWaterElementalNewPng = loadImage("assets/monster/nonliving/water_elemental_new.png")
+    MonsterNonlivingClayGolemPng = loadImage("assets/monster/nonliving/clay_golem.png")
+    MonsterNonlivingFulminantPrism1Png = loadImage("assets/monster/nonliving/fulminant_prism_1.png")
+    MonsterNonlivingOrbOfDestruction2Png = loadImage("assets/monster/nonliving/orb_of_destruction_2.png")
+    MonsterNonlivingMaelstrom3Png = loadImage("assets/monster/nonliving/maelstrom_3.png")
+    MonsterNonlivingSpatialVortex4Png = loadImage("assets/monster/nonliving/spatial_vortex_4.png")
+    MonsterNonlivingInsubstantialWispPng = loadImage("assets/monster/nonliving/insubstantial_wisp.png")
+    MonsterNonlivingIronElementalPng = loadImage("assets/monster/nonliving/iron_elemental.png")
+    MonsterNonlivingUshabtiPng = loadImage("assets/monster/nonliving/ushabti.png")
+    MonsterNonlivingElectricGolemPng = loadImage("assets/monster/nonliving/electric_golem.png")
+    MonsterNonlivingTwister2Png = loadImage("assets/monster/nonliving/twister_2.png")
+    MonsterNonlivingOrbOfIcePng = loadImage("assets/monster/nonliving/orb_of_ice.png")
+    DungeonChest2ClosedPng = loadImage("assets/dungeon/chest_2_closed.png")
+    DungeonBloodFountainPng = loadImage("assets/dungeon/blood_fountain.png")
+    DungeonMoldLarge3Png = loadImage("assets/dungeon/mold_large_3.png")
+    DungeonSparklingFountainPng = loadImage("assets/dungeon/sparkling_fountain.png")
+    DungeonBoulderPng = loadImage("assets/dungeon/boulder.png")
+    DungeonSarcophagusOpenPng = loadImage("assets/dungeon/sarcophagus_open.png")
+    DungeonUnseenPng = loadImage("assets/dungeon/unseen.png")
+    DungeonMoldLarge2Png = loadImage("assets/dungeon/mold_large_2.png")
+    DungeonLargeBoxPng = loadImage("assets/dungeon/large_box.png")
+    DungeonBlueFountainPng = loadImage("assets/dungeon/blue_fountain.png")
+    DungeonMoldLarge4Png = loadImage("assets/dungeon/mold_large_4.png")
+    DungeonDryFountainPng = loadImage("assets/dungeon/dry_fountain.png")
+    DungeonChest2OpenPng = loadImage("assets/dungeon/chest_2_open.png")
+    DungeonBloodFountain2Png = loadImage("assets/dungeon/blood_fountain_2.png")
+    DungeonChestPng = loadImage("assets/dungeon/chest.png")
+    DungeonMoldLarge1Png = loadImage("assets/dungeon/mold_large_1.png")
+    DungeonSparklingFountain2Png = loadImage("assets/dungeon/sparkling_fountain_2.png")
+    DungeonZotPillarPng = loadImage("assets/dungeon/zot_pillar.png")
+    DungeonBlueFountain2Png = loadImage("assets/dungeon/blue_fountain_2.png")
+    DungeonFloorOrc7Png = loadImage("assets/dungeon/floor/orc_7.png")
+    DungeonFloorBlackCobalt11Png = loadImage("assets/dungeon/floor/black_cobalt_11.png")
+    DungeonFloorDirt0OldPng = loadImage("assets/dungeon/floor/dirt_0_old.png")
+    DungeonFloorSigilStraightEastWestPng = loadImage("assets/dungeon/floor/sigil_straight_east_west.png")
+    DungeonFloorSigilWideNorthSoutheastPng = loadImage("assets/dungeon/floor/sigil_wide_north_southeast.png")
+    DungeonFloorDirtNortheastNewPng = loadImage("assets/dungeon/floor/dirt_northeast_new.png")
+    DungeonFloorPedestalEastPng = loadImage("assets/dungeon/floor/pedestal_east.png")
+    DungeonFloorLair0OldPng = loadImage("assets/dungeon/floor/lair_0_old.png")
+    DungeonFloorLava1Png = loadImage("assets/dungeon/floor/lava_1.png")
+    DungeonFloorFrozen4Png = loadImage("assets/dungeon/floor/frozen_4.png")
+    DungeonFloorDemonicRed4Png = loadImage("assets/dungeon/floor/demonic_red_4.png")
+    DungeonFloorDirt0NewPng = loadImage("assets/dungeon/floor/dirt_0_new.png")
+    DungeonFloorPedestalSoutheastPng = loadImage("assets/dungeon/floor/pedestal_southeast.png")
+    DungeonFloorOrc4Png = loadImage("assets/dungeon/floor/orc_4.png")
+    DungeonFloorLair3NewPng = loadImage("assets/dungeon/floor/lair_3_new.png")
+    DungeonFloorGreyDirt3NewPng = loadImage("assets/dungeon/floor/grey_dirt_3_new.png")
+    DungeonFloorVolcanicFloor5Png = loadImage("assets/dungeon/floor/volcanic_floor_5.png")
+    DungeonFloorFloorVines3OldPng = loadImage("assets/dungeon/floor/floor_vines_3_old.png")
+    DungeonFloorFloorVines4NewPng = loadImage("assets/dungeon/floor/floor_vines_4_new.png")
+    DungeonFloorPedestalNortheastPng = loadImage("assets/dungeon/floor/pedestal_northeast.png")
+    DungeonFloorFloorNerves5NewPng = loadImage("assets/dungeon/floor/floor_nerves_5_new.png")
+    DungeonFloorSigilStraightNorthSouthPng = loadImage("assets/dungeon/floor/sigil_straight_north_south.png")
+    DungeonFloorPebbleBrown3NewPng = loadImage("assets/dungeon/floor/pebble_brown_3_new.png")
+    DungeonFloorSigilYWestPng = loadImage("assets/dungeon/floor/sigil_y_west.png")
+    DungeonFloorSlimeOverlayWestPng = loadImage("assets/dungeon/floor/slime_overlay_west.png")
+    DungeonFloorCrystalFloor1Png = loadImage("assets/dungeon/floor/crystal_floor_1.png")
+    DungeonFloorMud0Png = loadImage("assets/dungeon/floor/mud_0.png")
+    DungeonFloorLair5BPng = loadImage("assets/dungeon/floor/lair5b.png")
+    DungeonFloorWhiteMarble0Png = loadImage("assets/dungeon/floor/white_marble_0.png")
+    DungeonFloorRoughRed3Png = loadImage("assets/dungeon/floor/rough_red_3.png")
+    DungeonFloorSwamp1NewPng = loadImage("assets/dungeon/floor/swamp_1_new.png")
+    DungeonFloorLimestone7Png = loadImage("assets/dungeon/floor/limestone_7.png")
+    DungeonFloorRectGray2OldPng = loadImage("assets/dungeon/floor/rect_gray_2_old.png")
+    DungeonFloorFloorVines6OldPng = loadImage("assets/dungeon/floor/floor_vines_6_old.png")
+    DungeonFloorBlackCobalt3Png = loadImage("assets/dungeon/floor/black_cobalt_3.png")
+    DungeonFloorEtched0Png = loadImage("assets/dungeon/floor/etched_0.png")
+    DungeonFloorSigilSharpWestSouthwestPng = loadImage("assets/dungeon/floor/sigil_sharp_west_southwest.png")
+    DungeonFloorCobbleBlood7NewPng = loadImage("assets/dungeon/floor/cobble_blood_7_new.png")
+    DungeonFloorBlackCobalt5Png = loadImage("assets/dungeon/floor/black_cobalt_5.png")
+    DungeonFloorCrystalFloor3Png = loadImage("assets/dungeon/floor/crystal_floor_3.png")
+    DungeonFloorMoss3Png = loadImage("assets/dungeon/floor/moss_3.png")
+    DungeonFloorRectGray2NewPng = loadImage("assets/dungeon/floor/rect_gray_2_new.png")
+    DungeonFloorLair1NewPng = loadImage("assets/dungeon/floor/lair_1_new.png")
+    DungeonFloorLimestone0Png = loadImage("assets/dungeon/floor/limestone_0.png")
+    DungeonFloorSand3Png = loadImage("assets/dungeon/floor/sand_3.png")
+    DungeonFloorMarbleFloor5Png = loadImage("assets/dungeon/floor/marble_floor_5.png")
+    DungeonFloorDirtEastNewPng = loadImage("assets/dungeon/floor/dirt_east_new.png")
+    DungeonFloorLimestone9Png = loadImage("assets/dungeon/floor/limestone_9.png")
+    DungeonFloorFloorSandRock3Png = loadImage("assets/dungeon/floor/floor_sand_rock_3.png")
+    DungeonFloorSnakeC0Png = loadImage("assets/dungeon/floor/snake-c_0.png")
+    DungeonFloorDirtNortheastOldPng = loadImage("assets/dungeon/floor/dirt_northeast_old.png")
+    DungeonFloorGreenBones1Png = loadImage("assets/dungeon/floor/green_bones_1.png")
+    DungeonFloorSnake0Png = loadImage("assets/dungeon/floor/snake_0.png")
+    DungeonFloorOrc0Png = loadImage("assets/dungeon/floor/orc_0.png")
+    DungeonFloorLabyrinth2Png = loadImage("assets/dungeon/floor/labyrinth_2.png")
+    DungeonFloorLava3Png = loadImage("assets/dungeon/floor/lava_3.png")
+    DungeonFloorBogGreen3OldPng = loadImage("assets/dungeon/floor/bog_green_3_old.png")
+    DungeonFloorSigilCurveNorthEastPng = loadImage("assets/dungeon/floor/sigil_curve_north_east.png")
+    DungeonFloorOrc1Png = loadImage("assets/dungeon/floor/orc_1.png")
+    DungeonFloorBlackCobalt1Png = loadImage("assets/dungeon/floor/black_cobalt_1.png")
+    DungeonFloorGreyDirt2OldPng = loadImage("assets/dungeon/floor/grey_dirt_2_old.png")
+    DungeonFloorGreyDirt1NewPng = loadImage("assets/dungeon/floor/grey_dirt_1_new.png")
+    DungeonFloorCrystalFloor5Png = loadImage("assets/dungeon/floor/crystal_floor_5.png")
+    DungeonFloorLair1OldPng = loadImage("assets/dungeon/floor/lair_1_old.png")
+    DungeonFloorSwamp0OldPng = loadImage("assets/dungeon/floor/swamp_0_old.png")
+    DungeonFloorSigilWideNorthSouthwestPng = loadImage("assets/dungeon/floor/sigil_wide_north_southwest.png")
+    DungeonFloorSand4Png = loadImage("assets/dungeon/floor/sand_4.png")
+    DungeonFloorDemonicRed6Png = loadImage("assets/dungeon/floor/demonic_red_6.png")
+    DungeonFloorSandstoneFloor3Png = loadImage("assets/dungeon/floor/sandstone_floor_3.png")
+    DungeonFloorLair6Png = loadImage("assets/dungeon/floor/lair_6.png")
+    DungeonFloorSigilCurveSouthWestPng = loadImage("assets/dungeon/floor/sigil_curve_south_west.png")
+    DungeonFloorFloorSandStone6Png = loadImage("assets/dungeon/floor/floor_sand_stone_6.png")
+    DungeonFloorInfernal13Png = loadImage("assets/dungeon/floor/infernal_13.png")
+    DungeonFloorCobbleBlood2OldPng = loadImage("assets/dungeon/floor/cobble_blood_2_old.png")
+    DungeonFloorPebbleBrown8OldPng = loadImage("assets/dungeon/floor/pebble_brown_8_old.png")
+    DungeonFloorCage0Png = loadImage("assets/dungeon/floor/cage_0.png")
+    DungeonFloorCryptDomino5APng = loadImage("assets/dungeon/floor/crypt_domino_5a.png")
+    DungeonFloorLavaOldPng = loadImage("assets/dungeon/floor/lava_old.png")
+    DungeonFloorCobbleBlood3NewPng = loadImage("assets/dungeon/floor/cobble_blood_3_new.png")
+    DungeonFloorBlackCobalt6Png = loadImage("assets/dungeon/floor/black_cobalt_6.png")
+    DungeonFloorAcidicFloor0Png = loadImage("assets/dungeon/floor/acidic_floor_0.png")
+    DungeonFloorSand6Png = loadImage("assets/dungeon/floor/sand_6.png")
+    DungeonFloorVolcanicFloor0Png = loadImage("assets/dungeon/floor/volcanic_floor_0.png")
+    DungeonFloorGreyDirt0NewPng = loadImage("assets/dungeon/floor/grey_dirt_0_new.png")
+    DungeonFloorEtched4Png = loadImage("assets/dungeon/floor/etched_4.png")
+    DungeonFloorGreyDirt0OldPng = loadImage("assets/dungeon/floor/grey_dirt_0_old.png")
+    DungeonFloorOrc5Png = loadImage("assets/dungeon/floor/orc_5.png")
+    DungeonFloorSnake1Png = loadImage("assets/dungeon/floor/snake_1.png")
+    DungeonFloorFloorVines1NewPng = loadImage("assets/dungeon/floor/floor_vines_1_new.png")
+    DungeonFloorSwamp3OldPng = loadImage("assets/dungeon/floor/swamp_3_old.png")
+    DungeonFloorGreenBones2Png = loadImage("assets/dungeon/floor/green_bones_2.png")
+    DungeonFloorGreyDirt6NewPng = loadImage("assets/dungeon/floor/grey_dirt_6_new.png")
+    DungeonFloorFrozen6Png = loadImage("assets/dungeon/floor/frozen_6.png")
+    DungeonFloorGreyDirt7OldPng = loadImage("assets/dungeon/floor/grey_dirt_7_old.png")
+    DungeonFloorSigilWideSouthNorthwestPng = loadImage("assets/dungeon/floor/sigil_wide_south_northwest.png")
+    DungeonFloorSnakeA2Png = loadImage("assets/dungeon/floor/snake-a_2.png")
+    DungeonFloorSandstoneFloor0Png = loadImage("assets/dungeon/floor/sandstone_floor_0.png")
+    DungeonFloorSnake3Png = loadImage("assets/dungeon/floor/snake_3.png")
+    DungeonFloorSigilCirclePng = loadImage("assets/dungeon/floor/sigil_circle.png")
+    DungeonFloorBogGreen0NewPng = loadImage("assets/dungeon/floor/bog_green_0_new.png")
+    DungeonFloorFloorSandStone1Png = loadImage("assets/dungeon/floor/floor_sand_stone_1.png")
+    DungeonFloorRoughRed2Png = loadImage("assets/dungeon/floor/rough_red_2.png")
+    DungeonFloorEtched2Png = loadImage("assets/dungeon/floor/etched_2.png")
+    DungeonFloorHive1Png = loadImage("assets/dungeon/floor/hive_1.png")
+    DungeonFloorGreyDirt1OldPng = loadImage("assets/dungeon/floor/grey_dirt_1_old.png")
+    DungeonFloorMosaic12Png = loadImage("assets/dungeon/floor/mosaic_12.png")
+    DungeonFloorRectGray0OldPng = loadImage("assets/dungeon/floor/rect_gray_0_old.png")
+    DungeonFloorCrypt10Png = loadImage("assets/dungeon/floor/crypt_10.png")
+    DungeonFloorSigilSharpEastNortheastPng = loadImage("assets/dungeon/floor/sigil_sharp_east_northeast.png")
+    DungeonFloorLimestone3Png = loadImage("assets/dungeon/floor/limestone_3.png")
+    DungeonFloorOrc6Png = loadImage("assets/dungeon/floor/orc_6.png")
+    DungeonFloorLair7BPng = loadImage("assets/dungeon/floor/lair7b.png")
+    DungeonFloorCrypt11Png = loadImage("assets/dungeon/floor/crypt_11.png")
+    DungeonFloorPedestalFullPng = loadImage("assets/dungeon/floor/pedestal_full.png")
+    DungeonFloorGreenBones11Png = loadImage("assets/dungeon/floor/green_bones_11.png")
+    DungeonFloorSigilYRightPng = loadImage("assets/dungeon/floor/sigil_y_right.png")
+    DungeonFloorFloorSandStone5Png = loadImage("assets/dungeon/floor/floor_sand_stone_5.png")
+    DungeonFloorMosaic2Png = loadImage("assets/dungeon/floor/mosaic_2.png")
+    DungeonFloorPebbleBrown4NewPng = loadImage("assets/dungeon/floor/pebble_brown_4_new.png")
+    DungeonFloorSand8Png = loadImage("assets/dungeon/floor/sand_8.png")
+    DungeonFloorDemonicRed1Png = loadImage("assets/dungeon/floor/demonic_red_1.png")
+    DungeonFloorFloorNerves3OldPng = loadImage("assets/dungeon/floor/floor_nerves_3_old.png")
+    DungeonFloorCrystalFloor0Png = loadImage("assets/dungeon/floor/crystal_floor_0.png")
+    DungeonFloorSigilStraightNorthwestSoutheastPng = loadImage("assets/dungeon/floor/sigil_straight_northwest_southeast.png")
+    DungeonFloorWhiteMarble7Png = loadImage("assets/dungeon/floor/white_marble_7.png")
+    DungeonFloorTomb0NewPng = loadImage("assets/dungeon/floor/tomb_0_new.png")
+    DungeonFloorCobbleBlood4NewPng = loadImage("assets/dungeon/floor/cobble_blood_4_new.png")
+    DungeonFloorMarbleFloor1Png = loadImage("assets/dungeon/floor/marble_floor_1.png")
+    DungeonFloorWhiteMarble1Png = loadImage("assets/dungeon/floor/white_marble_1.png")
+    DungeonFloorCobbleBlood6OldPng = loadImage("assets/dungeon/floor/cobble_blood_6_old.png")
+    DungeonFloorGreyDirt5OldPng = loadImage("assets/dungeon/floor/grey_dirt_5_old.png")
+    DungeonFloorFrozen9Png = loadImage("assets/dungeon/floor/frozen_9.png")
+    DungeonFloorGreyDirt6OldPng = loadImage("assets/dungeon/floor/grey_dirt_6_old.png")
+    DungeonFloorFloorVines2NewPng = loadImage("assets/dungeon/floor/floor_vines_2_new.png")
+    DungeonFloorSnakeC3Png = loadImage("assets/dungeon/floor/snake-c_3.png")
+    DungeonFloorCobbleBlood4OldPng = loadImage("assets/dungeon/floor/cobble_blood_4_old.png")
+    DungeonFloorMosaic1Png = loadImage("assets/dungeon/floor/mosaic_1.png")
+    DungeonFloorDirtSouthNewPng = loadImage("assets/dungeon/floor/dirt_south_new.png")
+    DungeonFloorSwamp0NewPng = loadImage("assets/dungeon/floor/swamp_0_new.png")
+    DungeonFloorMud3Png = loadImage("assets/dungeon/floor/mud_3.png")
+    DungeonFloorInfernal9Png = loadImage("assets/dungeon/floor/infernal_9.png")
+    DungeonFloorLimestone6Png = loadImage("assets/dungeon/floor/limestone_6.png")
+    DungeonFloorFloorVines3NewPng = loadImage("assets/dungeon/floor/floor_vines_3_new.png")
+    DungeonFloorGreyDirt4OldPng = loadImage("assets/dungeon/floor/grey_dirt_4_old.png")
+    DungeonFloorCobbleBlood1NewPng = loadImage("assets/dungeon/floor/cobble_blood_1_new.png")
+    DungeonFloorCrystalFloor4Png = loadImage("assets/dungeon/floor/crystal_floor_4.png")
+    DungeonFloorBlackCobalt8Png = loadImage("assets/dungeon/floor/black_cobalt_8.png")
+    DungeonFloorCobbleBlood8NewPng = loadImage("assets/dungeon/floor/cobble_blood_8_new.png")
+    DungeonFloorCryptDomino1APng = loadImage("assets/dungeon/floor/crypt_domino_1a.png")
+    DungeonFloorCobbleBlood9NewPng = loadImage("assets/dungeon/floor/cobble_blood_9_new.png")
+    DungeonFloorSand2Png = loadImage("assets/dungeon/floor/sand_2.png")
+    DungeonFloorInfernal7Png = loadImage("assets/dungeon/floor/infernal_7.png")
+    DungeonFloorLava2Png = loadImage("assets/dungeon/floor/lava_2.png")
+    DungeonFloorGreyDirtB2Png = loadImage("assets/dungeon/floor/grey_dirt_b_2.png")
+    DungeonFloorSigilCurveNorthWestPng = loadImage("assets/dungeon/floor/sigil_curve_north_west.png")
+    DungeonFloorCobbleBlood2NewPng = loadImage("assets/dungeon/floor/cobble_blood_2_new.png")
+    DungeonFloorMud2Png = loadImage("assets/dungeon/floor/mud_2.png")
+    DungeonFloorPebbleBrown5NewPng = loadImage("assets/dungeon/floor/pebble_brown_5_new.png")
+    DungeonFloorAcidicFloor3Png = loadImage("assets/dungeon/floor/acidic_floor_3.png")
+    DungeonFloorIce2OldPng = loadImage("assets/dungeon/floor/ice_2_old.png")
+    DungeonFloorSigilStraightEastNortheastSouthwestPng = loadImage("assets/dungeon/floor/sigil_straight_east_northeast_southwest.png")
+    DungeonFloorInfernal4Png = loadImage("assets/dungeon/floor/infernal_4.png")
+    DungeonFloorSnakeA0Png = loadImage("assets/dungeon/floor/snake-a_0.png")
+    DungeonFloorLair6BPng = loadImage("assets/dungeon/floor/lair6b.png")
+    DungeonFloorMesh0OldPng = loadImage("assets/dungeon/floor/mesh_0_old.png")
+    DungeonFloorIce1NewPng = loadImage("assets/dungeon/floor/ice_1_new.png")
+    DungeonFloorSlimeOverlayEastPng = loadImage("assets/dungeon/floor/slime_overlay_east.png")
+    DungeonFloorDemonicRed5Png = loadImage("assets/dungeon/floor/demonic_red_5.png")
+    DungeonFloorDirt1NewPng = loadImage("assets/dungeon/floor/dirt_1_new.png")
+    DungeonFloorLava0Png = loadImage("assets/dungeon/floor/lava_0.png")
+    DungeonFloorSnakeD2Png = loadImage("assets/dungeon/floor/snake-d_2.png")
+    DungeonFloorRectGray0NewPng = loadImage("assets/dungeon/floor/rect_gray_0_new.png")
+    DungeonFloorCobbleBlood10NewPng = loadImage("assets/dungeon/floor/cobble_blood_10_new.png")
+    DungeonFloorSlimeOverlayNorthwestPng = loadImage("assets/dungeon/floor/slime_overlay_northwest.png")
+    DungeonFloorGreenBones5Png = loadImage("assets/dungeon/floor/green_bones_5.png")
+    DungeonFloorDemonicRed9Png = loadImage("assets/dungeon/floor/demonic_red_9.png")
+    DungeonFloorSlimeOverlaySoutheastPng = loadImage("assets/dungeon/floor/slime_overlay_southeast.png")
+    DungeonFloorHive2Png = loadImage("assets/dungeon/floor/hive_2.png")
+    DungeonFloorFloorSandRock1Png = loadImage("assets/dungeon/floor/floor_sand_rock_1.png")
+    DungeonFloorIce3NewPng = loadImage("assets/dungeon/floor/ice_3_new.png")
+    DungeonFloorSigilAlgizRightPng = loadImage("assets/dungeon/floor/sigil_algiz_right.png")
+    DungeonFloorSandstoneFloor9Png = loadImage("assets/dungeon/floor/sandstone_floor_9.png")
+    DungeonFloorRoughRed0Png = loadImage("assets/dungeon/floor/rough_red_0.png")
+    DungeonFloorGreyDirt7NewPng = loadImage("assets/dungeon/floor/grey_dirt_7_new.png")
+    DungeonFloorLabyrinth1Png = loadImage("assets/dungeon/floor/labyrinth_1.png")
+    DungeonFloorMosaic3Png = loadImage("assets/dungeon/floor/mosaic_3.png")
+    DungeonFloorDirtSouthOldPng = loadImage("assets/dungeon/floor/dirt_south_old.png")
+    DungeonFloorSnakeC1Png = loadImage("assets/dungeon/floor/snake-c_1.png")
+    DungeonFloorFloorNerves1NewPng = loadImage("assets/dungeon/floor/floor_nerves_1_new.png")
+    DungeonFloorSigilWideEastSouthwestPng = loadImage("assets/dungeon/floor/sigil_wide_east_southwest.png")
+    DungeonFloorVolcanicFloor3Png = loadImage("assets/dungeon/floor/volcanic_floor_3.png")
+    DungeonFloorTutorialPadPng = loadImage("assets/dungeon/floor/tutorial_pad.png")
+    DungeonFloorDirtFullOldPng = loadImage("assets/dungeon/floor/dirt_full_old.png")
+    DungeonFloorGreenBones4Png = loadImage("assets/dungeon/floor/green_bones_4.png")
+    DungeonFloorLimestone1Png = loadImage("assets/dungeon/floor/limestone_1.png")
+    DungeonFloorEtched1Png = loadImage("assets/dungeon/floor/etched_1.png")
+    DungeonFloorMarbleFloor4Png = loadImage("assets/dungeon/floor/marble_floor_4.png")
+    DungeonFloorIce2NewPng = loadImage("assets/dungeon/floor/ice_2_new.png")
+    DungeonFloorSwamp2NewPng = loadImage("assets/dungeon/floor/swamp_2_new.png")
+    DungeonFloorBlackCobalt4Png = loadImage("assets/dungeon/floor/black_cobalt_4.png")
+    DungeonFloorGreyDirt3OldPng = loadImage("assets/dungeon/floor/grey_dirt_3_old.png")
+    DungeonFloorCobbleBlood11NewPng = loadImage("assets/dungeon/floor/cobble_blood_11_new.png")
+    DungeonFloorSigilYNorthPng = loadImage("assets/dungeon/floor/sigil_y_north.png")
+    DungeonFloorDirtSoutheastNewPng = loadImage("assets/dungeon/floor/dirt_southeast_new.png")
+    DungeonFloorSigilYSouthPng = loadImage("assets/dungeon/floor/sigil_y_south.png")
+    DungeonFloorDemonicRed7Png = loadImage("assets/dungeon/floor/demonic_red_7.png")
+    DungeonFloorCryptDomino4APng = loadImage("assets/dungeon/floor/crypt_domino_4a.png")
+    DungeonFloorCobbleBlood11OldPng = loadImage("assets/dungeon/floor/cobble_blood_11_old.png")
+    DungeonFloorFrozen8Png = loadImage("assets/dungeon/floor/frozen_8.png")
+    DungeonFloorEtched5Png = loadImage("assets/dungeon/floor/etched_5.png")
+    DungeonFloorDemonicRed2Png = loadImage("assets/dungeon/floor/demonic_red_2.png")
+    DungeonFloorSlimeOverlaySouthwestPng = loadImage("assets/dungeon/floor/slime_overlay_southwest.png")
+    DungeonFloorFloorNerves5OldPng = loadImage("assets/dungeon/floor/floor_nerves_5_old.png")
+    DungeonFloorLimestone5Png = loadImage("assets/dungeon/floor/limestone_5.png")
+    DungeonFloorOrc2Png = loadImage("assets/dungeon/floor/orc_2.png")
+    DungeonFloorCage1Png = loadImage("assets/dungeon/floor/cage_1.png")
+    DungeonFloorPedestalWestPng = loadImage("assets/dungeon/floor/pedestal_west.png")
+    DungeonFloorWhiteMarble9Png = loadImage("assets/dungeon/floor/white_marble_9.png")
+    DungeonFloorMesh1NewPng = loadImage("assets/dungeon/floor/mesh_1_new.png")
+    DungeonFloorCryptDomino7APng = loadImage("assets/dungeon/floor/crypt_domino_7a.png")
+    DungeonFloorMesh2NewPng = loadImage("assets/dungeon/floor/mesh_2_new.png")
+    DungeonFloorCobbleBlood12NewPng = loadImage("assets/dungeon/floor/cobble_blood_12_new.png")
+    DungeonFloorInfernal15Png = loadImage("assets/dungeon/floor/infernal_15.png")
+    DungeonFloorSigilCurveSouthEastPng = loadImage("assets/dungeon/floor/sigil_curve_south_east.png")
+    DungeonFloorMarbleFloor6Png = loadImage("assets/dungeon/floor/marble_floor_6.png")
+    DungeonFloorWhiteMarble5Png = loadImage("assets/dungeon/floor/white_marble_5.png")
+    DungeonFloorLabyrinth3Png = loadImage("assets/dungeon/floor/labyrinth_3.png")
+    DungeonFloorMesh1OldPng = loadImage("assets/dungeon/floor/mesh_1_old.png")
+    DungeonFloorFloorVines1OldPng = loadImage("assets/dungeon/floor/floor_vines_1_old.png")
+    DungeonFloorFloorVines0OldPng = loadImage("assets/dungeon/floor/floor_vines_0_old.png")
+    DungeonFloorFloorVines4OldPng = loadImage("assets/dungeon/floor/floor_vines_4_old.png")
+    DungeonFloorDirtSoutheastOldPng = loadImage("assets/dungeon/floor/dirt_southeast_old.png")
+    DungeonFloorRectGray3OldPng = loadImage("assets/dungeon/floor/rect_gray_3_old.png")
+    DungeonFloorBlackCobalt7Png = loadImage("assets/dungeon/floor/black_cobalt_7.png")
+    DungeonFloorSand7Png = loadImage("assets/dungeon/floor/sand_7.png")
+    DungeonFloorSlimeOverlayNorthPng = loadImage("assets/dungeon/floor/slime_overlay_north.png")
+    DungeonFloorSnake2Png = loadImage("assets/dungeon/floor/snake_2.png")
+    DungeonFloorCage2Png = loadImage("assets/dungeon/floor/cage_2.png")
+    DungeonFloorLair4Png = loadImage("assets/dungeon/floor/lair_4.png")
+    DungeonFloorMarbleFloor3Png = loadImage("assets/dungeon/floor/marble_floor_3.png")
+    DungeonFloorGreenBones6Png = loadImage("assets/dungeon/floor/green_bones_6.png")
+    DungeonFloorDirt1OldPng = loadImage("assets/dungeon/floor/dirt_1_old.png")
+    DungeonFloorFloorNerves0Png = loadImage("assets/dungeon/floor/floor_nerves_0.png")
+    DungeonFloorSnakeD0Png = loadImage("assets/dungeon/floor/snake-d_0.png")
+    DungeonFloorLair3OldPng = loadImage("assets/dungeon/floor/lair_3_old.png")
+    DungeonFloorLabyrinth0Png = loadImage("assets/dungeon/floor/labyrinth_0.png")
+    DungeonFloorWhiteMarble6Png = loadImage("assets/dungeon/floor/white_marble_6.png")
+    DungeonFloorMosaic14Png = loadImage("assets/dungeon/floor/mosaic_14.png")
+    DungeonFloorCobbleBlood9OldPng = loadImage("assets/dungeon/floor/cobble_blood_9_old.png")
+    DungeonFloorSwamp2OldPng = loadImage("assets/dungeon/floor/swamp_2_old.png")
+    DungeonFloorCobbleBlood7OldPng = loadImage("assets/dungeon/floor/cobble_blood_7_old.png")
+    DungeonFloorFloorSandRock2Png = loadImage("assets/dungeon/floor/floor_sand_rock_2.png")
+    DungeonFloorGreyDirt2NewPng = loadImage("assets/dungeon/floor/grey_dirt_2_new.png")
+    DungeonFloorGreyDirtB6Png = loadImage("assets/dungeon/floor/grey_dirt_b_6.png")
+    DungeonFloorMosaic4Png = loadImage("assets/dungeon/floor/mosaic_4.png")
+    DungeonFloorPebbleBrown0NewPng = loadImage("assets/dungeon/floor/pebble_brown_0_new.png")
+    DungeonFloorSnakeD3Png = loadImage("assets/dungeon/floor/snake-d_3.png")
+    DungeonFloorMosaic10Png = loadImage("assets/dungeon/floor/mosaic_10.png")
+    DungeonFloorPebbleBrown0OldPng = loadImage("assets/dungeon/floor/pebble_brown_0_old.png")
+    DungeonFloorCryptDomino6APng = loadImage("assets/dungeon/floor/crypt_domino_6a.png")
+    DungeonFloorMosaic15Png = loadImage("assets/dungeon/floor/mosaic_15.png")
+    DungeonFloorFloorVines6NewPng = loadImage("assets/dungeon/floor/floor_vines_6_new.png")
+    DungeonFloorSandstoneFloor4Png = loadImage("assets/dungeon/floor/sandstone_floor_4.png")
+    DungeonFloorSnakeA1Png = loadImage("assets/dungeon/floor/snake-a_1.png")
+    DungeonFloorInfernalBlankPng = loadImage("assets/dungeon/floor/infernal_blank.png")
+    DungeonFloorDemonicRed3Png = loadImage("assets/dungeon/floor/demonic_red_3.png")
+    DungeonFloorDirtFullNewPng = loadImage("assets/dungeon/floor/dirt_full_new.png")
+    DungeonFloorCobbleBlood5NewPng = loadImage("assets/dungeon/floor/cobble_blood_5_new.png")
+    DungeonFloorPebbleBrown7NewPng = loadImage("assets/dungeon/floor/pebble_brown_7_new.png")
+    DungeonFloorCage3Png = loadImage("assets/dungeon/floor/cage_3.png")
+    DungeonFloorMesh0NewPng = loadImage("assets/dungeon/floor/mesh_0_new.png")
+    DungeonFloorLimestone2Png = loadImage("assets/dungeon/floor/limestone_2.png")
+    DungeonFloorGreyDirtB1Png = loadImage("assets/dungeon/floor/grey_dirt_b_1.png")
+    DungeonFloorFloorSandStone0Png = loadImage("assets/dungeon/floor/floor_sand_stone_0.png")
+    DungeonFloorBlackCobalt10Png = loadImage("assets/dungeon/floor/black_cobalt_10.png")
+    DungeonFloorAcidicFloor1Png = loadImage("assets/dungeon/floor/acidic_floor_1.png")
+    DungeonFloorMoss0Png = loadImage("assets/dungeon/floor/moss_0.png")
+    DungeonFloorBogGreen1NewPng = loadImage("assets/dungeon/floor/bog_green_1_new.png")
+    DungeonFloorRoughRed1Png = loadImage("assets/dungeon/floor/rough_red_1.png")
+    DungeonFloorGreyDirt4NewPng = loadImage("assets/dungeon/floor/grey_dirt_4_new.png")
+    DungeonFloorEtched3Png = loadImage("assets/dungeon/floor/etched_3.png")
+    DungeonFloorCage4Png = loadImage("assets/dungeon/floor/cage_4.png")
+    DungeonFloorMosaic11Png = loadImage("assets/dungeon/floor/mosaic_11.png")
+    DungeonFloorGreenBones8Png = loadImage("assets/dungeon/floor/green_bones_8.png")
+    DungeonFloorLair0BPng = loadImage("assets/dungeon/floor/lair0b.png")
+    DungeonFloorSigilStraightNortheastSouthwestPng = loadImage("assets/dungeon/floor/sigil_straight_northeast_southwest.png")
+    DungeonFloorGreenBones10Png = loadImage("assets/dungeon/floor/green_bones_10.png")
+    DungeonFloorVolcanicFloor4Png = loadImage("assets/dungeon/floor/volcanic_floor_4.png")
+    DungeonFloorSnakeA3Png = loadImage("assets/dungeon/floor/snake-a_3.png")
+    DungeonFloorLair0NewPng = loadImage("assets/dungeon/floor/lair_0_new.png")
+    DungeonFloorPedestalNorthPng = loadImage("assets/dungeon/floor/pedestal_north.png")
+    DungeonFloorMosaic13Png = loadImage("assets/dungeon/floor/mosaic_13.png")
+    DungeonFloorWhiteMarble4Png = loadImage("assets/dungeon/floor/white_marble_4.png")
+    DungeonFloorCobbleBlood10OldPng = loadImage("assets/dungeon/floor/cobble_blood_10_old.png")
+    DungeonFloorSnakeC2Png = loadImage("assets/dungeon/floor/snake-c_2.png")
+    DungeonFloorCryptDomino3APng = loadImage("assets/dungeon/floor/crypt_domino_3a.png")
+    DungeonFloorDirtWestOldPng = loadImage("assets/dungeon/floor/dirt_west_old.png")
+    DungeonFloorSandstoneFloor6Png = loadImage("assets/dungeon/floor/sandstone_floor_6.png")
+    DungeonFloorFrozen3Png = loadImage("assets/dungeon/floor/frozen_3.png")
+    DungeonFloorFrozen5Png = loadImage("assets/dungeon/floor/frozen_5.png")
+    DungeonFloorLimestone4Png = loadImage("assets/dungeon/floor/limestone_4.png")
+    DungeonFloorGreyDirtB5Png = loadImage("assets/dungeon/floor/grey_dirt_b_5.png")
+    DungeonFloorMoss1Png = loadImage("assets/dungeon/floor/moss_1.png")
+    DungeonFloorWhiteMarble8Png = loadImage("assets/dungeon/floor/white_marble_8.png")
+    DungeonFloorMesh3OldPng = loadImage("assets/dungeon/floor/mesh_3_old.png")
+    DungeonFloorSigilAlgizLeftPng = loadImage("assets/dungeon/floor/sigil_algiz_left.png")
+    DungeonFloorPebbleBrown7OldPng = loadImage("assets/dungeon/floor/pebble_brown_7_old.png")
+    DungeonFloorGreenBones12Png = loadImage("assets/dungeon/floor/green_bones_12.png")
+    DungeonFloorSigilStraightEastWestNortheastNorthwestPng = loadImage("assets/dungeon/floor/sigil_straight_east_west_northeast_northwest.png")
+    DungeonFloorMosaic8Png = loadImage("assets/dungeon/floor/mosaic_8.png")
+    DungeonFloorLair1BPng = loadImage("assets/dungeon/floor/lair1b.png")
+    DungeonFloorMesh3NewPng = loadImage("assets/dungeon/floor/mesh_3_new.png")
+    DungeonFloorPebbleBrown2NewPng = loadImage("assets/dungeon/floor/pebble_brown_2_new.png")
+    DungeonFloorPebbleBrown8NewPng = loadImage("assets/dungeon/floor/pebble_brown_8_new.png")
+    DungeonFloorCryptDomino2APng = loadImage("assets/dungeon/floor/crypt_domino_2a.png")
+    DungeonFloorFloorNerves6Png = loadImage("assets/dungeon/floor/floor_nerves_6.png")
+    DungeonFloorIce1OldPng = loadImage("assets/dungeon/floor/ice_1_old.png")
+    DungeonFloorFloorSandStone2Png = loadImage("assets/dungeon/floor/floor_sand_stone_2.png")
+    DungeonFloorHive3Png = loadImage("assets/dungeon/floor/hive_3.png")
+    DungeonFloorGreyDirtB3Png = loadImage("assets/dungeon/floor/grey_dirt_b_3.png")
+    DungeonFloorGreenBones3Png = loadImage("assets/dungeon/floor/green_bones_3.png")
+    DungeonFloorSand5Png = loadImage("assets/dungeon/floor/sand_5.png")
+    DungeonFloorSigilWideEastNorthwestPng = loadImage("assets/dungeon/floor/sigil_wide_east_northwest.png")
+    DungeonFloorDirt2NewPng = loadImage("assets/dungeon/floor/dirt_2_new.png")
+    DungeonFloorSwamp3NewPng = loadImage("assets/dungeon/floor/swamp_3_new.png")
+    DungeonFloorBlackCobalt9Png = loadImage("assets/dungeon/floor/black_cobalt_9.png")
+    DungeonFloorDirtNorthwestOldPng = loadImage("assets/dungeon/floor/dirt_northwest_old.png")
+    DungeonFloorSandstoneFloor8Png = loadImage("assets/dungeon/floor/sandstone_floor_8.png")
+    DungeonFloorLair2BPng = loadImage("assets/dungeon/floor/lair2b.png")
+    DungeonFloorSlimeOverlayNortheastPng = loadImage("assets/dungeon/floor/slime_overlay_northeast.png")
+    DungeonFloorLair4BPng = loadImage("assets/dungeon/floor/lair4b.png")
+    DungeonFloorDirt2OldPng = loadImage("assets/dungeon/floor/dirt_2_old.png")
+    DungeonFloorCobbleBlood12OldPng = loadImage("assets/dungeon/floor/cobble_blood_12_old.png")
+    DungeonFloorTomb3NewPng = loadImage("assets/dungeon/floor/tomb_3_new.png")
+    DungeonFloorFloorSandStone3Png = loadImage("assets/dungeon/floor/floor_sand_stone_3.png")
+    DungeonFloorInfernal14Png = loadImage("assets/dungeon/floor/infernal_14.png")
+    DungeonFloorSigilWideWestNortheastPng = loadImage("assets/dungeon/floor/sigil_wide_west_northeast.png")
+    DungeonFloorSand1Png = loadImage("assets/dungeon/floor/sand_1.png")
+    DungeonFloorLair5Png = loadImage("assets/dungeon/floor/lair_5.png")
+    DungeonFloorGreyDirtB7Png = loadImage("assets/dungeon/floor/grey_dirt_b_7.png")
+    DungeonFloorCobbleBlood1OldPng = loadImage("assets/dungeon/floor/cobble_blood_1_old.png")
+    DungeonFloorInfernal3Png = loadImage("assets/dungeon/floor/infernal_3.png")
+    DungeonFloorCryptDomino8APng = loadImage("assets/dungeon/floor/crypt_domino_8a.png")
+    DungeonFloorMosaic6Png = loadImage("assets/dungeon/floor/mosaic_6.png")
+    DungeonFloorInfernal11Png = loadImage("assets/dungeon/floor/infernal_11.png")
+    DungeonFloorFrozen0Png = loadImage("assets/dungeon/floor/frozen_0.png")
+    DungeonFloorOrc3Png = loadImage("assets/dungeon/floor/orc_3.png")
+    DungeonFloorDemonicRed8Png = loadImage("assets/dungeon/floor/demonic_red_8.png")
+    DungeonFloorVolcanicFloor1Png = loadImage("assets/dungeon/floor/volcanic_floor_1.png")
+    DungeonFloorPedestalSouthPng = loadImage("assets/dungeon/floor/pedestal_south.png")
+    DungeonFloorVolcanicFloor2Png = loadImage("assets/dungeon/floor/volcanic_floor_2.png")
+    DungeonFloorMoss2Png = loadImage("assets/dungeon/floor/moss_2.png")
+    DungeonFloorBlackCobalt2Png = loadImage("assets/dungeon/floor/black_cobalt_2.png")
+    DungeonFloorIce0NewPng = loadImage("assets/dungeon/floor/ice_0_new.png")
+    DungeonFloorFloorNerves4OldPng = loadImage("assets/dungeon/floor/floor_nerves_4_old.png")
+    DungeonFloorInfernal1Png = loadImage("assets/dungeon/floor/infernal_1.png")
+    DungeonFloorFloorSandRock0Png = loadImage("assets/dungeon/floor/floor_sand_rock_0.png")
+    DungeonFloorLimestone8Png = loadImage("assets/dungeon/floor/limestone_8.png")
+    DungeonFloorPedestalSouthwestPng = loadImage("assets/dungeon/floor/pedestal_southwest.png")
+    DungeonFloorMosaic0Png = loadImage("assets/dungeon/floor/mosaic_0.png")
+    DungeonFloorIce3OldPng = loadImage("assets/dungeon/floor/ice_3_old.png")
+    DungeonFloorPebbleBrown6OldPng = loadImage("assets/dungeon/floor/pebble_brown_6_old.png")
+    DungeonFloorPebbleBrown5OldPng = loadImage("assets/dungeon/floor/pebble_brown_5_old.png")
+    DungeonFloorGreenBones7Png = loadImage("assets/dungeon/floor/green_bones_7.png")
+    DungeonFloorFrozen11Png = loadImage("assets/dungeon/floor/frozen_11.png")
+    DungeonFloorSnakeD1Png = loadImage("assets/dungeon/floor/snake-d_1.png")
+    DungeonFloorRectGray1OldPng = loadImage("assets/dungeon/floor/rect_gray_1_old.png")
+    DungeonFloorSlimeOverlaySouthPng = loadImage("assets/dungeon/floor/slime_overlay_south.png")
+    DungeonFloorLair3BPng = loadImage("assets/dungeon/floor/lair3b.png")
+    DungeonFloorRectGray1NewPng = loadImage("assets/dungeon/floor/rect_gray_1_new.png")
+    DungeonFloorTomb2NewPng = loadImage("assets/dungeon/floor/tomb_2_new.png")
+    DungeonFloorTomb1NewPng = loadImage("assets/dungeon/floor/tomb_1_new.png")
+    DungeonFloorLair7Png = loadImage("assets/dungeon/floor/lair_7.png")
+    DungeonFloorSigilWideSouthNortheastPng = loadImage("assets/dungeon/floor/sigil_wide_south_northeast.png")
+    DungeonFloorBogGreen2NewPng = loadImage("assets/dungeon/floor/bog_green_2_new.png")
+    DungeonFloorSandstoneFloor1Png = loadImage("assets/dungeon/floor/sandstone_floor_1.png")
+    DungeonFloorMosaic5Png = loadImage("assets/dungeon/floor/mosaic_5.png")
+    DungeonFloorHive0Png = loadImage("assets/dungeon/floor/hive_0.png")
+    DungeonFloorDirtNorthNewPng = loadImage("assets/dungeon/floor/dirt_north_new.png")
+    DungeonFloorTomb0OldPng = loadImage("assets/dungeon/floor/tomb_0_old.png")
+    DungeonFloorCage5Png = loadImage("assets/dungeon/floor/cage_5.png")
+    DungeonFloorFloorNerves2NewPng = loadImage("assets/dungeon/floor/floor_nerves_2_new.png")
+    DungeonFloorPebbleBrown1OldPng = loadImage("assets/dungeon/floor/pebble_brown_1_old.png")
+    DungeonFloorInfernal6Png = loadImage("assets/dungeon/floor/infernal_6.png")
+    DungeonFloorMosaic7Png = loadImage("assets/dungeon/floor/mosaic_7.png")
+    DungeonFloorFrozen7Png = loadImage("assets/dungeon/floor/frozen_7.png")
+    DungeonFloorFrozen2Png = loadImage("assets/dungeon/floor/frozen_2.png")
+    DungeonFloorPebbleBrown1NewPng = loadImage("assets/dungeon/floor/pebble_brown_1_new.png")
+    DungeonFloorGreenBones9Png = loadImage("assets/dungeon/floor/green_bones_9.png")
+    DungeonFloorFrozen10Png = loadImage("assets/dungeon/floor/frozen_10.png")
+    DungeonFloorFloorNerves2OldPng = loadImage("assets/dungeon/floor/floor_nerves_2_old.png")
+    DungeonFloorFloorNerves3NewPng = loadImage("assets/dungeon/floor/floor_nerves_3_new.png")
+    DungeonFloorDirtSouthwestOldPng = loadImage("assets/dungeon/floor/dirt_southwest_old.png")
+    DungeonFloorSigilYLeftPng = loadImage("assets/dungeon/floor/sigil_y_left.png")
+    DungeonFloorPebbleBrown3OldPng = loadImage("assets/dungeon/floor/pebble_brown_3_old.png")
+    DungeonFloorPebbleBrown2OldPng = loadImage("assets/dungeon/floor/pebble_brown_2_old.png")
+    DungeonFloorFloorNerves4NewPng = loadImage("assets/dungeon/floor/floor_nerves_4_new.png")
+    DungeonFloorSigilWideWestSoutheastPng = loadImage("assets/dungeon/floor/sigil_wide_west_southeast.png")
+    DungeonFloorMud1Png = loadImage("assets/dungeon/floor/mud_1.png")
+    DungeonFloorLair2OldPng = loadImage("assets/dungeon/floor/lair_2_old.png")
+    DungeonFloorCrystalFloor2Png = loadImage("assets/dungeon/floor/crystal_floor_2.png")
+    DungeonFloorCobbleBlood6NewPng = loadImage("assets/dungeon/floor/cobble_blood_6_new.png")
+    DungeonFloorBlackCobalt12Png = loadImage("assets/dungeon/floor/black_cobalt_12.png")
+    DungeonFloorTomb2OldPng = loadImage("assets/dungeon/floor/tomb_2_old.png")
+    DungeonFloorFrozen1Png = loadImage("assets/dungeon/floor/frozen_1.png")
+    DungeonFloorDirtNorthOldPng = loadImage("assets/dungeon/floor/dirt_north_old.png")
+    DungeonFloorFloorVines0NewPng = loadImage("assets/dungeon/floor/floor_vines_0_new.png")
+    DungeonFloorCobbleBlood3OldPng = loadImage("assets/dungeon/floor/cobble_blood_3_old.png")
+    DungeonFloorTomb1OldPng = loadImage("assets/dungeon/floor/tomb_1_old.png")
+    DungeonFloorSigilCrossPng = loadImage("assets/dungeon/floor/sigil_cross.png")
+    DungeonFloorFloorVines5OldPng = loadImage("assets/dungeon/floor/floor_vines_5_old.png")
+    DungeonFloorIce0OldPng = loadImage("assets/dungeon/floor/ice_0_old.png")
+    DungeonFloorTomb3OldPng = loadImage("assets/dungeon/floor/tomb_3_old.png")
+    DungeonFloorFrozen12Png = loadImage("assets/dungeon/floor/frozen_12.png")
+    DungeonFloorPebbleBrown4OldPng = loadImage("assets/dungeon/floor/pebble_brown_4_old.png")
+    DungeonFloorInfernal5Png = loadImage("assets/dungeon/floor/infernal_5.png")
+    DungeonFloorFloorNerves1OldPng = loadImage("assets/dungeon/floor/floor_nerves_1_old.png")
+    DungeonFloorGreyDirt5NewPng = loadImage("assets/dungeon/floor/grey_dirt_5_new.png")
+    DungeonFloorLair2NewPng = loadImage("assets/dungeon/floor/lair_2_new.png")
+    DungeonFloorCobbleBlood8OldPng = loadImage("assets/dungeon/floor/cobble_blood_8_old.png")
+    DungeonFloorBogGreen0OldPng = loadImage("assets/dungeon/floor/bog_green_0_old.png")
+    DungeonFloorMosaic9Png = loadImage("assets/dungeon/floor/mosaic_9.png")
+    DungeonFloorDirtEastOldPng = loadImage("assets/dungeon/floor/dirt_east_old.png")
+    DungeonFloorPedestalNorthwestPng = loadImage("assets/dungeon/floor/pedestal_northwest.png")
+    DungeonFloorCobbleBlood5OldPng = loadImage("assets/dungeon/floor/cobble_blood_5_old.png")
+    DungeonFloorDirtSouthwestNewPng = loadImage("assets/dungeon/floor/dirt_southwest_new.png")
+    DungeonFloorBogGreen1OldPng = loadImage("assets/dungeon/floor/bog_green_1_old.png")
+    DungeonFloorVolcanicFloor6Png = loadImage("assets/dungeon/floor/volcanic_floor_6.png")
+    DungeonFloorGreyDirtB0Png = loadImage("assets/dungeon/floor/grey_dirt_b_0.png")
+    DungeonFloorDirtWestNewPng = loadImage("assets/dungeon/floor/dirt_west_new.png")
+    DungeonFloorMesh2OldPng = loadImage("assets/dungeon/floor/mesh_2_old.png")
+    DungeonFloorSandstoneFloor7Png = loadImage("assets/dungeon/floor/sandstone_floor_7.png")
+    DungeonFloorCryptDomino4BPng = loadImage("assets/dungeon/floor/crypt_domino_4b.png")
+    DungeonFloorWhiteMarble3Png = loadImage("assets/dungeon/floor/white_marble_3.png")
+    DungeonFloorMarbleFloor2Png = loadImage("assets/dungeon/floor/marble_floor_2.png")
+    DungeonFloorDirtNorthwestNewPng = loadImage("assets/dungeon/floor/dirt_northwest_new.png")
+    DungeonFloorGreyDirtB4Png = loadImage("assets/dungeon/floor/grey_dirt_b_4.png")
+    DungeonFloorFloorSandStone4Png = loadImage("assets/dungeon/floor/floor_sand_stone_4.png")
+    DungeonFloorFloorVines2OldPng = loadImage("assets/dungeon/floor/floor_vines_2_old.png")
+    DungeonFloorFloorVines5NewPng = loadImage("assets/dungeon/floor/floor_vines_5_new.png")
+    DungeonFloorSigilRhombusPng = loadImage("assets/dungeon/floor/sigil_rhombus.png")
+    DungeonFloorAcidicFloor2Png = loadImage("assets/dungeon/floor/acidic_floor_2.png")
+    DungeonFloorInfernal10Png = loadImage("assets/dungeon/floor/infernal_10.png")
+    DungeonFloorInfernal12Png = loadImage("assets/dungeon/floor/infernal_12.png")
+    DungeonFloorInfernal2Png = loadImage("assets/dungeon/floor/infernal_2.png")
+    DungeonFloorSandstoneFloor2Png = loadImage("assets/dungeon/floor/sandstone_floor_2.png")
+    DungeonFloorSigilYEastPng = loadImage("assets/dungeon/floor/sigil_y_east.png")
+    DungeonFloorPebbleBrown6NewPng = loadImage("assets/dungeon/floor/pebble_brown_6_new.png")
+    DungeonFloorBogGreen3NewPng = loadImage("assets/dungeon/floor/bog_green_3_new.png")
+    DungeonFloorWhiteMarble2Png = loadImage("assets/dungeon/floor/white_marble_2.png")
+    DungeonFloorSwamp1OldPng = loadImage("assets/dungeon/floor/swamp_1_old.png")
+    DungeonFloorBogGreen2OldPng = loadImage("assets/dungeon/floor/bog_green_2_old.png")
+    DungeonFloorFloorSandStone7Png = loadImage("assets/dungeon/floor/floor_sand_stone_7.png")
+    DungeonFloorRectGray3NewPng = loadImage("assets/dungeon/floor/rect_gray_3_new.png")
+    DungeonFloorInfernal8Png = loadImage("assets/dungeon/floor/infernal_8.png")
+    DungeonFloorCryptDomino1BPng = loadImage("assets/dungeon/floor/crypt_domino_1b.png")
+    DungeonFloorSandstoneFloor5Png = loadImage("assets/dungeon/floor/sandstone_floor_5.png")
+    DungeonFloorSigilsYShapedLeftPng = loadImage("assets/dungeon/floor/sigils/y-shaped_left.png")
+    DungeonFloorSigilsSharpSouthEastPng = loadImage("assets/dungeon/floor/sigils/sharp_south_east.png")
+    DungeonFloorSigilsSharpNorthEastPng = loadImage("assets/dungeon/floor/sigils/sharp_north_east.png")
+    DungeonFloorSigilsAngleWideSouthNorthwestPng = loadImage("assets/dungeon/floor/sigils/angle_wide_south_northwest.png")
+    DungeonFloorSigilsCurveNorthWestPng = loadImage("assets/dungeon/floor/sigils/curve_north_west.png")
+    DungeonFloorSigilsVShapedEastPng = loadImage("assets/dungeon/floor/sigils/v-shaped_east.png")
+    DungeonFloorSigilsStraightEastNortheastSouthwestPng = loadImage("assets/dungeon/floor/sigils/straight_east_northeast_southwest.png")
+    DungeonFloorSigilsStraightEastWestPng = loadImage("assets/dungeon/floor/sigils/straight_east_west.png")
+    DungeonFloorSigilsStraightEastWestNorthwestSoutheastPng = loadImage("assets/dungeon/floor/sigils/straight_east_west_northwest_southeast.png")
+    DungeonFloorSigilsCirclePng = loadImage("assets/dungeon/floor/sigils/circle.png")
+    DungeonFloorSigilsAngleWideWestSoutheastPng = loadImage("assets/dungeon/floor/sigils/angle_wide_west_southeast.png")
+    DungeonFloorSigilsCrossPng = loadImage("assets/dungeon/floor/sigils/cross.png")
+    DungeonFloorSigilsYShapedWestPng = loadImage("assets/dungeon/floor/sigils/y-shaped_west.png")
+    DungeonFloorSigilsXShapedPng = loadImage("assets/dungeon/floor/sigils/x-shaped.png")
+    DungeonFloorSigilsYShapedEastPng = loadImage("assets/dungeon/floor/sigils/y-shaped_east.png")
+    DungeonFloorSigilsAngleWideNorthSoutheastPng = loadImage("assets/dungeon/floor/sigils/angle_wide_north_southeast.png")
+    DungeonFloorSigilsAlgizPng = loadImage("assets/dungeon/floor/sigils/algiz.png")
+    DungeonFloorSigilsYShapedNorthPng = loadImage("assets/dungeon/floor/sigils/y-shaped_north.png")
+    DungeonFloorSigilsAlgizLeftPng = loadImage("assets/dungeon/floor/sigils/algiz_left.png")
+    DungeonFloorSigilsVShapedNorthPng = loadImage("assets/dungeon/floor/sigils/v-shaped_north.png")
+    DungeonFloorSigilsVShapedSouthPng = loadImage("assets/dungeon/floor/sigils/v-shaped_south.png")
+    DungeonFloorSigilsSharpNorthWestPng = loadImage("assets/dungeon/floor/sigils/sharp_north_west.png")
+    DungeonFloorSigilsYShapedRightPng = loadImage("assets/dungeon/floor/sigils/y-shaped_right.png")
+    DungeonFloorSigilsAlgizRightPng = loadImage("assets/dungeon/floor/sigils/algiz_right.png")
+    DungeonFloorSigilsSharpWestSouthwestPng = loadImage("assets/dungeon/floor/sigils/sharp_west_southwest.png")
+    DungeonFloorSigilsCurveSouthEastPng = loadImage("assets/dungeon/floor/sigils/curve_south_east.png")
+    DungeonFloorSigilsYShapedSouthPng = loadImage("assets/dungeon/floor/sigils/y-shaped_south.png")
+    DungeonFloorSigilsAngleWideEastSouthwestPng = loadImage("assets/dungeon/floor/sigils/angle_wide_east_southwest.png")
+    DungeonFloorSigilsCurveSouthWestPng = loadImage("assets/dungeon/floor/sigils/curve_south_west.png")
+    DungeonFloorSigilsAngleWideWestNortheastPng = loadImage("assets/dungeon/floor/sigils/angle_wide_west_northeast.png")
+    DungeonFloorSigilsAngleWideSouthNortheastPng = loadImage("assets/dungeon/floor/sigils/angle_wide_south_northeast.png")
+    DungeonFloorSigilsSharpEastNortheastPng = loadImage("assets/dungeon/floor/sigils/sharp_east_northeast.png")
+    DungeonFloorSigilsAngleWideNorthSouthwestPng = loadImage("assets/dungeon/floor/sigils/angle_wide_north_southwest.png")
+    DungeonFloorSigilsSharpSouthWestPng = loadImage("assets/dungeon/floor/sigils/sharp_south_west.png")
+    DungeonFloorSigilsAngleWideEastNorthwestPng = loadImage("assets/dungeon/floor/sigils/angle_wide_east_northwest.png")
+    DungeonFloorSigilsVShapedWestPng = loadImage("assets/dungeon/floor/sigils/v-shaped_west.png")
+    DungeonFloorSigilsCurveNorthEastPng = loadImage("assets/dungeon/floor/sigils/curve_north_east.png")
+    DungeonFloorSigilsRhombusPng = loadImage("assets/dungeon/floor/sigils/rhombus.png")
+    DungeonFloorSigilsStraightNorthSouthPng = loadImage("assets/dungeon/floor/sigils/straight_north_south.png")
+    DungeonFloorGrassGrassFlowersBlue2OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_blue_2_old.png")
+    DungeonFloorGrassGrassFlowersBlue3OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_blue_3_old.png")
+    DungeonFloorGrassGrassEastNewPng = loadImage("assets/dungeon/floor/grass/grass_east_new.png")
+    DungeonFloorGrassGrassNorthOldPng = loadImage("assets/dungeon/floor/grass/grass_north_old.png")
+    DungeonFloorGrassGrass0DirtMix3Png = loadImage("assets/dungeon/floor/grass/grass0-dirt-mix_3.png")
+    DungeonFloorGrassGrass0OldPng = loadImage("assets/dungeon/floor/grass/grass_0_old.png")
+    DungeonFloorGrassGrassFlowersYellow2OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_yellow_2_old.png")
+    DungeonFloorGrassGrassEastOldPng = loadImage("assets/dungeon/floor/grass/grass_east_old.png")
+    DungeonFloorGrassGrassFullNewPng = loadImage("assets/dungeon/floor/grass/grass_full_new.png")
+    DungeonFloorGrassGrassFullOldPng = loadImage("assets/dungeon/floor/grass/grass_full_old.png")
+    DungeonFloorGrassGrassNorthwestOldPng = loadImage("assets/dungeon/floor/grass/grass_northwest_old.png")
+    DungeonFloorGrassGrassSouthNewPng = loadImage("assets/dungeon/floor/grass/grass_south_new.png")
+    DungeonFloorGrassGrassFlowersBlue2NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_blue_2_new.png")
+    DungeonFloorGrassGrassFlowersBlue1NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_blue_1_new.png")
+    DungeonFloorGrassGrass0DirtMix2Png = loadImage("assets/dungeon/floor/grass/grass0-dirt-mix_2.png")
+    DungeonFloorGrassGrassSoutheastNewPng = loadImage("assets/dungeon/floor/grass/grass_southeast_new.png")
+    DungeonFloorGrassGrassFlowersYellow2NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_yellow_2_new.png")
+    DungeonFloorGrassGrassNortheastOldPng = loadImage("assets/dungeon/floor/grass/grass_northeast_old.png")
+    DungeonFloorGrassGrassSoutheastOldPng = loadImage("assets/dungeon/floor/grass/grass_southeast_old.png")
+    DungeonFloorGrassGrassFlowersRed1NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_red_1_new.png")
+    DungeonFloorGrassGrassSouthwestNewPng = loadImage("assets/dungeon/floor/grass/grass_southwest_new.png")
+    DungeonFloorGrassGrassNortheastNewPng = loadImage("assets/dungeon/floor/grass/grass_northeast_new.png")
+    DungeonFloorGrassGrass0NewPng = loadImage("assets/dungeon/floor/grass/grass_0_new.png")
+    DungeonFloorGrassGrassWestNewPng = loadImage("assets/dungeon/floor/grass/grass_west_new.png")
+    DungeonFloorGrassGrass1OldPng = loadImage("assets/dungeon/floor/grass/grass_1_old.png")
+    DungeonFloorGrassGrassFlowersBlue1OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_blue_1_old.png")
+    DungeonFloorGrassGrassFlowersYellow3NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_yellow_3_new.png")
+    DungeonFloorGrassGrassFlowersYellow1NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_yellow_1_new.png")
+    DungeonFloorGrassGrassFlowersRed1OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_red_1_old.png")
+    DungeonFloorGrassGrassFlowersRed3OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_red_3_old.png")
+    DungeonFloorGrassGrass2OldPng = loadImage("assets/dungeon/floor/grass/grass_2_old.png")
+    DungeonFloorGrassGrassSouthOldPng = loadImage("assets/dungeon/floor/grass/grass_south_old.png")
+    DungeonFloorGrassGrass1NewPng = loadImage("assets/dungeon/floor/grass/grass_1_new.png")
+    DungeonFloorGrassGrass0DirtMix1Png = loadImage("assets/dungeon/floor/grass/grass0-dirt-mix_1.png")
+    DungeonFloorGrassGrass2NewPng = loadImage("assets/dungeon/floor/grass/grass_2_new.png")
+    DungeonFloorGrassGrassFlowersRed2OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_red_2_old.png")
+    DungeonFloorGrassGrassNorthNewPng = loadImage("assets/dungeon/floor/grass/grass_north_new.png")
+    DungeonFloorGrassGrassFlowersYellow3OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_yellow_3_old.png")
+    DungeonFloorGrassGrassFlowersYellow1OldPng = loadImage("assets/dungeon/floor/grass/grass_flowers_yellow_1_old.png")
+    DungeonFloorGrassGrassFlowersRed2NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_red_2_new.png")
+    DungeonFloorGrassGrassWestOldPng = loadImage("assets/dungeon/floor/grass/grass_west_old.png")
+    DungeonFloorGrassGrassNorthwestNewPng = loadImage("assets/dungeon/floor/grass/grass_northwest_new.png")
+    DungeonFloorGrassGrassSouthwestOldPng = loadImage("assets/dungeon/floor/grass/grass_southwest_old.png")
+    DungeonFloorGrassGrassFlowersBlue3NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_blue_3_new.png")
+    DungeonFloorGrassGrassFlowersRed3NewPng = loadImage("assets/dungeon/floor/grass/grass_flowers_red_3_new.png")
+    DungeonWaterDeepWaterWaveWestPng = loadImage("assets/dungeon/water/deep_water_wave_west.png")
+    DungeonWaterShallowWaterWaveCornerSoutheastNewPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_southeast_new.png")
+    DungeonWaterShallowWaterWaveCornerNorthwestOldPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_northwest_old.png")
+    DungeonWaterShoalsDeepWater1NewPng = loadImage("assets/dungeon/water/shoals_deep_water_1_new.png")
+    DungeonWaterShoalsShallowWater2NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_2_new.png")
+    DungeonWaterShoalsDeepWater2BubblesPng = loadImage("assets/dungeon/water/shoals_deep_water_2_bubbles.png")
+    DungeonWaterShallowWaterWaveEastNewPng = loadImage("assets/dungeon/water/shallow_water_wave_east_new.png")
+    DungeonWaterDeepWaterWaveCornerSouthwest1Png = loadImage("assets/dungeon/water/deep_water_wave_corner_southwest_1.png")
+    DungeonWaterShallowWaterWaveNorthNewPng = loadImage("assets/dungeon/water/shallow_water_wave_north_new.png")
+    DungeonWaterShoalsDeepWater3OldPng = loadImage("assets/dungeon/water/shoals_deep_water_3_old.png")
+    DungeonWaterShoalsShallowWater3OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_3_old.png")
+    DungeonWaterGreyDirtBorderCornerLeftPng = loadImage("assets/dungeon/water/grey_dirt_border_corner_left.png")
+    DungeonWaterShoalsDeepWater8Png = loadImage("assets/dungeon/water/shoals_deep_water_8.png")
+    DungeonWaterShoalsShallowWater0Png = loadImage("assets/dungeon/water/shoals_shallow_water_0.png")
+    DungeonWaterShoalsShallowWater4NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_4_new.png")
+    DungeonWaterDeepWaterWaveCornerNortheast1Png = loadImage("assets/dungeon/water/deep_water_wave_corner_northeast_1.png")
+    DungeonWaterShoalsShallowWater11Png = loadImage("assets/dungeon/water/shoals_shallow_water_11.png")
+    DungeonWaterShoalsShallowWaterDisturbance2OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_disturbance_2_old.png")
+    DungeonWaterShoalsShallowWater1NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_1_new.png")
+    DungeonWaterShoalsDeepWater2OldPng = loadImage("assets/dungeon/water/shoals_deep_water_2_old.png")
+    DungeonWaterInkWaveCornerNortheastPng = loadImage("assets/dungeon/water/ink_wave_corner_northeast.png")
+    DungeonWaterShallowWater2Png = loadImage("assets/dungeon/water/shallow_water_2.png")
+    DungeonWaterShallowBorderLeftPng = loadImage("assets/dungeon/water/shallow_border_left.png")
+    DungeonWaterDeepWaterWaveEast2Png = loadImage("assets/dungeon/water/deep_water_wave_east_2.png")
+    DungeonWaterInkFullPng = loadImage("assets/dungeon/water/ink_full.png")
+    DungeonWaterDeepWaterMurkyPng = loadImage("assets/dungeon/water/deep_water_murky.png")
+    DungeonWaterShoalsDeepWater9Png = loadImage("assets/dungeon/water/shoals_deep_water_9.png")
+    DungeonWaterDeepWaterWaveCornerNorthwest1Png = loadImage("assets/dungeon/water/deep_water_wave_corner_northwest_1.png")
+    DungeonWaterShallowBorderTopLeftPng = loadImage("assets/dungeon/water/shallow_border_top_left.png")
+    DungeonWaterGreyDirtBlPng = loadImage("assets/dungeon/water/grey_dirt_bl.png")
+    DungeonWaterOpenSea2Png = loadImage("assets/dungeon/water/open_sea_2.png")
+    DungeonWaterDeepWaterWaveEastPng = loadImage("assets/dungeon/water/deep_water_wave_east.png")
+    DungeonWaterShoalsDeepWater11Png = loadImage("assets/dungeon/water/shoals_deep_water_11.png")
+    DungeonWaterInkWaveCornerSouthwestPng = loadImage("assets/dungeon/water/ink_wave_corner_southwest.png")
+    DungeonWaterInkWaveWestPng = loadImage("assets/dungeon/water/ink_wave_west.png")
+    DungeonWaterShoalsDeepWater0Png = loadImage("assets/dungeon/water/shoals_deep_water_0.png")
+    DungeonWaterShoalsDeepWater5Png = loadImage("assets/dungeon/water/shoals_deep_water_5.png")
+    DungeonWaterShoalsShallowWater7Png = loadImage("assets/dungeon/water/shoals_shallow_water_7.png")
+    DungeonWaterShallowWaterWaveSouthNewPng = loadImage("assets/dungeon/water/shallow_water_wave_south_new.png")
+    DungeonWaterDeepWaterPng = loadImage("assets/dungeon/water/deep_water.png")
+    DungeonWaterShoalsShallowWater9Png = loadImage("assets/dungeon/water/shoals_shallow_water_9.png")
+    DungeonWaterShoalsShallowWaterDisturbance1NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_disturbance_1_new.png")
+    DungeonWaterShoalsDeepWater4OldPng = loadImage("assets/dungeon/water/shoals_deep_water_4_old.png")
+    DungeonWaterShallowWaterWaveCornerSouthwestOldPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_southwest_old.png")
+    DungeonWaterShallowWaterPng = loadImage("assets/dungeon/water/shallow_water.png")
+    DungeonWaterDeepWaterWaveCornerSoutheast2Png = loadImage("assets/dungeon/water/deep_water_wave_corner_southeast_2.png")
+    DungeonWaterShallowBorderBottomRightPng = loadImage("assets/dungeon/water/shallow_border_bottom_right.png")
+    DungeonWaterShoalsShallowWater3NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_3_new.png")
+    DungeonWaterShallowWaterWaveEastOldPng = loadImage("assets/dungeon/water/shallow_water_wave_east_old.png")
+    DungeonWaterShallowBorderTopPng = loadImage("assets/dungeon/water/shallow_border_top.png")
+    DungeonWaterDeepWaterWaveCornerSoutheastPng = loadImage("assets/dungeon/water/deep_water_wave_corner_southeast.png")
+    DungeonWaterShoalsDeepWater6Png = loadImage("assets/dungeon/water/shoals_deep_water_6.png")
+    DungeonWaterShallowWaterWaveNorthOldPng = loadImage("assets/dungeon/water/shallow_water_wave_north_old.png")
+    DungeonWaterDeepWaterWaveCornerSouthwest2Png = loadImage("assets/dungeon/water/deep_water_wave_corner_southwest_2.png")
+    DungeonWaterDeepWaterWaveCornerNortheast2Png = loadImage("assets/dungeon/water/deep_water_wave_corner_northeast_2.png")
+    DungeonWaterInkWaveCornerNorthwestPng = loadImage("assets/dungeon/water/ink_wave_corner_northwest.png")
+    DungeonWaterLiquefaction2Png = loadImage("assets/dungeon/water/liquefaction_2.png")
+    DungeonWaterShoalsDeepWater1OldPng = loadImage("assets/dungeon/water/shoals_deep_water_1_old.png")
+    DungeonWaterGreyDirtBorderRightPng = loadImage("assets/dungeon/water/grey_dirt_border_right.png")
+    DungeonWaterShoalsDeepWater1ShapePng = loadImage("assets/dungeon/water/shoals_deep_water_1_shape.png")
+    DungeonWaterShoalsShallowWaterDisturbance2NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_disturbance_2_new.png")
+    DungeonWaterShallowWaterWaveCornerSoutheastOldPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_southeast_old.png")
+    DungeonWaterInkWaveCornerSoutheastPng = loadImage("assets/dungeon/water/ink_wave_corner_southeast.png")
+    DungeonWaterShallowWaterWaveWestNewPng = loadImage("assets/dungeon/water/shallow_water_wave_west_new.png")
+    DungeonWaterShoalsDeepWater7Png = loadImage("assets/dungeon/water/shoals_deep_water_7.png")
+    DungeonWaterInkWaveSouthPng = loadImage("assets/dungeon/water/ink_wave_south.png")
+    DungeonWaterDeepWater2Png = loadImage("assets/dungeon/water/deep_water_2.png")
+    DungeonWaterDeepWaterWaveNorth2Png = loadImage("assets/dungeon/water/deep_water_wave_north_2.png")
+    DungeonWaterShoalsShallowWater8Png = loadImage("assets/dungeon/water/shoals_shallow_water_8.png")
+    DungeonWaterShallowWaterDisturbancePng = loadImage("assets/dungeon/water/shallow_water_disturbance.png")
+    DungeonWaterInkWaveEastPng = loadImage("assets/dungeon/water/ink_wave_east.png")
+    DungeonWaterShallowWaterWaveCornerNortheastNewPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_northeast_new.png")
+    DungeonWaterShallowWaterMurkyDisturbance2Png = loadImage("assets/dungeon/water/shallow_water_murky_disturbance_2.png")
+    DungeonWaterDeepWaterWaveCornerNorthwestPng = loadImage("assets/dungeon/water/deep_water_wave_corner_northwest.png")
+    DungeonWaterShoalsDeepWater3BubblesPng = loadImage("assets/dungeon/water/shoals_deep_water_3_bubbles.png")
+    DungeonWaterShoalsShallowWater4OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_4_old.png")
+    DungeonWaterShoalsDeepWater3NewPng = loadImage("assets/dungeon/water/shoals_deep_water_3_new.png")
+    DungeonWaterOpenSeaPng = loadImage("assets/dungeon/water/open_sea.png")
+    DungeonWaterDeepWaterWaveNorthPng = loadImage("assets/dungeon/water/deep_water_wave_north.png")
+    DungeonWaterShoalsDeepWater2NewPng = loadImage("assets/dungeon/water/shoals_deep_water_2_new.png")
+    DungeonWaterInkWaveNorthPng = loadImage("assets/dungeon/water/ink_wave_north.png")
+    DungeonWaterDeepWaterWaveCornerNorthwest2Png = loadImage("assets/dungeon/water/deep_water_wave_corner_northwest_2.png")
+    DungeonWaterDeepWaterWaveWest2Png = loadImage("assets/dungeon/water/deep_water_wave_west_2.png")
+    DungeonWaterShoalsShallowWater6Png = loadImage("assets/dungeon/water/shoals_shallow_water_6.png")
+    DungeonWaterShoalsShallowWaterDisturbance3OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_disturbance_3_old.png")
+    DungeonWaterShallowBorderTopRightPng = loadImage("assets/dungeon/water/shallow_border_top_right.png")
+    DungeonWaterDeepWaterWaveCornerSoutheast1Png = loadImage("assets/dungeon/water/deep_water_wave_corner_southeast_1.png")
+    DungeonWaterShallowWaterMurkyPng = loadImage("assets/dungeon/water/shallow_water_murky.png")
+    DungeonWaterShoalsDeepWater4BubblesPng = loadImage("assets/dungeon/water/shoals_deep_water_4_bubbles.png")
+    DungeonWaterShoalsShallowWater2OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_2_old.png")
+    DungeonWaterGreyDirtBorderTopPng = loadImage("assets/dungeon/water/grey_dirt_border_top.png")
+    DungeonWaterShallowWaterWaveSouthOldPng = loadImage("assets/dungeon/water/shallow_water_wave_south_old.png")
+    DungeonWaterDeepWaterWaveCornerNortheastPng = loadImage("assets/dungeon/water/deep_water_wave_corner_northeast.png")
+    DungeonWaterDeepWaterWaveSouthPng = loadImage("assets/dungeon/water/deep_water_wave_south.png")
+    DungeonWaterShallowWaterMurky2Png = loadImage("assets/dungeon/water/shallow_water_murky_2.png")
+    DungeonWaterLiquefaction1Png = loadImage("assets/dungeon/water/liquefaction_1.png")
+    DungeonWaterShallowWaterWaveWestOldPng = loadImage("assets/dungeon/water/shallow_water_wave_west_old.png")
+    DungeonWaterDeepWaterWaveSouth2Png = loadImage("assets/dungeon/water/deep_water_wave_south_2.png")
+    DungeonWaterDeepWaterWaveCornerSouthwestPng = loadImage("assets/dungeon/water/deep_water_wave_corner_southwest.png")
+    DungeonWaterShallowBorderBottomPng = loadImage("assets/dungeon/water/shallow_border_bottom.png")
+    DungeonWaterShoalsShallowWater5Png = loadImage("assets/dungeon/water/shoals_shallow_water_5.png")
+    DungeonWaterShallowWaterMurkyDisturbancePng = loadImage("assets/dungeon/water/shallow_water_murky_disturbance.png")
+    DungeonWaterDeepWaterWaveWest1Png = loadImage("assets/dungeon/water/deep_water_wave_west_1.png")
+    DungeonWaterDeepWaterWaveNorth1Png = loadImage("assets/dungeon/water/deep_water_wave_north_1.png")
+    DungeonWaterShallowBorderBottomLeftPng = loadImage("assets/dungeon/water/shallow_border_bottom_left.png")
+    DungeonWaterShoalsDeepWater10Png = loadImage("assets/dungeon/water/shoals_deep_water_10.png")
+    DungeonWaterShallowWaterWaveCornerNorthwestNewPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_northwest_new.png")
+    DungeonWaterShallowWaterWaveCornerSouthwestNewPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_southwest_new.png")
+    DungeonWaterShallowWaterDisturbance2Png = loadImage("assets/dungeon/water/shallow_water_disturbance_2.png")
+    DungeonWaterShoalsShallowWater10Png = loadImage("assets/dungeon/water/shoals_shallow_water_10.png")
+    DungeonWaterDeepWaterWaveSouth1Png = loadImage("assets/dungeon/water/deep_water_wave_south_1.png")
+    DungeonWaterShallowBorderRightPng = loadImage("assets/dungeon/water/shallow_border_right.png")
+    DungeonWaterDeepWaterMurky2Png = loadImage("assets/dungeon/water/deep_water_murky_2.png")
+    DungeonWaterShoalsShallowWaterDisturbance1OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_disturbance_1_old.png")
+    DungeonWaterShoalsDeepWater4NewPng = loadImage("assets/dungeon/water/shoals_deep_water_4_new.png")
+    DungeonWaterDeepWaterWaveEast1Png = loadImage("assets/dungeon/water/deep_water_wave_east_1.png")
+    DungeonWaterShoalsShallowWaterDisturbance3NewPng = loadImage("assets/dungeon/water/shoals_shallow_water_disturbance_3_new.png")
+    DungeonWaterShoalsDeepWater2ShapePng = loadImage("assets/dungeon/water/shoals_deep_water_2_shape.png")
+    DungeonWaterShoalsShallowWater1OldPng = loadImage("assets/dungeon/water/shoals_shallow_water_1_old.png")
+    DungeonWaterShallowWaterWaveCornerNortheastOldPng = loadImage("assets/dungeon/water/shallow_water_wave_corner_northeast_old.png")
+    DungeonWaterGreyDirtBorderCornerRightPng = loadImage("assets/dungeon/water/grey_dirt_border_corner_right.png")
+    DungeonVaultsStatueElephantJadePng = loadImage("assets/dungeon/vaults/statue_elephant_jade.png")
+    DungeonVaultsBrickDarkSkeletonPng = loadImage("assets/dungeon/vaults/brick_dark_skeleton.png")
+    DungeonVaultsSarcophagusPedestalLeftPng = loadImage("assets/dungeon/vaults/sarcophagus_pedestal_left.png")
+    DungeonVaultsGratePng = loadImage("assets/dungeon/vaults/grate.png")
+    DungeonVaultsGoldenStatue1Png = loadImage("assets/dungeon/vaults/golden_statue_1.png")
+    DungeonVaultsStatueIronGolemPng = loadImage("assets/dungeon/vaults/statue_iron_golem.png")
+    DungeonVaultsTheTeleporterIceCavePng = loadImage("assets/dungeon/vaults/the_teleporter_ice_cave.png")
+    DungeonVaultsBrickDarkEyesPng = loadImage("assets/dungeon/vaults/brick_dark_eyes.png")
+    DungeonVaultsDiscoBallPng = loadImage("assets/dungeon/vaults/disco_ball.png")
+    DungeonVaultsTheTeleporterVaultsPng = loadImage("assets/dungeon/vaults/the_teleporter_vaults.png")
+    DungeonVaultsDimensionEdgePng = loadImage("assets/dungeon/vaults/dimension_edge.png")
+    DungeonVaultsMachineTukimaPng = loadImage("assets/dungeon/vaults/machine_tukima.png")
+    DungeonVaultsSarcophagusPedestalRightPng = loadImage("assets/dungeon/vaults/sarcophagus_pedestal_right.png")
+    DungeonVaultsSarcophagusSealedPng = loadImage("assets/dungeon/vaults/sarcophagus_sealed.png")
+    DungeonVaultsGoldenStatue2Png = loadImage("assets/dungeon/vaults/golden_statue_2.png")
+    DungeonTreesMangrove2Png = loadImage("assets/dungeon/trees/mangrove_2.png")
+    DungeonTreesTree2YellowPng = loadImage("assets/dungeon/trees/tree_2_yellow.png")
+    DungeonTreesTree1RedPng = loadImage("assets/dungeon/trees/tree_1_red.png")
+    DungeonTreesMangrove1Png = loadImage("assets/dungeon/trees/mangrove_1.png")
+    DungeonTreesTree2RedPng = loadImage("assets/dungeon/trees/tree_2_red.png")
+    DungeonTreesMangrove3Png = loadImage("assets/dungeon/trees/mangrove_3.png")
+    DungeonTreesTree1YellowPng = loadImage("assets/dungeon/trees/tree_1_yellow.png")
+    DungeonTreesTree1LightredPng = loadImage("assets/dungeon/trees/tree_1_lightred.png")
+    DungeonTreesTree2LightredPng = loadImage("assets/dungeon/trees/tree_2_lightred.png")
+    DungeonGatewaysEnterDis3Png = loadImage("assets/dungeon/gateways/enter_dis_3.png")
+    DungeonGatewaysLabPortalPng = loadImage("assets/dungeon/gateways/lab_portal.png")
+    DungeonGatewaysExitPng = loadImage("assets/dungeon/gateways/exit.png")
+    DungeonGatewaysFleshyOrificeClosedPng = loadImage("assets/dungeon/gateways/fleshy_orifice_closed.png")
+    DungeonGatewaysAbyssalStairPng = loadImage("assets/dungeon/gateways/abyssal_stair.png")
+    DungeonGatewaysEnterLabyrinthPng = loadImage("assets/dungeon/gateways/enter_labyrinth.png")
+    DungeonGatewaysExitAbyssFlickeringOldPng = loadImage("assets/dungeon/gateways/exit_abyss_flickering_old.png")
+    DungeonGatewaysOssuaryPortalPng = loadImage("assets/dungeon/gateways/ossuary_portal.png")
+    DungeonGatewaysExitAbyssFlickeringNewPng = loadImage("assets/dungeon/gateways/exit_abyss_flickering_new.png")
+    DungeonGatewaysEnterZotClosedNewPng = loadImage("assets/dungeon/gateways/enter_zot_closed_new.png")
+    DungeonGatewaysEnterVaultsClosedPng = loadImage("assets/dungeon/gateways/enter_vaults_closed.png")
+    DungeonGatewaysHiveGonePng = loadImage("assets/dungeon/gateways/hive_gone.png")
+    DungeonGatewaysEnterTartarus1Png = loadImage("assets/dungeon/gateways/enter_tartarus_1.png")
+    DungeonGatewaysEnterPng = loadImage("assets/dungeon/gateways/enter.png")
+    DungeonGatewaysBazaarGonePng = loadImage("assets/dungeon/gateways/bazaar_gone.png")
+    DungeonGatewaysFleshyOrificeOpenPng = loadImage("assets/dungeon/gateways/fleshy_orifice_open.png")
+    DungeonGatewaysEnterCocytusPng = loadImage("assets/dungeon/gateways/enter_cocytus.png")
+    DungeonGatewaysVolcanoGonePng = loadImage("assets/dungeon/gateways/volcano_gone.png")
+    DungeonGatewaysWizlabGonePng = loadImage("assets/dungeon/gateways/wizlab_gone.png")
+    DungeonGatewaysZigUsedPng = loadImage("assets/dungeon/gateways/zig_used.png")
+    DungeonGatewaysEscapeHatchDownPng = loadImage("assets/dungeon/gateways/escape_hatch_down.png")
+    DungeonGatewaysEnterAbyss2Png = loadImage("assets/dungeon/gateways/enter_abyss_2.png")
+    DungeonGatewaysEnterDis2Png = loadImage("assets/dungeon/gateways/enter_dis_2.png")
+    DungeonGatewaysTransitPandemoniumOldPng = loadImage("assets/dungeon/gateways/transit_pandemonium_old.png")
+    DungeonGatewaysEnterZotOpenOldPng = loadImage("assets/dungeon/gateways/enter_zot_open_old.png")
+    DungeonGatewaysEnterHell1Png = loadImage("assets/dungeon/gateways/enter_hell_1.png")
+    DungeonGatewaysEnterGehenna3Png = loadImage("assets/dungeon/gateways/enter_gehenna_3.png")
+    DungeonGatewaysLabGonePng = loadImage("assets/dungeon/gateways/lab_gone.png")
+    DungeonGatewaysEnterOrcPng = loadImage("assets/dungeon/gateways/enter_orc.png")
+    DungeonGatewaysEnterDis1Png = loadImage("assets/dungeon/gateways/enter_dis_1.png")
+    DungeonGatewaysBaileyGonePng = loadImage("assets/dungeon/gateways/bailey_gone.png")
+    DungeonGatewaysPortalPng = loadImage("assets/dungeon/gateways/portal.png")
+    DungeonGatewaysZigPortalPng = loadImage("assets/dungeon/gateways/zig_portal.png")
+    DungeonGatewaysEnterVaultsOpenPng = loadImage("assets/dungeon/gateways/enter_vaults_open.png")
+    DungeonGatewaysEnterCocytus2Png = loadImage("assets/dungeon/gateways/enter_cocytus_2.png")
+    DungeonGatewaysStoneStairsUpPng = loadImage("assets/dungeon/gateways/stone_stairs_up.png")
+    DungeonGatewaysEnterTartarusPng = loadImage("assets/dungeon/gateways/enter_tartarus.png")
+    DungeonGatewaysRockStairsDownPng = loadImage("assets/dungeon/gateways/rock_stairs_down.png")
+    DungeonGatewaysBaileyPortalPng = loadImage("assets/dungeon/gateways/bailey_portal.png")
+    DungeonGatewaysEnterHell3Png = loadImage("assets/dungeon/gateways/enter_hell_3.png")
+    DungeonGatewaysEnterCryptPng = loadImage("assets/dungeon/gateways/enter_crypt.png")
+    DungeonGatewaysEnterCocytus1Png = loadImage("assets/dungeon/gateways/enter_cocytus_1.png")
+    DungeonGatewaysEnterCocytus3Png = loadImage("assets/dungeon/gateways/enter_cocytus_3.png")
+    DungeonGatewaysReturnHellNewPng = loadImage("assets/dungeon/gateways/return_hell_new.png")
+    DungeonGatewaysReturnZotOldPng = loadImage("assets/dungeon/gateways/return_zot_old.png")
+    DungeonGatewaysEnterSnakePng = loadImage("assets/dungeon/gateways/enter_snake.png")
+    DungeonGatewaysEnterAbyss3Png = loadImage("assets/dungeon/gateways/enter_abyss_3.png")
+    DungeonGatewaysEnterHellPng = loadImage("assets/dungeon/gateways/enter_hell.png")
+    DungeonGatewaysEnterHell2Png = loadImage("assets/dungeon/gateways/enter_hell_2.png")
+    DungeonGatewaysVolcanoExitPng = loadImage("assets/dungeon/gateways/volcano_exit.png")
+    DungeonGatewaysEnterPandemoniumNewPng = loadImage("assets/dungeon/gateways/enter_pandemonium_new.png")
+    DungeonGatewaysEnterTartarus3Png = loadImage("assets/dungeon/gateways/enter_tartarus_3.png")
+    DungeonGatewaysSealedStairsDownPng = loadImage("assets/dungeon/gateways/sealed_stairs_down.png")
+    DungeonGatewaysEnterZotOpenNewPng = loadImage("assets/dungeon/gateways/enter_zot_open_new.png")
+    DungeonGatewaysIceCaveGonePng = loadImage("assets/dungeon/gateways/ice_cave_gone.png")
+    DungeonGatewaysEnterGehenna2Png = loadImage("assets/dungeon/gateways/enter_gehenna_2.png")
+    DungeonGatewaysStoneArchHellPng = loadImage("assets/dungeon/gateways/stone_arch_hell.png")
+    DungeonGatewaysPortalUnknownPng = loadImage("assets/dungeon/gateways/portal_unknown.png")
+    DungeonGatewaysHivePortalPng = loadImage("assets/dungeon/gateways/hive_portal.png")
+    DungeonGatewaysReturnPng = loadImage("assets/dungeon/gateways/return.png")
+    DungeonGatewaysReturnZotNewPng = loadImage("assets/dungeon/gateways/return_zot_new.png")
+    DungeonGatewaysEnterGehenna1Png = loadImage("assets/dungeon/gateways/enter_gehenna_1.png")
+    DungeonGatewaysBranchStairsPng = loadImage("assets/dungeon/gateways/branch_stairs.png")
+    DungeonGatewaysEnterGehennaPng = loadImage("assets/dungeon/gateways/enter_gehenna.png")
+    DungeonGatewaysExitAbyssOldPng = loadImage("assets/dungeon/gateways/exit_abyss_old.png")
+    DungeonGatewaysEnterTombPng = loadImage("assets/dungeon/gateways/enter_tomb.png")
+    DungeonGatewaysReturnDepthsPng = loadImage("assets/dungeon/gateways/return_depths.png")
+    DungeonGatewaysExpiredPortalPng = loadImage("assets/dungeon/gateways/expired_portal.png")
+    DungeonGatewaysExitAbyssNewPng = loadImage("assets/dungeon/gateways/exit_abyss_new.png")
+    DungeonGatewaysEnterSpiderPng = loadImage("assets/dungeon/gateways/enter_spider.png")
+    DungeonGatewaysRockStairsUpPng = loadImage("assets/dungeon/gateways/rock_stairs_up.png")
+    DungeonGatewaysTroveGonePng = loadImage("assets/dungeon/gateways/trove_gone.png")
+    DungeonGatewaysExitPandemoniumFlickeringPng = loadImage("assets/dungeon/gateways/exit_pandemonium_flickering.png")
+    DungeonGatewaysEnterPandemoniumOldPng = loadImage("assets/dungeon/gateways/enter_pandemonium_old.png")
+    DungeonGatewaysTransitPandemoniumNewPng = loadImage("assets/dungeon/gateways/transit_pandemonium_new.png")
+    DungeonGatewaysEnterTartarus2Png = loadImage("assets/dungeon/gateways/enter_tartarus_2.png")
+    DungeonGatewaysEnterZotClosedOldPng = loadImage("assets/dungeon/gateways/enter_zot_closed_old.png")
+    DungeonGatewaysOssuaryGonePng = loadImage("assets/dungeon/gateways/ossuary_gone.png")
+    DungeonGatewaysEnterAbyssPng = loadImage("assets/dungeon/gateways/enter_abyss.png")
+    DungeonGatewaysSealedStairsUpPng = loadImage("assets/dungeon/gateways/sealed_stairs_up.png")
+    DungeonGatewaysEnterDisPng = loadImage("assets/dungeon/gateways/enter_dis.png")
+    DungeonGatewaysTrovePortalPng = loadImage("assets/dungeon/gateways/trove_portal.png")
+    DungeonGatewaysEnterLairPng = loadImage("assets/dungeon/gateways/enter_lair.png")
+    DungeonGatewaysReturnVestibulePng = loadImage("assets/dungeon/gateways/return_vestibule.png")
+    DungeonGatewaysPortalRotatedPng = loadImage("assets/dungeon/gateways/portal_rotated.png")
+    DungeonGatewaysReturnHellOldPng = loadImage("assets/dungeon/gateways/return_hell_old.png")
+    DungeonGatewaysBazaarPortalPng = loadImage("assets/dungeon/gateways/bazaar_portal.png")
+    DungeonGatewaysSewerPortalRustedPng = loadImage("assets/dungeon/gateways/sewer_portal_rusted.png")
+    DungeonGatewaysStarryPortalPng = loadImage("assets/dungeon/gateways/starry_portal.png")
+    DungeonGatewaysStoneArchPng = loadImage("assets/dungeon/gateways/stone_arch.png")
+    DungeonGatewaysEntrancePng = loadImage("assets/dungeon/gateways/entrance.png")
+    DungeonGatewaysExitFlickeringPng = loadImage("assets/dungeon/gateways/exit_flickering.png")
+    DungeonGatewaysExitPandemoniumPng = loadImage("assets/dungeon/gateways/exit_pandemonium.png")
+    DungeonGatewaysStoneStairsDownPng = loadImage("assets/dungeon/gateways/stone_stairs_down.png")
+    DungeonGatewaysEnterAbyss1Png = loadImage("assets/dungeon/gateways/enter_abyss_1.png")
+    DungeonGatewaysEnterDepthsPng = loadImage("assets/dungeon/gateways/enter_depths.png")
+    DungeonGatewaysEscapeHatchUpPng = loadImage("assets/dungeon/gateways/escape_hatch_up.png")
+    DungeonDoorsFleshyOrificeClosedPng = loadImage("assets/dungeon/doors/fleshy_orifice_closed.png")
+    DungeonDoorsGateSealedLeftPng = loadImage("assets/dungeon/doors/gate_sealed_left.png")
+    DungeonDoorsClosedDoorPng = loadImage("assets/dungeon/doors/closed_door.png")
+    DungeonDoorsVgateClosedUpPng = loadImage("assets/dungeon/doors/vgate_closed_up.png")
+    DungeonDoorsGateRunedRightPng = loadImage("assets/dungeon/doors/gate_runed_right.png")
+    DungeonDoorsGateClosedRightPng = loadImage("assets/dungeon/doors/gate_closed_right.png")
+    DungeonDoorsGateSealedMiddlePng = loadImage("assets/dungeon/doors/gate_sealed_middle.png")
+    DungeonDoorsVgateClosedDownPng = loadImage("assets/dungeon/doors/vgate_closed_down.png")
+    DungeonDoorsVgateRunedUpPng = loadImage("assets/dungeon/doors/vgate_runed_up.png")
+    DungeonDoorsRunedDoorPng = loadImage("assets/dungeon/doors/runed_door.png")
+    DungeonDoorsGateOpenLeftPng = loadImage("assets/dungeon/doors/gate_open_left.png")
+    DungeonDoorsDetectedSecretDoorPng = loadImage("assets/dungeon/doors/detected_secret_door.png")
+    DungeonDoorsVgateOpenDownPng = loadImage("assets/dungeon/doors/vgate_open_down.png")
+    DungeonDoorsGateRunedLeftPng = loadImage("assets/dungeon/doors/gate_runed_left.png")
+    DungeonDoorsGateRunedMiddlePng = loadImage("assets/dungeon/doors/gate_runed_middle.png")
+    DungeonDoorsVgateRunedDownPng = loadImage("assets/dungeon/doors/vgate_runed_down.png")
+    DungeonDoorsVgateSealedUpPng = loadImage("assets/dungeon/doors/vgate_sealed_up.png")
+    DungeonDoorsSealedDoorPng = loadImage("assets/dungeon/doors/sealed_door.png")
+    DungeonDoorsVgateClosedMiddlePng = loadImage("assets/dungeon/doors/vgate_closed_middle.png")
+    DungeonDoorsVgateOpenUpPng = loadImage("assets/dungeon/doors/vgate_open_up.png")
+    DungeonDoorsGateOpenRightPng = loadImage("assets/dungeon/doors/gate_open_right.png")
+    DungeonDoorsVgateSealedDownPng = loadImage("assets/dungeon/doors/vgate_sealed_down.png")
+    DungeonDoorsVgateOpenMiddlePng = loadImage("assets/dungeon/doors/vgate_open_middle.png")
+    DungeonDoorsVgateRunedMiddlePng = loadImage("assets/dungeon/doors/vgate_runed_middle.png")
+    DungeonDoorsGateClosedMiddlePng = loadImage("assets/dungeon/doors/gate_closed_middle.png")
+    DungeonDoorsVgateSealedMiddlePng = loadImage("assets/dungeon/doors/vgate_sealed_middle.png")
+    DungeonDoorsGateOpenMiddlePng = loadImage("assets/dungeon/doors/gate_open_middle.png")
+    DungeonDoorsGateClosedLeftPng = loadImage("assets/dungeon/doors/gate_closed_left.png")
+    DungeonDoorsOpenDoorPng = loadImage("assets/dungeon/doors/open_door.png")
+    DungeonDoorsGateSealedRightPng = loadImage("assets/dungeon/doors/gate_sealed_right.png")
+    DungeonShopsShopBooksPng = loadImage("assets/dungeon/shops/shop_books.png")
+    DungeonShopsShopGadgetsPng = loadImage("assets/dungeon/shops/shop_gadgets.png")
+    DungeonShopsShopWeaponPng = loadImage("assets/dungeon/shops/shop_weapon.png")
+    DungeonShopsEnterShopPng = loadImage("assets/dungeon/shops/enter_shop.png")
+    DungeonShopsShopFoodPng = loadImage("assets/dungeon/shops/shop_food.png")
+    DungeonShopsAbandonedShopPng = loadImage("assets/dungeon/shops/abandoned_shop.png")
+    DungeonShopsShopArmorPng = loadImage("assets/dungeon/shops/shop_armor.png")
+    DungeonShopsShopGeneralPng = loadImage("assets/dungeon/shops/shop_general.png")
+    DungeonShopsShopPotionsPng = loadImage("assets/dungeon/shops/shop_potions.png")
+    DungeonShopsShopScrollsPng = loadImage("assets/dungeon/shops/shop_scrolls.png")
+    DungeonShopsShopJewelleryPng = loadImage("assets/dungeon/shops/shop_jewellery.png")
+    DungeonShopsShopWandsPng = loadImage("assets/dungeon/shops/shop_wands.png")
+    DungeonTrapsTrapNeedlePng = loadImage("assets/dungeon/traps/trap_needle.png")
+    DungeonTrapsZotdefDartTrapPng = loadImage("assets/dungeon/traps/zotdef_dart_trap.png")
+    DungeonTrapsTrapMagicalPng = loadImage("assets/dungeon/traps/trap_magical.png")
+    DungeonTrapsShadowPng = loadImage("assets/dungeon/traps/shadow.png")
+    DungeonTrapsTrapShaftPng = loadImage("assets/dungeon/traps/trap_shaft.png")
+    DungeonTrapsTrapZotPng = loadImage("assets/dungeon/traps/trap_zot.png")
+    DungeonTrapsTrapTeleportPng = loadImage("assets/dungeon/traps/trap_teleport.png")
+    DungeonTrapsTrapNetPng = loadImage("assets/dungeon/traps/trap_net.png")
+    DungeonTrapsGasTrapPng = loadImage("assets/dungeon/traps/gas_trap.png")
+    DungeonTrapsZotPng = loadImage("assets/dungeon/traps/zot.png")
+    DungeonTrapsTrapMechanicalPng = loadImage("assets/dungeon/traps/trap_mechanical.png")
+    DungeonTrapsShaftPng = loadImage("assets/dungeon/traps/shaft.png")
+    DungeonTrapsAlarmPng = loadImage("assets/dungeon/traps/alarm.png")
+    DungeonTrapsTrapArrowPng = loadImage("assets/dungeon/traps/trap_arrow.png")
+    DungeonTrapsTeleportPermanentPng = loadImage("assets/dungeon/traps/teleport_permanent.png")
+    DungeonTrapsTrapBoltPng = loadImage("assets/dungeon/traps/trap_bolt.png")
+    DungeonTrapsTrapDartPng = loadImage("assets/dungeon/traps/trap_dart.png")
+    DungeonTrapsShadowDormantPng = loadImage("assets/dungeon/traps/shadow_dormant.png")
+    DungeonTrapsTrapSpearPng = loadImage("assets/dungeon/traps/trap_spear.png")
+    DungeonTrapsTrapBladePng = loadImage("assets/dungeon/traps/trap_blade.png")
+    DungeonTrapsPassageOfGolubriaPng = loadImage("assets/dungeon/traps/passage_of_golubria.png")
+    DungeonTrapsTrapAxePng = loadImage("assets/dungeon/traps/trap_axe.png")
+    DungeonTrapsPressurePlatePng = loadImage("assets/dungeon/traps/pressure_plate.png")
+    DungeonTrapsTrapAlarmPng = loadImage("assets/dungeon/traps/trap_alarm.png")
+    DungeonAltarsAltarTrogPng = loadImage("assets/dungeon/altars/altar_trog.png")
+    DungeonAltarsAltarNemelexXobehPng = loadImage("assets/dungeon/altars/altar_nemelex_xobeh.png")
+    DungeonAltarsDithmenosPng = loadImage("assets/dungeon/altars/dithmenos.png")
+    DungeonAltarsAltarCheibriados2Png = loadImage("assets/dungeon/altars/altar_cheibriados_2.png")
+    DungeonAltarsAltarJiyva9Png = loadImage("assets/dungeon/altars/altar_jiyva_9.png")
+    DungeonAltarsAltarXom7Png = loadImage("assets/dungeon/altars/altar_xom_7.png")
+    DungeonAltarsAltarJiyva1Png = loadImage("assets/dungeon/altars/altar_jiyva_1.png")
+    DungeonAltarsVehumet1Png = loadImage("assets/dungeon/altars/vehumet_1.png")
+    DungeonAltarsAltarMakhlebFlame8Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_8.png")
+    DungeonAltarsNemelex4Png = loadImage("assets/dungeon/altars/nemelex_4.png")
+    DungeonAltarsSifMunaPng = loadImage("assets/dungeon/altars/sif_muna.png")
+    DungeonAltarsAltarJiyva6Png = loadImage("assets/dungeon/altars/altar_jiyva_6.png")
+    DungeonAltarsNemelex2Png = loadImage("assets/dungeon/altars/nemelex_2.png")
+    DungeonAltarsAltarOkawaruPng = loadImage("assets/dungeon/altars/altar_okawaru.png")
+    DungeonAltarsAltarXom0Png = loadImage("assets/dungeon/altars/altar_xom_0.png")
+    DungeonAltarsAltarCheibriados9Png = loadImage("assets/dungeon/altars/altar_cheibriados_9.png")
+    DungeonAltarsAltarCheibriados10Png = loadImage("assets/dungeon/altars/altar_cheibriados_10.png")
+    DungeonAltarsAltarVehumetPng = loadImage("assets/dungeon/altars/altar_vehumet.png")
+    DungeonAltarsAltarZinPng = loadImage("assets/dungeon/altars/altar_zin.png")
+    DungeonAltarsAltarYredelemnulPng = loadImage("assets/dungeon/altars/altar_yredelemnul.png")
+    DungeonAltarsZinPng = loadImage("assets/dungeon/altars/zin.png")
+    DungeonAltarsAltarBeoghPng = loadImage("assets/dungeon/altars/altar_beogh.png")
+    DungeonAltarsAltarOldPng = loadImage("assets/dungeon/altars/altar_old.png")
+    DungeonAltarsAltarXom5Png = loadImage("assets/dungeon/altars/altar_xom_5.png")
+    DungeonAltarsAltarXom1Png = loadImage("assets/dungeon/altars/altar_xom_1.png")
+    DungeonAltarsVehumet2Png = loadImage("assets/dungeon/altars/vehumet_2.png")
+    DungeonAltarsNemelex3Png = loadImage("assets/dungeon/altars/nemelex_3.png")
+    DungeonAltarsDithmenos3Png = loadImage("assets/dungeon/altars/dithmenos_3.png")
+    DungeonAltarsAltarMakhlebFlame5Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_5.png")
+    DungeonAltarsAltarCheibriados8Png = loadImage("assets/dungeon/altars/altar_cheibriados_8.png")
+    DungeonAltarsAltarJiyva4Png = loadImage("assets/dungeon/altars/altar_jiyva_4.png")
+    DungeonAltarsQazlal0Png = loadImage("assets/dungeon/altars/qazlal_0.png")
+    DungeonAltarsQazlal1Png = loadImage("assets/dungeon/altars/qazlal_1.png")
+    DungeonAltarsAltarElyvilonPng = loadImage("assets/dungeon/altars/altar_elyvilon.png")
+    DungeonAltarsAltarKikubaaqudghaPng = loadImage("assets/dungeon/altars/altar_kikubaaqudgha.png")
+    DungeonAltarsAltarJiyva8Png = loadImage("assets/dungeon/altars/altar_jiyva_8.png")
+    DungeonAltarsAltarJiyva2Png = loadImage("assets/dungeon/altars/altar_jiyva_2.png")
+    DungeonAltarsAltarShiningOnePng = loadImage("assets/dungeon/altars/altar_shining_one.png")
+    DungeonAltarsAltarFedhasPng = loadImage("assets/dungeon/altars/altar_fedhas.png")
+    DungeonAltarsAltarXom2Png = loadImage("assets/dungeon/altars/altar_xom_2.png")
+    DungeonAltarsAltarXom6Png = loadImage("assets/dungeon/altars/altar_xom_6.png")
+    DungeonAltarsCheibriadosPng = loadImage("assets/dungeon/altars/cheibriados.png")
+    DungeonAltarsAltarJiyva11Png = loadImage("assets/dungeon/altars/altar_jiyva_11.png")
+    DungeonAltarsAshenzariPng = loadImage("assets/dungeon/altars/ashenzari.png")
+    DungeonAltarsAltarCheibriados3Png = loadImage("assets/dungeon/altars/altar_cheibriados_3.png")
+    DungeonAltarsAltarLugonuPng = loadImage("assets/dungeon/altars/altar_lugonu.png")
+    DungeonAltarsAltarNewPng = loadImage("assets/dungeon/altars/altar_new.png")
+    DungeonAltarsNemelex1Png = loadImage("assets/dungeon/altars/nemelex_1.png")
+    DungeonAltarsYredelemnulPng = loadImage("assets/dungeon/altars/yredelemnul.png")
+    DungeonAltarsAltarMakhlebFlame1Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_1.png")
+    DungeonAltarsUnknownPng = loadImage("assets/dungeon/altars/unknown.png")
+    DungeonAltarsLugonuPng = loadImage("assets/dungeon/altars/lugonu.png")
+    DungeonAltarsShiningOnePng = loadImage("assets/dungeon/altars/shining_one.png")
+    DungeonAltarsFedhasPng = loadImage("assets/dungeon/altars/fedhas.png")
+    DungeonAltarsAltarJiyva5Png = loadImage("assets/dungeon/altars/altar_jiyva_5.png")
+    DungeonAltarsAltarCheibriados6Png = loadImage("assets/dungeon/altars/altar_cheibriados_6.png")
+    DungeonAltarsAltarJiyva0Png = loadImage("assets/dungeon/altars/altar_jiyva_0.png")
+    DungeonAltarsAltarMakhlebFlame2Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_2.png")
+    DungeonAltarsMiscAltarPng = loadImage("assets/dungeon/altars/misc_altar.png")
+    DungeonAltarsAltarBasePng = loadImage("assets/dungeon/altars/altar_base.png")
+    DungeonAltarsAltarXom4Png = loadImage("assets/dungeon/altars/altar_xom_4.png")
+    DungeonAltarsNemelex5Png = loadImage("assets/dungeon/altars/nemelex_5.png")
+    DungeonAltarsAltarMakhlebFlame6Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_6.png")
+    DungeonAltarsAltarMakhlebFlame3Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_3.png")
+    DungeonAltarsAltarCheibriadosPng = loadImage("assets/dungeon/altars/altar_cheibriados.png")
+    DungeonAltarsQazlal2Png = loadImage("assets/dungeon/altars/qazlal_2.png")
+    DungeonAltarsDithmenos2Png = loadImage("assets/dungeon/altars/dithmenos_2.png")
+    DungeonAltarsGozag0Png = loadImage("assets/dungeon/altars/gozag_0.png")
+    DungeonAltarsAltarAshenzariPng = loadImage("assets/dungeon/altars/altar_ashenzari.png")
+    DungeonAltarsAltarJiyva3Png = loadImage("assets/dungeon/altars/altar_jiyva_3.png")
+    DungeonAltarsGozag1Png = loadImage("assets/dungeon/altars/gozag_1.png")
+    DungeonAltarsAltarMakhlebFlame4Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_4.png")
+    DungeonAltarsRuPng = loadImage("assets/dungeon/altars/ru.png")
+    DungeonAltarsAltarCheibriados4Png = loadImage("assets/dungeon/altars/altar_cheibriados_4.png")
+    DungeonAltarsAltarMakhlebFlame7Png = loadImage("assets/dungeon/altars/altar_makhleb_flame_7.png")
+    DungeonAltarsAltarCheibriados12Png = loadImage("assets/dungeon/altars/altar_cheibriados_12.png")
+    DungeonAltarsAltarJiyva7Png = loadImage("assets/dungeon/altars/altar_jiyva_7.png")
+    DungeonAltarsAltarSifMunaPng = loadImage("assets/dungeon/altars/altar_sif_muna.png")
+    DungeonAltarsGozag2Png = loadImage("assets/dungeon/altars/gozag_2.png")
+    DungeonAltarsAltarXom3Png = loadImage("assets/dungeon/altars/altar_xom_3.png")
+    DungeonWallOrc7Png = loadImage("assets/dungeon/wall/orc_7.png")
+    DungeonWallSlime3OldPng = loadImage("assets/dungeon/wall/slime_3_old.png")
+    DungeonWallMarbleWall5Png = loadImage("assets/dungeon/wall/marble_wall_5.png")
+    DungeonWallBrickBrown2Png = loadImage("assets/dungeon/wall/brick_brown_2.png")
+    DungeonWallLair0OldPng = loadImage("assets/dungeon/wall/lair_0_old.png")
+    DungeonWallHell10Png = loadImage("assets/dungeon/wall/hell_10.png")
+    DungeonWallCatacombs11Png = loadImage("assets/dungeon/wall/catacombs_11.png")
+    DungeonWallCrystalWall5Png = loadImage("assets/dungeon/wall/crystal_wall_5.png")
+    DungeonWallPebbleRed0NewPng = loadImage("assets/dungeon/wall/pebble_red_0_new.png")
+    DungeonWallWallFlesh3Png = loadImage("assets/dungeon/wall/wall_flesh_3.png")
+    DungeonWallStoneBrick6Png = loadImage("assets/dungeon/wall/stone_brick_6.png")
+    DungeonWallCatacombs8Png = loadImage("assets/dungeon/wall/catacombs_8.png")
+    DungeonWallBrickBrown3Png = loadImage("assets/dungeon/wall/brick_brown_3.png")
+    DungeonWallHell3Png = loadImage("assets/dungeon/wall/hell_3.png")
+    DungeonWallBrickDark3Png = loadImage("assets/dungeon/wall/brick_dark_3.png")
+    DungeonWallStoneBlackMarked0Png = loadImage("assets/dungeon/wall/stone_black_marked_0.png")
+    DungeonWallPebbleRed0OldPng = loadImage("assets/dungeon/wall/pebble_red_0_old.png")
+    DungeonWallOrc4Png = loadImage("assets/dungeon/wall/orc_4.png")
+    DungeonWallStoneBrick10Png = loadImage("assets/dungeon/wall/stone_brick_10.png")
+    DungeonWallLair3NewPng = loadImage("assets/dungeon/wall/lair_3_new.png")
+    DungeonWallCatacombs4Png = loadImage("assets/dungeon/wall/catacombs_4.png")
+    DungeonWallUndead2Png = loadImage("assets/dungeon/wall/undead_2.png")
+    DungeonWallTransparentFleshPng = loadImage("assets/dungeon/wall/transparent_flesh.png")
+    DungeonWallStone2Brown1Png = loadImage("assets/dungeon/wall/stone_2_brown1.png")
+    DungeonWallBrickBrownVines4Png = loadImage("assets/dungeon/wall/brick_brown-vines_4.png")
+    DungeonWallCrystalWallMagentaPng = loadImage("assets/dungeon/wall/crystal_wall_magenta.png")
+    DungeonWallCobaltStone2Png = loadImage("assets/dungeon/wall/cobalt_stone_2.png")
+    DungeonWallStone2Gray0Png = loadImage("assets/dungeon/wall/stone_2_gray_0.png")
+    DungeonWallTransparentWallOldPng = loadImage("assets/dungeon/wall/transparent_wall_old.png")
+    DungeonWallCatacombs13Png = loadImage("assets/dungeon/wall/catacombs_13.png")
+    DungeonWallCrystalWallDarkgrayPng = loadImage("assets/dungeon/wall/crystal_wall_darkgray.png")
+    DungeonWallStoneBlackMarked8Png = loadImage("assets/dungeon/wall/stone_black_marked_8.png")
+    DungeonWallCobaltStone11Png = loadImage("assets/dungeon/wall/cobalt_stone_11.png")
+    DungeonWallSandstoneWall5Png = loadImage("assets/dungeon/wall/sandstone_wall_5.png")
+    DungeonWallSandstoneWall9Png = loadImage("assets/dungeon/wall/sandstone_wall_9.png")
+    DungeonWallShadowWestDarkerPng = loadImage("assets/dungeon/wall/shadow_west_darker.png")
+    DungeonWallCrystalWallLightmagentaPng = loadImage("assets/dungeon/wall/crystal_wall_lightmagenta.png")
+    DungeonWallLair1NewPng = loadImage("assets/dungeon/wall/lair_1_new.png")
+    DungeonWallRelief0Png = loadImage("assets/dungeon/wall/relief_0.png")
+    DungeonWallCrystalWall1Png = loadImage("assets/dungeon/wall/crystal_wall_1.png")
+    DungeonWallShadowEastTopDarkerPng = loadImage("assets/dungeon/wall/shadow_east_top_darker.png")
+    DungeonWallHell5Png = loadImage("assets/dungeon/wall/hell_5.png")
+    DungeonWallCatacombs6Png = loadImage("assets/dungeon/wall/catacombs_6.png")
+    DungeonWallStoneBrick1Png = loadImage("assets/dungeon/wall/stone_brick_1.png")
+    DungeonWallPebbleRed3OldPng = loadImage("assets/dungeon/wall/pebble_red_3_old.png")
+    DungeonWallSnake0Png = loadImage("assets/dungeon/wall/snake_0.png")
+    DungeonWallCobaltRock3Png = loadImage("assets/dungeon/wall/cobalt_rock_3.png")
+    DungeonWallStoneBrick2Png = loadImage("assets/dungeon/wall/stone_brick_2.png")
+    DungeonWallOrc0Png = loadImage("assets/dungeon/wall/orc_0.png")
+    DungeonWallCobaltStone8Png = loadImage("assets/dungeon/wall/cobalt_stone_8.png")
+    DungeonWallStoneBrick12Png = loadImage("assets/dungeon/wall/stone_brick_12.png")
+    DungeonWallStoneGray3Png = loadImage("assets/dungeon/wall/stone_gray_3.png")
+    DungeonWallWallVines3Png = loadImage("assets/dungeon/wall/wall_vines_3.png")
+    DungeonWallTomb0Png = loadImage("assets/dungeon/wall/tomb_0.png")
+    DungeonWallOrc1Png = loadImage("assets/dungeon/wall/orc_1.png")
+    DungeonWallUndeadBrown0Png = loadImage("assets/dungeon/wall/undead_brown_0.png")
+    DungeonWallSlime6Png = loadImage("assets/dungeon/wall/slime_6.png")
+    DungeonWallStoneGray0Png = loadImage("assets/dungeon/wall/stone_gray_0.png")
+    DungeonWallLair1OldPng = loadImage("assets/dungeon/wall/lair_1_old.png")
+    DungeonWallRelief1Png = loadImage("assets/dungeon/wall/relief_1.png")
+    DungeonWallShadowNortheastPng = loadImage("assets/dungeon/wall/shadow_northeast.png")
+    DungeonWallStoneBlackMarked5Png = loadImage("assets/dungeon/wall/stone_black_marked_5.png")
+    DungeonWallMarbleWall3Png = loadImage("assets/dungeon/wall/marble_wall_3.png")
+    DungeonWallCrystalWallLightbluePng = loadImage("assets/dungeon/wall/crystal_wall_lightblue.png")
+    DungeonWallStoneBrick3Png = loadImage("assets/dungeon/wall/stone_brick_3.png")
+    DungeonWallChurch1Png = loadImage("assets/dungeon/wall/church_1.png")
+    DungeonWallRelief3Png = loadImage("assets/dungeon/wall/relief_3.png")
+    DungeonWallCrystalWallLightredPng = loadImage("assets/dungeon/wall/crystal_wall_lightred.png")
+    DungeonWallTransparentStonePng = loadImage("assets/dungeon/wall/transparent_stone.png")
+    DungeonWallEmerald5Png = loadImage("assets/dungeon/wall/emerald_5.png")
+    DungeonWallUndeadBrown1Png = loadImage("assets/dungeon/wall/undead_brown_1.png")
+    DungeonWallMarbleWall8Png = loadImage("assets/dungeon/wall/marble_wall_8.png")
+    DungeonWallBeehives7Png = loadImage("assets/dungeon/wall/beehives_7.png")
+    DungeonWallPebbleRed2NewPng = loadImage("assets/dungeon/wall/pebble_red_2_new.png")
+    DungeonWallCrystalWallLightgrayPng = loadImage("assets/dungeon/wall/crystal_wall_lightgray.png")
+    DungeonWallCrystalWall9Png = loadImage("assets/dungeon/wall/crystal_wall_9.png")
+    DungeonWallMetalWallWhite2Png = loadImage("assets/dungeon/wall/metal_wall_white_2.png")
+    DungeonWallVault3Png = loadImage("assets/dungeon/wall/vault_3.png")
+    DungeonWallShoalsWall1Png = loadImage("assets/dungeon/wall/shoals_wall_1.png")
+    DungeonWallStone2Dark1Png = loadImage("assets/dungeon/wall/stone_2_dark1.png")
+    DungeonWallOrc5Png = loadImage("assets/dungeon/wall/orc_5.png")
+    DungeonWallSnake1Png = loadImage("assets/dungeon/wall/snake_1.png")
+    DungeonWallMetalWallPng = loadImage("assets/dungeon/wall/metal_wall.png")
+    DungeonWallHell7Png = loadImage("assets/dungeon/wall/hell_7.png")
+    DungeonWallBrickBrown1Png = loadImage("assets/dungeon/wall/brick_brown_1.png")
+    DungeonWallHell1Png = loadImage("assets/dungeon/wall/hell_1.png")
+    DungeonWallCrystalWallYellowPng = loadImage("assets/dungeon/wall/crystal_wall_yellow.png")
+    DungeonWallWallFlesh0Png = loadImage("assets/dungeon/wall/wall_flesh_0.png")
+    DungeonWallReliefBrown0Png = loadImage("assets/dungeon/wall/relief_brown_0.png")
+    DungeonWallStoneBlackMarked4Png = loadImage("assets/dungeon/wall/stone_black_marked_4.png")
+    DungeonWallBarsRed1Png = loadImage("assets/dungeon/wall/bars_red_1.png")
+    DungeonWallZotBlue3NewPng = loadImage("assets/dungeon/wall/zot_blue_3_new.png")
+    DungeonWallStoneGray1Png = loadImage("assets/dungeon/wall/stone_gray_1.png")
+    DungeonWallUndead3Png = loadImage("assets/dungeon/wall/undead_3.png")
+    DungeonWallSnake3Png = loadImage("assets/dungeon/wall/snake_3.png")
+    DungeonWallStoneBlackMarked3Png = loadImage("assets/dungeon/wall/stone_black_marked_3.png")
+    DungeonWallPebbleRed3NewPng = loadImage("assets/dungeon/wall/pebble_red_3_new.png")
+    DungeonWallHive1Png = loadImage("assets/dungeon/wall/hive_1.png")
+    DungeonWallShadowNorthwestDarkerPng = loadImage("assets/dungeon/wall/shadow_northwest_darker.png")
+    DungeonWallStone2Brown1Png = loadImage("assets/dungeon/wall/stone_2_brown_1.png")
+    DungeonWallHell11Png = loadImage("assets/dungeon/wall/hell_11.png")
+    DungeonWallStoneDark2Png = loadImage("assets/dungeon/wall/stone_dark_2.png")
+    DungeonWallPebbleRed2OldPng = loadImage("assets/dungeon/wall/pebble_red_2_old.png")
+    DungeonWallCrystalWall13Png = loadImage("assets/dungeon/wall/crystal_wall_13.png")
+    DungeonWallOrc6Png = loadImage("assets/dungeon/wall/orc_6.png")
+    DungeonWallLabMetal4Png = loadImage("assets/dungeon/wall/lab-metal_4.png")
+    DungeonWallEmerald2Png = loadImage("assets/dungeon/wall/emerald_2.png")
+    DungeonWallZotBlue2NewPng = loadImage("assets/dungeon/wall/zot_blue_2_new.png")
+    DungeonWallShadowNorthwestPng = loadImage("assets/dungeon/wall/shadow_northwest.png")
+    DungeonWallBrickBrownVines1Png = loadImage("assets/dungeon/wall/brick_brown-vines_1.png")
+    DungeonWallReliefBrown2Png = loadImage("assets/dungeon/wall/relief_brown_2.png")
+    DungeonWallStoneBlackMarked2Png = loadImage("assets/dungeon/wall/stone_black_marked_2.png")
+    DungeonWallSandstoneWall8Png = loadImage("assets/dungeon/wall/sandstone_wall_8.png")
+    DungeonWallBrickGray2Png = loadImage("assets/dungeon/wall/brick_gray_2.png")
+    DungeonWallLabStone5Png = loadImage("assets/dungeon/wall/lab-stone_5.png")
+    DungeonWallStone2Brown2OldPng = loadImage("assets/dungeon/wall/stone2_brown_2_old.png")
+    DungeonWallCatacombs15Png = loadImage("assets/dungeon/wall/catacombs_15.png")
+    DungeonWallVolcanicWall2Png = loadImage("assets/dungeon/wall/volcanic_wall_2.png")
+    DungeonWallWallFlesh4Png = loadImage("assets/dungeon/wall/wall_flesh_4.png")
+    DungeonWallLabMetal5Png = loadImage("assets/dungeon/wall/lab-metal_5.png")
+    DungeonWallStone2Dark0Png = loadImage("assets/dungeon/wall/stone_2_dark0.png")
+    DungeonWallBeehives0Png = loadImage("assets/dungeon/wall/beehives_0.png")
+    DungeonWallCatacombs9Png = loadImage("assets/dungeon/wall/catacombs_9.png")
+    DungeonWallStone2Brown0Png = loadImage("assets/dungeon/wall/stone_2_brown_0.png")
+    DungeonWallShoalsWall4Png = loadImage("assets/dungeon/wall/shoals_wall_4.png")
+    DungeonWallStoneBrick11Png = loadImage("assets/dungeon/wall/stone_brick_11.png")
+    DungeonWallSnake5Png = loadImage("assets/dungeon/wall/snake_5.png")
+    DungeonWallCatacombs10Png = loadImage("assets/dungeon/wall/catacombs_10.png")
+    DungeonWallEmerald8Png = loadImage("assets/dungeon/wall/emerald_8.png")
+    DungeonWallSlime1OldPng = loadImage("assets/dungeon/wall/slime_1_old.png")
+    DungeonWallCrystalWall8Png = loadImage("assets/dungeon/wall/crystal_wall_8.png")
+    DungeonWallMarbleWall11Png = loadImage("assets/dungeon/wall/marble_wall_11.png")
+    DungeonWallMarbleWall6Png = loadImage("assets/dungeon/wall/marble_wall_6.png")
+    DungeonWallVolcanicWall3Png = loadImage("assets/dungeon/wall/volcanic_wall_3.png")
+    DungeonWallMetalWallWhite1Png = loadImage("assets/dungeon/wall/metal_wall_white_1.png")
+    DungeonWallStoneDark3Png = loadImage("assets/dungeon/wall/stone_dark_3.png")
+    DungeonWallStone2Gray3OldPng = loadImage("assets/dungeon/wall/stone2_gray_3_old.png")
+    DungeonWallCobaltStone10Png = loadImage("assets/dungeon/wall/cobalt_stone_10.png")
+    DungeonWallStoneBlackMarked6Png = loadImage("assets/dungeon/wall/stone_black_marked_6.png")
+    DungeonWallCrystalWall10Png = loadImage("assets/dungeon/wall/crystal_wall_1_0.png")
+    DungeonWallReliefBrown1Png = loadImage("assets/dungeon/wall/relief_brown_1.png")
+    DungeonWallStone2Gray2NewPng = loadImage("assets/dungeon/wall/stone2_gray_2_new.png")
+    DungeonWallEmerald3Png = loadImage("assets/dungeon/wall/emerald_3.png")
+    DungeonWallBeehives4Png = loadImage("assets/dungeon/wall/beehives_4.png")
+    DungeonWallStone2Dark3NewPng = loadImage("assets/dungeon/wall/stone2_dark_3_new.png")
+    DungeonWallMarbleWall4Png = loadImage("assets/dungeon/wall/marble_wall_4.png")
+    DungeonWallCrystalWallGreenPng = loadImage("assets/dungeon/wall/crystal_wall_green.png")
+    DungeonWallZotBlue3OldPng = loadImage("assets/dungeon/wall/zot_blue_3_old.png")
+    DungeonWallBrickDark5Png = loadImage("assets/dungeon/wall/brick_dark_5.png")
+    DungeonWallCrystalWallRedPng = loadImage("assets/dungeon/wall/crystal_wall_red.png")
+    DungeonWallCobaltRock1Png = loadImage("assets/dungeon/wall/cobalt_rock_1.png")
+    DungeonWallStone2Dark3OldPng = loadImage("assets/dungeon/wall/stone2_dark_3_old.png")
+    DungeonWallHive2Png = loadImage("assets/dungeon/wall/hive_2.png")
+    DungeonWallTransparentWallNewPng = loadImage("assets/dungeon/wall/transparent_wall_new.png")
+    DungeonWallBrickDark2Png = loadImage("assets/dungeon/wall/brick_dark_2.png")
+    DungeonWallTomb2Png = loadImage("assets/dungeon/wall/tomb_2.png")
+    DungeonWallOrc10Png = loadImage("assets/dungeon/wall/orc_10.png")
+    DungeonWallLabRock1Png = loadImage("assets/dungeon/wall/lab-rock_1.png")
+    DungeonWallShoalsWall2Png = loadImage("assets/dungeon/wall/shoals_wall_2.png")
+    DungeonWallPebbleRed1NewPng = loadImage("assets/dungeon/wall/pebble_red_1_new.png")
+    DungeonWallMetalWallWhite0Png = loadImage("assets/dungeon/wall/metal_wall_white_0.png")
+    DungeonWallBeehives6Png = loadImage("assets/dungeon/wall/beehives_6.png")
+    DungeonWallLabStone3Png = loadImage("assets/dungeon/wall/lab-stone_3.png")
+    DungeonWallSnake7Png = loadImage("assets/dungeon/wall/snake_7.png")
+    DungeonWallWallVines4Png = loadImage("assets/dungeon/wall/wall_vines_4.png")
+    DungeonWallLabStone1Png = loadImage("assets/dungeon/wall/lab-stone_1.png")
+    DungeonWallWallYellowRock3Png = loadImage("assets/dungeon/wall/wall_yellow_rock_3.png")
+    DungeonWallBarsRed6Png = loadImage("assets/dungeon/wall/bars_red_6.png")
+    DungeonWallSandstoneWall2Png = loadImage("assets/dungeon/wall/sandstone_wall_2.png")
+    DungeonWallSlimeStone1Png = loadImage("assets/dungeon/wall/slime_stone_1.png")
+    DungeonWallLabMetal6Png = loadImage("assets/dungeon/wall/lab-metal_6.png")
+    DungeonWallStoneBlackMarked1Png = loadImage("assets/dungeon/wall/stone_black_marked_1.png")
+    DungeonWallEmerald4Png = loadImage("assets/dungeon/wall/emerald_4.png")
+    DungeonWallPermarockRed0Png = loadImage("assets/dungeon/wall/permarock_red_0.png")
+    DungeonWallBeehives1Png = loadImage("assets/dungeon/wall/beehives_1.png")
+    DungeonWallHell4Png = loadImage("assets/dungeon/wall/hell_4.png")
+    DungeonWallWallYellowRock2Png = loadImage("assets/dungeon/wall/wall_yellow_rock_2.png")
+    DungeonWallCrystalWall3Png = loadImage("assets/dungeon/wall/crystal_wall_3.png")
+    DungeonWallOrc2Png = loadImage("assets/dungeon/wall/orc_2.png")
+    DungeonWallWallVines2Png = loadImage("assets/dungeon/wall/wall_vines_2.png")
+    DungeonWallBeehives5Png = loadImage("assets/dungeon/wall/beehives_5.png")
+    DungeonWallWallVines1Png = loadImage("assets/dungeon/wall/wall_vines_1.png")
+    DungeonWallCrystalWallLightcyanPng = loadImage("assets/dungeon/wall/crystal_wall_lightcyan.png")
+    DungeonWallCrystalWall0Png = loadImage("assets/dungeon/wall/crystal_wall_0.png")
+    DungeonWallBrickBrownVines3Png = loadImage("assets/dungeon/wall/brick_brown-vines_3.png")
+    DungeonWallWallFlesh6Png = loadImage("assets/dungeon/wall/wall_flesh_6.png")
+    DungeonWallCatacombs0Png = loadImage("assets/dungeon/wall/catacombs_0.png")
+    DungeonWallVault0Png = loadImage("assets/dungeon/wall/vault_0.png")
+    DungeonWallCrystalWallBluePng = loadImage("assets/dungeon/wall/crystal_wall_blue.png")
+    DungeonWallEmerald7Png = loadImage("assets/dungeon/wall/emerald_7.png")
+    DungeonWallCatacombs2Png = loadImage("assets/dungeon/wall/catacombs_2.png")
+    DungeonWallStone2Gray3NewPng = loadImage("assets/dungeon/wall/stone2_gray_3_new.png")
+    DungeonWallStoneBrick4Png = loadImage("assets/dungeon/wall/stone_brick_4.png")
+    DungeonWallZotBlue0OldPng = loadImage("assets/dungeon/wall/zot_blue_0_old.png")
+    DungeonWallSlimeStone0Png = loadImage("assets/dungeon/wall/slime_stone_0.png")
+    DungeonWallUndeadBrown2Png = loadImage("assets/dungeon/wall/undead_brown_2.png")
+    DungeonWallSnake2Png = loadImage("assets/dungeon/wall/snake_2.png")
+    DungeonWallMetalWallCrackedPng = loadImage("assets/dungeon/wall/metal_wall_cracked.png")
+    DungeonWallUndead0Png = loadImage("assets/dungeon/wall/undead_0.png")
+    DungeonWallCatacombs12Png = loadImage("assets/dungeon/wall/catacombs_12.png")
+    DungeonWallLabMetal1Png = loadImage("assets/dungeon/wall/lab-metal_1.png")
+    DungeonWallLair3OldPng = loadImage("assets/dungeon/wall/lair_3_old.png")
+    DungeonWallCobaltStone4Png = loadImage("assets/dungeon/wall/cobalt_stone_4.png")
+    DungeonWallLabStone2Png = loadImage("assets/dungeon/wall/lab-stone_2.png")
+    DungeonWallCrystalWallWhitePng = loadImage("assets/dungeon/wall/crystal_wall_white.png")
+    DungeonWallMarbleWall9Png = loadImage("assets/dungeon/wall/marble_wall_9.png")
+    DungeonWallPermarockClearRed0Png = loadImage("assets/dungeon/wall/permarock_clear_red_0.png")
+    DungeonWallVault2Png = loadImage("assets/dungeon/wall/vault_2.png")
+    DungeonWallCrystalWall6Png = loadImage("assets/dungeon/wall/crystal_wall_6.png")
+    DungeonWallCobaltRock2Png = loadImage("assets/dungeon/wall/cobalt_rock_2.png")
+    DungeonWallTomb1Png = loadImage("assets/dungeon/wall/tomb_1.png")
+    DungeonWallStone2Dark0Png = loadImage("assets/dungeon/wall/stone_2_dark_0.png")
+    DungeonWallCatacombs7Png = loadImage("assets/dungeon/wall/catacombs_7.png")
+    DungeonWallStone2Brown2NewPng = loadImage("assets/dungeon/wall/stone2_brown_2_new.png")
+    DungeonWallShadowNorthDarkerPng = loadImage("assets/dungeon/wall/shadow_north_darker.png")
+    DungeonWallBeehives9Png = loadImage("assets/dungeon/wall/beehives_9.png")
+    DungeonWallWallVines0Png = loadImage("assets/dungeon/wall/wall_vines_0.png")
+    DungeonWallOrc11Png = loadImage("assets/dungeon/wall/orc_11.png")
+    DungeonWallHell2Png = loadImage("assets/dungeon/wall/hell_2.png")
+    DungeonWallBrickBrown4Png = loadImage("assets/dungeon/wall/brick_brown_4.png")
+    DungeonWallShadowEastPng = loadImage("assets/dungeon/wall/shadow_east.png")
+    DungeonWallRelief2Png = loadImage("assets/dungeon/wall/relief_2.png")
+    DungeonWallVolcanicWall0Png = loadImage("assets/dungeon/wall/volcanic_wall_0.png")
+    DungeonWallStone2Gray1Png = loadImage("assets/dungeon/wall/stone_2_gray1.png")
+    DungeonWallShadowNorthPng = loadImage("assets/dungeon/wall/shadow_north.png")
+    DungeonWallMarbleWall10Png = loadImage("assets/dungeon/wall/marble_wall_10.png")
+    DungeonWallCrystalWall12Png = loadImage("assets/dungeon/wall/crystal_wall_12.png")
+    DungeonWallStoneGray2Png = loadImage("assets/dungeon/wall/stone_gray_2.png")
+    DungeonWallLair0NewPng = loadImage("assets/dungeon/wall/lair_0_new.png")
+    DungeonWallStoneDark1Png = loadImage("assets/dungeon/wall/stone_dark_1.png")
+    DungeonWallWallVines6Png = loadImage("assets/dungeon/wall/wall_vines_6.png")
+    DungeonWallUndeadBrown3Png = loadImage("assets/dungeon/wall/undead_brown_3.png")
+    DungeonWallLabStone4Png = loadImage("assets/dungeon/wall/lab-stone_4.png")
+    DungeonWallOrc8Png = loadImage("assets/dungeon/wall/orc_8.png")
+    DungeonWallCobaltStone9Png = loadImage("assets/dungeon/wall/cobalt_stone_9.png")
+    DungeonWallCobaltStone12Png = loadImage("assets/dungeon/wall/cobalt_stone_12.png")
+    DungeonWallWaxWallNewPng = loadImage("assets/dungeon/wall/wax_wall_new.png")
+    DungeonWallChurch3Png = loadImage("assets/dungeon/wall/church_3.png")
+    DungeonWallBeehives3Png = loadImage("assets/dungeon/wall/beehives_3.png")
+    DungeonWallStone2Gray1Png = loadImage("assets/dungeon/wall/stone_2_gray_1.png")
+    DungeonWallSnake8Png = loadImage("assets/dungeon/wall/snake_8.png")
+    DungeonWallBrickGray3Png = loadImage("assets/dungeon/wall/brick_gray_3.png")
+    DungeonWallHell6Png = loadImage("assets/dungeon/wall/hell_6.png")
+    DungeonWallMarbleWall2Png = loadImage("assets/dungeon/wall/marble_wall_2.png")
+    DungeonWallWallYellowRock1Png = loadImage("assets/dungeon/wall/wall_yellow_rock_1.png")
+    DungeonWallStone2Brown3NewPng = loadImage("assets/dungeon/wall/stone2_brown_3_new.png")
+    DungeonWallSlime0NewPng = loadImage("assets/dungeon/wall/slime_0_new.png")
+    DungeonWallSlimeStone2Png = loadImage("assets/dungeon/wall/slime_stone_2.png")
+    DungeonWallZotBlue1OldPng = loadImage("assets/dungeon/wall/zot_blue_1_old.png")
+    DungeonWallCrystalWallBrownPng = loadImage("assets/dungeon/wall/crystal_wall_brown.png")
+    DungeonWallSandstoneWall3Png = loadImage("assets/dungeon/wall/sandstone_wall_3.png")
+    DungeonWallShadowWestPng = loadImage("assets/dungeon/wall/shadow_west.png")
+    DungeonWallHive3Png = loadImage("assets/dungeon/wall/hive_3.png")
+    DungeonWallLabRock3Png = loadImage("assets/dungeon/wall/lab-rock_3.png")
+    DungeonWallBrickBrown6Png = loadImage("assets/dungeon/wall/brick_brown_6.png")
+    DungeonWallOrc9Png = loadImage("assets/dungeon/wall/orc_9.png")
+    DungeonWallZotBlue0NewPng = loadImage("assets/dungeon/wall/zot_blue_0_new.png")
+    DungeonWallSandstoneWall0Png = loadImage("assets/dungeon/wall/sandstone_wall_0.png")
+    DungeonWallCatacombs1Png = loadImage("assets/dungeon/wall/catacombs_1.png")
+    DungeonWallCrystalWallLightgreenPng = loadImage("assets/dungeon/wall/crystal_wall_lightgreen.png")
+    DungeonWallStoneBlackMarked7Png = loadImage("assets/dungeon/wall/stone_black_marked_7.png")
+    DungeonWallSandstoneWall4Png = loadImage("assets/dungeon/wall/sandstone_wall_4.png")
+    DungeonWallBarsRed7Png = loadImage("assets/dungeon/wall/bars_red_7.png")
+    DungeonWallMarbleWall12Png = loadImage("assets/dungeon/wall/marble_wall_12.png")
+    DungeonWallShadowWestTopPng = loadImage("assets/dungeon/wall/shadow_west_top.png")
+    DungeonWallSandstoneWall7Png = loadImage("assets/dungeon/wall/sandstone_wall_7.png")
+    DungeonWallWallFlesh5Png = loadImage("assets/dungeon/wall/wall_flesh_5.png")
+    DungeonWallCobaltStone3Png = loadImage("assets/dungeon/wall/cobalt_stone_3.png")
+    DungeonWallHell9Png = loadImage("assets/dungeon/wall/hell_9.png")
+    DungeonWallBrickBrown7Png = loadImage("assets/dungeon/wall/brick_brown_7.png")
+    DungeonWallLabMetal2Png = loadImage("assets/dungeon/wall/lab-metal_2.png")
+    DungeonWallEmerald6Png = loadImage("assets/dungeon/wall/emerald_6.png")
+    DungeonWallBrickDark0Png = loadImage("assets/dungeon/wall/brick_dark_0.png")
+    DungeonWallSilverWallPng = loadImage("assets/dungeon/wall/silver_wall.png")
+    DungeonWallWallFlesh1Png = loadImage("assets/dungeon/wall/wall_flesh_1.png")
+    DungeonWallPebbleRed1OldPng = loadImage("assets/dungeon/wall/pebble_red_1_old.png")
+    DungeonWallOrc3Png = loadImage("assets/dungeon/wall/orc_3.png")
+    DungeonWallBrickDark1Png = loadImage("assets/dungeon/wall/brick_dark_1.png")
+    DungeonWallStone2Brown3OldPng = loadImage("assets/dungeon/wall/stone2_brown_3_old.png")
+    DungeonWallChurch2Png = loadImage("assets/dungeon/wall/church_2.png")
+    DungeonWallCrystalWallCyanPng = loadImage("assets/dungeon/wall/crystal_wall_cyan.png")
+    DungeonWallCobaltStone1Png = loadImage("assets/dungeon/wall/cobalt_stone_1.png")
+    DungeonWallMarbleWall7Png = loadImage("assets/dungeon/wall/marble_wall_7.png")
+    DungeonWallCatacombs5Png = loadImage("assets/dungeon/wall/catacombs_5.png")
+    DungeonWallWaxWallOldPng = loadImage("assets/dungeon/wall/wax_wall_old.png")
+    DungeonWallCobaltRock4Png = loadImage("assets/dungeon/wall/cobalt_rock_4.png")
+    DungeonWallStoneBrick7Png = loadImage("assets/dungeon/wall/stone_brick_7.png")
+    DungeonWallMetalWallBrownPng = loadImage("assets/dungeon/wall/metal_wall_brown.png")
+    DungeonWallShoalsWall3Png = loadImage("assets/dungeon/wall/shoals_wall_3.png")
+    DungeonWallCrystalWall2Png = loadImage("assets/dungeon/wall/crystal_wall_2.png")
+    DungeonWallLabRock0Png = loadImage("assets/dungeon/wall/lab-rock_0.png")
+    DungeonWallLabMetal3Png = loadImage("assets/dungeon/wall/lab-metal_3.png")
+    DungeonWallBarsRed8Png = loadImage("assets/dungeon/wall/bars_red_8.png")
+    DungeonWallShadowNortheastDarkerPng = loadImage("assets/dungeon/wall/shadow_northeast_darker.png")
+    DungeonWallBeehives2Png = loadImage("assets/dungeon/wall/beehives_2.png")
+    DungeonWallLabRock2Png = loadImage("assets/dungeon/wall/lab-rock_2.png")
+    DungeonWallSlime5Png = loadImage("assets/dungeon/wall/slime_5.png")
+    DungeonWallBarsRed2Png = loadImage("assets/dungeon/wall/bars_red_2.png")
+    DungeonWallCobaltStone5Png = loadImage("assets/dungeon/wall/cobalt_stone_5.png")
+    DungeonWallGreenCrystalWallPng = loadImage("assets/dungeon/wall/green_crystal_wall.png")
+    DungeonWallSlime3NewPng = loadImage("assets/dungeon/wall/slime_3_new.png")
+    DungeonWallChurch4Png = loadImage("assets/dungeon/wall/church_4.png")
+    DungeonWallVolcanicWall5Png = loadImage("assets/dungeon/wall/volcanic_wall_5.png")
+    DungeonWallChurch0Png = loadImage("assets/dungeon/wall/church_0.png")
+    DungeonWallHell8Png = loadImage("assets/dungeon/wall/hell_8.png")
+    DungeonWallSlime1NewPng = loadImage("assets/dungeon/wall/slime_1_new.png")
+    DungeonWallStoneBrick9Png = loadImage("assets/dungeon/wall/stone_brick_9.png")
+    DungeonWallCatacombs3Png = loadImage("assets/dungeon/wall/catacombs_3.png")
+    DungeonWallBrickBrownVines2Png = loadImage("assets/dungeon/wall/brick_brown-vines_2.png")
+    DungeonWallBrickDark6Png = loadImage("assets/dungeon/wall/brick_dark_6.png")
+    DungeonWallBrickGray1Png = loadImage("assets/dungeon/wall/brick_gray_1.png")
+    DungeonWallHive0Png = loadImage("assets/dungeon/wall/hive_0.png")
+    DungeonWallReliefBrown3Png = loadImage("assets/dungeon/wall/relief_brown_3.png")
+    DungeonWallSandstoneWall1Png = loadImage("assets/dungeon/wall/sandstone_wall_1.png")
+    DungeonWallCatacombs14Png = loadImage("assets/dungeon/wall/catacombs_14.png")
+    DungeonWallStone2Dark2OldPng = loadImage("assets/dungeon/wall/stone2_dark_2_old.png")
+    DungeonWallSandstoneWall6Png = loadImage("assets/dungeon/wall/sandstone_wall_6.png")
+    DungeonWallWallFlesh2Png = loadImage("assets/dungeon/wall/wall_flesh_2.png")
+    DungeonWallMarbleWall1Png = loadImage("assets/dungeon/wall/marble_wall_1.png")
+    DungeonWallLabStone0Png = loadImage("assets/dungeon/wall/lab-stone_0.png")
+    DungeonWallSnake6Png = loadImage("assets/dungeon/wall/snake_6.png")
+    DungeonWallMirroredWallOldPng = loadImage("assets/dungeon/wall/mirrored_wall_old.png")
+    DungeonWallVault1Png = loadImage("assets/dungeon/wall/vault_1.png")
+    DungeonWallBarsRed3Png = loadImage("assets/dungeon/wall/bars_red_3.png")
+    DungeonWallVolcanicWall6Png = loadImage("assets/dungeon/wall/volcanic_wall_6.png")
+    DungeonWallCrystalWall4Png = loadImage("assets/dungeon/wall/crystal_wall_4.png")
+    DungeonWallZotBlue2OldPng = loadImage("assets/dungeon/wall/zot_blue_2_old.png")
+    DungeonWallStone2Dark2NewPng = loadImage("assets/dungeon/wall/stone2_dark_2_new.png")
+    DungeonWallLair2OldPng = loadImage("assets/dungeon/wall/lair_2_old.png")
+    DungeonWallZotBlue1NewPng = loadImage("assets/dungeon/wall/zot_blue_1_new.png")
+    DungeonWallSlime0OldPng = loadImage("assets/dungeon/wall/slime_0_old.png")
+    DungeonWallCrystalWall11Png = loadImage("assets/dungeon/wall/crystal_wall_11.png")
+    DungeonWallCobaltStone6Png = loadImage("assets/dungeon/wall/cobalt_stone_6.png")
+    DungeonWallShadowEastTopPng = loadImage("assets/dungeon/wall/shadow_east_top.png")
+    DungeonWallLabMetal0Png = loadImage("assets/dungeon/wall/lab-metal_0.png")
+    DungeonWallStoneBrick8Png = loadImage("assets/dungeon/wall/stone_brick_8.png")
+    DungeonWallUndead1Png = loadImage("assets/dungeon/wall/undead_1.png")
+    DungeonWallWallVines5Png = loadImage("assets/dungeon/wall/wall_vines_5.png")
+    DungeonWallCrystalWall7Png = loadImage("assets/dungeon/wall/crystal_wall_7.png")
+    DungeonWallSnake4Png = loadImage("assets/dungeon/wall/snake_4.png")
+    DungeonWallWallYellowRock0Png = loadImage("assets/dungeon/wall/wall_yellow_rock_0.png")
+    DungeonWallBrickBrown0Png = loadImage("assets/dungeon/wall/brick_brown_0.png")
+    DungeonWallTomb3Png = loadImage("assets/dungeon/wall/tomb_3.png")
+    DungeonWallSlime2NewPng = loadImage("assets/dungeon/wall/slime_2_new.png")
+    DungeonWallLair2NewPng = loadImage("assets/dungeon/wall/lair_2_new.png")
+    DungeonWallVolcanicWall4Png = loadImage("assets/dungeon/wall/volcanic_wall_4.png")
+    DungeonWallBrickBrown5Png = loadImage("assets/dungeon/wall/brick_brown_5.png")
+    DungeonWallBeehives8Png = loadImage("assets/dungeon/wall/beehives_8.png")
+    DungeonWallBrickDark4Png = loadImage("assets/dungeon/wall/brick_dark_4.png")
+    DungeonWallShadowEastDarkerPng = loadImage("assets/dungeon/wall/shadow_east_darker.png")
+    DungeonWallVolcanicWall1Png = loadImage("assets/dungeon/wall/volcanic_wall_1.png")
+    DungeonWallBarsRed4Png = loadImage("assets/dungeon/wall/bars_red_4.png")
+    DungeonWallStone2Brown0Png = loadImage("assets/dungeon/wall/stone_2_brown0.png")
+    DungeonWallStone2Dark1Png = loadImage("assets/dungeon/wall/stone_2_dark_1.png")
+    DungeonWallBarsRed5Png = loadImage("assets/dungeon/wall/bars_red_5.png")
+    DungeonWallShadowWestTopDarkerPng = loadImage("assets/dungeon/wall/shadow_west_top_darker.png")
+    DungeonWallBrickGray0Png = loadImage("assets/dungeon/wall/brick_gray_0.png")
+    DungeonWallSnake9Png = loadImage("assets/dungeon/wall/snake_9.png")
+    DungeonWallStoneDark0Png = loadImage("assets/dungeon/wall/stone_dark_0.png")
+    DungeonWallStoneBrick5Png = loadImage("assets/dungeon/wall/stone_brick_5.png")
+    DungeonWallMirroredWallNewPng = loadImage("assets/dungeon/wall/mirrored_wall_new.png")
+    DungeonWallSlime7Png = loadImage("assets/dungeon/wall/slime_7.png")
+    DungeonWallStone2Gray2OldPng = loadImage("assets/dungeon/wall/stone2_gray_2_old.png")
+    DungeonWallStone2Gray0Png = loadImage("assets/dungeon/wall/stone_2_gray0.png")
+    DungeonWallEmerald1Png = loadImage("assets/dungeon/wall/emerald_1.png")
+    DungeonWallSlime4Png = loadImage("assets/dungeon/wall/slime_4.png")
+    DungeonWallCobaltStone7Png = loadImage("assets/dungeon/wall/cobalt_stone_7.png")
+    DungeonWallSlime2OldPng = loadImage("assets/dungeon/wall/slime_2_old.png")
+    DungeonWallTorchesTorch2Png = loadImage("assets/dungeon/wall/torches/torch_2.png")
+    DungeonWallTorchesTorch1Png = loadImage("assets/dungeon/wall/torches/torch_1.png")
+    DungeonWallTorchesTorch3Png = loadImage("assets/dungeon/wall/torches/torch_3.png")
+    DungeonWallTorchesTorch4Png = loadImage("assets/dungeon/wall/torches/torch_4.png")
+    DungeonWallTorchesTorch0Png = loadImage("assets/dungeon/wall/torches/torch_0.png")
+    DungeonWallAbyssAbyssLightgray3Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_3.png")
+    DungeonWallAbyssAbyss2Png = loadImage("assets/dungeon/wall/abyss/abyss_2.png")
+    DungeonWallAbyssAbyss3Png = loadImage("assets/dungeon/wall/abyss/abyss_3.png")
+    DungeonWallAbyssAbyssLightred4Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_4.png")
+    DungeonWallAbyssAbyssYellow1Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_1.png")
+    DungeonWallAbyssAbyssLightcyan6Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_6.png")
+    DungeonWallAbyssAbyssLightblue3Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_3.png")
+    DungeonWallAbyssAbyssLightgreen0Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_0.png")
+    DungeonWallAbyssAbyssLightgray4Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_4.png")
+    DungeonWallAbyssAbyssYellow7Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_7.png")
+    DungeonWallAbyssAbyssLightred5Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_5.png")
+    DungeonWallAbyssAbyssCyan3Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_3.png")
+    DungeonWallAbyssAbyssWhite3Png = loadImage("assets/dungeon/wall/abyss/abyss_white_3.png")
+    DungeonWallAbyssAbyssCyan1Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_1.png")
+    DungeonWallAbyssAbyssBlue3Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_3.png")
+    DungeonWallAbyssAbyssWhite1Png = loadImage("assets/dungeon/wall/abyss/abyss_white_1.png")
+    DungeonWallAbyssAbyssLightcyan3Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_3.png")
+    DungeonWallAbyssAbyssLightmagenta5Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_5.png")
+    DungeonWallAbyssAbyssLightblue0Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_0.png")
+    DungeonWallAbyssAbyssLightred1Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_1.png")
+    DungeonWallAbyssAbyssLightmagenta7Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_7.png")
+    DungeonWallAbyssAbyssGreen3Png = loadImage("assets/dungeon/wall/abyss/abyss_green_3.png")
+    DungeonWallAbyssAbyssGreen0Png = loadImage("assets/dungeon/wall/abyss/abyss_green_0.png")
+    DungeonWallAbyssAbyss6Png = loadImage("assets/dungeon/wall/abyss/abyss_6.png")
+    DungeonWallAbyssAbyssBlue6Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_6.png")
+    DungeonWallAbyssAbyssLightmagenta2Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_2.png")
+    DungeonWallAbyssAbyssBrown4Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_4.png")
+    DungeonWallAbyssAbyssMagenta5Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_5.png")
+    DungeonWallAbyssAbyssBrown3Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_3.png")
+    DungeonWallAbyssAbyssWhite2Png = loadImage("assets/dungeon/wall/abyss/abyss_white_2.png")
+    DungeonWallAbyssAbyssLightblue1Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_1.png")
+    DungeonWallAbyssAbyss7Png = loadImage("assets/dungeon/wall/abyss/abyss_7.png")
+    DungeonWallAbyssAbyssLightred7Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_7.png")
+    DungeonWallAbyssAbyssLightcyan5Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_5.png")
+    DungeonWallAbyssAbyssCyan0Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_0.png")
+    DungeonWallAbyssAbyssLightcyan7Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_7.png")
+    DungeonWallAbyssAbyssWhite5Png = loadImage("assets/dungeon/wall/abyss/abyss_white_5.png")
+    DungeonWallAbyssAbyss5Png = loadImage("assets/dungeon/wall/abyss/abyss_5.png")
+    DungeonWallAbyssAbyss1Png = loadImage("assets/dungeon/wall/abyss/abyss_1.png")
+    DungeonWallAbyssAbyssLightgray0Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_0.png")
+    DungeonWallAbyssAbyssBlue1Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_1.png")
+    DungeonWallAbyssAbyssBlue7Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_7.png")
+    DungeonWallAbyssAbyssBrown0Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_0.png")
+    DungeonWallAbyssAbyssLightgray5Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_5.png")
+    DungeonWallAbyssAbyssMagenta7Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_7.png")
+    DungeonWallAbyssAbyssLightgreen4Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_4.png")
+    DungeonWallAbyssAbyssLightgreen7Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_7.png")
+    DungeonWallAbyssAbyssCyan7Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_7.png")
+    DungeonWallAbyssAbyssLightgreen5Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_5.png")
+    DungeonWallAbyssAbyssBrown5Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_5.png")
+    DungeonWallAbyssAbyssGreen1Png = loadImage("assets/dungeon/wall/abyss/abyss_green_1.png")
+    DungeonWallAbyssAbyssYellow3Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_3.png")
+    DungeonWallAbyssAbyssCyan2Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_2.png")
+    DungeonWallAbyssAbyssGreen4Png = loadImage("assets/dungeon/wall/abyss/abyss_green_4.png")
+    DungeonWallAbyssAbyssLightgray1Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_1.png")
+    DungeonWallAbyssAbyssDarkgray6Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_6.png")
+    DungeonWallAbyssAbyssLightcyan2Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_2.png")
+    DungeonWallAbyssAbyssDarkgray4Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_4.png")
+    DungeonWallAbyssAbyssDarkgray3Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_3.png")
+    DungeonWallAbyssAbyssLightmagenta3Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_3.png")
+    DungeonWallAbyssAbyssLightgray2Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_2.png")
+    DungeonWallAbyssAbyssYellow2Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_2.png")
+    DungeonWallAbyssAbyssBlue4Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_4.png")
+    DungeonWallAbyssAbyssLightred3Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_3.png")
+    DungeonWallAbyssAbyssLightgreen2Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_2.png")
+    DungeonWallAbyssAbyssLightblue7Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_7.png")
+    DungeonWallAbyssAbyssLightblue4Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_4.png")
+    DungeonWallAbyssAbyssGreen6Png = loadImage("assets/dungeon/wall/abyss/abyss_green_6.png")
+    DungeonWallAbyssAbyssCyan5Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_5.png")
+    DungeonWallAbyssAbyssMagenta4Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_4.png")
+    DungeonWallAbyssAbyssLightcyan1Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_1.png")
+    DungeonWallAbyssAbyssDarkgray0Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_0.png")
+    DungeonWallAbyssAbyssLightblue6Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_6.png")
+    DungeonWallAbyssAbyss0Png = loadImage("assets/dungeon/wall/abyss/abyss_0.png")
+    DungeonWallAbyssAbyssGreen5Png = loadImage("assets/dungeon/wall/abyss/abyss_green_5.png")
+    DungeonWallAbyssAbyssWhite7Png = loadImage("assets/dungeon/wall/abyss/abyss_white_7.png")
+    DungeonWallAbyssAbyssLightmagenta0Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_0.png")
+    DungeonWallAbyssAbyssMagenta1Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_1.png")
+    DungeonWallAbyssAbyssLightblue5Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_5.png")
+    DungeonWallAbyssAbyssWhite4Png = loadImage("assets/dungeon/wall/abyss/abyss_white_4.png")
+    DungeonWallAbyssAbyssCyan4Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_4.png")
+    DungeonWallAbyssAbyssYellow6Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_6.png")
+    DungeonWallAbyssAbyssYellow0Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_0.png")
+    DungeonWallAbyssAbyssBrown1Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_1.png")
+    DungeonWallAbyssAbyssMagenta0Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_0.png")
+    DungeonWallAbyssAbyssLightmagenta1Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_1.png")
+    DungeonWallAbyssAbyssWhite6Png = loadImage("assets/dungeon/wall/abyss/abyss_white_6.png")
+    DungeonWallAbyssAbyssGreen7Png = loadImage("assets/dungeon/wall/abyss/abyss_green_7.png")
+    DungeonWallAbyssAbyssLightcyan0Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_0.png")
+    DungeonWallAbyssAbyssWhite0Png = loadImage("assets/dungeon/wall/abyss/abyss_white_0.png")
+    DungeonWallAbyssAbyssLightcyan4Png = loadImage("assets/dungeon/wall/abyss/abyss_lightcyan_4.png")
+    DungeonWallAbyssAbyss4Png = loadImage("assets/dungeon/wall/abyss/abyss_4.png")
+    DungeonWallAbyssAbyssDarkgray2Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_2.png")
+    DungeonWallAbyssAbyssLightmagenta4Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_4.png")
+    DungeonWallAbyssAbyssLightgreen1Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_1.png")
+    DungeonWallAbyssAbyssBrown7Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_7.png")
+    DungeonWallAbyssAbyssLightgreen3Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_3.png")
+    DungeonWallAbyssAbyssGreen2Png = loadImage("assets/dungeon/wall/abyss/abyss_green_2.png")
+    DungeonWallAbyssAbyssCyan6Png = loadImage("assets/dungeon/wall/abyss/abyss_cyan_6.png")
+    DungeonWallAbyssAbyssMagenta6Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_6.png")
+    DungeonWallAbyssAbyssLightred6Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_6.png")
+    DungeonWallAbyssAbyssDarkgray7Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_7.png")
+    DungeonWallAbyssAbyssLightgray7Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_7.png")
+    DungeonWallAbyssAbyssLightblue2Png = loadImage("assets/dungeon/wall/abyss/abyss_lightblue_2.png")
+    DungeonWallAbyssAbyssBlue5Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_5.png")
+    DungeonWallAbyssAbyssLightred0Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_0.png")
+    DungeonWallAbyssAbyssBlue2Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_2.png")
+    DungeonWallAbyssAbyssDarkgray5Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_5.png")
+    DungeonWallAbyssAbyssYellow4Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_4.png")
+    DungeonWallAbyssAbyssBlue0Png = loadImage("assets/dungeon/wall/abyss/abyss_blue_0.png")
+    DungeonWallAbyssAbyssLightmagenta6Png = loadImage("assets/dungeon/wall/abyss/abyss_lightmagenta_6.png")
+    DungeonWallAbyssAbyssLightgreen6Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgreen_6.png")
+    DungeonWallAbyssAbyssDarkgray1Png = loadImage("assets/dungeon/wall/abyss/abyss_darkgray_1.png")
+    DungeonWallAbyssAbyssLightred2Png = loadImage("assets/dungeon/wall/abyss/abyss_lightred_2.png")
+    DungeonWallAbyssAbyssLightgray6Png = loadImage("assets/dungeon/wall/abyss/abyss_lightgray_6.png")
+    DungeonWallAbyssAbyssBrown2Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_2.png")
+    DungeonWallAbyssAbyssMagenta2Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_2.png")
+    DungeonWallAbyssAbyssMagenta3Png = loadImage("assets/dungeon/wall/abyss/abyss_magenta_3.png")
+    DungeonWallAbyssAbyssYellow5Png = loadImage("assets/dungeon/wall/abyss/abyss_yellow_5.png")
+    DungeonWallAbyssAbyssBrown6Png = loadImage("assets/dungeon/wall/abyss/abyss_brown_6.png")
+    DungeonWallBannersBanner1Png = loadImage("assets/dungeon/wall/banners/banner_1.png")
+    DungeonStatuesGraniteStatuePng = loadImage("assets/dungeon/statues/granite_statue.png")
+    DungeonStatuesStatueOrbGuardianPng = loadImage("assets/dungeon/statues/statue_orb_guardian.png")
+    DungeonStatuesStatueNagaPng = loadImage("assets/dungeon/statues/statue_naga.png")
+    DungeonStatuesStatueCatPng = loadImage("assets/dungeon/statues/statue_cat.png")
+    DungeonStatuesStatueTwinsPng = loadImage("assets/dungeon/statues/statue_twins.png")
+    DungeonStatuesStatueMermaidPng = loadImage("assets/dungeon/statues/statue_mermaid.png")
+    DungeonStatuesStatueTenguPng = loadImage("assets/dungeon/statues/statue_tengu.png")
+    DungeonStatuesStatueWraithPng = loadImage("assets/dungeon/statues/statue_wraith.png")
+    DungeonStatuesPedestalPng = loadImage("assets/dungeon/statues/pedestal.png")
+    DungeonStatuesStatueDwarfPng = loadImage("assets/dungeon/statues/statue_dwarf.png")
+    DungeonStatuesStatuePrincessPng = loadImage("assets/dungeon/statues/statue_princess.png")
+    DungeonStatuesStatueHydraPng = loadImage("assets/dungeon/statues/statue_hydra.png")
+    DungeonStatuesElephantStatuePng = loadImage("assets/dungeon/statues/elephant_statue.png")
+    DungeonStatuesStatueElephantPng = loadImage("assets/dungeon/statues/statue_elephant.png")
+    DungeonStatuesStatueCerebovPng = loadImage("assets/dungeon/statues/statue_cerebov.png")
+    DungeonStatuesStatueAngelPng = loadImage("assets/dungeon/statues/statue_angel.png")
+    DungeonStatuesStatueIronPng = loadImage("assets/dungeon/statues/statue_iron.png")
+    DungeonStatuesStatueTrianglePng = loadImage("assets/dungeon/statues/statue_triangle.png")
+    DungeonStatuesCrumbledColumn2Png = loadImage("assets/dungeon/statues/crumbled_column_2.png")
+    DungeonStatuesGraniteStumpNewPng = loadImage("assets/dungeon/statues/granite_stump_new.png")
+    DungeonStatuesStatueSwordPng = loadImage("assets/dungeon/statues/statue_sword.png")
+    DungeonStatuesStatueAncientEvilPng = loadImage("assets/dungeon/statues/statue_ancient_evil.png")
+    DungeonStatuesStatueAncientHeroPng = loadImage("assets/dungeon/statues/statue_ancient_hero.png")
+    DungeonStatuesCrumbledColumnPng = loadImage("assets/dungeon/statues/crumbled_column.png")
+    DungeonStatuesCrumbledColumn1Png = loadImage("assets/dungeon/statues/crumbled_column_1.png")
+    DungeonStatuesStatueImpPng = loadImage("assets/dungeon/statues/statue_imp.png")
+    DungeonStatuesStatueDemonicBustPng = loadImage("assets/dungeon/statues/statue_demonic_bust.png")
+    DungeonStatuesOrcishIdolNewPng = loadImage("assets/dungeon/statues/orcish_idol_new.png")
+    DungeonStatuesStatueBasesPng = loadImage("assets/dungeon/statues/statue_bases.png")
+    DungeonStatuesCrumbledColumn4Png = loadImage("assets/dungeon/statues/crumbled_column_4.png")
+    DungeonStatuesStatueCentaurPng = loadImage("assets/dungeon/statues/statue_centaur.png")
+    DungeonStatuesStatueSigmundPng = loadImage("assets/dungeon/statues/statue_sigmund.png")
+    DungeonStatuesCrumbledColumn5Png = loadImage("assets/dungeon/statues/crumbled_column_5.png")
+    DungeonStatuesStatueArcherPng = loadImage("assets/dungeon/statues/statue_archer.png")
+    DungeonStatuesOrcishIdolOldPng = loadImage("assets/dungeon/statues/orcish_idol_old.png")
+    DungeonStatuesStatueOrbPng = loadImage("assets/dungeon/statues/statue_orb.png")
+    DungeonStatuesStatueSnailPng = loadImage("assets/dungeon/statues/statue_snail.png")
+    DungeonStatuesCrumbledColumn6Png = loadImage("assets/dungeon/statues/crumbled_column_6.png")
+    DungeonStatuesCrumbledColumn3Png = loadImage("assets/dungeon/statues/crumbled_column_3.png")
+    DungeonStatuesGraniteStumpOldPng = loadImage("assets/dungeon/statues/granite_stump_old.png")
+    DungeonStatuesStatueDragonPng = loadImage("assets/dungeon/statues/statue_dragon.png")
+    PlayerHandLeftBucklerSpiralPng = loadImage("assets/player/hand_left/buckler_spiral.png")
+    PlayerHandLeftLshieldQuarteredPng = loadImage("assets/player/hand_left/lshield_quartered.png")
+    PlayerHandLeftBoromirPng = loadImage("assets/player/hand_left/boromir.png")
+    PlayerHandLeftShieldOfResistancePng = loadImage("assets/player/hand_left/shield_of_resistance.png")
+    PlayerHandLeftShieldLargeDdDkPng = loadImage("assets/player/hand_left/shield_large_dd_dk.png")
+    PlayerHandLeftShieldKnightBluePng = loadImage("assets/player/hand_left/shield_knight_blue.png")
+    PlayerHandLeftLshieldLongRedPng = loadImage("assets/player/hand_left/lshield_long_red.png")
+    PlayerHandLeftShieldDdPng = loadImage("assets/player/hand_left/shield_dd.png")
+    PlayerHandLeftShieldSprigganPng = loadImage("assets/player/hand_left/shield_spriggan.png")
+    PlayerHandLeftShieldRound4Png = loadImage("assets/player/hand_left/shield_round_4.png")
+    PlayerHandLeftGilGaladPng = loadImage("assets/player/hand_left/gil-galad.png")
+    PlayerHandLeftLshieldGoldPng = loadImage("assets/player/hand_left/lshield_gold.png")
+    PlayerHandLeftShieldRound7Png = loadImage("assets/player/hand_left/shield_round_7.png")
+    PlayerHandLeftShieldHolyPng = loadImage("assets/player/hand_left/shield_holy.png")
+    PlayerHandLeftLshieldGreenPng = loadImage("assets/player/hand_left/lshield_green.png")
+    PlayerHandLeftShieldDiamondYellowPng = loadImage("assets/player/hand_left/shield_diamond_yellow.png")
+    PlayerHandLeftShieldMiddleUnicornPng = loadImage("assets/player/hand_left/shield_middle_unicorn.png")
+    PlayerHandLeftShieldSkullPng = loadImage("assets/player/hand_left/shield_skull.png")
+    PlayerHandLeftBucklerRound3Png = loadImage("assets/player/hand_left/buckler_round_3.png")
+    PlayerHandLeftShieldRound2Png = loadImage("assets/player/hand_left/shield_round_2.png")
+    PlayerHandLeftBucklerGreenPng = loadImage("assets/player/hand_left/buckler_green.png")
+    PlayerHandLeftShieldMiddleGrayPng = loadImage("assets/player/hand_left/shield_middle_gray.png")
+    PlayerHandLeftShieldMiddleEthnPng = loadImage("assets/player/hand_left/shield_middle_ethn.png")
+    PlayerHandLeftShieldRoundSmallPng = loadImage("assets/player/hand_left/shield_round_small.png")
+    PlayerHandLeftShieldGoblinPng = loadImage("assets/player/hand_left/shield_goblin.png")
+    PlayerHandLeftShieldKite3Png = loadImage("assets/player/hand_left/shield_kite_3.png")
+    PlayerHandLeftShieldRound5Png = loadImage("assets/player/hand_left/shield_round_5.png")
+    PlayerHandLeftBucklerRound2Png = loadImage("assets/player/hand_left/buckler_round_2.png")
+    PlayerHandLeftShieldMiddleBlackPng = loadImage("assets/player/hand_left/shield_middle_black.png")
+    PlayerHandLeftShieldDraconicKnightPng = loadImage("assets/player/hand_left/shield_draconic_knight.png")
+    PlayerHandLeftShieldRound6Png = loadImage("assets/player/hand_left/shield_round_6.png")
+    PlayerHandLeftShieldRound3Png = loadImage("assets/player/hand_left/shield_round_3.png")
+    PlayerHandLeftShieldRound1Png = loadImage("assets/player/hand_left/shield_round_1.png")
+    PlayerHandLeftShieldRoundWhitePng = loadImage("assets/player/hand_left/shield_round_white.png")
+    PlayerHandLeftShieldLongCrossPng = loadImage("assets/player/hand_left/shield_long_cross.png")
+    PlayerHandLeftBucklerRbPng = loadImage("assets/player/hand_left/buckler_rb.png")
+    PlayerHandLeftShieldMiddleCyanPng = loadImage("assets/player/hand_left/shield_middle_cyan.png")
+    PlayerHandLeftGongPng = loadImage("assets/player/hand_left/gong.png")
+    PlayerHandLeftShieldDonaldPng = loadImage("assets/player/hand_left/shield_donald.png")
+    PlayerHandLeftLshieldTealPng = loadImage("assets/player/hand_left/lshield_teal.png")
+    PlayerHandLeftShieldShamanPng = loadImage("assets/player/hand_left/shield_shaman.png")
+    PlayerHandLeftShieldKite1Png = loadImage("assets/player/hand_left/shield_kite_1.png")
+    PlayerHandLeftLshieldLouisePng = loadImage("assets/player/hand_left/lshield_louise.png")
+    PlayerHandLeftBullseyePng = loadImage("assets/player/hand_left/bullseye.png")
+    PlayerHandLeftShieldKite4Png = loadImage("assets/player/hand_left/shield_kite_4.png")
+    PlayerHandLeftShieldMiddleRoundPng = loadImage("assets/player/hand_left/shield_middle_round.png")
+    PlayerHandLeftLshieldSpiralPng = loadImage("assets/player/hand_left/lshield_spiral.png")
+    PlayerHandLeftShieldLongRedPng = loadImage("assets/player/hand_left/shield_long_red.png")
+    PlayerHandLeftShieldKnightGrayPng = loadImage("assets/player/hand_left/shield_knight_gray.png")
+    PlayerHandLeftShieldKite2Png = loadImage("assets/player/hand_left/shield_kite_2.png")
+    PlayerHandLeftShieldDdScionPng = loadImage("assets/player/hand_left/shield_dd_scion.png")
+    PlayerHandLeftShieldKnightRwPng = loadImage("assets/player/hand_left/shield_knight_rw.png")
+    PlayerHandLeftShieldOfIgnorancePng = loadImage("assets/player/hand_left/shield_of_ignorance.png")
+    PlayerHandLeftShieldMiddleBrownPng = loadImage("assets/player/hand_left/shield_middle_brown.png")
+    PlayerHandLeftMiscSabrePng = loadImage("assets/player/hand_left/misc/sabre.png")
+    PlayerHandLeftMiscTorch2Png = loadImage("assets/player/hand_left/misc/torch_2.png")
+    PlayerHandLeftMiscBookCyanDimPng = loadImage("assets/player/hand_left/misc/book_cyan_dim.png")
+    PlayerHandLeftMiscFireGreenPng = loadImage("assets/player/hand_left/misc/fire_green.png")
+    PlayerHandLeftMiscBookGreenPng = loadImage("assets/player/hand_left/misc/book_green.png")
+    PlayerHandLeftMiscLightRedPng = loadImage("assets/player/hand_left/misc/light_red.png")
+    PlayerHandLeftMiscLanternPng = loadImage("assets/player/hand_left/misc/lantern.png")
+    PlayerHandLeftMiscLightBluePng = loadImage("assets/player/hand_left/misc/light_blue.png")
+    PlayerHandLeftMiscFlailGreat2Png = loadImage("assets/player/hand_left/misc/flail_great_2.png")
+    PlayerHandLeftMiscGiantClubSlantPng = loadImage("assets/player/hand_left/misc/giant_club_slant.png")
+    PlayerHandLeftMiscGreatMacePng = loadImage("assets/player/hand_left/misc/great_mace.png")
+    PlayerHandLeftMiscDaggerOldPng = loadImage("assets/player/hand_left/misc/dagger_old.png")
+    PlayerHandLeftMiscFireDarkPng = loadImage("assets/player/hand_left/misc/fire_dark.png")
+    PlayerHandLeftMiscBookBluePng = loadImage("assets/player/hand_left/misc/book_blue.png")
+    PlayerHandLeftMiscShortSwordSlantNewPng = loadImage("assets/player/hand_left/misc/short_sword_slant_new.png")
+    PlayerHandLeftMiscBookSkyPng = loadImage("assets/player/hand_left/misc/book_sky.png")
+    PlayerHandLeftMiscLightYellowPng = loadImage("assets/player/hand_left/misc/light_yellow.png")
+    PlayerHandLeftMiscBookRedDimPng = loadImage("assets/player/hand_left/misc/book_red_dim.png")
+    PlayerHandLeftMiscBookGreenDimPng = loadImage("assets/player/hand_left/misc/book_green_dim.png")
+    PlayerHandLeftMiscFlailGreatPng = loadImage("assets/player/hand_left/misc/flail_great.png")
+    PlayerHandLeftMiscGiantClubPlainPng = loadImage("assets/player/hand_left/misc/giant_club_plain.png")
+    PlayerHandLeftMiscFireCyanPng = loadImage("assets/player/hand_left/misc/fire_cyan.png")
+    PlayerHandLeftMiscBookBlueDimPng = loadImage("assets/player/hand_left/misc/book_blue_dim.png")
+    PlayerHandLeftMiscGreatMace2Png = loadImage("assets/player/hand_left/misc/great_mace_2.png")
+    PlayerHandLeftMiscShortSwordSlantOldPng = loadImage("assets/player/hand_left/misc/short_sword_slant_old.png")
+    PlayerHandLeftMiscDaggerNewPng = loadImage("assets/player/hand_left/misc/dagger_new.png")
+    PlayerHandLeftMiscShortSwordSlant2Png = loadImage("assets/player/hand_left/misc/short_sword_slant_2.png")
+    PlayerHandLeftMiscBookMagentaDimPng = loadImage("assets/player/hand_left/misc/book_magenta_dim.png")
+    PlayerHandLeftMiscFireWhitePng = loadImage("assets/player/hand_left/misc/fire_white.png")
+    PlayerHandLeftMiscSparkPng = loadImage("assets/player/hand_left/misc/spark.png")
+    PlayerHandLeftMiscRapier2Png = loadImage("assets/player/hand_left/misc/rapier_2.png")
+    PlayerHandLeftMiscBookMagentaPng = loadImage("assets/player/hand_left/misc/book_magenta.png")
+    PlayerHandLeftMiscBookYellowPng = loadImage("assets/player/hand_left/misc/book_yellow.png")
+    PlayerHandLeftMiscGiantClubPng = loadImage("assets/player/hand_left/misc/giant_club.png")
+    PlayerHandLeftMiscFireWhite2Png = loadImage("assets/player/hand_left/misc/fire_white_2.png")
+    PlayerHandLeftMiscGiantClubSpikeSlantPng = loadImage("assets/player/hand_left/misc/giant_club_spike_slant.png")
+    PlayerHandLeftMiscBookBlackPng = loadImage("assets/player/hand_left/misc/book_black.png")
+    PlayerHandLeftMiscBookWhitePng = loadImage("assets/player/hand_left/misc/book_white.png")
+    PlayerHandLeftMiscTorchPng = loadImage("assets/player/hand_left/misc/torch.png")
+    PlayerHandLeftMiscPjPng = loadImage("assets/player/hand_left/misc/pj.png")
+    PlayerHandLeftMiscBookYellowDimPng = loadImage("assets/player/hand_left/misc/book_yellow_dim.png")
+    PlayerHandLeftMiscGiantClubSpikePng = loadImage("assets/player/hand_left/misc/giant_club_spike.png")
+    PlayerHandLeftMiscBookRedPng = loadImage("assets/player/hand_left/misc/book_red.png")
+    PlayerHandLeftMiscBookCyanPng = loadImage("assets/player/hand_left/misc/book_cyan.png")
+    PlayerGlovesGloveShortWhitePng = loadImage("assets/player/gloves/glove_short_white.png")
+    PlayerGlovesGloveShortRedPng = loadImage("assets/player/gloves/glove_short_red.png")
+    PlayerGlovesGloveWristPurplePng = loadImage("assets/player/gloves/glove_wrist_purple.png")
+    PlayerGlovesGloveRedPng = loadImage("assets/player/gloves/glove_red.png")
+    PlayerGlovesGlovePurplePng = loadImage("assets/player/gloves/glove_purple.png")
+    PlayerGlovesGauntletBluePng = loadImage("assets/player/gloves/gauntlet_blue.png")
+    PlayerGlovesGloveOrangePng = loadImage("assets/player/gloves/glove_orange.png")
+    PlayerGlovesGloveGrayPng = loadImage("assets/player/gloves/glove_gray.png")
+    PlayerGlovesGloveShortGrayPng = loadImage("assets/player/gloves/glove_short_gray.png")
+    PlayerGlovesGloveShortGreenPng = loadImage("assets/player/gloves/glove_short_green.png")
+    PlayerGlovesGloveShortYellowPng = loadImage("assets/player/gloves/glove_short_yellow.png")
+    PlayerGlovesGloveChunliPng = loadImage("assets/player/gloves/glove_chunli.png")
+    PlayerGlovesGloveWhitePng = loadImage("assets/player/gloves/glove_white.png")
+    PlayerGlovesGloveBlack2Png = loadImage("assets/player/gloves/glove_black_2.png")
+    PlayerGlovesClawsPng = loadImage("assets/player/gloves/claws.png")
+    PlayerGlovesGloveGrayfistPng = loadImage("assets/player/gloves/glove_grayfist.png")
+    PlayerGlovesGloveBlackPng = loadImage("assets/player/gloves/glove_black.png")
+    PlayerGlovesGloveBrownPng = loadImage("assets/player/gloves/glove_brown.png")
+    PlayerGlovesGloveBluePng = loadImage("assets/player/gloves/glove_blue.png")
+    PlayerGlovesGloveGoldPng = loadImage("assets/player/gloves/glove_gold.png")
+    PlayerGlovesGloveShortBluePng = loadImage("assets/player/gloves/glove_short_blue.png")
+    PlayerBootsShortBrown2Png = loadImage("assets/player/boots/short_brown_2.png")
+    PlayerBootsBlueGoldPng = loadImage("assets/player/boots/blue_gold.png")
+    PlayerBootsShortRedPng = loadImage("assets/player/boots/short_red.png")
+    PlayerBootsMeshWhitePng = loadImage("assets/player/boots/mesh_white.png")
+    PlayerBootsShortBrownPng = loadImage("assets/player/boots/short_brown.png")
+    PlayerBootsLongWhitePng = loadImage("assets/player/boots/long_white.png")
+    PlayerBootsMeshBlackPng = loadImage("assets/player/boots/mesh_black.png")
+    PlayerBootsMiddleBrown2Png = loadImage("assets/player/boots/middle_brown_2.png")
+    PlayerBootsMiddleGreenPng = loadImage("assets/player/boots/middle_green.png")
+    PlayerBootsMeshBluePng = loadImage("assets/player/boots/mesh_blue.png")
+    PlayerBootsLongRedPng = loadImage("assets/player/boots/long_red.png")
+    PlayerBootsMiddleBrown3Png = loadImage("assets/player/boots/middle_brown_3.png")
+    PlayerBootsHoovesPng = loadImage("assets/player/boots/hooves.png")
+    PlayerBootsMiddleGoldPng = loadImage("assets/player/boots/middle_gold.png")
+    PlayerBootsMiddleBrownPng = loadImage("assets/player/boots/middle_brown.png")
+    PlayerBootsSpiderPng = loadImage("assets/player/boots/spider.png")
+    PlayerBootsMiddlePurplePng = loadImage("assets/player/boots/middle_purple.png")
+    PlayerBootsShortPurplePng = loadImage("assets/player/boots/short_purple.png")
+    PlayerBootsMiddleGrayPng = loadImage("assets/player/boots/middle_gray.png")
+    PlayerBootsMeshRedPng = loadImage("assets/player/boots/mesh_red.png")
+    PlayerBootsMiddleYbrownPng = loadImage("assets/player/boots/middle_ybrown.png")
+    PlayerBootsPjPng = loadImage("assets/player/boots/pj.png")
+    PlayerHandRightHandAxeOldPng = loadImage("assets/player/hand_right/hand_axe_old.png")
+    PlayerHandRightFrodoPng = loadImage("assets/player/hand_right/frodo.png")
+    PlayerHandRightRodHammerOldPng = loadImage("assets/player/hand_right/rod_hammer_old.png")
+    PlayerHandRightFalchionOldPng = loadImage("assets/player/hand_right/falchion_old.png")
+    PlayerHandRightFlailBallsPng = loadImage("assets/player/hand_right/flail_balls.png")
+    PlayerHandRightBoromirPng = loadImage("assets/player/hand_right/boromir.png")
+    PlayerHandRightStickPng = loadImage("assets/player/hand_right/stick.png")
+    PlayerHandRightEveningstar2Png = loadImage("assets/player/hand_right/eveningstar_2.png")
+    PlayerHandRightStaffMummyPng = loadImage("assets/player/hand_right/staff_mummy.png")
+    PlayerHandRightLongSwordSlantOldPng = loadImage("assets/player/hand_right/long_sword_slant_old.png")
+    PlayerHandRightSabrePng = loadImage("assets/player/hand_right/sabre.png")
+    PlayerHandRightWhipOldPng = loadImage("assets/player/hand_right/whip_old.png")
+    PlayerHandRightSlingPng = loadImage("assets/player/hand_right/sling.png")
+    PlayerHandRightGreatSwordPng = loadImage("assets/player/hand_right/great_sword.png")
+    PlayerHandRightGlaive3Png = loadImage("assets/player/hand_right/glaive_3.png")
+    PlayerHandRightQuarterstaff1Png = loadImage("assets/player/hand_right/quarterstaff_1.png")
+    PlayerHandRightStaffSkullPng = loadImage("assets/player/hand_right/staff_skull.png")
+    PlayerHandRightGreatSwordSlantNewPng = loadImage("assets/player/hand_right/great_sword_slant_new.png")
+    PlayerHandRightClub3Png = loadImage("assets/player/hand_right/club_3.png")
+    PlayerHandRightQuarterstaff2OldPng = loadImage("assets/player/hand_right/quarterstaff_2_old.png")
+    PlayerHandRightRodMoonOldPng = loadImage("assets/player/hand_right/rod_moon_old.png")
+    PlayerHandRightGreatSwordSlantOldPng = loadImage("assets/player/hand_right/great_sword_slant_old.png")
+    PlayerHandRightBowBluePng = loadImage("assets/player/hand_right/bow_blue.png")
+    PlayerHandRightRodRubyNewPng = loadImage("assets/player/hand_right/rod_ruby_new.png")
+    PlayerHandRightWarAxeOldPng = loadImage("assets/player/hand_right/war_axe_old.png")
+    PlayerHandRightTridentTwoPng = loadImage("assets/player/hand_right/trident_two.png")
+    PlayerHandRightBlackWhipNewPng = loadImage("assets/player/hand_right/black_whip_new.png")
+    PlayerHandRightClub2Png = loadImage("assets/player/hand_right/club_2.png")
+    PlayerHandRightMorningstar2NewPng = loadImage("assets/player/hand_right/morningstar_2_new.png")
+    PlayerHandRightWarAxeNewPng = loadImage("assets/player/hand_right/war_axe_new.png")
+    PlayerHandRightFlailBallOldPng = loadImage("assets/player/hand_right/flail_ball_old.png")
+    PlayerHandRightAxeExecutioner2Png = loadImage("assets/player/hand_right/axe_executioner_2.png")
+    PlayerHandRightMorningstar2OldPng = loadImage("assets/player/hand_right/morningstar_2_old.png")
+    PlayerHandRightKatanaPng = loadImage("assets/player/hand_right/katana.png")
+    PlayerHandRightStaffPlainPng = loadImage("assets/player/hand_right/staff_plain.png")
+    PlayerHandRightMorningstarOldPng = loadImage("assets/player/hand_right/morningstar_old.png")
+    PlayerHandRightGlaive2Png = loadImage("assets/player/hand_right/glaive_2.png")
+    PlayerHandRightScytheOldPng = loadImage("assets/player/hand_right/scythe_old.png")
+    PlayerHandRightAxeDoublePng = loadImage("assets/player/hand_right/axe_double.png")
+    PlayerHandRightSpear2NewPng = loadImage("assets/player/hand_right/spear_2_new.png")
+    PlayerHandRightFlailStickSlantPng = loadImage("assets/player/hand_right/flail_stick_slant.png")
+    PlayerHandRightRodMagentaNewPng = loadImage("assets/player/hand_right/rod_magenta_new.png")
+    PlayerHandRightSpear1Png = loadImage("assets/player/hand_right/spear_1.png")
+    PlayerHandRightTripleSword2Png = loadImage("assets/player/hand_right/triple_sword_2.png")
+    PlayerHandRightDaggerSlantOldPng = loadImage("assets/player/hand_right/dagger_slant_old.png")
+    PlayerHandRightBattleaxe2Png = loadImage("assets/player/hand_right/battleaxe_2.png")
+    PlayerHandRightFork2Png = loadImage("assets/player/hand_right/fork_2.png")
+    PlayerHandRightFlailSpikePng = loadImage("assets/player/hand_right/flail_spike.png")
+    PlayerHandRightStaffForkPng = loadImage("assets/player/hand_right/staff_fork.png")
+    PlayerHandRightGlaiveNewPng = loadImage("assets/player/hand_right/glaive_new.png")
+    PlayerHandRightEveningstarNewPng = loadImage("assets/player/hand_right/eveningstar_new.png")
+    PlayerHandRightHolyScourge2Png = loadImage("assets/player/hand_right/holy_scourge_2.png")
+    PlayerHandRightFlailGreat2Png = loadImage("assets/player/hand_right/flail_great_2.png")
+    PlayerHandRightGiantClubSlantPng = loadImage("assets/player/hand_right/giant_club_slant.png")
+    PlayerHandRightTripleSwordNewPng = loadImage("assets/player/hand_right/triple_sword_new.png")
+    PlayerHandRightSword3Png = loadImage("assets/player/hand_right/sword_3.png")
+    PlayerHandRightSpear3Png = loadImage("assets/player/hand_right/spear_3.png")
+    PlayerHandRightGreatSwordSlant2Png = loadImage("assets/player/hand_right/great_sword_slant_2.png")
+    PlayerHandRightGreatMacePng = loadImage("assets/player/hand_right/great_mace.png")
+    PlayerHandRightScytheSlantPng = loadImage("assets/player/hand_right/scythe_slant.png")
+    PlayerHandRightStaffLargePng = loadImage("assets/player/hand_right/staff_large.png")
+    PlayerHandRightRodHammerNewPng = loadImage("assets/player/hand_right/rod_hammer_new.png")
+    PlayerHandRightTridentDemonPng = loadImage("assets/player/hand_right/trident_demon.png")
+    PlayerHandRightAxeSmallPng = loadImage("assets/player/hand_right/axe_small.png")
+    PlayerHandRightDaggerOldPng = loadImage("assets/player/hand_right/dagger_old.png")
+    PlayerHandRightMaceRubyNewPng = loadImage("assets/player/hand_right/mace_ruby_new.png")
+    PlayerHandRightRodBrownNewPng = loadImage("assets/player/hand_right/rod_brown_new.png")
+    PlayerHandRightKnifePng = loadImage("assets/player/hand_right/knife.png")
+    PlayerHandRightTrishulaPng = loadImage("assets/player/hand_right/trishula.png")
+    PlayerHandRightSpear4Png = loadImage("assets/player/hand_right/spear_4.png")
+    PlayerHandRightGreatStaffPng = loadImage("assets/player/hand_right/great_staff.png")
+    PlayerHandRightHalberdNewPng = loadImage("assets/player/hand_right/halberd_new.png")
+    PlayerHandRightKatanaSlantPng = loadImage("assets/player/hand_right/katana_slant.png")
+    PlayerHandRightRodBrownOldPng = loadImage("assets/player/hand_right/rod_brown_old.png")
+    PlayerHandRightSwordSevenPng = loadImage("assets/player/hand_right/sword_seven.png")
+    PlayerHandRightHalberdOldPng = loadImage("assets/player/hand_right/halberd_old.png")
+    PlayerHandRightTrident3Png = loadImage("assets/player/hand_right/trident_3.png")
+    PlayerHandRightTripleSwordOldPng = loadImage("assets/player/hand_right/triple_sword_old.png")
+    PlayerHandRightTridentPng = loadImage("assets/player/hand_right/trident.png")
+    PlayerHandRightQuarterstaffJesterPng = loadImage("assets/player/hand_right/quarterstaff_jester.png")
+    PlayerHandRightBlackSwordPng = loadImage("assets/player/hand_right/black_sword.png")
+    PlayerHandRightMace3Png = loadImage("assets/player/hand_right/mace_3.png")
+    PlayerHandRightBlowgunPng = loadImage("assets/player/hand_right/blowgun.png")
+    PlayerHandRightSwordTriPng = loadImage("assets/player/hand_right/sword_tri.png")
+    PlayerHandRightLegolasPng = loadImage("assets/player/hand_right/legolas.png")
+    PlayerHandRightRodForkedNewPng = loadImage("assets/player/hand_right/rod_forked_new.png")
+    PlayerHandRightRodEmeraldNewPng = loadImage("assets/player/hand_right/rod_emerald_new.png")
+    PlayerHandRightGreatAxePng = loadImage("assets/player/hand_right/great_axe.png")
+    PlayerHandRightFlailSpike2Png = loadImage("assets/player/hand_right/flail_spike_2.png")
+    PlayerHandRightHandAxe2Png = loadImage("assets/player/hand_right/hand_axe_2.png")
+    PlayerHandRightStaffRubyPng = loadImage("assets/player/hand_right/staff_ruby.png")
+    PlayerHandRightDGlaivePng = loadImage("assets/player/hand_right/d_glaive.png")
+    PlayerHandRightShortSwordSlantNewPng = loadImage("assets/player/hand_right/short_sword_slant_new.png")
+    PlayerHandRightQuarterstaff2NewPng = loadImage("assets/player/hand_right/quarterstaff_2_new.png")
+    PlayerHandRightHammer2OldPng = loadImage("assets/player/hand_right/hammer_2_old.png")
+    PlayerHandRightBroadAxePng = loadImage("assets/player/hand_right/broad_axe.png")
+    PlayerHandRightFlailStickPng = loadImage("assets/player/hand_right/flail_stick.png")
+    PlayerHandRightTridentTwo2Png = loadImage("assets/player/hand_right/trident_two_2.png")
+    PlayerHandRightQuarterstaff3Png = loadImage("assets/player/hand_right/quarterstaff_3.png")
+    PlayerHandRightFlailBall2OldPng = loadImage("assets/player/hand_right/flail_ball_2_old.png")
+    PlayerHandRightFlailBall2NewPng = loadImage("assets/player/hand_right/flail_ball_2_new.png")
+    PlayerHandRightAxeExecutionerOldPng = loadImage("assets/player/hand_right/axe_executioner_old.png")
+    PlayerHandRightSwordTwistPng = loadImage("assets/player/hand_right/sword_twist.png")
+    PlayerHandRightSpearPng = loadImage("assets/player/hand_right/spear.png")
+    PlayerHandRightSpear2OldPng = loadImage("assets/player/hand_right/spear_2_old.png")
+    PlayerHandRightEveningstarOldPng = loadImage("assets/player/hand_right/eveningstar_old.png")
+    PlayerHandRightMace2OldPng = loadImage("assets/player/hand_right/mace_2_old.png")
+    PlayerHandRightAxeShortPng = loadImage("assets/player/hand_right/axe_short.png")
+    PlayerHandRightLongSwordSlantNewPng = loadImage("assets/player/hand_right/long_sword_slant_new.png")
+    PlayerHandRightMace2NewPng = loadImage("assets/player/hand_right/mace_2_new.png")
+    PlayerHandRightMorningstarNewPng = loadImage("assets/player/hand_right/morningstar_new.png")
+    PlayerHandRightHolyScourge1Png = loadImage("assets/player/hand_right/holy_scourge_1.png")
+    PlayerHandRightLance2Png = loadImage("assets/player/hand_right/lance_2.png")
+    PlayerHandRightGreatBowPng = loadImage("assets/player/hand_right/great_bow.png")
+    PlayerHandRightLongSwordPng = loadImage("assets/player/hand_right/long_sword.png")
+    PlayerHandRightHammerNewPng = loadImage("assets/player/hand_right/hammer_new.png")
+    PlayerHandRightShortSwordSlant3Png = loadImage("assets/player/hand_right/short_sword_slant_3.png")
+    PlayerHandRightFalchionNewPng = loadImage("assets/player/hand_right/falchion_new.png")
+    PlayerHandRightBattleaxePng = loadImage("assets/player/hand_right/battleaxe.png")
+    PlayerHandRightQuarterstaff4Png = loadImage("assets/player/hand_right/quarterstaff_4.png")
+    PlayerHandRightMaceOldPng = loadImage("assets/player/hand_right/mace_old.png")
+    PlayerHandRightScepterPng = loadImage("assets/player/hand_right/scepter.png")
+    PlayerHandRightRodBlueNewPng = loadImage("assets/player/hand_right/rod_blue_new.png")
+    PlayerHandRightHookPng = loadImage("assets/player/hand_right/hook.png")
+    PlayerHandRightSwordJagPng = loadImage("assets/player/hand_right/sword_jag.png")
+    PlayerHandRightFlailGreatPng = loadImage("assets/player/hand_right/flail_great.png")
+    PlayerHandRightGlaiveThree2Png = loadImage("assets/player/hand_right/glaive_three_2.png")
+    PlayerHandRightScytheNewPng = loadImage("assets/player/hand_right/scythe_new.png")
+    PlayerHandRightScimitarOldPng = loadImage("assets/player/hand_right/scimitar_old.png")
+    PlayerHandRightGiantClubPlainPng = loadImage("assets/player/hand_right/giant_club_plain.png")
+    PlayerHandRightShortSword2Png = loadImage("assets/player/hand_right/short_sword_2.png")
+    PlayerHandRightQuarterstaffPng = loadImage("assets/player/hand_right/quarterstaff.png")
+    PlayerHandRightDartPng = loadImage("assets/player/hand_right/dart.png")
+    PlayerHandRightCrossbow2Png = loadImage("assets/player/hand_right/crossbow_2.png")
+    PlayerHandRightGreatMace2Png = loadImage("assets/player/hand_right/great_mace_2.png")
+    PlayerHandRightRodForkedOldPng = loadImage("assets/player/hand_right/rod_forked_old.png")
+    PlayerHandRightGlaiveThreePng = loadImage("assets/player/hand_right/glaive_three.png")
+    PlayerHandRightPoleForkedPng = loadImage("assets/player/hand_right/pole_forked.png")
+    PlayerHandRightTridentElecPng = loadImage("assets/player/hand_right/trident_elec.png")
+    PlayerHandRightSwordBlackPng = loadImage("assets/player/hand_right/sword_black.png")
+    PlayerHandRightStaffScepterPng = loadImage("assets/player/hand_right/staff_scepter.png")
+    PlayerHandRightShortSwordSlantOldPng = loadImage("assets/player/hand_right/short_sword_slant_old.png")
+    PlayerHandRightRodEmeraldOldPng = loadImage("assets/player/hand_right/rod_emerald_old.png")
+    PlayerHandRightWhipNewPng = loadImage("assets/player/hand_right/whip_new.png")
+    PlayerHandRightDaggerNewPng = loadImage("assets/player/hand_right/dagger_new.png")
+    PlayerHandRightDaggerSlantNewPng = loadImage("assets/player/hand_right/dagger_slant_new.png")
+    PlayerHandRightRodAriesOldPng = loadImage("assets/player/hand_right/rod_aries_old.png")
+    PlayerHandRightFalchion2Png = loadImage("assets/player/hand_right/falchion_2.png")
+    PlayerHandRightNunchakuPng = loadImage("assets/player/hand_right/nunchaku.png")
+    PlayerHandRightLancePng = loadImage("assets/player/hand_right/lance.png")
+    PlayerHandRightShortSwordSlant2Png = loadImage("assets/player/hand_right/short_sword_slant_2.png")
+    PlayerHandRightShortSwordPng = loadImage("assets/player/hand_right/short_sword.png")
+    PlayerHandRightPickAxePng = loadImage("assets/player/hand_right/pick_axe.png")
+    PlayerHandRightSicklePng = loadImage("assets/player/hand_right/sickle.png")
+    PlayerHandRightStaffOrganicPng = loadImage("assets/player/hand_right/staff_organic.png")
+    PlayerHandRightFlailBall4Png = loadImage("assets/player/hand_right/flail_ball_4.png")
+    PlayerHandRightMaceRubyOldPng = loadImage("assets/player/hand_right/mace_ruby_old.png")
+    PlayerHandRightStaffMage2Png = loadImage("assets/player/hand_right/staff_mage_2.png")
+    PlayerHandRightRapier2Png = loadImage("assets/player/hand_right/rapier_2.png")
+    PlayerHandRightCrossbowPng = loadImage("assets/player/hand_right/crossbow.png")
+    PlayerHandRightGandalfPng = loadImage("assets/player/hand_right/gandalf.png")
+    PlayerHandRightStaffMagePng = loadImage("assets/player/hand_right/staff_mage.png")
+    PlayerHandRightHeavySwordPng = loadImage("assets/player/hand_right/heavy_sword.png")
+    PlayerHandRightRodMagentaOldPng = loadImage("assets/player/hand_right/rod_magenta_old.png")
+    PlayerHandRightAxePng = loadImage("assets/player/hand_right/axe.png")
+    PlayerHandRightCrossbow3Png = loadImage("assets/player/hand_right/crossbow_3.png")
+    PlayerHandRightGiantClubPng = loadImage("assets/player/hand_right/giant_club.png")
+    PlayerHandRightHandCrossbowPng = loadImage("assets/player/hand_right/hand_crossbow.png")
+    PlayerHandRightWhip2Png = loadImage("assets/player/hand_right/whip_2.png")
+    PlayerHandRightBow3Png = loadImage("assets/player/hand_right/bow_3.png")
+    PlayerHandRightGiantClubSpikeSlantPng = loadImage("assets/player/hand_right/giant_club_spike_slant.png")
+    PlayerHandRightHammer3Png = loadImage("assets/player/hand_right/hammer_3.png")
+    PlayerHandRightBlessedBladePng = loadImage("assets/player/hand_right/blessed_blade.png")
+    PlayerHandRightMaceNewPng = loadImage("assets/player/hand_right/mace_new.png")
+    PlayerHandRightGimliPng = loadImage("assets/player/hand_right/gimli.png")
+    PlayerHandRightFlailBall3Png = loadImage("assets/player/hand_right/flail_ball_3.png")
+    PlayerHandRightBowPng = loadImage("assets/player/hand_right/bow.png")
+    PlayerHandRightStaffEvilPng = loadImage("assets/player/hand_right/staff_evil.png")
+    PlayerHandRightStaffRingBluePng = loadImage("assets/player/hand_right/staff_ring_blue.png")
+    PlayerHandRightBow2Png = loadImage("assets/player/hand_right/bow_2.png")
+    PlayerHandRightLongSwordSlant2Png = loadImage("assets/player/hand_right/long_sword_slant_2.png")
+    PlayerHandRightPikePng = loadImage("assets/player/hand_right/pike.png")
+    PlayerHandRightArwenPng = loadImage("assets/player/hand_right/arwen.png")
+    PlayerHandRightGlaiveOldPng = loadImage("assets/player/hand_right/glaive_old.png")
+    PlayerHandRightDoubleSwordOldPng = loadImage("assets/player/hand_right/double_sword_old.png")
+    PlayerHandRightStaffFancyPng = loadImage("assets/player/hand_right/staff_fancy.png")
+    PlayerHandRightRodRubyOldPng = loadImage("assets/player/hand_right/rod_ruby_old.png")
+    PlayerHandRightBlackWhipOldPng = loadImage("assets/player/hand_right/black_whip_old.png")
+    PlayerHandRightSpear5Png = loadImage("assets/player/hand_right/spear_5.png")
+    PlayerHandRightScimitarNewPng = loadImage("assets/player/hand_right/scimitar_new.png")
+    PlayerHandRightSarumanPng = loadImage("assets/player/hand_right/saruman.png")
+    PlayerHandRightRodThickNewPng = loadImage("assets/player/hand_right/rod_thick_new.png")
+    PlayerHandRightCrossbow4Png = loadImage("assets/player/hand_right/crossbow_4.png")
+    PlayerHandRightSwordThiefPng = loadImage("assets/player/hand_right/sword_thief.png")
+    PlayerHandRightFlailBallNewPng = loadImage("assets/player/hand_right/flail_ball_new.png")
+    PlayerHandRightGreatslingPng = loadImage("assets/player/hand_right/greatsling.png")
+    PlayerHandRightLargeMacePng = loadImage("assets/player/hand_right/large_mace.png")
+    PlayerHandRightAxeExecutionerNewPng = loadImage("assets/player/hand_right/axe_executioner_new.png")
+    PlayerHandRightScythe2Png = loadImage("assets/player/hand_right/scythe_2.png")
+    PlayerHandRightRapierPng = loadImage("assets/player/hand_right/rapier.png")
+    PlayerHandRightClubSlantPng = loadImage("assets/player/hand_right/club_slant.png")
+    PlayerHandRightDaggerSlant2Png = loadImage("assets/player/hand_right/dagger_slant_2.png")
+    PlayerHandRightSwordBreakerPng = loadImage("assets/player/hand_right/sword_breaker.png")
+    PlayerHandRightAragornPng = loadImage("assets/player/hand_right/aragorn.png")
+    PlayerHandRightRodAriesNewPng = loadImage("assets/player/hand_right/rod_aries_new.png")
+    PlayerHandRightTrident2Png = loadImage("assets/player/hand_right/trident_2.png")
+    PlayerHandRightDoubleSword2Png = loadImage("assets/player/hand_right/double_sword_2.png")
+    PlayerHandRightSword2Png = loadImage("assets/player/hand_right/sword_2.png")
+    PlayerHandRightGiantClubSpikePng = loadImage("assets/player/hand_right/giant_club_spike.png")
+    PlayerHandRightHandAxeNewPng = loadImage("assets/player/hand_right/hand_axe_new.png")
+    PlayerHandRightHammerOldPng = loadImage("assets/player/hand_right/hammer_old.png")
+    PlayerHandRightHammer2NewPng = loadImage("assets/player/hand_right/hammer_2_new.png")
+    PlayerHandRightDoubleSwordNewPng = loadImage("assets/player/hand_right/double_sword_new.png")
+    PlayerHandRightRodMoonNewPng = loadImage("assets/player/hand_right/rod_moon_new.png")
+    PlayerHandRightEnchantressDaggerPng = loadImage("assets/player/hand_right/enchantress_dagger.png")
+    PlayerHandRightAxeBloodPng = loadImage("assets/player/hand_right/axe_blood.png")
+    PlayerHandRightRodThickOldPng = loadImage("assets/player/hand_right/rod_thick_old.png")
+    PlayerHandRightClubPng = loadImage("assets/player/hand_right/club.png")
+    PlayerHandRightDoubleSword3Png = loadImage("assets/player/hand_right/double_sword_3.png")
+    PlayerHandRightBroadswordPng = loadImage("assets/player/hand_right/broadsword.png")
+    PlayerHandRightRodBlueOldPng = loadImage("assets/player/hand_right/rod_blue_old.png")
+    PlayerHandRightArtefactPlutoniumSwordNewPng = loadImage("assets/player/hand_right/artefact/plutonium_sword_new.png")
+    PlayerHandRightArtefactChillyDeathNewPng = loadImage("assets/player/hand_right/artefact/chilly_death_new.png")
+    PlayerHandRightArtefactAxeTrogPng = loadImage("assets/player/hand_right/artefact/axe_trog.png")
+    PlayerHandRightArtefactSwordOfPowerNewPng = loadImage("assets/player/hand_right/artefact/sword_of_power_new.png")
+    PlayerHandRightArtefactPunkPng = loadImage("assets/player/hand_right/artefact/punk.png")
+    PlayerHandRightArtefactOrderPng = loadImage("assets/player/hand_right/artefact/order.png")
+    PlayerHandRightArtefactGyrePng = loadImage("assets/player/hand_right/artefact/gyre.png")
+    PlayerHandRightArtefactElementalStaffPng = loadImage("assets/player/hand_right/artefact/elemental_staff.png")
+    PlayerHandRightArtefactGlaiveOfPruneOldPng = loadImage("assets/player/hand_right/artefact/glaive_of_prune_old.png")
+    PlayerHandRightArtefactGlaiveOfPruneNewPng = loadImage("assets/player/hand_right/artefact/glaive_of_prune_new.png")
+    PlayerHandRightArtefactWucadMuPng = loadImage("assets/player/hand_right/artefact/wucad_mu.png")
+    PlayerHandRightArtefactDireLajatangPng = loadImage("assets/player/hand_right/artefact/dire_lajatang.png")
+    PlayerHandRightArtefactChillyDeathOldPng = loadImage("assets/player/hand_right/artefact/chilly_death_old.png")
+    PlayerHandRightArtefactArgaOldPng = loadImage("assets/player/hand_right/artefact/arga_old.png")
+    PlayerHandRightArtefactZonguldrokPng = loadImage("assets/player/hand_right/artefact/zonguldrok.png")
+    PlayerHandRightArtefactCrystalSpearOldPng = loadImage("assets/player/hand_right/artefact/crystal_spear_old.png")
+    PlayerHandRightArtefactJihadPng = loadImage("assets/player/hand_right/artefact/jihad.png")
+    PlayerHandRightArtefactArcBladePng = loadImage("assets/player/hand_right/artefact/arc_blade.png")
+    PlayerHandRightArtefactMajinPng = loadImage("assets/player/hand_right/artefact/majin.png")
+    PlayerHandRightArtefactMaceOfBrilliancePng = loadImage("assets/player/hand_right/artefact/mace_of_brilliance.png")
+    PlayerHandRightArtefactKnifeOfAccuracyPng = loadImage("assets/player/hand_right/artefact/knife_of_accuracy.png")
+    PlayerHandRightArtefactEosPng = loadImage("assets/player/hand_right/artefact/eos.png")
+    PlayerHandRightArtefactAxeOfWoePng = loadImage("assets/player/hand_right/artefact/axe_of_woe.png")
+    PlayerHandRightArtefactArgaNewPng = loadImage("assets/player/hand_right/artefact/arga_new.png")
+    PlayerHandRightArtefactKrishnaPng = loadImage("assets/player/hand_right/artefact/krishna.png")
+    PlayerHandRightArtefactSingingSwordPng = loadImage("assets/player/hand_right/artefact/singing_sword.png")
+    PlayerHandRightArtefactLeechPng = loadImage("assets/player/hand_right/artefact/leech.png")
+    PlayerHandRightArtefactSwordOfPowerOldPng = loadImage("assets/player/hand_right/artefact/sword_of_power_old.png")
+    PlayerHandRightArtefactMaceOfVariabilityPng = loadImage("assets/player/hand_right/artefact/mace_of_variability.png")
+    PlayerHandRightArtefactPlutoniumSwordOldPng = loadImage("assets/player/hand_right/artefact/plutonium_sword_old.png")
+    PlayerHandRightArtefactOlgrebPng = loadImage("assets/player/hand_right/artefact/olgreb.png")
+    PlayerHandRightArtefactDoomKnightNewPng = loadImage("assets/player/hand_right/artefact/doom_knight_new.png")
+    PlayerHandRightArtefactFinisherPng = loadImage("assets/player/hand_right/artefact/finisher.png")
+    PlayerHandRightArtefactAsmodeusNewPng = loadImage("assets/player/hand_right/artefact/asmodeus_new.png")
+    PlayerHandRightArtefactUndeadhunterPng = loadImage("assets/player/hand_right/artefact/undeadhunter.png")
+    PlayerHandRightArtefactDispaterNewPng = loadImage("assets/player/hand_right/artefact/dispater_new.png")
+    PlayerHandRightArtefactSniperPng = loadImage("assets/player/hand_right/artefact/sniper.png")
+    PlayerHandRightArtefactFlamingDeathOldPng = loadImage("assets/player/hand_right/artefact/flaming_death_old.png")
+    PlayerHandRightArtefactSpriggansKnifeNewPng = loadImage("assets/player/hand_right/artefact/spriggans_knife_new.png")
+    PlayerHandRightArtefactBlowgunAssassinPng = loadImage("assets/player/hand_right/artefact/blowgun_assassin.png")
+    PlayerHandRightArtefactCrystalSpearNewPng = loadImage("assets/player/hand_right/artefact/crystal_spear_new.png")
+    PlayerHandRightArtefactMorgPng = loadImage("assets/player/hand_right/artefact/morg.png")
+    PlayerHandRightArtefactFirestarterPng = loadImage("assets/player/hand_right/artefact/firestarter.png")
+    PlayerHandRightArtefactDispaterOldPng = loadImage("assets/player/hand_right/artefact/dispater_old.png")
+    PlayerHandRightArtefactVampiresToothPng = loadImage("assets/player/hand_right/artefact/vampires_tooth.png")
+    PlayerHandRightArtefactDoomKnightOldPng = loadImage("assets/player/hand_right/artefact/doom_knight_old.png")
+    PlayerHandRightArtefactBloodbaneOldPng = loadImage("assets/player/hand_right/artefact/bloodbane_old.png")
+    PlayerHandRightArtefactBotonoPng = loadImage("assets/player/hand_right/artefact/botono.png")
+    PlayerHandRightArtefactFlamingDeathNewPng = loadImage("assets/player/hand_right/artefact/flaming_death_new.png")
+    PlayerHandRightArtefactTridentOctopusKingPng = loadImage("assets/player/hand_right/artefact/trident_octopus_king.png")
+    PlayerHandRightArtefactGlaiveOfTheGuardOldPng = loadImage("assets/player/hand_right/artefact/glaive_of_the_guard_old.png")
+    PlayerHandRightArtefactCrossbowFirePng = loadImage("assets/player/hand_right/artefact/crossbow_fire.png")
+    PlayerHandRightArtefactSerpentScourgePng = loadImage("assets/player/hand_right/artefact/serpent_scourge.png")
+    PlayerHandRightArtefactGlaiveOfTheGuardNewPng = loadImage("assets/player/hand_right/artefact/glaive_of_the_guard_new.png")
+    PlayerHandRightArtefactSpriggansKnifeOldPng = loadImage("assets/player/hand_right/artefact/spriggans_knife_old.png")
+    PlayerHandRightArtefactCutlassPng = loadImage("assets/player/hand_right/artefact/cutlass.png")
+    PlayerHandRightArtefactAsmodeusOldPng = loadImage("assets/player/hand_right/artefact/asmodeus_old.png")
+    PlayerHandRightArtefactWyrmbanePng = loadImage("assets/player/hand_right/artefact/wyrmbane.png")
+    PlayerHandRightArtefactBloodbaneNewPng = loadImage("assets/player/hand_right/artefact/bloodbane_new.png")
+    PlayerHandRightArtefactShillelaghPng = loadImage("assets/player/hand_right/artefact/shillelagh.png")
+    PlayerHandRightMiscSkullPng = loadImage("assets/player/hand_right/misc/skull.png")
+    PlayerHandRightMiscFireGreenPng = loadImage("assets/player/hand_right/misc/fire_green.png")
+    PlayerHandRightMiscLightRedPng = loadImage("assets/player/hand_right/misc/light_red.png")
+    PlayerHandRightMiscFireRedPng = loadImage("assets/player/hand_right/misc/fire_red.png")
+    PlayerHandRightMiscHornPng = loadImage("assets/player/hand_right/misc/horn.png")
+    PlayerHandRightMiscLanternPng = loadImage("assets/player/hand_right/misc/lantern.png")
+    PlayerHandRightMiscLightBluePng = loadImage("assets/player/hand_right/misc/light_blue.png")
+    PlayerHandRightMiscBladehandsNewPng = loadImage("assets/player/hand_right/misc/bladehands_new.png")
+    PlayerHandRightMiscStonePng = loadImage("assets/player/hand_right/misc/stone.png")
+    PlayerHandRightMiscFireDarkPng = loadImage("assets/player/hand_right/misc/fire_dark.png")
+    PlayerHandRightMiscBottlePng = loadImage("assets/player/hand_right/misc/bottle.png")
+    PlayerHandRightMiscCrystalPng = loadImage("assets/player/hand_right/misc/crystal.png")
+    PlayerHandRightMiscDeckPng = loadImage("assets/player/hand_right/misc/deck.png")
+    PlayerHandRightMiscBladehandsFePng = loadImage("assets/player/hand_right/misc/bladehands_fe.png")
+    PlayerHandRightMiscBladehandsOpPng = loadImage("assets/player/hand_right/misc/bladehands_op.png")
+    PlayerHandRightMiscLightYellowPng = loadImage("assets/player/hand_right/misc/light_yellow.png")
+    PlayerHandRightMiscFireCyanPng = loadImage("assets/player/hand_right/misc/fire_cyan.png")
+    PlayerHandRightMiscDiscPng = loadImage("assets/player/hand_right/misc/disc.png")
+    PlayerHandRightMiscBladehandsOldPng = loadImage("assets/player/hand_right/misc/bladehands_old.png")
+    PlayerHandRightMiscFireWhitePng = loadImage("assets/player/hand_right/misc/fire_white.png")
+    PlayerHandRightMiscSparkPng = loadImage("assets/player/hand_right/misc/spark.png")
+    PlayerHandRightMiscFireBluePng = loadImage("assets/player/hand_right/misc/fire_blue.png")
+    PlayerHandRightMiscFireWhite2Png = loadImage("assets/player/hand_right/misc/fire_white_2.png")
+    PlayerHandRightMiscFanPng = loadImage("assets/player/hand_right/misc/fan.png")
+    PlayerHandRightMiscBoneLanternPng = loadImage("assets/player/hand_right/misc/bone_lantern.png")
+    PlayerHandRightMiscOrbPng = loadImage("assets/player/hand_right/misc/orb.png")
+    PlayerHandRightMiscHeadPng = loadImage("assets/player/hand_right/misc/head.png")
+    PlayerHandRightMiscBoxPng = loadImage("assets/player/hand_right/misc/box.png")
+    PlayerCloakRatskinPng = loadImage("assets/player/cloak/ratskin.png")
+    PlayerCloakGrayPng = loadImage("assets/player/cloak/gray.png")
+    PlayerCloakBrownPng = loadImage("assets/player/cloak/brown.png")
+    PlayerCloakDragonskinPng = loadImage("assets/player/cloak/dragonskin.png")
+    PlayerCloakBlackPng = loadImage("assets/player/cloak/black.png")
+    PlayerCloakWhitePng = loadImage("assets/player/cloak/white.png")
+    PlayerCloakGreenPng = loadImage("assets/player/cloak/green.png")
+    PlayerCloakBluePng = loadImage("assets/player/cloak/blue.png")
+    PlayerCloakYellowPng = loadImage("assets/player/cloak/yellow.png")
+    PlayerCloakRedPng = loadImage("assets/player/cloak/red.png")
+    PlayerCloakCyanPng = loadImage("assets/player/cloak/cyan.png")
+    PlayerCloakMagentaPng = loadImage("assets/player/cloak/magenta.png")
+    PlayerDraconicHeadDraconicHeadPalePng = loadImage("assets/player/draconic_head/draconic_head_pale.png")
+    PlayerDraconicHeadDraconicHeadGreenPng = loadImage("assets/player/draconic_head/draconic_head_green.png")
+    PlayerDraconicHeadDraconicHeadMottledPng = loadImage("assets/player/draconic_head/draconic_head_mottled.png")
+    PlayerDraconicHeadDraconicHeadBlackPng = loadImage("assets/player/draconic_head/draconic_head_black.png")
+    PlayerDraconicHeadDraconicHeadRedPng = loadImage("assets/player/draconic_head/draconic_head_red.png")
+    PlayerDraconicHeadDraconicHeadBrownPng = loadImage("assets/player/draconic_head/draconic_head_brown.png")
+    PlayerDraconicHeadDraconicHeadGreyPng = loadImage("assets/player/draconic_head/draconic_head_grey.png")
+    PlayerDraconicHeadDraconicHeadYellowPng = loadImage("assets/player/draconic_head/draconic_head_yellow.png")
+    PlayerDraconicHeadDraconicHeadPurplePng = loadImage("assets/player/draconic_head/draconic_head_purple.png")
+    PlayerDraconicHeadDraconicHeadWhitePng = loadImage("assets/player/draconic_head/draconic_head_white.png")
+    PlayerEnchantmentStickyFlamePng = loadImage("assets/player/enchantment/sticky_flame.png")
+    PlayerHeadWizardRedPng = loadImage("assets/player/head/wizard_red.png")
+    PlayerHeadBandBluePng = loadImage("assets/player/head/band_blue.png")
+    PlayerHeadCrownGold1Png = loadImage("assets/player/head/crown_gold_1.png")
+    PlayerHeadBandRedPng = loadImage("assets/player/head/band_red.png")
+    PlayerHeadBlueHornGoldPng = loadImage("assets/player/head/blue_horn_gold.png")
+    PlayerHeadHoodRed2Png = loadImage("assets/player/head/hood_red_2.png")
+    PlayerHeadFeatherRedPng = loadImage("assets/player/head/feather_red.png")
+    PlayerHeadHoodGreen2Png = loadImage("assets/player/head/hood_green_2.png")
+    PlayerHeadMummyPng = loadImage("assets/player/head/mummy.png")
+    PlayerHeadTurbanWhitePng = loadImage("assets/player/head/turban_white.png")
+    PlayerHeadFullGoldPng = loadImage("assets/player/head/full_gold.png")
+    PlayerHeadBrownGoldPng = loadImage("assets/player/head/brown_gold.png")
+    PlayerHeadHelmPlumePng = loadImage("assets/player/head/helm_plume.png")
+    PlayerHeadFhelmHornYellowPng = loadImage("assets/player/head/fhelm_horn_yellow.png")
+    PlayerHeadFhelmGray3Png = loadImage("assets/player/head/fhelm_gray_3.png")
+    PlayerHeadHealerPng = loadImage("assets/player/head/healer.png")
+    PlayerHeadHorns1Png = loadImage("assets/player/head/horns_1.png")
+    PlayerHeadCheekRedPng = loadImage("assets/player/head/cheek_red.png")
+    PlayerHeadTaisoMagentaPng = loadImage("assets/player/head/taiso_magenta.png")
+    PlayerHeadBandMagentaPng = loadImage("assets/player/head/band_magenta.png")
+    PlayerHeadTurbanPurplePng = loadImage("assets/player/head/turban_purple.png")
+    PlayerHeadWizardWhitePng = loadImage("assets/player/head/wizard_white.png")
+    PlayerHeadBearPng = loadImage("assets/player/head/bear.png")
+    PlayerHeadFeatherBluePng = loadImage("assets/player/head/feather_blue.png")
+    PlayerHeadFullBlackPng = loadImage("assets/player/head/full_black.png")
+    PlayerHeadCapBlack1Png = loadImage("assets/player/head/cap_black_1.png")
+    PlayerHeadHornedPng = loadImage("assets/player/head/horned.png")
+    PlayerHeadNinjaBlackPng = loadImage("assets/player/head/ninja_black.png")
+    PlayerHeadTaisoBluePng = loadImage("assets/player/head/taiso_blue.png")
+    PlayerHeadIron2Png = loadImage("assets/player/head/iron_2.png")
+    PlayerHeadHelmRedPng = loadImage("assets/player/head/helm_red.png")
+    PlayerHeadCapBluePng = loadImage("assets/player/head/cap_blue.png")
+    PlayerHeadHoodGreenPng = loadImage("assets/player/head/hood_green.png")
+    PlayerHeadConeRedPng = loadImage("assets/player/head/cone_red.png")
+    PlayerHeadHelmGreenPng = loadImage("assets/player/head/helm_green.png")
+    PlayerHeadBandanaYbrownPng = loadImage("assets/player/head/bandana_ybrown.png")
+    PlayerHeadBlackHornPng = loadImage("assets/player/head/black_horn.png")
+    PlayerHeadFeatherGreenPng = loadImage("assets/player/head/feather_green.png")
+    PlayerHeadArtDragonhelmPng = loadImage("assets/player/head/art_dragonhelm.png")
+    PlayerHeadHorns3Png = loadImage("assets/player/head/horns_3.png")
+    PlayerHeadDyroveprevaOldPng = loadImage("assets/player/head/dyrovepreva_old.png")
+    PlayerHeadConeBluePng = loadImage("assets/player/head/cone_blue.png")
+    PlayerHeadHoodOrangePng = loadImage("assets/player/head/hood_orange.png")
+    PlayerHeadHoodBlack2Png = loadImage("assets/player/head/hood_black_2.png")
+    PlayerHeadHoodGrayPng = loadImage("assets/player/head/hood_gray.png")
+    PlayerHeadCrownGold2Png = loadImage("assets/player/head/crown_gold_2.png")
+    PlayerHeadTaisoWhitePng = loadImage("assets/player/head/taiso_white.png")
+    PlayerHeadChainPng = loadImage("assets/player/head/chain.png")
+    PlayerHeadIron1Png = loadImage("assets/player/head/iron_1.png")
+    PlayerHeadEternalTormentPng = loadImage("assets/player/head/eternal_torment.png")
+    PlayerHeadVikingGoldPng = loadImage("assets/player/head/viking_gold.png")
+    PlayerHeadHatBlackPng = loadImage("assets/player/head/hat_black.png")
+    PlayerHeadTaisoRedPng = loadImage("assets/player/head/taiso_red.png")
+    PlayerHeadWizardBluePng = loadImage("assets/player/head/wizard_blue.png")
+    PlayerHeadWizardBluegreenPng = loadImage("assets/player/head/wizard_bluegreen.png")
+    PlayerHeadWizardBrownPng = loadImage("assets/player/head/wizard_brown.png")
+    PlayerHeadWizardBlackgoldPng = loadImage("assets/player/head/wizard_blackgold.png")
+    PlayerHeadHoodCyanPng = loadImage("assets/player/head/hood_cyan.png")
+    PlayerHeadHoodRedPng = loadImage("assets/player/head/hood_red.png")
+    PlayerHeadHoodWhitePng = loadImage("assets/player/head/hood_white.png")
+    PlayerHeadWizardBlackredPng = loadImage("assets/player/head/wizard_blackred.png")
+    PlayerHeadBlackHorn2Png = loadImage("assets/player/head/black_horn_2.png")
+    PlayerHeadFeatherYellowPng = loadImage("assets/player/head/feather_yellow.png")
+    PlayerHeadClown1Png = loadImage("assets/player/head/clown_1.png")
+    PlayerHeadIronRedPng = loadImage("assets/player/head/iron_red.png")
+    PlayerHeadFeatherWhitePng = loadImage("assets/player/head/feather_white.png")
+    PlayerHeadBandWhitePng = loadImage("assets/player/head/band_white.png")
+    PlayerHeadVikingBrown2Png = loadImage("assets/player/head/viking_brown_2.png")
+    PlayerHeadGandalfPng = loadImage("assets/player/head/gandalf.png")
+    PlayerHeadCrownGold3Png = loadImage("assets/player/head/crown_gold_3.png")
+    PlayerHeadHoodYbrownPng = loadImage("assets/player/head/hood_ybrown.png")
+    PlayerHeadWizardLightgreenPng = loadImage("assets/player/head/wizard_lightgreen.png")
+    PlayerHeadHorns2Png = loadImage("assets/player/head/horns_2.png")
+    PlayerHeadVikingBrown1Png = loadImage("assets/player/head/viking_brown_1.png")
+    PlayerHeadFhelmHorn2Png = loadImage("assets/player/head/fhelm_horn_2.png")
+    PlayerHeadIron3Png = loadImage("assets/player/head/iron_3.png")
+    PlayerHeadTaisoYellowPng = loadImage("assets/player/head/taiso_yellow.png")
+    PlayerHeadWizardDarkgreenPng = loadImage("assets/player/head/wizard_darkgreen.png")
+    PlayerHeadDyroveprevaNewPng = loadImage("assets/player/head/dyrovepreva_new.png")
+    PlayerHeadHornGrayPng = loadImage("assets/player/head/horn_gray.png")
+    PlayerHeadClown2Png = loadImage("assets/player/head/clown_2.png")
+    PlayerHeadBandYellowPng = loadImage("assets/player/head/band_yellow.png")
+    PlayerHeadHoodWhite2Png = loadImage("assets/player/head/hood_white_2.png")
+    PlayerHeadTurbanBrownPng = loadImage("assets/player/head/turban_brown.png")
+    PlayerHeadYellowWingPng = loadImage("assets/player/head/yellow_wing.png")
+    PlayerHeadStrawPng = loadImage("assets/player/head/straw.png")
+    PlayerHeadWizardPurplePng = loadImage("assets/player/head/wizard_purple.png")
+    PlayerHeadEthericCagePng = loadImage("assets/player/head/etheric_cage.png")
+    PlayerHeadIsildurPng = loadImage("assets/player/head/isildur.png")
+    PlayerHeadHelmGimliPng = loadImage("assets/player/head/helm_gimli.png")
+    PlayerHeadHornEvilPng = loadImage("assets/player/head/horn_evil.png")
+    PlayerBodyFrodoPng = loadImage("assets/player/body/frodo.png")
+    PlayerBodyChinaRedPng = loadImage("assets/player/body/china_red.png")
+    PlayerBodyRobeBlackPng = loadImage("assets/player/body/robe_black.png")
+    PlayerBodyShirtWhite3Png = loadImage("assets/player/body/shirt_white_3.png")
+    PlayerBodyBoromirPng = loadImage("assets/player/body/boromir.png")
+    PlayerBodyLeatherArmor2Png = loadImage("assets/player/body/leather_armor_2.png")
+    PlayerBodyGandalfGPng = loadImage("assets/player/body/gandalf_g.png")
+    PlayerBodyKarate2Png = loadImage("assets/player/body/karate_2.png")
+    PlayerBodyCrystalPlatePng = loadImage("assets/player/body/crystal_plate.png")
+    PlayerBodyShoulderPadPng = loadImage("assets/player/body/shoulder_pad.png")
+    PlayerBodyVestRed2Png = loadImage("assets/player/body/vest_red_2.png")
+    PlayerBodyRobeBlueGreenPng = loadImage("assets/player/body/robe_blue_green.png")
+    PlayerBodyRobeMisfortunePng = loadImage("assets/player/body/robe_misfortune.png")
+    PlayerBodyJacket2Png = loadImage("assets/player/body/jacket_2.png")
+    PlayerBodyDragonArmorBlueNewPng = loadImage("assets/player/body/dragon_armor_blue_new.png")
+    PlayerBodyGilGaladPng = loadImage("assets/player/body/gil-galad.png")
+    PlayerBodyDragonArmorGreenPng = loadImage("assets/player/body/dragon_armor_green.png")
+    PlayerBodyRobeCyanPng = loadImage("assets/player/body/robe_cyan.png")
+    PlayerBodyLeatherStudPng = loadImage("assets/player/body/leather_stud.png")
+    PlayerBodyShirtWhiteYellowPng = loadImage("assets/player/body/shirt_white_yellow.png")
+    PlayerBodyChainmail3Png = loadImage("assets/player/body/chainmail_3.png")
+    PlayerBodyDressWhitePng = loadImage("assets/player/body/dress_white.png")
+    PlayerBodyRobeBlackGoldPng = loadImage("assets/player/body/robe_black_gold.png")
+    PlayerBodyDragonArmorCyanOldPng = loadImage("assets/player/body/dragon_armor_cyan_old.png")
+    PlayerBodyDragonArmorBrownNewPng = loadImage("assets/player/body/dragon_armor_brown_new.png")
+    PlayerBodyJacketStudPng = loadImage("assets/player/body/jacket_stud.png")
+    PlayerBodyShirtHawaiiPng = loadImage("assets/player/body/shirt_hawaii.png")
+    PlayerBodyDressGreenPng = loadImage("assets/player/body/dress_green.png")
+    PlayerBodyJessicaPng = loadImage("assets/player/body/jessica.png")
+    PlayerBodyDragonScaleBlueNewPng = loadImage("assets/player/body/dragon_scale_blue_new.png")
+    PlayerBodyKaratePng = loadImage("assets/player/body/karate.png")
+    PlayerBodyRobeYellowPng = loadImage("assets/player/body/robe_yellow.png")
+    PlayerBodyDragonScalePearlPng = loadImage("assets/player/body/dragon_scale_pearl.png")
+    PlayerBodyMeshBlackPng = loadImage("assets/player/body/mesh_black.png")
+    PlayerBodyHalfPlate3Png = loadImage("assets/player/body/half_plate_3.png")
+    PlayerBodyGreenChainPng = loadImage("assets/player/body/green_chain.png")
+    PlayerBodyDragonScaleWhiteNewPng = loadImage("assets/player/body/dragon_scale_white_new.png")
+    PlayerBodyRobeWhiteBluePng = loadImage("assets/player/body/robe_white_blue.png")
+    PlayerBodyHalfPlate2Png = loadImage("assets/player/body/half_plate_2.png")
+    PlayerBodyScalemailPng = loadImage("assets/player/body/scalemail.png")
+    PlayerBodyPlatePng = loadImage("assets/player/body/plate.png")
+    PlayerBodyOrangeCrystalPng = loadImage("assets/player/body/orange_crystal.png")
+    PlayerBodyRobeWhitePng = loadImage("assets/player/body/robe_white.png")
+    PlayerBodyChunliPng = loadImage("assets/player/body/chunli.png")
+    PlayerBodyDragonArmorWhiteOldPng = loadImage("assets/player/body/dragon_armor_white_old.png")
+    PlayerBodyRobeGray2Png = loadImage("assets/player/body/robe_gray_2.png")
+    PlayerBodySuspBlackPng = loadImage("assets/player/body/susp_black.png")
+    PlayerBodyDragonArmorBrownOldPng = loadImage("assets/player/body/dragon_armor_brown_old.png")
+    PlayerBodyChainmailPng = loadImage("assets/player/body/chainmail.png")
+    PlayerBodyLegolasPng = loadImage("assets/player/body/legolas.png")
+    PlayerBodyRobeGreenGoldPng = loadImage("assets/player/body/robe_green_gold.png")
+    PlayerBodyBanded2Png = loadImage("assets/player/body/banded_2.png")
+    PlayerBodyRobeBlackRedPng = loadImage("assets/player/body/robe_black_red.png")
+    PlayerBodyDragonArmorMagentaNewPng = loadImage("assets/player/body/dragon_armor_magenta_new.png")
+    PlayerBodyRobeBrown3Png = loadImage("assets/player/body/robe_brown_3.png")
+    PlayerBodyDragonScaleCyanOldPng = loadImage("assets/player/body/dragon_scale_cyan_old.png")
+    PlayerBodyAnimalSkinPng = loadImage("assets/player/body/animal_skin.png")
+    PlayerBodyDragonArmorGoldNewPng = loadImage("assets/player/body/dragon_armor_gold_new.png")
+    PlayerBodyFaerieDragonArmorPng = loadImage("assets/player/body/faerie_dragon_armor.png")
+    PlayerBodyPlate2Png = loadImage("assets/player/body/plate_2.png")
+    PlayerBodyBreastBlackPng = loadImage("assets/player/body/breast_black.png")
+    PlayerBodyDragonScaleGoldOldPng = loadImage("assets/player/body/dragon_scale_gold_old.png")
+    PlayerBodyCoatBlackPng = loadImage("assets/player/body/coat_black.png")
+    PlayerBodyDragonScaleQuicksilverPng = loadImage("assets/player/body/dragon_scale_quicksilver.png")
+    PlayerBodyLeatherGreenPng = loadImage("assets/player/body/leather_green.png")
+    PlayerBodyBikiniRedPng = loadImage("assets/player/body/bikini_red.png")
+    PlayerBodyLeatherArmor3Png = loadImage("assets/player/body/leather_armor_3.png")
+    PlayerBodyArmorMummyPng = loadImage("assets/player/body/armor_mummy.png")
+    PlayerBodySkirtOnepGreyPng = loadImage("assets/player/body/skirt_onep_grey.png")
+    PlayerBodyTrollHidePng = loadImage("assets/player/body/troll_hide.png")
+    PlayerBodyRobeOfNightPng = loadImage("assets/player/body/robe_of_night.png")
+    PlayerBodyBandedPng = loadImage("assets/player/body/banded.png")
+    PlayerBodyDragonScaleBrownNewPng = loadImage("assets/player/body/dragon_scale_brown_new.png")
+    PlayerBodyDragonScaleShadowPng = loadImage("assets/player/body/dragon_scale_shadow.png")
+    PlayerBodyChinaRed2Png = loadImage("assets/player/body/china_red_2.png")
+    PlayerBodySamPng = loadImage("assets/player/body/sam.png")
+    PlayerBodyDragonArmorMagentaOldPng = loadImage("assets/player/body/dragon_armor_magenta_old.png")
+    PlayerBodyMerryPng = loadImage("assets/player/body/merry.png")
+    PlayerBodyLeatherJacketPng = loadImage("assets/player/body/leather_jacket.png")
+    PlayerBodyCoatRedPng = loadImage("assets/player/body/coat_red.png")
+    PlayerBodyGreenSuspPng = loadImage("assets/player/body/green_susp.png")
+    PlayerBodyPlateBlackPng = loadImage("assets/player/body/plate_black.png")
+    PlayerBodyShirtCheckPng = loadImage("assets/player/body/shirt_check.png")
+    PlayerBodyDragonArmorQuicksilverPng = loadImage("assets/player/body/dragon_armor_quicksilver.png")
+    PlayerBodyLeatherShortPng = loadImage("assets/player/body/leather_short.png")
+    PlayerBodyMetalBluePng = loadImage("assets/player/body/metal_blue.png")
+    PlayerBodyDragonScaleCyanNewPng = loadImage("assets/player/body/dragon_scale_cyan_new.png")
+    PlayerBodyShirtBlackAndClothPng = loadImage("assets/player/body/shirt_black_and_cloth.png")
+    PlayerBodyShirtVestPng = loadImage("assets/player/body/shirt_vest.png")
+    PlayerBodyDragonScaleMagentaNewPng = loadImage("assets/player/body/dragon_scale_magenta_new.png")
+    PlayerBodyLeatherMetalPng = loadImage("assets/player/body/leather_metal.png")
+    PlayerBodyPlateAndCloth2Png = loadImage("assets/player/body/plate_and_cloth_2.png")
+    PlayerBodyShirtWhite2Png = loadImage("assets/player/body/shirt_white_2.png")
+    PlayerBodyRobeCloudsPng = loadImage("assets/player/body/robe_clouds.png")
+    PlayerBodyBelt2Png = loadImage("assets/player/body/belt_2.png")
+    PlayerBodyBplateGreenPng = loadImage("assets/player/body/bplate_green.png")
+    PlayerBodyBloodyPng = loadImage("assets/player/body/bloody.png")
+    PlayerBodyZhorPng = loadImage("assets/player/body/zhor.png")
+    PlayerBodyNeckPng = loadImage("assets/player/body/neck.png")
+    PlayerBodyLearsChainMailPng = loadImage("assets/player/body/lears_chain_mail.png")
+    PlayerBodyMonkBluePng = loadImage("assets/player/body/monk_blue.png")
+    PlayerBodyDragonArmorBlueOldPng = loadImage("assets/player/body/dragon_armor_blue_old.png")
+    PlayerBodyRobeWhiteGreenPng = loadImage("assets/player/body/robe_white_green.png")
+    PlayerBodyMonkBlackPng = loadImage("assets/player/body/monk_black.png")
+    PlayerBodyShirtWhite1Png = loadImage("assets/player/body/shirt_white_1.png")
+    PlayerBodyDragonArmorGoldOldPng = loadImage("assets/player/body/dragon_armor_gold_old.png")
+    PlayerBodyRobeJesterPng = loadImage("assets/player/body/robe_jester.png")
+    PlayerBodyAragorn2Png = loadImage("assets/player/body/aragorn_2.png")
+    PlayerBodyHalfPlatePng = loadImage("assets/player/body/half_plate.png")
+    PlayerBodyRobeRainbowPng = loadImage("assets/player/body/robe_rainbow.png")
+    PlayerBodySlitBlackPng = loadImage("assets/player/body/slit_black.png")
+    PlayerBodyScalemail2Png = loadImage("assets/player/body/scalemail_2.png")
+    PlayerBodyRobePurplePng = loadImage("assets/player/body/robe_purple.png")
+    PlayerBodyDragonScaleBlueOldPng = loadImage("assets/player/body/dragon_scale_blue_old.png")
+    PlayerBodyRobeGreenPng = loadImage("assets/player/body/robe_green.png")
+    PlayerBodyDragonArmorPearlPng = loadImage("assets/player/body/dragon_armor_pearl.png")
+    PlayerBodyDragonScaleBrownOldPng = loadImage("assets/player/body/dragon_scale_brown_old.png")
+    PlayerBodyRobeBlueWhitePng = loadImage("assets/player/body/robe_blue_white.png")
+    PlayerBodyGimliPng = loadImage("assets/player/body/gimli.png")
+    PlayerBodyMeshRedPng = loadImage("assets/player/body/mesh_red.png")
+    PlayerBodyRobeWhiteRedPng = loadImage("assets/player/body/robe_white_red.png")
+    PlayerBodyArmorBlueGoldPng = loadImage("assets/player/body/armor_blue_gold.png")
+    PlayerBodyRobeRed2Png = loadImage("assets/player/body/robe_red_2.png")
+    PlayerBodyVanhel1Png = loadImage("assets/player/body/vanhel_1.png")
+    PlayerBodyMaxwellOldPng = loadImage("assets/player/body/maxwell_old.png")
+    PlayerBodyDragonArmorShadowPng = loadImage("assets/player/body/dragon_armor_shadow.png")
+    PlayerBodyArwenPng = loadImage("assets/player/body/arwen.png")
+    PlayerBodyRingmailPng = loadImage("assets/player/body/ringmail.png")
+    PlayerBodyRobeBlackHoodPng = loadImage("assets/player/body/robe_black_hood.png")
+    PlayerBodyRobeWhite2Png = loadImage("assets/player/body/robe_white_2.png")
+    PlayerBodyLeatherArmorPng = loadImage("assets/player/body/leather_armor.png")
+    PlayerBodySarumanPng = loadImage("assets/player/body/saruman.png")
+    PlayerBodyPipinPng = loadImage("assets/player/body/pipin.png")
+    PlayerBodyDragonScaleGoldNewPng = loadImage("assets/player/body/dragon_scale_gold_new.png")
+    PlayerBodyShirtBlack3Png = loadImage("assets/player/body/shirt_black_3.png")
+    PlayerBodyJacket3Png = loadImage("assets/player/body/jacket_3.png")
+    PlayerBodyDragonScaleGreenPng = loadImage("assets/player/body/dragon_scale_green.png")
+    PlayerBodyRobeBrown2Png = loadImage("assets/player/body/robe_brown_2.png")
+    PlayerBodyPjPng = loadImage("assets/player/body/pj.png")
+    PlayerBodyDragonArmorWhiteNewPng = loadImage("assets/player/body/dragon_armor_white_new.png")
+    PlayerBodyRobeBluePng = loadImage("assets/player/body/robe_blue.png")
+    PlayerBodyDragonScaleWhiteOldPng = loadImage("assets/player/body/dragon_scale_white_old.png")
+    PlayerBodyAragornPng = loadImage("assets/player/body/aragorn.png")
+    PlayerBodyDragonScaleMagentaOldPng = loadImage("assets/player/body/dragon_scale_magenta_old.png")
+    PlayerBodyRobeRedGoldPng = loadImage("assets/player/body/robe_red_gold.png")
+    PlayerBodyDragonArmorCyanNewPng = loadImage("assets/player/body/dragon_armor_cyan_new.png")
+    PlayerBodyShirtBluePng = loadImage("assets/player/body/shirt_blue.png")
+    PlayerBodyBelt1Png = loadImage("assets/player/body/belt_1.png")
+    PlayerBodyBplateMetal1Png = loadImage("assets/player/body/bplate_metal_1.png")
+    PlayerBodyLeatherRedPng = loadImage("assets/player/body/leather_red.png")
+    PlayerBodyPlateAndClothPng = loadImage("assets/player/body/plate_and_cloth.png")
+    PlayerBodyLeatherHeavyPng = loadImage("assets/player/body/leather_heavy.png")
+    PlayerBodyMaxwellNewPng = loadImage("assets/player/body/maxwell_new.png")
+    PlayerBodyIsildurPng = loadImage("assets/player/body/isildur.png")
+    PlayerBodyLeather2Png = loadImage("assets/player/body/leather_2.png")
+    PlayerBodyVestRedPng = loadImage("assets/player/body/vest_red.png")
+    PlayerBodyRobeBrownPng = loadImage("assets/player/body/robe_brown.png")
+    PlayerBodyRobeRedPng = loadImage("assets/player/body/robe_red.png")
+    PlayerBodyShirtBlackPng = loadImage("assets/player/body/shirt_black.png")
+    PlayerBodyRobeRed3Png = loadImage("assets/player/body/robe_red_3.png")
+    PlayerMutationsCat7Png = loadImage("assets/player/mutations/cat_7.png")
+    PlayerMutationsCat8Png = loadImage("assets/player/mutations/cat_8.png")
+    PlayerMutationsCat9Png = loadImage("assets/player/mutations/cat_9.png")
+    PlayerMutationsCat10Png = loadImage("assets/player/mutations/cat_10.png")
+    PlayerMutationsOctopode1Png = loadImage("assets/player/mutations/octopode_1.png")
+    PlayerMutationsCat6Png = loadImage("assets/player/mutations/cat_6.png")
+    PlayerBeardShortGreenPng = loadImage("assets/player/beard/short_green.png")
+    PlayerBeardShortRedPng = loadImage("assets/player/beard/short_red.png")
+    PlayerBeardShortBlackPng = loadImage("assets/player/beard/short_black.png")
+    PlayerBeardLongWhitePng = loadImage("assets/player/beard/long_white.png")
+    PlayerBeardShortYellowPng = loadImage("assets/player/beard/short_yellow.png")
+    PlayerBeardLongRedPng = loadImage("assets/player/beard/long_red.png")
+    PlayerBeardLongBlackPng = loadImage("assets/player/beard/long_black.png")
+    PlayerBeardLongYellowPng = loadImage("assets/player/beard/long_yellow.png")
+    PlayerBeardShortWhitePng = loadImage("assets/player/beard/short_white.png")
+    PlayerBeardLongGreenPng = loadImage("assets/player/beard/long_green.png")
+    PlayerBeardPjPng = loadImage("assets/player/beard/pj.png")
+    PlayerDraconicWingDraconicWingBlackPng = loadImage("assets/player/draconic_wing/draconic_wing_black.png")
+    PlayerDraconicWingDraconicWingYellowPng = loadImage("assets/player/draconic_wing/draconic_wing_yellow.png")
+    PlayerDraconicWingDraconicWingWhitePng = loadImage("assets/player/draconic_wing/draconic_wing_white.png")
+    PlayerDraconicWingDraconicWingRedPng = loadImage("assets/player/draconic_wing/draconic_wing_red.png")
+    PlayerDraconicWingDraconicWingBrownPng = loadImage("assets/player/draconic_wing/draconic_wing_brown.png")
+    PlayerDraconicWingDraconicWingMottledPng = loadImage("assets/player/draconic_wing/draconic_wing_mottled.png")
+    PlayerDraconicWingDraconicWingGreenPng = loadImage("assets/player/draconic_wing/draconic_wing_green.png")
+    PlayerDraconicWingDraconicWingPurplePng = loadImage("assets/player/draconic_wing/draconic_wing_purple.png")
+    PlayerDraconicWingDraconicWingGreyPng = loadImage("assets/player/draconic_wing/draconic_wing_grey.png")
+    PlayerDraconicWingDraconicWingPalePng = loadImage("assets/player/draconic_wing/draconic_wing_pale.png")
+    PlayerFelidsCat7Png = loadImage("assets/player/felids/cat_7.png")
+    PlayerFelidsCat8Png = loadImage("assets/player/felids/cat_8.png")
+    PlayerFelidsCat9Png = loadImage("assets/player/felids/cat_9.png")
+    PlayerFelidsCat10Png = loadImage("assets/player/felids/cat_10.png")
+    PlayerFelidsCat6Png = loadImage("assets/player/felids/cat_6.png")
+    PlayerTransformTreeFormPng = loadImage("assets/player/transform/tree_form.png")
+    PlayerTransformLichFormPng = loadImage("assets/player/transform/lich_form.png")
+    PlayerTransformDragonFormMottledPng = loadImage("assets/player/transform/dragon_form_mottled.png")
+    PlayerTransformIceFormPng = loadImage("assets/player/transform/ice_form.png")
+    PlayerTransformDragonFormPurplePng = loadImage("assets/player/transform/dragon_form_purple.png")
+    PlayerTransformLichFormOctopodePng = loadImage("assets/player/transform/lich_form_octopode.png")
+    PlayerTransformDragonFormYellowPng = loadImage("assets/player/transform/dragon_form_yellow.png")
+    PlayerTransformPigFormNewPng = loadImage("assets/player/transform/pig_form_new.png")
+    PlayerTransformDragonFormBlackPng = loadImage("assets/player/transform/dragon_form_black.png")
+    PlayerTransformDragonFormWhitePng = loadImage("assets/player/transform/dragon_form_white.png")
+    PlayerTransformDragonFormRedPng = loadImage("assets/player/transform/dragon_form_red.png")
+    PlayerTransformStatueFormFelidPng = loadImage("assets/player/transform/statue_form_felid.png")
+    PlayerTransformDragonFormPalePng = loadImage("assets/player/transform/dragon_form_pale.png")
+    PlayerTransformDragonFormGreyPng = loadImage("assets/player/transform/dragon_form_grey.png")
+    PlayerTransformStatueFormNagaPng = loadImage("assets/player/transform/statue_form_naga.png")
+    PlayerTransformPigFormOldPng = loadImage("assets/player/transform/pig_form_old.png")
+    PlayerTransformStatueFormCentaurPng = loadImage("assets/player/transform/statue_form_centaur.png")
+    PlayerTransformShadowFormPng = loadImage("assets/player/transform/shadow_form.png")
+    PlayerTransformStatueFormHumanoidPng = loadImage("assets/player/transform/statue_form_humanoid.png")
+    PlayerTransformDragonFormPng = loadImage("assets/player/transform/dragon_form.png")
+    PlayerTransformDragonFormGreenPng = loadImage("assets/player/transform/dragon_form_green.png")
+    PlayerTransformBatFormPng = loadImage("assets/player/transform/bat_form.png")
+    PlayerTransformMushroomFormPng = loadImage("assets/player/transform/mushroom_form.png")
+    PlayerBaseGhoul2MalePng = loadImage("assets/player/base/ghoul_2_male.png")
+    PlayerBaseLorcMale5Png = loadImage("assets/player/base/lorc_male_5.png")
+    PlayerBaseSprigganMalePng = loadImage("assets/player/base/spriggan_male.png")
+    PlayerBaseOctopode2Png = loadImage("assets/player/base/octopode_2.png")
+    PlayerBaseDraconianMalePng = loadImage("assets/player/base/draconian_male.png")
+    PlayerBaseMummyMalePng = loadImage("assets/player/base/mummy_male.png")
+    PlayerBaseLorcFemale6Png = loadImage("assets/player/base/lorc_female_6.png")
+    PlayerBaseDemonspawnRedMalePng = loadImage("assets/player/base/demonspawn_red_male.png")
+    PlayerBaseOctopode4Png = loadImage("assets/player/base/octopode_4.png")
+    PlayerBaseGnomeMalePng = loadImage("assets/player/base/gnome_male.png")
+    PlayerBaseFormicidPng = loadImage("assets/player/base/formicid.png")
+    PlayerBaseMerfolkFemalePng = loadImage("assets/player/base/merfolk_female.png")
+    PlayerBaseNagaBlueMalePng = loadImage("assets/player/base/naga_blue_male.png")
+    PlayerBaseMinotaurBrown1MalePng = loadImage("assets/player/base/minotaur_brown_1_male.png")
+    PlayerBaseGargoyleFemalePng = loadImage("assets/player/base/gargoyle_female.png")
+    PlayerBaseCentaurBrownFemalePng = loadImage("assets/player/base/centaur_brown_female.png")
+    PlayerBaseDraconianGrayFemalePng = loadImage("assets/player/base/draconian_gray_female.png")
+    PlayerBaseMerfolkMalePng = loadImage("assets/player/base/merfolk_male.png")
+    PlayerBaseShadowPng = loadImage("assets/player/base/shadow.png")
+    PlayerBaseCentaurDarkbrownFemalePng = loadImage("assets/player/base/centaur_darkbrown_female.png")
+    PlayerBaseDraconianPurpleMalePng = loadImage("assets/player/base/draconian_purple_male.png")
+    PlayerBaseTrollFemalePng = loadImage("assets/player/base/troll_female.png")
+    PlayerBaseMinotaurFemalePng = loadImage("assets/player/base/minotaur_female.png")
+    PlayerBaseTenguWinglessBrownFemalePng = loadImage("assets/player/base/tengu_wingless_brown_female.png")
+    PlayerBaseHalflingFemalePng = loadImage("assets/player/base/halfling_female.png")
+    PlayerBaseNagaDarkgreenFemalePng = loadImage("assets/player/base/naga_darkgreen_female.png")
+    PlayerBaseDemonspawnRedFemalePng = loadImage("assets/player/base/demonspawn_red_female.png")
+    PlayerBaseHumanFemalePng = loadImage("assets/player/base/human_female.png")
+    PlayerBaseLorcFemale0Png = loadImage("assets/player/base/lorc_female_0.png")
+    PlayerBaseDraconianMottledMalePng = loadImage("assets/player/base/draconian_mottled_male.png")
+    PlayerBaseOrcMalePng = loadImage("assets/player/base/orc_male.png")
+    PlayerBaseOctopode5Png = loadImage("assets/player/base/octopode_5.png")
+    PlayerBaseElfFemalePng = loadImage("assets/player/base/elf_female.png")
+    PlayerBaseDemonspawnPinkPng = loadImage("assets/player/base/demonspawn_pink.png")
+    PlayerBaseDraconianRedFemalePng = loadImage("assets/player/base/draconian_red_female.png")
+    PlayerBaseNagaMalePng = loadImage("assets/player/base/naga_male.png")
+    PlayerBaseOctopode3Png = loadImage("assets/player/base/octopode_3.png")
+    PlayerBaseNagaRedFemalePng = loadImage("assets/player/base/naga_red_female.png")
+    PlayerBaseDraconianWhiteFemalePng = loadImage("assets/player/base/draconian_white_female.png")
+    PlayerBaseOgreFemalePng = loadImage("assets/player/base/ogre_female.png")
+    PlayerBaseMerfolkWaterMalePng = loadImage("assets/player/base/merfolk_water_male.png")
+    PlayerBaseLorcMale4Png = loadImage("assets/player/base/lorc_male_4.png")
+    PlayerBaseGnomeFemalePng = loadImage("assets/player/base/gnome_female.png")
+    PlayerBaseNagaLightgreenFemalePng = loadImage("assets/player/base/naga_lightgreen_female.png")
+    PlayerBaseDraconianGoldFemalePng = loadImage("assets/player/base/draconian_gold_female.png")
+    PlayerBaseVampireFemalePng = loadImage("assets/player/base/vampire_female.png")
+    PlayerBaseCentaurDarkgreyFemalePng = loadImage("assets/player/base/centaur_darkgrey_female.png")
+    PlayerBaseCentaurDarkgreyMalePng = loadImage("assets/player/base/centaur_darkgrey_male.png")
+    PlayerBaseKenkuWingedFemalePng = loadImage("assets/player/base/kenku_winged_female.png")
+    PlayerBaseDraconianWhiteMalePng = loadImage("assets/player/base/draconian_white_male.png")
+    PlayerBaseNagaDarkgreenMalePng = loadImage("assets/player/base/naga_darkgreen_male.png")
+    PlayerBaseMinotaurMalePng = loadImage("assets/player/base/minotaur_male.png")
+    PlayerBaseNagaBlueFemalePng = loadImage("assets/player/base/naga_blue_female.png")
+    PlayerBaseDraconianGreenFemalePng = loadImage("assets/player/base/draconian_green_female.png")
+    PlayerBaseDraconianPaleMalePng = loadImage("assets/player/base/draconian_pale_male.png")
+    PlayerBaseDraconianGreenMalePng = loadImage("assets/player/base/draconian_green_male.png")
+    PlayerBaseSprigganFemalePng = loadImage("assets/player/base/spriggan_female.png")
+    PlayerBaseKoboldFemaleOldPng = loadImage("assets/player/base/kobold_female_old.png")
+    PlayerBaseElfMalePng = loadImage("assets/player/base/elf_male.png")
+    PlayerBaseLorcMale1Png = loadImage("assets/player/base/lorc_male_1.png")
+    PlayerBaseLorcMale6Png = loadImage("assets/player/base/lorc_male_6.png")
+    PlayerBaseMerfolkWaterFemalePng = loadImage("assets/player/base/merfolk_water_female.png")
+    PlayerBaseDraconianBlackFemalePng = loadImage("assets/player/base/draconian_black_female.png")
+    PlayerBaseKenkuWinglessFemalePng = loadImage("assets/player/base/kenku_wingless_female.png")
+    PlayerBaseKenkuWinglessMalePng = loadImage("assets/player/base/kenku_wingless_male.png")
+    PlayerBaseDraconianPaleFemalePng = loadImage("assets/player/base/draconian_pale_female.png")
+    PlayerBaseDraconianFemalePng = loadImage("assets/player/base/draconian_female.png")
+    PlayerBaseHalflingMalePng = loadImage("assets/player/base/halfling_male.png")
+    PlayerBaseLorcMale2Png = loadImage("assets/player/base/lorc_male_2.png")
+    PlayerBaseGhoulPng = loadImage("assets/player/base/ghoul.png")
+    PlayerBaseDraconianRedMalePng = loadImage("assets/player/base/draconian_red_male.png")
+    PlayerBaseHumanMalePng = loadImage("assets/player/base/human_male.png")
+    PlayerBaseLorcMale3Png = loadImage("assets/player/base/lorc_male_3.png")
+    PlayerBaseOrcFemalePng = loadImage("assets/player/base/orc_female.png")
+    PlayerBaseOctopode1Png = loadImage("assets/player/base/octopode_1.png")
+    PlayerBaseLorcFemale2Png = loadImage("assets/player/base/lorc_female_2.png")
+    PlayerBaseLorcFemale4Png = loadImage("assets/player/base/lorc_female_4.png")
+    PlayerBaseCentaurLightbrownFemalePng = loadImage("assets/player/base/centaur_lightbrown_female.png")
+    PlayerBaseDeepElfMalePng = loadImage("assets/player/base/deep_elf_male.png")
+    PlayerBaseVampireMalePng = loadImage("assets/player/base/vampire_male.png")
+    PlayerBaseDeepDwarfFemalePng = loadImage("assets/player/base/deep_dwarf_female.png")
+    PlayerBaseNagaFemalePng = loadImage("assets/player/base/naga_female.png")
+    PlayerBaseNagaRedMalePng = loadImage("assets/player/base/naga_red_male.png")
+    PlayerBaseCentaurLightgreyMalePng = loadImage("assets/player/base/centaur_lightgrey_male.png")
+    PlayerBaseOgreMalePng = loadImage("assets/player/base/ogre_male.png")
+    PlayerBaseNagaLightgreenMalePng = loadImage("assets/player/base/naga_lightgreen_male.png")
+    PlayerBaseMummyFemalePng = loadImage("assets/player/base/mummy_female.png")
+    PlayerBaseDraconianBlackMalePng = loadImage("assets/player/base/draconian_black_male.png")
+    PlayerBaseCentaurDarkbrownMalePng = loadImage("assets/player/base/centaur_darkbrown_male.png")
+    PlayerBaseDemonspawnBlackMalePng = loadImage("assets/player/base/demonspawn_black_male.png")
+    PlayerBaseKoboldFemaleNewPng = loadImage("assets/player/base/kobold_female_new.png")
+    PlayerBaseMinotaurBrown2MalePng = loadImage("assets/player/base/minotaur_brown_2_male.png")
+    PlayerBaseLorcMale0Png = loadImage("assets/player/base/lorc_male_0.png")
+    PlayerBaseDwarfMalePng = loadImage("assets/player/base/dwarf_male.png")
+    PlayerBaseKoboldMaleNewPng = loadImage("assets/player/base/kobold_male_new.png")
+    PlayerBaseLorcFemale1Png = loadImage("assets/player/base/lorc_female_1.png")
+    PlayerBaseDemonspawnBlackFemalePng = loadImage("assets/player/base/demonspawn_black_female.png")
+    PlayerBaseDraconianGoldMalePng = loadImage("assets/player/base/draconian_gold_male.png")
+    PlayerBaseCentaurLightgreyFemalePng = loadImage("assets/player/base/centaur_lightgrey_female.png")
+    PlayerBaseDemigodMalePng = loadImage("assets/player/base/demigod_male.png")
+    PlayerBaseDraconianMottledFemalePng = loadImage("assets/player/base/draconian_mottled_female.png")
+    PlayerBaseDraconianPurpleFemalePng = loadImage("assets/player/base/draconian_purple_female.png")
+    PlayerBaseDeepDwarfMalePng = loadImage("assets/player/base/deep_dwarf_male.png")
+    PlayerBaseCentaurLightbrownMalePng = loadImage("assets/player/base/centaur_lightbrown_male.png")
+    PlayerBaseDraconianGrayMalePng = loadImage("assets/player/base/draconian_gray_male.png")
+    PlayerBaseLorcFemale5Png = loadImage("assets/player/base/lorc_female_5.png")
+    PlayerBaseLorcFemale3Png = loadImage("assets/player/base/lorc_female_3.png")
+    PlayerBaseGargoyleMalePng = loadImage("assets/player/base/gargoyle_male.png")
+    PlayerBaseKoboldMaleOldPng = loadImage("assets/player/base/kobold_male_old.png")
+    PlayerBaseGhoul2FemalePng = loadImage("assets/player/base/ghoul_2_female.png")
+    PlayerBaseTenguWinglessBrownMalePng = loadImage("assets/player/base/tengu_wingless_brown_male.png")
+    PlayerBaseDeepElfFemalePng = loadImage("assets/player/base/deep_elf_female.png")
+    PlayerBaseDwarfFemalePng = loadImage("assets/player/base/dwarf_female.png")
+    PlayerBaseCentaurBrownMalePng = loadImage("assets/player/base/centaur_brown_male.png")
+    PlayerBaseKenkuWingedMalePng = loadImage("assets/player/base/kenku_winged_male.png")
+    PlayerBaseTrollMalePng = loadImage("assets/player/base/troll_male.png")
+    PlayerBardingLightningScalesPng = loadImage("assets/player/barding/lightning_scales.png")
+    PlayerBardingNagaBardingMagentaPng = loadImage("assets/player/barding/naga_barding_magenta.png")
+    PlayerBardingBlackKnightPng = loadImage("assets/player/barding/black_knight.png")
+    PlayerBardingCentaurBardingBluePng = loadImage("assets/player/barding/centaur_barding_blue.png")
+    PlayerBardingNagaBardingBluePng = loadImage("assets/player/barding/naga_barding_blue.png")
+    PlayerBardingNagaBardingMetalPng = loadImage("assets/player/barding/naga_barding_metal.png")
+    PlayerBardingNagaBardingRedPng = loadImage("assets/player/barding/naga_barding_red.png")
+    PlayerBardingCentaurBardingMetalPng = loadImage("assets/player/barding/centaur_barding_metal.png")
+    PlayerBardingCentaurBardingMagentaPng = loadImage("assets/player/barding/centaur_barding_magenta.png")
+    PlayerBardingCentaurBardingRedPng = loadImage("assets/player/barding/centaur_barding_red.png")
+    PlayerHairFrodoPng = loadImage("assets/player/hair/frodo.png")
+    PlayerHairDjinn2Png = loadImage("assets/player/hair/djinn_2.png")
+    PlayerHairBoromirPng = loadImage("assets/player/hair/boromir.png")
+    PlayerHairFemYellowPng = loadImage("assets/player/hair/fem_yellow.png")
+    PlayerHairShortRedPng = loadImage("assets/player/hair/short_red.png")
+    PlayerHairPigtailsYellowPng = loadImage("assets/player/hair/pigtails_yellow.png")
+    PlayerHairShortBlackPng = loadImage("assets/player/hair/short_black.png")
+    PlayerHairFemBlackPng = loadImage("assets/player/hair/fem_black.png")
+    PlayerHairLongWhitePng = loadImage("assets/player/hair/long_white.png")
+    PlayerHairElfBlackPng = loadImage("assets/player/hair/elf_black.png")
+    PlayerHairShortYellowPng = loadImage("assets/player/hair/short_yellow.png")
+    PlayerHairDjinn1Png = loadImage("assets/player/hair/djinn_1.png")
+    PlayerHairLegolasPng = loadImage("assets/player/hair/legolas.png")
+    PlayerHairLongRedPng = loadImage("assets/player/hair/long_red.png")
+    PlayerHairElfRedPng = loadImage("assets/player/hair/elf_red.png")
+    PlayerHairKnotRedPng = loadImage("assets/player/hair/knot_red.png")
+    PlayerHairLongBlackPng = loadImage("assets/player/hair/long_black.png")
+    PlayerHairSamPng = loadImage("assets/player/hair/sam.png")
+    PlayerHairMerryPng = loadImage("assets/player/hair/merry.png")
+    PlayerHairFemRedPng = loadImage("assets/player/hair/fem_red.png")
+    PlayerHairElfWhitePng = loadImage("assets/player/hair/elf_white.png")
+    PlayerHairLongYellowPng = loadImage("assets/player/hair/long_yellow.png")
+    PlayerHairPigtailRedPng = loadImage("assets/player/hair/pigtail_red.png")
+    PlayerHairElfYellowPng = loadImage("assets/player/hair/elf_yellow.png")
+    PlayerHairBrown1Png = loadImage("assets/player/hair/brown_1.png")
+    PlayerHairPigtailsBrownPng = loadImage("assets/player/hair/pigtails_brown.png")
+    PlayerHairPonytailYellowPng = loadImage("assets/player/hair/ponytail_yellow.png")
+    PlayerHairGreenPng = loadImage("assets/player/hair/green.png")
+    PlayerHairShortWhitePng = loadImage("assets/player/hair/short_white.png")
+    PlayerHairBrown2Png = loadImage("assets/player/hair/brown_2.png")
+    PlayerHairArwenPng = loadImage("assets/player/hair/arwen.png")
+    PlayerHairPjPng = loadImage("assets/player/hair/pj.png")
+    PlayerHairAragornPng = loadImage("assets/player/hair/aragorn.png")
+    PlayerHairFemWhitePng = loadImage("assets/player/hair/fem_white.png")
+    PlayerHairTenguCombPng = loadImage("assets/player/hair/tengu_comb.png")
+    PlayerLegsLegArmor0Png = loadImage("assets/player/legs/leg_armor_0.png")
+    PlayerLegsSkirtWhitePng = loadImage("assets/player/legs/skirt_white.png")
+    PlayerLegsBeltGrayPng = loadImage("assets/player/legs/belt_gray.png")
+    PlayerLegsLoinclothRedPng = loadImage("assets/player/legs/loincloth_red.png")
+    PlayerLegsLegArmor2Png = loadImage("assets/player/legs/leg_armor_2.png")
+    PlayerLegsMetalGreenPng = loadImage("assets/player/legs/metal_green.png")
+    PlayerLegsPantsOrangePng = loadImage("assets/player/legs/pants_orange.png")
+    PlayerLegsSkirtBluePng = loadImage("assets/player/legs/skirt_blue.png")
+    PlayerLegsTrouserGreenPng = loadImage("assets/player/legs/trouser_green.png")
+    PlayerLegsChunliPng = loadImage("assets/player/legs/chunli.png")
+    PlayerLegsSkirtGreenPng = loadImage("assets/player/legs/skirt_green.png")
+    PlayerLegsLegArmor3Png = loadImage("assets/player/legs/leg_armor_3.png")
+    PlayerLegsPantsShortBrown3Png = loadImage("assets/player/legs/pants_short_brown_3.png")
+    PlayerLegsLongRedPng = loadImage("assets/player/legs/long_red.png")
+    PlayerLegsBikiniRedPng = loadImage("assets/player/legs/bikini_red.png")
+    PlayerLegsGarterPng = loadImage("assets/player/legs/garter.png")
+    PlayerLegsPantsShortBrownPng = loadImage("assets/player/legs/pants_short_brown.png")
+    PlayerLegsPantsShortGrayPng = loadImage("assets/player/legs/pants_short_gray.png")
+    PlayerLegsSkirtRedPng = loadImage("assets/player/legs/skirt_red.png")
+    PlayerLegsPantsRedPng = loadImage("assets/player/legs/pants_red.png")
+    PlayerLegsLegArmor1Png = loadImage("assets/player/legs/leg_armor_1.png")
+    PlayerLegsPantsBlackPng = loadImage("assets/player/legs/pants_black.png")
+    PlayerLegsPantsBrownPng = loadImage("assets/player/legs/pants_brown.png")
+    PlayerLegsPantsDarkgreenPng = loadImage("assets/player/legs/pants_darkgreen.png")
+    PlayerLegsPantsShortDarkbrownPng = loadImage("assets/player/legs/pants_short_darkbrown.png")
+    PlayerLegsLegArmor4Png = loadImage("assets/player/legs/leg_armor_4.png")
+    PlayerLegsBeltRedbrownPng = loadImage("assets/player/legs/belt_redbrown.png")
+    PlayerLegsSkirtWhite2Png = loadImage("assets/player/legs/skirt_white_2.png")
+    PlayerLegsMetalGrayPng = loadImage("assets/player/legs/metal_gray.png")
+    PlayerLegsPjPng = loadImage("assets/player/legs/pj.png")
+    PlayerLegsLegArmor5Png = loadImage("assets/player/legs/leg_armor_5.png")
+    PlayerLegsPantsLWhitePng = loadImage("assets/player/legs/pants_l_white.png")
+    PlayerLegsPantsBluePng = loadImage("assets/player/legs/pants_blue.png")
+    PlayerLegsPants16Png = loadImage("assets/player/legs/pants_16.png")
+    PlayerHaloHaloPlayerPng = loadImage("assets/player/halo/halo_player.png")
+    EffectTomahawk7Png = loadImage("assets/effect/tomahawk_7.png")
+    EffectDart7Png = loadImage("assets/effect/dart_7.png")
+    EffectSearingRay5Png = loadImage("assets/effect/searing_ray_5.png")
+    EffectCrossbowBolt2Png = loadImage("assets/effect/crossbow_bolt_2.png")
+    EffectMagicBolt4Png = loadImage("assets/effect/magic_bolt_4.png")
+    EffectPoisonArrow5Png = loadImage("assets/effect/poison_arrow_5.png")
+    EffectPoisonArrow4Png = loadImage("assets/effect/poison_arrow_4.png")
+    EffectIronShot3Png = loadImage("assets/effect/iron_shot_3.png")
+    EffectDart2Png = loadImage("assets/effect/dart_2.png")
+    EffectCrystalSpear5Png = loadImage("assets/effect/crystal_spear_5.png")
+    EffectTomahawk4Png = loadImage("assets/effect/tomahawk_4.png")
+    EffectTomahawk1Png = loadImage("assets/effect/tomahawk_1.png")
+    EffectStoneArrow3Png = loadImage("assets/effect/stone_arrow_3.png")
+    EffectCloudChaos2Png = loadImage("assets/effect/cloud_chaos_2.png")
+    EffectSting1Png = loadImage("assets/effect/sting_1.png")
+    EffectCloudCalcDust3Png = loadImage("assets/effect/cloud_calc_dust_3.png")
+    EffectIcicle2Png = loadImage("assets/effect/icicle_2.png")
+    EffectSearingRay4Png = loadImage("assets/effect/searing_ray_4.png")
+    EffectArrow6Png = loadImage("assets/effect/arrow_6.png")
+    EffectTomahawk6Png = loadImage("assets/effect/tomahawk_6.png")
+    EffectCloudMutagenicLarge2Png = loadImage("assets/effect/cloud_mutagenic_large_2.png")
+    EffectJavelin0OldPng = loadImage("assets/effect/javelin_0_old.png")
+    EffectNeedle6Png = loadImage("assets/effect/needle_6.png")
+    EffectDart5Png = loadImage("assets/effect/dart_5.png")
+    EffectSanctuaryPng = loadImage("assets/effect/sanctuary.png")
+    EffectDart6Png = loadImage("assets/effect/dart_6.png")
+    EffectCloudMagicTrail3Png = loadImage("assets/effect/cloud_magic_trail_3.png")
+    EffectCloudAcid1Png = loadImage("assets/effect/cloud_acid_1.png")
+    EffectFlame0Png = loadImage("assets/effect/flame_0.png")
+    EffectCrystalSpear4Png = loadImage("assets/effect/crystal_spear_4.png")
+    EffectMagicBolt3Png = loadImage("assets/effect/magic_bolt_3.png")
+    EffectCloudGloomNewPng = loadImage("assets/effect/cloud_gloom_new.png")
+    EffectJavelin2Png = loadImage("assets/effect/javelin_2.png")
+    EffectTornado1Png = loadImage("assets/effect/tornado_1.png")
+    EffectTornado2Png = loadImage("assets/effect/tornado_2.png")
+    EffectGoldaura1Png = loadImage("assets/effect/goldaura_1.png")
+    EffectSandblast1Png = loadImage("assets/effect/sandblast_1.png")
+    EffectMagicDart2Png = loadImage("assets/effect/magic_dart_2.png")
+    EffectArrow4Png = loadImage("assets/effect/arrow_4.png")
+    EffectArrow7Png = loadImage("assets/effect/arrow_7.png")
+    EffectNeedle7Png = loadImage("assets/effect/needle_7.png")
+    EffectRock0NewPng = loadImage("assets/effect/rock_0_new.png")
+    EffectStoneArrow1Png = loadImage("assets/effect/stone_arrow_1.png")
+    EffectZap2Png = loadImage("assets/effect/zap_2.png")
+    EffectCloudSpectral0Png = loadImage("assets/effect/cloud_spectral_0.png")
+    EffectIcicle7Png = loadImage("assets/effect/icicle_7.png")
+    EffectIronShot6Png = loadImage("assets/effect/iron_shot_6.png")
+    EffectHeataura0Png = loadImage("assets/effect/heataura_0.png")
+    EffectCloudMutagenicLarge4Png = loadImage("assets/effect/cloud_mutagenic_large_4.png")
+    EffectCloudChaos1Png = loadImage("assets/effect/cloud_chaos_1.png")
+    EffectArrow3Png = loadImage("assets/effect/arrow_3.png")
+    EffectJavelin7NewPng = loadImage("assets/effect/javelin_7_new.png")
+    EffectStoneArrow6Png = loadImage("assets/effect/stone_arrow_6.png")
+    EffectCloudMeph0Png = loadImage("assets/effect/cloud_meph_0.png")
+    EffectCloudMutagenicMedium1Png = loadImage("assets/effect/cloud_mutagenic_medium_1.png")
+    EffectSearingRay0Png = loadImage("assets/effect/searing_ray_0.png")
+    EffectCrossbowBolt4Png = loadImage("assets/effect/crossbow_bolt_4.png")
+    EffectCloudCold1Png = loadImage("assets/effect/cloud_cold_1.png")
+    EffectNeedle4Png = loadImage("assets/effect/needle_4.png")
+    EffectDrainRed0Png = loadImage("assets/effect/drain_red_0.png")
+    EffectMagicBolt7Png = loadImage("assets/effect/magic_bolt_7.png")
+    EffectSearingRay3Png = loadImage("assets/effect/searing_ray_3.png")
+    EffectXomSparklesBluePng = loadImage("assets/effect/xom_sparkles_blue.png")
+    EffectDisjunct1Png = loadImage("assets/effect/disjunct_1.png")
+    EffectIrradiate0Png = loadImage("assets/effect/irradiate_0.png")
+    EffectNeedle5Png = loadImage("assets/effect/needle_5.png")
+    EffectMagicDart1Png = loadImage("assets/effect/magic_dart_1.png")
+    EffectCloudTlocEnergyPng = loadImage("assets/effect/cloud_tloc_energy.png")
+    EffectIrradiate3Png = loadImage("assets/effect/irradiate_3.png")
+    EffectCloudRain1Png = loadImage("assets/effect/cloud_rain_1.png")
+    EffectCloudMeph2Png = loadImage("assets/effect/cloud_meph_2.png")
+    EffectCloudChaos3Png = loadImage("assets/effect/cloud_chaos_3.png")
+    EffectCrystalSpear0Png = loadImage("assets/effect/crystal_spear_0.png")
+    EffectDart1Png = loadImage("assets/effect/dart_1.png")
+    EffectIcicle5Png = loadImage("assets/effect/icicle_5.png")
+    EffectCloudPoison2Png = loadImage("assets/effect/cloud_poison_2.png")
+    EffectGoldSparkles3Png = loadImage("assets/effect/gold_sparkles_3.png")
+    EffectPoisonArrow7Png = loadImage("assets/effect/poison_arrow_7.png")
+    EffectCloudMagicTrail0Png = loadImage("assets/effect/cloud_magic_trail_0.png")
+    EffectCloudNeg1Png = loadImage("assets/effect/cloud_neg_1.png")
+    EffectDart0Png = loadImage("assets/effect/dart_0.png")
+    EffectCloudNeg2Png = loadImage("assets/effect/cloud_neg_2.png")
+    EffectIronShot4Png = loadImage("assets/effect/iron_shot_4.png")
+    EffectIcicle1Png = loadImage("assets/effect/icicle_1.png")
+    EffectZap1Png = loadImage("assets/effect/zap_1.png")
+    EffectCloudMutagenicLarge3Png = loadImage("assets/effect/cloud_mutagenic_large_3.png")
+    EffectMagicBolt1Png = loadImage("assets/effect/magic_bolt_1.png")
+    EffectCloudFire0Png = loadImage("assets/effect/cloud_fire_0.png")
+    EffectDisjunct0Png = loadImage("assets/effect/disjunct_0.png")
+    EffectThrowingNet0Png = loadImage("assets/effect/throwing_net_0.png")
+    EffectPoisonArrow1Png = loadImage("assets/effect/poison_arrow_1.png")
+    EffectThrowingNet6Png = loadImage("assets/effect/throwing_net_6.png")
+    EffectThrowingNet3Png = loadImage("assets/effect/throwing_net_3.png")
+    EffectNeedle1Png = loadImage("assets/effect/needle_1.png")
+    EffectCloudSpectral2Png = loadImage("assets/effect/cloud_spectral_2.png")
+    EffectStone0NewPng = loadImage("assets/effect/stone_0_new.png")
+    EffectPoisonArrow0Png = loadImage("assets/effect/poison_arrow_0.png")
+    EffectSting0Png = loadImage("assets/effect/sting_0.png")
+    EffectCloudFire2Png = loadImage("assets/effect/cloud_fire_2.png")
+    EffectDart4Png = loadImage("assets/effect/dart_4.png")
+    EffectCloudFire1Png = loadImage("assets/effect/cloud_fire_1.png")
+    EffectCloudSpectral1Png = loadImage("assets/effect/cloud_spectral_1.png")
+    EffectCloudGloomOldPng = loadImage("assets/effect/cloud_gloom_old.png")
+    EffectIronShot2Png = loadImage("assets/effect/iron_shot_2.png")
+    EffectMagicDart5Png = loadImage("assets/effect/magic_dart_5.png")
+    EffectCloudGreySmokePng = loadImage("assets/effect/cloud_grey_smoke.png")
+    EffectTomahawk2Png = loadImage("assets/effect/tomahawk_2.png")
+    EffectGoldSparkles2Png = loadImage("assets/effect/gold_sparkles_2.png")
+    EffectCloudChaos5Png = loadImage("assets/effect/cloud_chaos_5.png")
+    EffectStone0OldPng = loadImage("assets/effect/stone_0_old.png")
+    EffectSandblast0Png = loadImage("assets/effect/sandblast_0.png")
+    EffectDrain1NewPng = loadImage("assets/effect/drain_1_new.png")
+    EffectIronShot7Png = loadImage("assets/effect/iron_shot_7.png")
+    EffectCloudPoison1Png = loadImage("assets/effect/cloud_poison_1.png")
+    EffectThrowingNet7Png = loadImage("assets/effect/throwing_net_7.png")
+    EffectMagicBolt2Png = loadImage("assets/effect/magic_bolt_2.png")
+    EffectCloudRain2Png = loadImage("assets/effect/cloud_rain_2.png")
+    EffectCloudMutagenicLarge1Png = loadImage("assets/effect/cloud_mutagenic_large_1.png")
+    EffectTomahawk3Png = loadImage("assets/effect/tomahawk_3.png")
+    EffectZap3Png = loadImage("assets/effect/zap_3.png")
+    EffectCloudCalcDust2Png = loadImage("assets/effect/cloud_calc_dust_2.png")
+    EffectHeataura1Png = loadImage("assets/effect/heataura_1.png")
+    EffectCloudMeph1Png = loadImage("assets/effect/cloud_meph_1.png")
+    EffectRock0OldPng = loadImage("assets/effect/rock_0_old.png")
+    EffectCloudAcid0Png = loadImage("assets/effect/cloud_acid_0.png")
+    EffectMagicBolt6Png = loadImage("assets/effect/magic_bolt_6.png")
+    EffectCloudBlackSmokePng = loadImage("assets/effect/cloud_black_smoke.png")
+    EffectThrowingNet2Png = loadImage("assets/effect/throwing_net_2.png")
+    EffectOrbGlow1Png = loadImage("assets/effect/orb_glow_1.png")
+    EffectFrost0Png = loadImage("assets/effect/frost_0.png")
+    EffectCrossbowBolt0Png = loadImage("assets/effect/crossbow_bolt_0.png")
+    EffectJavelin5NewPng = loadImage("assets/effect/javelin_5_new.png")
+    EffectCloudCold0Png = loadImage("assets/effect/cloud_cold_0.png")
+    EffectJavelin4NewPng = loadImage("assets/effect/javelin_4_new.png")
+    EffectArrow5Png = loadImage("assets/effect/arrow_5.png")
+    EffectStoneArrow7Png = loadImage("assets/effect/stone_arrow_7.png")
+    EffectEyeFilledPortalPng = loadImage("assets/effect/eye_filled_portal.png")
+    EffectArrow2Png = loadImage("assets/effect/arrow_2.png")
+    EffectIronShot0Png = loadImage("assets/effect/iron_shot_0.png")
+    EffectUmbra3Png = loadImage("assets/effect/umbra_3.png")
+    EffectDrain2OldPng = loadImage("assets/effect/drain_2_old.png")
+    EffectCloudNeg0Png = loadImage("assets/effect/cloud_neg_0.png")
+    EffectIcicle4Png = loadImage("assets/effect/icicle_4.png")
+    EffectAcidVenomPng = loadImage("assets/effect/acid_venom.png")
+    EffectJavelin0NewPng = loadImage("assets/effect/javelin_0_new.png")
+    EffectCloudBlueSmokePng = loadImage("assets/effect/cloud_blue_smoke.png")
+    EffectTomahawk0Png = loadImage("assets/effect/tomahawk_0.png")
+    EffectJavelin3OldPng = loadImage("assets/effect/javelin_3_old.png")
+    EffectJavelin5OldPng = loadImage("assets/effect/javelin_5_old.png")
+    EffectCrossbowBolt1Png = loadImage("assets/effect/crossbow_bolt_1.png")
+    EffectMagicDart4Png = loadImage("assets/effect/magic_dart_4.png")
+    EffectHeataura2Png = loadImage("assets/effect/heataura_2.png")
+    EffectStoneArrow4Png = loadImage("assets/effect/stone_arrow_4.png")
+    EffectMagicBolt5Png = loadImage("assets/effect/magic_bolt_5.png")
+    EffectOrbGlow0Png = loadImage("assets/effect/orb_glow_0.png")
+    EffectDisjunct3Png = loadImage("assets/effect/disjunct_3.png")
+    EffectCloudAcid2Png = loadImage("assets/effect/cloud_acid_2.png")
+    EffectCloudMutagenicMedium2Png = loadImage("assets/effect/cloud_mutagenic_medium_2.png")
+    EffectFlame1Png = loadImage("assets/effect/flame_1.png")
+    EffectCloudCold2Png = loadImage("assets/effect/cloud_cold_2.png")
+    EffectMagicDart0Png = loadImage("assets/effect/magic_dart_0.png")
+    EffectCloudCalcDust0Png = loadImage("assets/effect/cloud_calc_dust_0.png")
+    EffectCloudPoison0Png = loadImage("assets/effect/cloud_poison_0.png")
+    EffectGoldSparkles1Png = loadImage("assets/effect/gold_sparkles_1.png")
+    EffectMagicDart3Png = loadImage("assets/effect/magic_dart_3.png")
+    EffectCrystalSpear6Png = loadImage("assets/effect/crystal_spear_6.png")
+    EffectPoisonArrow2Png = loadImage("assets/effect/poison_arrow_2.png")
+    EffectIrradiate1Png = loadImage("assets/effect/irradiate_1.png")
+    EffectUmbra2Png = loadImage("assets/effect/umbra_2.png")
+    EffectJavelin4OldPng = loadImage("assets/effect/javelin_4_old.png")
+    EffectCrossbowBolt6Png = loadImage("assets/effect/crossbow_bolt_6.png")
+    EffectUmbra1Png = loadImage("assets/effect/umbra_1.png")
+    EffectSandblast2Png = loadImage("assets/effect/sandblast_2.png")
+    EffectCloudMutagenicSmall1Png = loadImage("assets/effect/cloud_mutagenic_small_1.png")
+    EffectIronShot1Png = loadImage("assets/effect/iron_shot_1.png")
+    EffectUmbra0Png = loadImage("assets/effect/umbra_0.png")
+    EffectNeedle0Png = loadImage("assets/effect/needle_0.png")
+    EffectSilencedPng = loadImage("assets/effect/silenced.png")
+    EffectDrain0OldPng = loadImage("assets/effect/drain_0_old.png")
+    EffectCrystalSpear2Png = loadImage("assets/effect/crystal_spear_2.png")
+    EffectQuadGlowPng = loadImage("assets/effect/quad_glow.png")
+    EffectFlame2Png = loadImage("assets/effect/flame_2.png")
+    EffectCloudMagicTrail1Png = loadImage("assets/effect/cloud_magic_trail_1.png")
+    EffectZap0Png = loadImage("assets/effect/zap_0.png")
+    EffectCrystalSpear7Png = loadImage("assets/effect/crystal_spear_7.png")
+    EffectIronShot5Png = loadImage("assets/effect/iron_shot_5.png")
+    EffectNeedle2Png = loadImage("assets/effect/needle_2.png")
+    EffectCloudStorm2Png = loadImage("assets/effect/cloud_storm_2.png")
+    EffectDart3Png = loadImage("assets/effect/dart_3.png")
+    EffectDrain1OldPng = loadImage("assets/effect/drain_1_old.png")
+    EffectThrowingNet5Png = loadImage("assets/effect/throwing_net_5.png")
+    EffectCrossbowBolt3Png = loadImage("assets/effect/crossbow_bolt_3.png")
+    EffectStoneArrow2Png = loadImage("assets/effect/stone_arrow_2.png")
+    EffectSearingRay2Png = loadImage("assets/effect/searing_ray_2.png")
+    EffectIcicle6Png = loadImage("assets/effect/icicle_6.png")
+    EffectCloudChaos4Png = loadImage("assets/effect/cloud_chaos_4.png")
+    EffectCloudMagicTrail2Png = loadImage("assets/effect/cloud_magic_trail_2.png")
+    EffectIrradiate2Png = loadImage("assets/effect/irradiate_2.png")
+    EffectCloudMutagenicSmall2Png = loadImage("assets/effect/cloud_mutagenic_small_2.png")
+    EffectCrossbowBolt5Png = loadImage("assets/effect/crossbow_bolt_5.png")
+    EffectJavelin6NewPng = loadImage("assets/effect/javelin_6_new.png")
+    EffectArrow0Png = loadImage("assets/effect/arrow_0.png")
+    EffectDisjunct2Png = loadImage("assets/effect/disjunct_2.png")
+    EffectNetTrapPng = loadImage("assets/effect/net_trap.png")
+    EffectCrystalSpear1Png = loadImage("assets/effect/crystal_spear_1.png")
+    EffectIcicle3Png = loadImage("assets/effect/icicle_3.png")
+    EffectMagicBolt8Png = loadImage("assets/effect/magic_bolt_8.png")
+    EffectFrost1Png = loadImage("assets/effect/frost_1.png")
+    EffectNeedle3Png = loadImage("assets/effect/needle_3.png")
+    EffectStoneArrow0Png = loadImage("assets/effect/stone_arrow_0.png")
+    EffectCloudStorm1Png = loadImage("assets/effect/cloud_storm_1.png")
+    EffectDrain0NewPng = loadImage("assets/effect/drain_0_new.png")
+    EffectTomahawk5Png = loadImage("assets/effect/tomahawk_5.png")
+    EffectDrainRed2Png = loadImage("assets/effect/drain_red_2.png")
+    EffectPoisonArrow3Png = loadImage("assets/effect/poison_arrow_3.png")
+    EffectStoneArrow5Png = loadImage("assets/effect/stone_arrow_5.png")
+    EffectJavelin7OldPng = loadImage("assets/effect/javelin_7_old.png")
+    EffectPoisonArrow6Png = loadImage("assets/effect/poison_arrow_6.png")
+    EffectCrystalSpear3Png = loadImage("assets/effect/crystal_spear_3.png")
+    EffectDrainRed1Png = loadImage("assets/effect/drain_red_1.png")
+    EffectDrain2NewPng = loadImage("assets/effect/drain_2_new.png")
+    EffectArrow1Png = loadImage("assets/effect/arrow_1.png")
+    EffectJavelin6OldPng = loadImage("assets/effect/javelin_6_old.png")
+    EffectGoldaura2Png = loadImage("assets/effect/goldaura_2.png")
+    EffectThrowingNet1Png = loadImage("assets/effect/throwing_net_1.png")
+    EffectSearingRay1Png = loadImage("assets/effect/searing_ray_1.png")
+    EffectSlingBullet0NewPng = loadImage("assets/effect/sling_bullet_0_new.png")
+    EffectJavelin3NewPng = loadImage("assets/effect/javelin_3_new.png")
+    EffectSlingBullet0OldPng = loadImage("assets/effect/sling_bullet_0_old.png")
+    EffectIcicle0Png = loadImage("assets/effect/icicle_0.png")
+    EffectThrowingNet4Png = loadImage("assets/effect/throwing_net_4.png")
+    EffectCloudForestFirePng = loadImage("assets/effect/cloud_forest_fire.png")
+    EffectSting2Png = loadImage("assets/effect/sting_2.png")
+    EffectJavelin1Png = loadImage("assets/effect/javelin_1.png")
+    EffectGoldaura0Png = loadImage("assets/effect/goldaura_0.png")
+    EffectCloudCalcDust1Png = loadImage("assets/effect/cloud_calc_dust_1.png")
+    EffectCloudYellowSmokePng = loadImage("assets/effect/cloud_yellow_smoke.png")
+    EffectCrossbowBolt7Png = loadImage("assets/effect/crossbow_bolt_7.png")
+    MiscUnseenMonsterPng = loadImage("assets/misc/unseen_monster.png")
+    MiscOutOfSightNewPng = loadImage("assets/misc/out_of_sight_new.png")
+    MiscTravelPathFrom4Png = loadImage("assets/misc/travel_path_from_4.png")
+    MiscOutOfSightOldPng = loadImage("assets/misc/out_of_sight_old.png")
+    MiscSlotCursedPng = loadImage("assets/misc/slot_cursed.png")
+    MiscMdamModeratelyDamagedPng = loadImage("assets/misc/mdam_moderately_damaged.png")
+    MiscSensedMonsterToughPng = loadImage("assets/misc/sensed_monster_tough.png")
+    MiscTravelPathTo7Png = loadImage("assets/misc/travel_path_to_7.png")
+    MiscDamageMeterLightlyDamagedPng = loadImage("assets/misc/damage_meter_lightly_damaged.png")
+    MiscTravelPathFrom2Png = loadImage("assets/misc/travel_path_from_2.png")
+    MiscUnseenItemNewPng = loadImage("assets/misc/unseen_item_new.png")
+    MiscTravelExclusionOldPng = loadImage("assets/misc/travel_exclusion_old.png")
+    MiscTravelPathTo5Png = loadImage("assets/misc/travel_path_to_5.png")
+    MiscMoldGlowing3Png = loadImage("assets/misc/mold_glowing_3.png")
+    MiscUnseenArmorNewPng = loadImage("assets/misc/unseen_armor_new.png")
+    MiscCursorGreenPng = loadImage("assets/misc/cursor_green.png")
+    MiscTravelPathFrom6Png = loadImage("assets/misc/travel_path_from_6.png")
+    MiscTravelPathTo3Png = loadImage("assets/misc/travel_path_to_3.png")
+    MiscMaskDeepWaterShoalsPng = loadImage("assets/misc/mask_deep_water_shoals.png")
+    MiscUnseenWeaponOldPng = loadImage("assets/misc/unseen_weapon_old.png")
+    MiscSlotPng = loadImage("assets/misc/slot.png")
+    MiscSlotMeldedPng = loadImage("assets/misc/slot_melded.png")
+    MiscCursorRedPng = loadImage("assets/misc/cursor_red.png")
+    MiscDamageMeterAlmostDeadPng = loadImage("assets/misc/damage_meter_almost_dead.png")
+    MiscTravelExclusionCenterOldPng = loadImage("assets/misc/travel_exclusion_center_old.png")
+    MiscMoldGlowing1Png = loadImage("assets/misc/mold_glowing_1.png")
+    MiscTravelPathFrom5Png = loadImage("assets/misc/travel_path_from_5.png")
+    MiscMagicmapPng = loadImage("assets/misc/magicmap.png")
+    MiscOutOfRangePng = loadImage("assets/misc/out_of_range.png")
+    MiscMaskDeepWaterPng = loadImage("assets/misc/mask_deep_water.png")
+    MiscUnseenItemOldPng = loadImage("assets/misc/unseen_item_old.png")
+    MiscSensedMonsterEasyPng = loadImage("assets/misc/sensed_monster_easy.png")
+    MiscMaskShallowWaterMurkyPng = loadImage("assets/misc/mask_shallow_water_murky.png")
+    MiscMaskDeepWaterMurkyPng = loadImage("assets/misc/mask_deep_water_murky.png")
+    MiscTravelExclusionCenterNewPng = loadImage("assets/misc/travel_exclusion_center_new.png")
+    MiscTravelPathTo8Png = loadImage("assets/misc/travel_path_to_8.png")
+    MiscSlotVehumetPng = loadImage("assets/misc/slot_vehumet.png")
+    MiscHaloPng = loadImage("assets/misc/halo.png")
+    MiscErrorPng = loadImage("assets/misc/error.png")
+    MiscDamageMeterHeavilyDamagedPng = loadImage("assets/misc/damage_meter_heavily_damaged.png")
+    MiscMdamHeavilyDamagedPng = loadImage("assets/misc/mdam_heavily_damaged.png")
+    MiscTravelPathFrom1Png = loadImage("assets/misc/travel_path_from_1.png")
+    MiscTravelPathFrom7Png = loadImage("assets/misc/travel_path_from_7.png")
+    MiscTriedPng = loadImage("assets/misc/tried.png")
+    MiscUnseenWeaponNewPng = loadImage("assets/misc/unseen_weapon_new.png")
+    MiscDamageMeterModeratelyDamagedPng = loadImage("assets/misc/damage_meter_moderately_damaged.png")
+    MiscSuppressedPng = loadImage("assets/misc/suppressed.png")
+    MiscUnseenArmorOldPng = loadImage("assets/misc/unseen_armor_old.png")
+    MiscMdamSeverelyDamagedPng = loadImage("assets/misc/mdam_severely_damaged.png")
+    MiscTravelPathFrom8Png = loadImage("assets/misc/travel_path_from_8.png")
+    MiscDamageMeterSeverelyDamagedPng = loadImage("assets/misc/damage_meter_severely_damaged.png")
+    MiscStabBrandPng = loadImage("assets/misc/stab_brand.png")
+    MiscTravelExclusionNewPng = loadImage("assets/misc/travel_exclusion_new.png")
+    MiscRayOutOfRangePng = loadImage("assets/misc/ray_out_of_range.png")
+    MiscCursorPng = loadImage("assets/misc/cursor.png")
+    MiscMoldGlowing2Png = loadImage("assets/misc/mold_glowing_2.png")
+    MiscMaskShallowWaterShoalsPng = loadImage("assets/misc/mask_shallow_water_shoals.png")
+    MiscMaskShallowWaterPng = loadImage("assets/misc/mask_shallow_water.png")
+    MiscMoldGlowing4Png = loadImage("assets/misc/mold_glowing_4.png")
+    MiscTodoPng = loadImage("assets/misc/todo.png")
+    MiscTravelPathTo4Png = loadImage("assets/misc/travel_path_to_4.png")
+    MiscSlotEquippedCursedPng = loadImage("assets/misc/slot_equipped_cursed.png")
+    MiscRayPng = loadImage("assets/misc/ray.png")
+    MiscMdamLightlyDamagedPng = loadImage("assets/misc/mdam_lightly_damaged.png")
+    MiscMdamAlmostDeadPng = loadImage("assets/misc/mdam_almost_dead.png")
+    MiscTravelPathTo6Png = loadImage("assets/misc/travel_path_to_6.png")
+    MiscTutorialCursorPng = loadImage("assets/misc/tutorial_cursor.png")
+    MiscMaskLavaPng = loadImage("assets/misc/mask_lava.png")
+    MiscTravelPathTo2Png = loadImage("assets/misc/travel_path_to_2.png")
+    MiscTravelPathFrom3Png = loadImage("assets/misc/travel_path_from_3.png")
+    MiscSensedMonsterTrivialPng = loadImage("assets/misc/sensed_monster_trivial.png")
+    MiscTravelPathTo1Png = loadImage("assets/misc/travel_path_to_1.png")
+    MiscSlotEquippedPng = loadImage("assets/misc/slot_equipped.png")
+    MiscSensedMonsterNastyPng = loadImage("assets/misc/sensed_monster_nasty.png")
+    MiscLandingPng = loadImage("assets/misc/landing.png")
+    MiscSensedMonsterFriendlyPng = loadImage("assets/misc/sensed_monster_friendly.png")
+    MiscBrandsBottomLeftDemonPentagramLarge4Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram-large_4.png")
+    MiscBrandsBottomLeftSomethingUnderNewPng = loadImage("assets/misc/brands/bottom_left/something_under_new.png")
+    MiscBrandsBottomLeftDemonPentagram1Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram_1.png")
+    MiscBrandsBottomLeftSomethingUnderOldPng = loadImage("assets/misc/brands/bottom_left/something_under_old.png")
+    MiscBrandsBottomLeftDemonPentagramLarge1Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram-large_1.png")
+    MiscBrandsBottomLeftDemonPentagramLarge2Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram-large_2.png")
+    MiscBrandsBottomLeftDemonPentagram4Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram_4.png")
+    MiscBrandsBottomLeftDemonPentagram5Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram_5.png")
+    MiscBrandsBottomLeftDemonPentagramLarge5Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram-large_5.png")
+    MiscBrandsBottomLeftDemonPentagram2Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram_2.png")
+    MiscBrandsBottomLeftDemonPentagramLarge3Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram-large_3.png")
+    MiscBrandsBottomLeftDemonPentagram3Png = loadImage("assets/misc/brands/bottom_left/demon_pentagram_3.png")
+    MiscBrandsTopLeftICFlightPng = loadImage("assets/misc/brands/top_left/i-c-flight.png")
+    MiscBrandsTopLeftIConservationOldPng = loadImage("assets/misc/brands/top_left/i-conservation_old.png")
+    MiscBrandsTopLeftIStasisOldPng = loadImage("assets/misc/brands/top_left/i-stasis_old.png")
+    MiscBrandsTopLeftIRMutationNewPng = loadImage("assets/misc/brands/top_left/i-r-mutation_new.png")
+    MiscBrandsTopLeftIFaithOldPng = loadImage("assets/misc/brands/top_left/i-faith_old.png")
+    MiscBrandsTopLeftSummonedDurablePng = loadImage("assets/misc/brands/top_left/summoned_durable.png")
+    MiscBrandsTopLeftIWardingNewPng = loadImage("assets/misc/brands/top_left/i-warding_new.png")
+    MiscBrandsTopLeftISpiritOldPng = loadImage("assets/misc/brands/top_left/i-spirit_old.png")
+    MiscBrandsTopLeftIConservationNewPng = loadImage("assets/misc/brands/top_left/i-conservation_new.png")
+    MiscBrandsTopLeftSummonedPng = loadImage("assets/misc/brands/top_left/summoned.png")
+    MiscBrandsTopLeftIRMutationOldPng = loadImage("assets/misc/brands/top_left/i-r-mutation_old.png")
+    MiscBrandsTopLeftIStasisNewPng = loadImage("assets/misc/brands/top_left/i-stasis_new.png")
+    MiscBrandsTopLeftAnimatedWeaponNewPng = loadImage("assets/misc/brands/top_left/animated_weapon_new.png")
+    MiscBrandsTopLeftIGourmandOldPng = loadImage("assets/misc/brands/top_left/i-gourmand_old.png")
+    MiscBrandsTopLeftAnimatedWeaponOldPng = loadImage("assets/misc/brands/top_left/animated_weapon_old.png")
+    MiscBrandsTopLeftIInaccuracyOldPng = loadImage("assets/misc/brands/top_left/i-inaccuracy_old.png")
+    MiscBrandsTopLeftIFaithNewPng = loadImage("assets/misc/brands/top_left/i-faith_new.png")
+    MiscBrandsTopLeftIRCorrosionNewPng = loadImage("assets/misc/brands/top_left/i-r-corrosion_new.png")
+    MiscBrandsTopLeftIRageNewPng = loadImage("assets/misc/brands/top_left/i-rage_new.png")
+    MiscBrandsTopLeftIInaccuracyNewPng = loadImage("assets/misc/brands/top_left/i-inaccuracy_new.png")
+    MiscBrandsTopLeftIWardingOldPng = loadImage("assets/misc/brands/top_left/i-warding_old.png")
+    MiscBrandsTopLeftIRCorrosionOldPng = loadImage("assets/misc/brands/top_left/i-r-corrosion_old.png")
+    MiscBrandsTopLeftIRageOldPng = loadImage("assets/misc/brands/top_left/i-rage_old.png")
+    MiscBrandsTopLeftIClarityOldPng = loadImage("assets/misc/brands/top_left/i-clarity_old.png")
+    MiscBrandsTopLeftIGourmandNewPng = loadImage("assets/misc/brands/top_left/i-gourmand_new.png")
+    MiscBrandsTopLeftIClarityNewPng = loadImage("assets/misc/brands/top_left/i-clarity_new.png")
+    MiscBrandsTopLeftISpiritNewPng = loadImage("assets/misc/brands/top_left/i-spirit_new.png")
+    MiscBrandsBottomRightICurseArmorOldPng = loadImage("assets/misc/brands/bottom_right/i-curse_armor_old.png")
+    MiscBrandsBottomRightIBlinkingOldPng = loadImage("assets/misc/brands/bottom_right/i-blinking_old.png")
+    MiscBrandsBottomRightIAntimagicOldPng = loadImage("assets/misc/brands/bottom_right/i-antimagic_old.png")
+    MiscBrandsBottomRightIPoisonNewPng = loadImage("assets/misc/brands/bottom_right/i-poison_new.png")
+    MiscBrandsBottomRightICTeleportOldPng = loadImage("assets/misc/brands/bottom_right/i-c-teleport_old.png")
+    MiscBrandsBottomRightIRodStrikingOldPng = loadImage("assets/misc/brands/bottom_right/i-rod_striking_old.png")
+    MiscBrandsBottomRightIDeckSummoningNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_summoning_new.png")
+    MiscBrandsBottomRightIReturningNewPng = loadImage("assets/misc/brands/bottom_right/i-returning_new.png")
+    MiscBrandsBottomRightIOrcSlayingPng = loadImage("assets/misc/brands/bottom_right/i-orc_slaying.png")
+    MiscBrandsBottomRightIDeckDestructionNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_destruction_new.png")
+    MiscBrandsBottomRightISpeedNewPng = loadImage("assets/misc/brands/bottom_right/i-speed_new.png")
+    MiscBrandsBottomRightIReturningOldPng = loadImage("assets/misc/brands/bottom_right/i-returning_old.png")
+    MiscBrandsBottomRightIHastePng = loadImage("assets/misc/brands/bottom_right/i-haste.png")
+    MiscBrandsBottomRightILignifyPng = loadImage("assets/misc/brands/bottom_right/i-lignify.png")
+    MiscBrandsBottomRightIDegenerationNewPng = loadImage("assets/misc/brands/bottom_right/i-degeneration_new.png")
+    MiscBrandsBottomRightIStaffEarthNewPng = loadImage("assets/misc/brands/bottom_right/i-staff_earth_new.png")
+    MiscBrandsBottomRightISlowingNewPng = loadImage("assets/misc/brands/bottom_right/i-slowing_new.png")
+    MiscBrandsBottomRightIRLightningOldPng = loadImage("assets/misc/brands/bottom_right/i-r-lightning_old.png")
+    MiscBrandsBottomRightIRodSmitingPng = loadImage("assets/misc/brands/bottom_right/i-rod_smiting.png")
+    MiscBrandsBottomRightIWizardryNewPng = loadImage("assets/misc/brands/bottom_right/i-wizardry_new.png")
+    MiscBrandsBottomRightIInvisibilityOldPng = loadImage("assets/misc/brands/bottom_right/i-invisibility_old.png")
+    MiscBrandsBottomRightIReapingNewPng = loadImage("assets/misc/brands/bottom_right/i-reaping_new.png")
+    MiscBrandsBottomRightISicknessNewPng = loadImage("assets/misc/brands/bottom_right/i-sickness_new.png")
+    MiscBrandsBottomRightIFlameNewPng = loadImage("assets/misc/brands/bottom_right/i-flame_new.png")
+    MiscBrandsBottomRightIForbiddenNewPng = loadImage("assets/misc/brands/bottom_right/i-forbidden_new.png")
+    MiscBrandsBottomRightIArcheryNewPng = loadImage("assets/misc/brands/bottom_right/i-archery_new.png")
+    MiscBrandsBottomRightIDrainingPng = loadImage("assets/misc/brands/bottom_right/i-draining.png")
+    MiscBrandsBottomRightIStaffConjurationOldPng = loadImage("assets/misc/brands/bottom_right/i-staff_conjuration_old.png")
+    MiscBrandsBottomRightIRPoisonOldPng = loadImage("assets/misc/brands/bottom_right/i-r-poison_old.png")
+    MiscBrandsBottomRightIPenetrationNewPng = loadImage("assets/misc/brands/bottom_right/i-penetration_new.png")
+    MiscBrandsBottomRightIMagicalPowerNewPng = loadImage("assets/misc/brands/bottom_right/i-magical-power_new.png")
+    MiscBrandsBottomRightILabelOldPng = loadImage("assets/misc/brands/bottom_right/i-label_old.png")
+    MiscBrandsBottomRightIDeckWarNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_war_new.png")
+    MiscBrandsBottomRightIDeckDefenseOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_defense_old.png")
+    MiscBrandsBottomRightIJumpingPng = loadImage("assets/misc/brands/bottom_right/i-jumping.png")
+    MiscBrandsBottomRightIPorridgeNewPng = loadImage("assets/misc/brands/bottom_right/i-porridge_new.png")
+    MiscBrandsBottomRightIRMagicNewPng = loadImage("assets/misc/brands/bottom_right/i-r-magic_new.png")
+    MiscBrandsBottomRightIStaffConjurationNewPng = loadImage("assets/misc/brands/bottom_right/i-staff_conjuration_new.png")
+    MiscBrandsBottomRightIAmbrosiaPng = loadImage("assets/misc/brands/bottom_right/i-ambrosia.png")
+    MiscBrandsBottomRightIDeckEscapeOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_escape_old.png")
+    MiscBrandsBottomRightIHealingPng = loadImage("assets/misc/brands/bottom_right/i-healing.png")
+    MiscBrandsBottomRightILoudnessPng = loadImage("assets/misc/brands/bottom_right/i-loudness.png")
+    MiscBrandsBottomRightIBloodNewPng = loadImage("assets/misc/brands/bottom_right/i-blood_new.png")
+    MiscBrandsBottomRightIAcquirementNewPng = loadImage("assets/misc/brands/bottom_right/i-acquirement_new.png")
+    MiscBrandsBottomRightITeleportationNewPng = loadImage("assets/misc/brands/bottom_right/i-teleportation_new.png")
+    MiscBrandsBottomRightIDecayOldPng = loadImage("assets/misc/brands/bottom_right/i-decay_old.png")
+    MiscBrandsBottomRightIRodVenomNewPng = loadImage("assets/misc/brands/bottom_right/i-rod_venom_new.png")
+    MiscBrandsBottomRightIVulnerabilityNewPng = loadImage("assets/misc/brands/bottom_right/i-vulnerability_new.png")
+    MiscBrandsBottomRightIPoison2Png = loadImage("assets/misc/brands/bottom_right/i-poison_2.png")
+    MiscBrandsBottomRightIDeckWondersOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_wonders_old.png")
+    MiscBrandsBottomRightIProtectionNewPng = loadImage("assets/misc/brands/bottom_right/i-protection_new.png")
+    MiscBrandsBottomRightIReapingOldPng = loadImage("assets/misc/brands/bottom_right/i-reaping_old.png")
+    MiscBrandsBottomRightIVenomNewPng = loadImage("assets/misc/brands/bottom_right/i-venom_new.png")
+    MiscBrandsBottomRightIPorridgeOldPng = loadImage("assets/misc/brands/bottom_right/i-porridge_old.png")
+    MiscBrandsBottomRightIReflectionOldPng = loadImage("assets/misc/brands/bottom_right/i-reflection_old.png")
+    MiscBrandsBottomRightIRodDiscoveryPng = loadImage("assets/misc/brands/bottom_right/i-rod_discovery.png")
+    MiscBrandsBottomRightICuringPng = loadImage("assets/misc/brands/bottom_right/i-curing.png")
+    MiscBrandsBottomRightIVenomOldPng = loadImage("assets/misc/brands/bottom_right/i-venom_old.png")
+    MiscBrandsBottomRightICurseWeaponNewPng = loadImage("assets/misc/brands/bottom_right/i-curse_weapon_new.png")
+    MiscBrandsBottomRightICurseJewelleryPng = loadImage("assets/misc/brands/bottom_right/i-curse-jewellery.png")
+    MiscBrandsBottomRightICurarePng = loadImage("assets/misc/brands/bottom_right/i-curare.png")
+    MiscBrandsBottomRightIFireballOldPng = loadImage("assets/misc/brands/bottom_right/i-fireball_old.png")
+    MiscBrandsBottomRightIHastingPng = loadImage("assets/misc/brands/bottom_right/i-hasting.png")
+    MiscBrandsBottomRightIFogOldPng = loadImage("assets/misc/brands/bottom_right/i-fog_old.png")
+    MiscBrandsBottomRightIIdentifyNewPng = loadImage("assets/misc/brands/bottom_right/i-identify_new.png")
+    MiscBrandsBottomRightIAmnesiaPng = loadImage("assets/misc/brands/bottom_right/i-amnesia.png")
+    MiscBrandsBottomRightIProtectionOldPng = loadImage("assets/misc/brands/bottom_right/i-protection_old.png")
+    MiscBrandsBottomRightIIcePng = loadImage("assets/misc/brands/bottom_right/i-ice.png")
+    MiscBrandsBottomRightIMightOldPng = loadImage("assets/misc/brands/bottom_right/i-might_old.png")
+    MiscBrandsBottomRightIStaffEarthOldPng = loadImage("assets/misc/brands/bottom_right/i-staff_earth_old.png")
+    MiscBrandsBottomRightIParalysisNewPng = loadImage("assets/misc/brands/bottom_right/i-paralysis_new.png")
+    MiscBrandsBottomRightIFireResNewPng = loadImage("assets/misc/brands/bottom_right/i-fire-res_new.png")
+    MiscBrandsBottomRightISlayingNewPng = loadImage("assets/misc/brands/bottom_right/i-slaying_new.png")
+    MiscBrandsBottomRightIHealWoundsNewPng = loadImage("assets/misc/brands/bottom_right/i-heal-wounds_new.png")
+    MiscBrandsBottomRightIDragonSlayingNewPng = loadImage("assets/misc/brands/bottom_right/i-dragon_slaying_new.png")
+    MiscBrandsBottomRightIIdentifyOldPng = loadImage("assets/misc/brands/bottom_right/i-identify_old.png")
+    MiscBrandsBottomRightICurseWeaponOldPng = loadImage("assets/misc/brands/bottom_right/i-curse_weapon_old.png")
+    MiscBrandsBottomRightIEnchantWeapon3Png = loadImage("assets/misc/brands/bottom_right/i-enchant-weapon_3.png")
+    MiscBrandsBottomRightIDeckWarOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_war_old.png")
+    MiscBrandsBottomRightISpiritOldPng = loadImage("assets/misc/brands/bottom_right/i-spirit_old.png")
+    MiscBrandsBottomRightIExperienceNewPng = loadImage("assets/misc/brands/bottom_right/i-experience_new.png")
+    MiscBrandsBottomRightIDeckSummoningOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_summoning_old.png")
+    MiscBrandsBottomRightIStrengthOldPng = loadImage("assets/misc/brands/bottom_right/i-strength_old.png")
+    MiscBrandsBottomRightIPoisonResPng = loadImage("assets/misc/brands/bottom_right/i-poison-res.png")
+    MiscBrandsBottomRightIGainStrengthOldPng = loadImage("assets/misc/brands/bottom_right/i-gain-strength_old.png")
+    MiscBrandsBottomRightIAcquirementOldPng = loadImage("assets/misc/brands/bottom_right/i-acquirement_old.png")
+    MiscBrandsBottomRightIMagicalPowerOldPng = loadImage("assets/misc/brands/bottom_right/i-magical-power_old.png")
+    MiscBrandsBottomRightIRestoreAbilitiesOldPng = loadImage("assets/misc/brands/bottom_right/i-restore-abilities_old.png")
+    MiscBrandsBottomRightIDeckEscapeNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_escape_new.png")
+    MiscBrandsBottomRightIRColdPng = loadImage("assets/misc/brands/bottom_right/i-r-cold.png")
+    MiscBrandsBottomRightIStaffEnergyNewPng = loadImage("assets/misc/brands/bottom_right/i-staff_energy_new.png")
+    MiscBrandsBottomRightILevitationPng = loadImage("assets/misc/brands/bottom_right/i-levitation.png")
+    MiscBrandsBottomRightIRestoreAbilitiesNewPng = loadImage("assets/misc/brands/bottom_right/i-restore-abilities_new.png")
+    MiscBrandsBottomRightIDarknessPng = loadImage("assets/misc/brands/bottom_right/i-darkness.png")
+    MiscBrandsBottomRightIRodCloudsPng = loadImage("assets/misc/brands/bottom_right/i-rod_clouds.png")
+    MiscBrandsBottomRightIFire2Png = loadImage("assets/misc/brands/bottom_right/i-fire_2.png")
+    MiscBrandsBottomRightIFlameOldPng = loadImage("assets/misc/brands/bottom_right/i-flame_old.png")
+    MiscBrandsBottomRightIMutationNewPng = loadImage("assets/misc/brands/bottom_right/i-mutation_new.png")
+    MiscBrandsBottomRightIDragonSlayingOldPng = loadImage("assets/misc/brands/bottom_right/i-dragon_slaying_old.png")
+    MiscBrandsBottomRightIRodShadowsPng = loadImage("assets/misc/brands/bottom_right/i-rod_shadows.png")
+    MiscBrandsBottomRightIStaffAirOldPng = loadImage("assets/misc/brands/bottom_right/i-staff_air_old.png")
+    MiscBrandsBottomRightIRFirePng = loadImage("assets/misc/brands/bottom_right/i-r-fire.png")
+    MiscBrandsBottomRightIFearOldPng = loadImage("assets/misc/brands/bottom_right/i-fear_old.png")
+    MiscBrandsBottomRightIWaterPng = loadImage("assets/misc/brands/bottom_right/i-water.png")
+    MiscBrandsBottomRightIPreservationOldPng = loadImage("assets/misc/brands/bottom_right/i-preservation_old.png")
+    MiscBrandsBottomRightISAbilPng = loadImage("assets/misc/brands/bottom_right/i-s-abil.png")
+    MiscBrandsBottomRightICureMutationNewPng = loadImage("assets/misc/brands/bottom_right/i-cure-mutation_new.png")
+    MiscBrandsBottomRightIFirePng = loadImage("assets/misc/brands/bottom_right/i-fire.png")
+    MiscBrandsBottomRightIDegenerationOldPng = loadImage("assets/misc/brands/bottom_right/i-degeneration_old.png")
+    MiscBrandsBottomRightIEnchantWeapon2Png = loadImage("assets/misc/brands/bottom_right/i-enchant-weapon_2.png")
+    MiscBrandsBottomRightIPonderousPng = loadImage("assets/misc/brands/bottom_right/i-ponderous.png")
+    MiscBrandsBottomRightIImmolationPng = loadImage("assets/misc/brands/bottom_right/i-immolation.png")
+    MiscBrandsBottomRightIReachingPng = loadImage("assets/misc/brands/bottom_right/i-reaching.png")
+    MiscBrandsBottomRightIDisintegrationOldPng = loadImage("assets/misc/brands/bottom_right/i-disintegration_old.png")
+    MiscBrandsBottomRightIStaffEnchantmentOldPng = loadImage("assets/misc/brands/bottom_right/i-staff_enchantment_old.png")
+    MiscBrandsBottomRightICTeleportNewPng = loadImage("assets/misc/brands/bottom_right/i-c-teleport_new.png")
+    MiscBrandsBottomRightIRodStrikingNewPng = loadImage("assets/misc/brands/bottom_right/i-rod_striking_new.png")
+    MiscBrandsBottomRightIHungerOldPng = loadImage("assets/misc/brands/bottom_right/i-hunger_old.png")
+    MiscBrandsBottomRightIResistanceNewPng = loadImage("assets/misc/brands/bottom_right/i-resistance_new.png")
+    MiscBrandsBottomRightIDiggingNewPng = loadImage("assets/misc/brands/bottom_right/i-digging_new.png")
+    MiscBrandsBottomRightISlowingOldPng = loadImage("assets/misc/brands/bottom_right/i-slowing_old.png")
+    MiscBrandsBottomRightIPolymorphPng = loadImage("assets/misc/brands/bottom_right/i-polymorph.png")
+    MiscBrandsBottomRightISAttrPng = loadImage("assets/misc/brands/bottom_right/i-s-attr.png")
+    MiscBrandsBottomRightIVorpalPng = loadImage("assets/misc/brands/bottom_right/i-vorpal.png")
+    MiscBrandsBottomRightIRandomEffectsPng = loadImage("assets/misc/brands/bottom_right/i-random_effects.png")
+    MiscBrandsBottomRightIArchmagiOldPng = loadImage("assets/misc/brands/bottom_right/i-archmagi_old.png")
+    MiscBrandsBottomRightIRegenerationOldPng = loadImage("assets/misc/brands/bottom_right/i-regeneration_old.png")
+    MiscBrandsBottomRightIRemoveCurseNewPng = loadImage("assets/misc/brands/bottom_right/i-remove_curse_new.png")
+    MiscBrandsBottomRightIExperienceOldPng = loadImage("assets/misc/brands/bottom_right/i-experience_old.png")
+    MiscBrandsBottomRightIStaffAirNewPng = loadImage("assets/misc/brands/bottom_right/i-staff_air_new.png")
+    MiscBrandsBottomRightIRMagicOldPng = loadImage("assets/misc/brands/bottom_right/i-r-magic_old.png")
+    MiscBrandsBottomRightIRLightningNewPng = loadImage("assets/misc/brands/bottom_right/i-r-lightning_new.png")
+    MiscBrandsBottomRightITormentNewPng = loadImage("assets/misc/brands/bottom_right/i-torment_new.png")
+    MiscBrandsBottomRightILevitation3Png = loadImage("assets/misc/brands/bottom_right/i-levitation_3.png")
+    MiscBrandsBottomRightIEnchantArmorNewPng = loadImage("assets/misc/brands/bottom_right/i-enchant_armor_new.png")
+    MiscBrandsBottomRightISustenanceNewPng = loadImage("assets/misc/brands/bottom_right/i-sustenance_new.png")
+    MiscBrandsBottomRightIPenetrationOldPng = loadImage("assets/misc/brands/bottom_right/i-penetration_old.png")
+    MiscBrandsBottomRightIStrongPoisonOldPng = loadImage("assets/misc/brands/bottom_right/i-strong-poison_old.png")
+    MiscBrandsBottomRightIPainNewPng = loadImage("assets/misc/brands/bottom_right/i-pain_new.png")
+    MiscBrandsBottomRightIColdOldPng = loadImage("assets/misc/brands/bottom_right/i-cold_old.png")
+    MiscBrandsBottomRightIEnchantWeaponPng = loadImage("assets/misc/brands/bottom_right/i-enchant-weapon.png")
+    MiscBrandsBottomRightIDeckWondersNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_wonders_new.png")
+    MiscBrandsBottomRightIDeckDestructionOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_destruction_old.png")
+    MiscBrandsBottomRightIVulnerabilityOldPng = loadImage("assets/misc/brands/bottom_right/i-vulnerability_old.png")
+    MiscBrandsBottomRightIRechargingOldPng = loadImage("assets/misc/brands/bottom_right/i-recharging_old.png")
+    MiscBrandsBottomRightIDispersalPng = loadImage("assets/misc/brands/bottom_right/i-dispersal.png")
+    MiscBrandsBottomRightIDistortionNewPng = loadImage("assets/misc/brands/bottom_right/i-distortion_new.png")
+    MiscBrandsBottomRightIHealWoundsOldPng = loadImage("assets/misc/brands/bottom_right/i-heal-wounds_old.png")
+    MiscBrandsBottomRightIDisintegrationNewPng = loadImage("assets/misc/brands/bottom_right/i-disintegration_new.png")
+    MiscBrandsBottomRightIDexterityNewPng = loadImage("assets/misc/brands/bottom_right/i-dexterity_new.png")
+    MiscBrandsBottomRightILabelNewPng = loadImage("assets/misc/brands/bottom_right/i-label_new.png")
+    MiscBrandsBottomRightIVampiricismPng = loadImage("assets/misc/brands/bottom_right/i-vampiricism.png")
+    MiscBrandsBottomRightIRemoveCurseOldPng = loadImage("assets/misc/brands/bottom_right/i-remove_curse_old.png")
+    MiscBrandsBottomRightIDeckDefenseNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_defense_new.png")
+    MiscBrandsBottomRightIBerserkRageOldPng = loadImage("assets/misc/brands/bottom_right/i-berserk-rage_old.png")
+    MiscBrandsBottomRightINoiseNewPng = loadImage("assets/misc/brands/bottom_right/i-noise_new.png")
+    MiscBrandsBottomRightIMutationOldPng = loadImage("assets/misc/brands/bottom_right/i-mutation_old.png")
+    MiscBrandsBottomRightIStealthPng = loadImage("assets/misc/brands/bottom_right/i-stealth.png")
+    MiscBrandsBottomRightIDeckDungeonsOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_dungeons_old.png")
+    MiscBrandsBottomRightISicknessOldPng = loadImage("assets/misc/brands/bottom_right/i-sickness_old.png")
+    MiscBrandsBottomRightIWizardryOldPng = loadImage("assets/misc/brands/bottom_right/i-wizardry_old.png")
+    MiscBrandsBottomRightIHungerNewPng = loadImage("assets/misc/brands/bottom_right/i-hunger_new.png")
+    MiscBrandsBottomRightIFrostOldPng = loadImage("assets/misc/brands/bottom_right/i-frost_old.png")
+    MiscBrandsBottomRightICoagulatedBloodNewPng = loadImage("assets/misc/brands/bottom_right/i-coagulated-blood_new.png")
+    MiscBrandsBottomRightIStaffEnergyOldPng = loadImage("assets/misc/brands/bottom_right/i-staff_energy_old.png")
+    MiscBrandsBottomRightIColdNewPng = loadImage("assets/misc/brands/bottom_right/i-cold_new.png")
+    MiscBrandsBottomRightIDexterityOldPng = loadImage("assets/misc/brands/bottom_right/i-dexterity_old.png")
+    MiscBrandsBottomRightIIntelligenceOldPng = loadImage("assets/misc/brands/bottom_right/i-intelligence_old.png")
+    MiscBrandsBottomRightIRegenerationNewPng = loadImage("assets/misc/brands/bottom_right/i-regeneration_new.png")
+    MiscBrandsBottomRightIDiggingOldPng = loadImage("assets/misc/brands/bottom_right/i-digging_old.png")
+    MiscBrandsBottomRightILightningNewPng = loadImage("assets/misc/brands/bottom_right/i-lightning_new.png")
+    MiscBrandsBottomRightIPositiveEnergyPng = loadImage("assets/misc/brands/bottom_right/i-positive-energy.png")
+    MiscBrandsBottomRightIMagicDartsOldPng = loadImage("assets/misc/brands/bottom_right/i-magic_darts_old.png")
+    MiscBrandsBottomRightIEnchantWeapon1Png = loadImage("assets/misc/brands/bottom_right/i-enchant-weapon_1.png")
+    MiscBrandsBottomRightISummoningPng = loadImage("assets/misc/brands/bottom_right/i-summoning.png")
+    MiscBrandsBottomRightIPainOldPng = loadImage("assets/misc/brands/bottom_right/i-pain_old.png")
+    MiscBrandsBottomRightINoiseOldPng = loadImage("assets/misc/brands/bottom_right/i-noise_old.png")
+    MiscBrandsBottomRightIGainIntelligenceOldPng = loadImage("assets/misc/brands/bottom_right/i-gain-intelligence_old.png")
+    MiscBrandsBottomRightIStrengthNewPng = loadImage("assets/misc/brands/bottom_right/i-strength_new.png")
+    MiscBrandsBottomRightIRodDemonologyPng = loadImage("assets/misc/brands/bottom_right/i-rod_demonology.png")
+    MiscBrandsBottomRightIHolyWordNewPng = loadImage("assets/misc/brands/bottom_right/i-holy_word_new.png")
+    MiscBrandsBottomRightIFogNewPng = loadImage("assets/misc/brands/bottom_right/i-fog_new.png")
+    MiscBrandsBottomRightIPreservationNewPng = loadImage("assets/misc/brands/bottom_right/i-preservation_new.png")
+    MiscBrandsBottomRightIHolyWordOldPng = loadImage("assets/misc/brands/bottom_right/i-holy_word_old.png")
+    MiscBrandsBottomRightIStaffChannelingOldPng = loadImage("assets/misc/brands/bottom_right/i-staff_channeling_old.png")
+    MiscBrandsBottomRightIGainDexterityNewPng = loadImage("assets/misc/brands/bottom_right/i-gain-dexterity_new.png")
+    MiscBrandsBottomRightIBerserkRageNewPng = loadImage("assets/misc/brands/bottom_right/i-berserk-rage_new.png")
+    MiscBrandsBottomRightIStaffDeathPng = loadImage("assets/misc/brands/bottom_right/i-staff_death.png")
+    MiscBrandsBottomRightILightningOldPng = loadImage("assets/misc/brands/bottom_right/i-lightning_old.png")
+    MiscBrandsBottomRightIEnslavementNewPng = loadImage("assets/misc/brands/bottom_right/i-enslavement_new.png")
+    MiscBrandsBottomRightIColdResNewPng = loadImage("assets/misc/brands/bottom_right/i-cold-res_new.png")
+    MiscBrandsBottomRightIEvasionNewPng = loadImage("assets/misc/brands/bottom_right/i-evasion_new.png")
+    MiscBrandsBottomRightIFireballNewPng = loadImage("assets/misc/brands/bottom_right/i-fireball_new.png")
+    MiscBrandsBottomRightIInvisibilityNewPng = loadImage("assets/misc/brands/bottom_right/i-invisibility_new.png")
+    MiscBrandsBottomRightIRodSummoningPng = loadImage("assets/misc/brands/bottom_right/i-rod_summoning.png")
+    MiscBrandsBottomRightISustenanceOldPng = loadImage("assets/misc/brands/bottom_right/i-sustenance_old.png")
+    MiscBrandsBottomRightIAntimagicNewPng = loadImage("assets/misc/brands/bottom_right/i-antimagic_new.png")
+    MiscBrandsBottomRightIStaffEnchantmentNewPng = loadImage("assets/misc/brands/bottom_right/i-staff_enchantment_new.png")
+    MiscBrandsBottomRightIChaosNewPng = loadImage("assets/misc/brands/bottom_right/i-chaos_new.png")
+    MiscBrandsBottomRightIFrostNewPng = loadImage("assets/misc/brands/bottom_right/i-frost_new.png")
+    MiscBrandsBottomRightIGainIntelligenceNewPng = loadImage("assets/misc/brands/bottom_right/i-gain-intelligence_new.png")
+    MiscBrandsBottomRightIStaffColdPng = loadImage("assets/misc/brands/bottom_right/i-staff_cold.png")
+    MiscBrandsBottomRightIRechargingNewPng = loadImage("assets/misc/brands/bottom_right/i-recharging_new.png")
+    MiscBrandsBottomRightIDetectCursePng = loadImage("assets/misc/brands/bottom_right/i-detect_curse.png")
+    MiscBrandsBottomRightIRottenPng = loadImage("assets/misc/brands/bottom_right/i-rotten.png")
+    MiscBrandsBottomRightIMagicResPng = loadImage("assets/misc/brands/bottom_right/i-magic-res.png")
+    MiscBrandsBottomRightIMightNewPng = loadImage("assets/misc/brands/bottom_right/i-might_new.png")
+    MiscBrandsBottomRightIRodVenomOldPng = loadImage("assets/misc/brands/bottom_right/i-rod_venom_old.png")
+    MiscBrandsBottomRightISlayingOldPng = loadImage("assets/misc/brands/bottom_right/i-slaying_old.png")
+    MiscBrandsBottomRightISeeInvisNewPng = loadImage("assets/misc/brands/bottom_right/i-see-invis_new.png")
+    MiscBrandsBottomRightITeleportationOldPng = loadImage("assets/misc/brands/bottom_right/i-teleportation_old.png")
+    MiscBrandsBottomRightIConfusionNewPng = loadImage("assets/misc/brands/bottom_right/i-confusion_new.png")
+    MiscBrandsBottomRightIExplosionNewPng = loadImage("assets/misc/brands/bottom_right/i-explosion_new.png")
+    MiscBrandsBottomRightIFlightPng = loadImage("assets/misc/brands/bottom_right/i-flight.png")
+    MiscBrandsBottomRightIDeckChangesOldPng = loadImage("assets/misc/brands/bottom_right/i-deck_changes_old.png")
+    MiscBrandsBottomRightISpeedOldPng = loadImage("assets/misc/brands/bottom_right/i-speed_old.png")
+    MiscBrandsBottomRightIPoisonOldPng = loadImage("assets/misc/brands/bottom_right/i-poison_old.png")
+    MiscBrandsBottomRightISpeedPng = loadImage("assets/misc/brands/bottom_right/i-speed_.png")
+    MiscBrandsBottomRightIDistortionOldPng = loadImage("assets/misc/brands/bottom_right/i-distortion_old.png")
+    MiscBrandsBottomRightIHealWounds2Png = loadImage("assets/misc/brands/bottom_right/i-heal-wounds_2.png")
+    MiscBrandsBottomRightIStaffChannelingNewPng = loadImage("assets/misc/brands/bottom_right/i-staff_channeling_new.png")
+    MiscBrandsBottomRightIRodInaccuracyPng = loadImage("assets/misc/brands/bottom_right/i-rod_inaccuracy.png")
+    MiscBrandsBottomRightIBrandWeaponPng = loadImage("assets/misc/brands/bottom_right/i-brand-weapon.png")
+    MiscBrandsBottomRightIStrongPoisonNewPng = loadImage("assets/misc/brands/bottom_right/i-strong-poison_new.png")
+    MiscBrandsBottomRightIForbiddenOldPng = loadImage("assets/misc/brands/bottom_right/i-forbidden_old.png")
+    MiscBrandsBottomRightIMagicDartsNewPng = loadImage("assets/misc/brands/bottom_right/i-magic_darts_new.png")
+    MiscBrandsBottomRightIEnchantArmorOldPng = loadImage("assets/misc/brands/bottom_right/i-enchant_armor_old.png")
+    MiscBrandsBottomRightIChaosOldPng = loadImage("assets/misc/brands/bottom_right/i-chaos_old.png")
+    MiscBrandsBottomRightIStaffPowerPng = loadImage("assets/misc/brands/bottom_right/i-staff_power.png")
+    MiscBrandsBottomRightIPolymorphOtherPng = loadImage("assets/misc/brands/bottom_right/i-polymorph_other.png")
+    MiscBrandsBottomRightIParalysisOldPng = loadImage("assets/misc/brands/bottom_right/i-paralysis_old.png")
+    MiscBrandsBottomRightIRodDestructionInaccuracyPng = loadImage("assets/misc/brands/bottom_right/i-rod_destruction_inaccuracy.png")
+    MiscBrandsBottomRightIDeckChangesNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_changes_new.png")
+    MiscBrandsBottomRightIStaffPoisonPng = loadImage("assets/misc/brands/bottom_right/i-staff_poison.png")
+    MiscBrandsBottomRightIBloodOldPng = loadImage("assets/misc/brands/bottom_right/i-blood_old.png")
+    MiscBrandsBottomRightIDeckDungeonsNewPng = loadImage("assets/misc/brands/bottom_right/i-deck_dungeons_new.png")
+    MiscBrandsBottomRightIRodWardingOldPng = loadImage("assets/misc/brands/bottom_right/i-rod_warding_old.png")
+    MiscBrandsBottomRightILifeProtectionOldPng = loadImage("assets/misc/brands/bottom_right/i-life-protection_old.png")
+    MiscBrandsBottomRightIConfusionOldPng = loadImage("assets/misc/brands/bottom_right/i-confusion_old.png")
+    MiscBrandsBottomRightIExplosionOldPng = loadImage("assets/misc/brands/bottom_right/i-explosion_old.png")
+    MiscBrandsBottomRightIRodDestructionLightningPng = loadImage("assets/misc/brands/bottom_right/i-rod_destruction_lightning.png")
+    MiscBrandsBottomRightIColdResOldPng = loadImage("assets/misc/brands/bottom_right/i-cold-res_old.png")
+    MiscBrandsBottomRightIIntelligenceNewPng = loadImage("assets/misc/brands/bottom_right/i-intelligence_new.png")
+    MiscBrandsBottomRightIInediblePng = loadImage("assets/misc/brands/bottom_right/i-inedible.png")
+    MiscBrandsBottomRightIHealWoundsPng = loadImage("assets/misc/brands/bottom_right/i-heal_wounds.png")
+    MiscBrandsBottomRightIReflectionNewPng = loadImage("assets/misc/brands/bottom_right/i-reflection_new.png")
+    MiscBrandsBottomRightICureMutationOldPng = loadImage("assets/misc/brands/bottom_right/i-cure-mutation_old.png")
+    MiscBrandsBottomRightIFearNewPng = loadImage("assets/misc/brands/bottom_right/i-fear_new.png")
+    MiscBrandsBottomRightICoagulatedBloodOldPng = loadImage("assets/misc/brands/bottom_right/i-coagulated-blood_old.png")
+    MiscBrandsBottomRightIMagicMappingOldPng = loadImage("assets/misc/brands/bottom_right/i-magic_mapping_old.png")
+    MiscBrandsBottomRightIMagicPng = loadImage("assets/misc/brands/bottom_right/i-magic.png")
+    MiscBrandsBottomRightIArchmagiNewPng = loadImage("assets/misc/brands/bottom_right/i-archmagi_new.png")
+    MiscBrandsBottomRightISpiritNewPng = loadImage("assets/misc/brands/bottom_right/i-spirit_new.png")
+    MiscBrandsBottomRightIRPoisonNewPng = loadImage("assets/misc/brands/bottom_right/i-r-poison_new.png")
+    MiscBrandsBottomRightIBlinkingNewPng = loadImage("assets/misc/brands/bottom_right/i-blinking_new.png")
+    MiscBrandsBottomRightIRunningPng = loadImage("assets/misc/brands/bottom_right/i-running.png")
+    MiscBrandsBottomRightIGainDexterityOldPng = loadImage("assets/misc/brands/bottom_right/i-gain-dexterity_old.png")
+    MiscBrandsBottomRightIGoodMutationPng = loadImage("assets/misc/brands/bottom_right/i-good-mutation.png")
+    MiscBrandsBottomRightISeeInvisOldPng = loadImage("assets/misc/brands/bottom_right/i-see-invis_old.png")
+    MiscBrandsBottomRightIRodWardingNewPng = loadImage("assets/misc/brands/bottom_right/i-rod_warding_new.png")
+    MiscBrandsBottomRightIGainStrengthNewPng = loadImage("assets/misc/brands/bottom_right/i-gain-strength_new.png")
+    MiscBrandsBottomRightIResistanceOldPng = loadImage("assets/misc/brands/bottom_right/i-resistance_old.png")
+    MiscBrandsBottomRightIEvasionOldPng = loadImage("assets/misc/brands/bottom_right/i-evasion_old.png")
+    MiscBrandsBottomRightIEnslavementOldPng = loadImage("assets/misc/brands/bottom_right/i-enslavement_old.png")
+    MiscBrandsBottomRightIFireResOldPng = loadImage("assets/misc/brands/bottom_right/i-fire-res_old.png")
+    MiscBrandsBottomRightILifeProtectionNewPng = loadImage("assets/misc/brands/bottom_right/i-life-protection_new.png")
+    MiscBrandsBottomRightIRodDestructionPng = loadImage("assets/misc/brands/bottom_right/i-rod_destruction.png")
+    MiscBrandsBottomRightITormentOldPng = loadImage("assets/misc/brands/bottom_right/i-torment_old.png")
+    MiscBrandsBottomRightIArcheryOldPng = loadImage("assets/misc/brands/bottom_right/i-archery_old.png")
+    MiscBrandsBottomRightIDecayNewPng = loadImage("assets/misc/brands/bottom_right/i-decay_new.png")
+    MiscBrandsBottomRightIMagicMappingNewPng = loadImage("assets/misc/brands/bottom_right/i-magic_mapping_new.png")
+    MiscBrandsBottomRightILevitation2Png = loadImage("assets/misc/brands/bottom_right/i-levitation_2.png")
+    MiscBrandsBottomRightICancelPng = loadImage("assets/misc/brands/bottom_right/i-cancel.png")
+    MiscBrandsBottomRightICurseArmorNewPng = loadImage("assets/misc/brands/bottom_right/i-curse_armor_new.png")
+    MiscBrandsTopRightMayStabBrandNewPng = loadImage("assets/misc/brands/top_right/may_stab_brand_new.png")
+    MiscBrandsTopRightSleeping2Png = loadImage("assets/misc/brands/top_right/sleeping_2.png")
+    MiscBrandsTopRightDrainPng = loadImage("assets/misc/brands/top_right/drain.png")
+    MiscBrandsTopRightPetrifyingPng = loadImage("assets/misc/brands/top_right/petrifying.png")
+    MiscBrandsTopRightDeathsDoorPng = loadImage("assets/misc/brands/top_right/deaths_door.png")
+    MiscBrandsTopRightHeartOldPng = loadImage("assets/misc/brands/top_right/heart_old.png")
+    MiscBrandsTopRightMightPng = loadImage("assets/misc/brands/top_right/might.png")
+    MiscBrandsTopRightNewStairNewPng = loadImage("assets/misc/brands/top_right/new_stair_new.png")
+    MiscBrandsTopRightInnerFlamePng = loadImage("assets/misc/brands/top_right/inner_flame.png")
+    MiscBrandsTopRightPoisonNewPng = loadImage("assets/misc/brands/top_right/poison_new.png")
+    MiscBrandsTopRightGoodNeutralNewPng = loadImage("assets/misc/brands/top_right/good_neutral_new.png")
+    MiscBrandsTopRightPainMirrorPng = loadImage("assets/misc/brands/top_right/pain_mirror.png")
+    MiscBrandsTopRightNeutralOldPng = loadImage("assets/misc/brands/top_right/neutral_old.png")
+    MiscBrandsTopRightGoodNeutralOldPng = loadImage("assets/misc/brands/top_right/good_neutral_old.png")
+    MiscBrandsTopRightSleepingFullPng = loadImage("assets/misc/brands/top_right/sleeping_full.png")
+    MiscBrandsTopRightStickyFlamePng = loadImage("assets/misc/brands/top_right/sticky_flame.png")
+    MiscBrandsTopRightMayStabBrandOldPng = loadImage("assets/misc/brands/top_right/may_stab_brand_old.png")
+    MiscBrandsTopRightHastedPng = loadImage("assets/misc/brands/top_right/hasted.png")
+    MiscBrandsTopRightFleeingPng = loadImage("assets/misc/brands/top_right/fleeing.png")
+    MiscBrandsTopRightHeartNewPng = loadImage("assets/misc/brands/top_right/heart_new.png")
+    MiscBrandsTopRightRecallPng = loadImage("assets/misc/brands/top_right/recall.png")
+    MiscBrandsTopRightConstrictedPng = loadImage("assets/misc/brands/top_right/constricted.png")
+    MiscBrandsTopRightNewStairOldPng = loadImage("assets/misc/brands/top_right/new_stair_old.png")
+    MiscBrandsTopRightBlindPng = loadImage("assets/misc/brands/top_right/blind.png")
+    MiscBrandsTopRightSleepingPng = loadImage("assets/misc/brands/top_right/sleeping.png")
+    MiscBrandsTopRightPoisonOldPng = loadImage("assets/misc/brands/top_right/poison_old.png")
+    MiscBrandsTopRightFlamePng = loadImage("assets/misc/brands/top_right/flame.png")
+    MiscBrandsTopRightPetrifiedPng = loadImage("assets/misc/brands/top_right/petrified.png")
+    MiscBrandsTopRightNeutralNewPng = loadImage("assets/misc/brands/top_right/neutral_new.png")
+    MiscBloodWallBlood13EastPng = loadImage("assets/misc/blood/wall_blood_13_east.png")
+    MiscBloodBloodGreen4Png = loadImage("assets/misc/blood/blood_green_4.png")
+    MiscBloodBloodRedPng = loadImage("assets/misc/blood/blood_red.png")
+    MiscBloodWallBlood17WestPng = loadImage("assets/misc/blood/wall_blood_17_west.png")
+    MiscBloodBloodGreen2Png = loadImage("assets/misc/blood/blood_green_2.png")
+    MiscBloodWallBlood12SouthPng = loadImage("assets/misc/blood/wall_blood_12_south.png")
+    MiscBloodBloodPuddleRed2Png = loadImage("assets/misc/blood/blood_puddle_red_2.png")
+    MiscBloodWallOldBlood2Png = loadImage("assets/misc/blood/wall_old_blood_2.png")
+    MiscBloodWallBlood14WestPng = loadImage("assets/misc/blood/wall_blood_14_west.png")
+    MiscBloodWallBlood12NorthPng = loadImage("assets/misc/blood/wall_blood_12_north.png")
+    MiscBloodBloodRed3NewPng = loadImage("assets/misc/blood/blood_red_3_new.png")
+    MiscBloodWallBlood6SouthPng = loadImage("assets/misc/blood/wall_blood_6_south.png")
+    MiscBloodWallBlood5WestPng = loadImage("assets/misc/blood/wall_blood_5_west.png")
+    MiscBloodBloodPuddleRed3Png = loadImage("assets/misc/blood/blood_puddle_red_3.png")
+    MiscBloodWallOldBlood3Png = loadImage("assets/misc/blood/wall_old_blood_3.png")
+    MiscBloodWallBlood5NorthPng = loadImage("assets/misc/blood/wall_blood_5_north.png")
+    MiscBloodWallBlood7WestPng = loadImage("assets/misc/blood/wall_blood_7_west.png")
+    MiscBloodWallBlood5SouthPng = loadImage("assets/misc/blood/wall_blood_5_south.png")
+    MiscBloodWallBlood0EastPng = loadImage("assets/misc/blood/wall_blood_0_east.png")
+    MiscBloodBloodRed20Png = loadImage("assets/misc/blood/blood_red_20.png")
+    MiscBloodWallBlood7NorthPng = loadImage("assets/misc/blood/wall_blood_7_north.png")
+    MiscBloodWallBlood3SouthPng = loadImage("assets/misc/blood/wall_blood_3_south.png")
+    MiscBloodBloodGreenNewPng = loadImage("assets/misc/blood/blood_green_new.png")
+    MiscBloodBloodGreen1Png = loadImage("assets/misc/blood/blood_green_1.png")
+    MiscBloodWallBlood12EastPng = loadImage("assets/misc/blood/wall_blood_12_east.png")
+    MiscBloodWallBlood1EastPng = loadImage("assets/misc/blood/wall_blood_1_east.png")
+    MiscBloodWallBlood13WestPng = loadImage("assets/misc/blood/wall_blood_13_west.png")
+    MiscBloodWallBlood0SouthPng = loadImage("assets/misc/blood/wall_blood_0_south.png")
+    MiscBloodWallBlood15WestPng = loadImage("assets/misc/blood/wall_blood_15_west.png")
+    MiscBloodBloodRed0Png = loadImage("assets/misc/blood/blood_red_0.png")
+    MiscBloodBloodRed1OldPng = loadImage("assets/misc/blood/blood_red_1_old.png")
+    MiscBloodBloodRed7Png = loadImage("assets/misc/blood/blood_red_7.png")
+    MiscBloodWallBlood16NorthPng = loadImage("assets/misc/blood/wall_blood_16_north.png")
+    MiscBloodWallBlood6EastPng = loadImage("assets/misc/blood/wall_blood_6_east.png")
+    MiscBloodWallBlood17NorthPng = loadImage("assets/misc/blood/wall_blood_17_north.png")
+    MiscBloodWallBlood17EastPng = loadImage("assets/misc/blood/wall_blood_17_east.png")
+    MiscBloodWallBlood7SouthPng = loadImage("assets/misc/blood/wall_blood_7_south.png")
+    MiscBloodWallBlood9EastPng = loadImage("assets/misc/blood/wall_blood_9_east.png")
+    MiscBloodWallBlood15SouthPng = loadImage("assets/misc/blood/wall_blood_15_south.png")
+    MiscBloodBloodRed23Png = loadImage("assets/misc/blood/blood_red_23.png")
+    MiscBloodWallBlood15NorthPng = loadImage("assets/misc/blood/wall_blood_15_north.png")
+    MiscBloodBloodRed9Png = loadImage("assets/misc/blood/blood_red_9.png")
+    MiscBloodWallBlood14EastPng = loadImage("assets/misc/blood/wall_blood_14_east.png")
+    MiscBloodWallBlood15EastPng = loadImage("assets/misc/blood/wall_blood_15_east.png")
+    MiscBloodWallBlood8NorthPng = loadImage("assets/misc/blood/wall_blood_8_north.png")
+    MiscBloodBloodRed15Png = loadImage("assets/misc/blood/blood_red_15.png")
+    MiscBloodWallBlood10NorthPng = loadImage("assets/misc/blood/wall_blood_10_north.png")
+    MiscBloodBloodRed8Png = loadImage("assets/misc/blood/blood_red_8.png")
+    MiscBloodWallBlood11SouthPng = loadImage("assets/misc/blood/wall_blood_11_south.png")
+    MiscBloodWallBlood4EastPng = loadImage("assets/misc/blood/wall_blood_4_east.png")
+    MiscBloodWallOldBlood6Png = loadImage("assets/misc/blood/wall_old_blood_6.png")
+    MiscBloodBloodRed25Png = loadImage("assets/misc/blood/blood_red_25.png")
+    MiscBloodWallBlood0WestPng = loadImage("assets/misc/blood/wall_blood_0_west.png")
+    MiscBloodBloodRed2OldPng = loadImage("assets/misc/blood/blood_red_2_old.png")
+    MiscBloodWallBlood1SouthPng = loadImage("assets/misc/blood/wall_blood_1_south.png")
+    MiscBloodWallBlood13NorthPng = loadImage("assets/misc/blood/wall_blood_13_north.png")
+    MiscBloodWallOldBlood9Png = loadImage("assets/misc/blood/wall_old_blood_9.png")
+    MiscBloodWallOldBlood0Png = loadImage("assets/misc/blood/wall_old_blood_0.png")
+    MiscBloodWallBlood8WestPng = loadImage("assets/misc/blood/wall_blood_8_west.png")
+    MiscBloodBloodRed18Png = loadImage("assets/misc/blood/blood_red_18.png")
+    MiscBloodBloodRed29Png = loadImage("assets/misc/blood/blood_red_29.png")
+    MiscBloodWallBlood18NorthPng = loadImage("assets/misc/blood/wall_blood_18_north.png")
+    MiscBloodBloodPuddleRed1Png = loadImage("assets/misc/blood/blood_puddle_red_1.png")
+    MiscBloodWallBlood4NorthPng = loadImage("assets/misc/blood/wall_blood_4_north.png")
+    MiscBloodWallOldBlood7Png = loadImage("assets/misc/blood/wall_old_blood_7.png")
+    MiscBloodWallBlood6WestPng = loadImage("assets/misc/blood/wall_blood_6_west.png")
+    MiscBloodWallBlood1WestPng = loadImage("assets/misc/blood/wall_blood_1_west.png")
+    MiscBloodBloodRed4OldPng = loadImage("assets/misc/blood/blood_red_4_old.png")
+    MiscBloodBloodRed11Png = loadImage("assets/misc/blood/blood_red_11.png")
+    MiscBloodWallBlood9SouthPng = loadImage("assets/misc/blood/wall_blood_9_south.png")
+    MiscBloodWallBlood16WestPng = loadImage("assets/misc/blood/wall_blood_16_west.png")
+    MiscBloodWallBlood11WestPng = loadImage("assets/misc/blood/wall_blood_11_west.png")
+    MiscBloodBloodRed19Png = loadImage("assets/misc/blood/blood_red_19.png")
+    MiscBloodBloodPuddleRedPng = loadImage("assets/misc/blood/blood_puddle_red.png")
+    MiscBloodWallBlood17SouthPng = loadImage("assets/misc/blood/wall_blood_17_south.png")
+    MiscBloodBloodRed13Png = loadImage("assets/misc/blood/blood_red_13.png")
+    MiscBloodWallBlood11NorthPng = loadImage("assets/misc/blood/wall_blood_11_north.png")
+    MiscBloodBloodRed4NewPng = loadImage("assets/misc/blood/blood_red_4_new.png")
+    MiscBloodBloodRed21Png = loadImage("assets/misc/blood/blood_red_21.png")
+    MiscBloodWallBlood10SouthPng = loadImage("assets/misc/blood/wall_blood_10_south.png")
+    MiscBloodWallBlood10WestPng = loadImage("assets/misc/blood/wall_blood_10_west.png")
+    MiscBloodBloodRed5Png = loadImage("assets/misc/blood/blood_red_5.png")
+    MiscBloodWallBlood18WestPng = loadImage("assets/misc/blood/wall_blood_18_west.png")
+    MiscBloodWallBlood7EastPng = loadImage("assets/misc/blood/wall_blood_7_east.png")
+    MiscBloodWallBlood4WestPng = loadImage("assets/misc/blood/wall_blood_4_west.png")
+    MiscBloodBloodRed22Png = loadImage("assets/misc/blood/blood_red_22.png")
+    MiscBloodWallBlood14NorthPng = loadImage("assets/misc/blood/wall_blood_14_north.png")
+    MiscBloodWallBlood18EastPng = loadImage("assets/misc/blood/wall_blood_18_east.png")
+    MiscBloodWallBlood3EastPng = loadImage("assets/misc/blood/wall_blood_3_east.png")
+    MiscBloodBloodRed12Png = loadImage("assets/misc/blood/blood_red_12.png")
+    MiscBloodBloodRed17Png = loadImage("assets/misc/blood/blood_red_17.png")
+    MiscBloodBloodGreenOldPng = loadImage("assets/misc/blood/blood_green_old.png")
+    MiscBloodBloodRed3OldPng = loadImage("assets/misc/blood/blood_red_3_old.png")
+    MiscBloodBloodRed24Png = loadImage("assets/misc/blood/blood_red_24.png")
+    MiscBloodBloodRed16Png = loadImage("assets/misc/blood/blood_red_16.png")
+    MiscBloodBloodGreen3Png = loadImage("assets/misc/blood/blood_green_3.png")
+    MiscBloodBloodRed6Png = loadImage("assets/misc/blood/blood_red_6.png")
+    MiscBloodBloodPuddleRed4Png = loadImage("assets/misc/blood/blood_puddle_red_4.png")
+    MiscBloodBloodRed2NewPng = loadImage("assets/misc/blood/blood_red_2_new.png")
+    MiscBloodWallBlood12WestPng = loadImage("assets/misc/blood/wall_blood_12_west.png")
+    MiscBloodWallBlood16EastPng = loadImage("assets/misc/blood/wall_blood_16_east.png")
+    MiscBloodWallBlood18SouthPng = loadImage("assets/misc/blood/wall_blood_18_south.png")
+    MiscBloodWallBlood8SouthPng = loadImage("assets/misc/blood/wall_blood_8_south.png")
+    MiscBloodWallBlood10EastPng = loadImage("assets/misc/blood/wall_blood_10_east.png")
+    MiscBloodWallBlood6NorthPng = loadImage("assets/misc/blood/wall_blood_6_north.png")
+    MiscBloodWallOldBlood1Png = loadImage("assets/misc/blood/wall_old_blood_1.png")
+    MiscBloodWallBlood9NorthPng = loadImage("assets/misc/blood/wall_blood_9_north.png")
+    MiscBloodWallBlood1NorthPng = loadImage("assets/misc/blood/wall_blood_1_north.png")
+    MiscBloodWallOldBlood5Png = loadImage("assets/misc/blood/wall_old_blood_5.png")
+    MiscBloodWallOldBlood4Png = loadImage("assets/misc/blood/wall_old_blood_4.png")
+    MiscBloodWallBlood8EastPng = loadImage("assets/misc/blood/wall_blood_8_east.png")
+    MiscBloodWallBlood3WestPng = loadImage("assets/misc/blood/wall_blood_3_west.png")
+    MiscBloodBloodRed1NewPng = loadImage("assets/misc/blood/blood_red_1_new.png")
+    MiscBloodWallBlood13SouthPng = loadImage("assets/misc/blood/wall_blood_13_south.png")
+    MiscBloodWallBlood14SouthPng = loadImage("assets/misc/blood/wall_blood_14_south.png")
+    MiscBloodWallBlood4SouthPng = loadImage("assets/misc/blood/wall_blood_4_south.png")
+    MiscBloodBloodRed28Png = loadImage("assets/misc/blood/blood_red_28.png")
+    MiscBloodBloodRed14Png = loadImage("assets/misc/blood/blood_red_14.png")
+    MiscBloodWallBlood16SouthPng = loadImage("assets/misc/blood/wall_blood_16_south.png")
+    MiscBloodBloodRed27Png = loadImage("assets/misc/blood/blood_red_27.png")
+    MiscBloodBloodRed10Png = loadImage("assets/misc/blood/blood_red_10.png")
+    MiscBloodBloodRed26Png = loadImage("assets/misc/blood/blood_red_26.png")
+    MiscBloodWallBlood3NorthPng = loadImage("assets/misc/blood/wall_blood_3_north.png")
+    MiscBloodWallBlood9WestPng = loadImage("assets/misc/blood/wall_blood_9_west.png")
+    MiscBloodWallBlood11EastPng = loadImage("assets/misc/blood/wall_blood_11_east.png")
+    MiscBloodWallBlood5EastPng = loadImage("assets/misc/blood/wall_blood_5_east.png")
+    MiscBloodWallOldBlood8Png = loadImage("assets/misc/blood/wall_old_blood_8.png")
+    MiscBloodWallBlood0NorthPng = loadImage("assets/misc/blood/wall_blood_0_north.png")
+    MiscNumbersNumber7Png = loadImage("assets/misc/numbers/number_7.png")
+    MiscNumbersMinus3Png = loadImage("assets/misc/numbers/minus_3.png")
+    MiscNumbersNumber5Png = loadImage("assets/misc/numbers/number_5.png")
+    MiscNumbersMinus1Png = loadImage("assets/misc/numbers/minus_1.png")
+    MiscNumbersDemonNumber1Png = loadImage("assets/misc/numbers/demon_number_1.png")
+    MiscNumbersNumber0Png = loadImage("assets/misc/numbers/number_0.png")
+    MiscNumbersNumber9Png = loadImage("assets/misc/numbers/number_9.png")
+    MiscNumbersNum9Png = loadImage("assets/misc/numbers/num_9.png")
+    MiscNumbersNumber3Png = loadImage("assets/misc/numbers/number_3.png")
+    MiscNumbersPlus5Png = loadImage("assets/misc/numbers/plus_5.png")
+    MiscNumbersNumber8Png = loadImage("assets/misc/numbers/number_8.png")
+    MiscNumbersMinus4Png = loadImage("assets/misc/numbers/minus_4.png")
+    MiscNumbersNum2Png = loadImage("assets/misc/numbers/num_2.png")
+    MiscNumbersNum3Png = loadImage("assets/misc/numbers/num_3.png")
+    MiscNumbersNum6Png = loadImage("assets/misc/numbers/num_6.png")
+    MiscNumbersPlus2Png = loadImage("assets/misc/numbers/plus_2.png")
+    MiscNumbersNumber1Png = loadImage("assets/misc/numbers/number_1.png")
+    MiscNumbersNumber6Png = loadImage("assets/misc/numbers/number_6.png")
+    MiscNumbersMinus2Png = loadImage("assets/misc/numbers/minus_2.png")
+    MiscNumbersDemonNumber5Png = loadImage("assets/misc/numbers/demon_number_5.png")
+    MiscNumbersNum4Png = loadImage("assets/misc/numbers/num_4.png")
+    MiscNumbersNum5Png = loadImage("assets/misc/numbers/num_5.png")
+    MiscNumbersDemonNumber4Png = loadImage("assets/misc/numbers/demon_number_4.png")
+    MiscNumbersNum0Png = loadImage("assets/misc/numbers/num_0.png")
+    MiscNumbersPlus4Png = loadImage("assets/misc/numbers/plus_4.png")
+    MiscNumbersDemonNumber3Png = loadImage("assets/misc/numbers/demon_number_3.png")
+    MiscNumbersMinus5Png = loadImage("assets/misc/numbers/minus_5.png")
+    MiscNumbersNum1Png = loadImage("assets/misc/numbers/num_1.png")
+    MiscNumbersNum8Png = loadImage("assets/misc/numbers/num_8.png")
+    MiscNumbersDemonNumber2Png = loadImage("assets/misc/numbers/demon_number_2.png")
+    MiscNumbersPlus3Png = loadImage("assets/misc/numbers/plus_3.png")
+    MiscNumbersNum7Png = loadImage("assets/misc/numbers/num_7.png")
+    MiscNumbersNumber4Png = loadImage("assets/misc/numbers/number_4.png")
+    MiscNumbersNumber2Png = loadImage("assets/misc/numbers/number_2.png")
+    MiscNumbersZeroPng = loadImage("assets/misc/numbers/zero.png")
+    MiscNumbersPlus1Png = loadImage("assets/misc/numbers/plus_1.png")
+}
+
+func loadImage(path string) *ebiten.Image {
+    file, err := embeddedAssets.ReadFile(path)
+    if err != nil {
+        log.Fatalf("failed to load image: %s, error: %v", path, err)
+    }
+
+    img, _, err := image.Decode(bytes.NewReader(file))
+    if err != nil {
+        log.Fatalf("failed to decode image: %s, error: %v", path, err)
+    }
+
+    return ebiten.NewImageFromImage(img)
+}
